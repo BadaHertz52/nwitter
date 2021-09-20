@@ -1,5 +1,5 @@
-import AuthForm from 'components/AuthForm';
-import authSerVice, { friebaseInstance } from 'Fbase';
+import AuthForm from '../components/AuthForm';
+import authSerVice, { friebaseInstance } from '../Fbase';
 import React from 'react' ;
 
 const Auth = ( ) => {
@@ -30,5 +30,5 @@ const Auth = ( ) => {
 }
 
 ; 
-// const Auth = () => {<div>...</div>} 하면 bable 관련 에러가 남 왜지? 
+
 export default Auth

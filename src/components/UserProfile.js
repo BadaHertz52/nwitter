@@ -1,11 +1,10 @@
-import { dbService } from 'Fbase';
+import { dbService } from '../Fbase';
 import React, { useEffect, useState } from 'react';
 import { Link} from 'react-router-dom';
 
 
 const UserProfile = ({nweetObj }) => {
   const [userProfile, setUserProfile] =useState({});
-
   const getUserProfile =async () => {
     const profile =  await dbService
       .collection("users")
@@ -14,16 +13,17 @@ const UserProfile = ({nweetObj }) => {
       
       const get_profile = profile.docs[0].data();
       setUserProfile(get_profile); 
+      console.log(userProfile);
   };
     useEffect(()=>{
     getUserProfile();
 
   },[]);
-  const userId =JSON.stringify( userProfile.creatorId);
+  const creatorId =JSON.stringify( userProfile.creatorId);
   return (
     <>
       <div >
-        <Link id={userId} to={{
+        <Link id={creatorId} to={{
           pathname:"/userProfile",
           state :{
             userProfile :userProfile

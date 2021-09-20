@@ -1,5 +1,5 @@
-import Nweet from 'components/Nweet';
-import { dbService, } from 'Fbase';
+import Nweet from '../components/Nweet';
+import { dbService, } from '../Fbase';
 import React, { useEffect, useState } from 'react' ;
 import { useHistory, } from 'react-router-dom';
 
@@ -18,13 +18,16 @@ const Profile = ( ) => {
   useEffect( ()=> {
     getUserNweets();
   },[]);
-
+  const onFollow = ()=> {
+    
+  }
   return (
     <>
       <section>
         <img src={userProfile.photoUrl}  
             width="80px" height="80px"    alt="profile"/>
-          <span>{userProfile.userName}</span>
+        <span>{userProfile.userName}</span>
+        <button onClick={onFollow}>follow</button>
       </section>
       <sectoion >
         {userNweets.map(nweet => <Nweet  nweetObj ={nweet}   />  )}

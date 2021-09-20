@@ -1,4 +1,4 @@
-import authSerVice from 'Fbase';
+import authSerVice from '../Fbase';
 import React, { useState } from 'react';
 
 const AuthForm = ()=> {

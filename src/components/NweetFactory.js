@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
-import { dbService, storageService } from 'Fbase';
+import { dbService, storageService } from '../Fbase';
 import {v4 as uuidv4} from 'uuid';
 
 const NweetFactory = ({userObj }) => {
   const [nweet, setNweet] = useState("");
   const [attachment ,setAttachment] = useState("");
+  const date =Date.now();
   const onSubmit = async (event) => {
     event.preventDefault();
+    console.log("??")
     let attachmentUrl = "";
     if(attachment !== ""){
+      
       const attachmentRef =storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
       const response = await attachmentRef.putString(attachment, "data_url");
       attachmentUrl =await response.ref.getDownloadURL();
     }
-    await dbService.collection("nweets").add({
+    await dbService.collection(`nweets_${userObj.uid}`).doc(`${date}`).set({
       text:nweet,
-      createdAt: Date.now(),
+      createdAt: date,
       creatorId: userObj.uid ,
       attachmentUrl
     });
@@ -45,21 +48,21 @@ const NweetFactory = ({userObj }) => {
 
   return (
     <form onSubmit={onSubmit}>
-    <input
-      value={nweet}
-      onChange={onChange}
-      type="text"
-      placeholder="What's on your mind?"
-      maxLength={120}
-    />
-    <input type="file" accept="image/*" onChange={onFileChange} />
-    <input type="submit" value="Nweet" />
-    {attachment && (
-      <div>
-        <img src={attachment} width="50px"  height="50px" alt="nweet attachment"/>
-        <button onClick={onClearAttachment}>Clear</button>
-      </div>
-    )}
+      <input
+        value={nweet}
+        onChange={onChange}
+        type="text"
+        placeholder="무슨 일이 일어나고 있나요?"
+        maxLength={120}
+      />
+      <input type="file" accept="image/*" onChange={onFileChange} />
+      <input type="submit" value="Nweet" />
+      {attachment && (
+        <div>
+          <img src={attachment} width="50px"  height="50px" alt="nweet attachment"/>
+          <button onClick={onClearAttachment}>Clear</button>
+        </div>
+      )}
   </form>
   )
 }

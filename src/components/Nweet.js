@@ -1,10 +1,10 @@
-import { dbService, storageService } from 'Fbase';
+import { dbService, storageService } from '../Fbase';
 import React, { useState } from 'react';
+import LikeFun from './LikeFun';
+import RtFun from './RtFun';
 import UserProfile from './UserProfile';
 //edit, delete 
-const Nweet =({nweetObj ,isOwner  }) =>{
-  //profile
-
+const Nweet =({nweetObj , userObj ,isOwner  }) =>{
   //editing 모드인지 알려줌 (boolean)
   const [editing, setEditing] = useState(false) ; 
   // newNweet 는 수정본 
@@ -12,12 +12,12 @@ const Nweet =({nweetObj ,isOwner  }) =>{
 
   const onDeleteClick = async () =>{
     const ok = window.confirm("Are you sure you want to delete this nweet?");
-    
     if(ok){
       //delete nweet
-      await dbService.doc(`nweets/${nweetObj.id}`).delete();
+      await dbService.doc(`nweets_${userObj.uid}/${nweetObj.id}`).delete();
       //delete photo 
       await storageService.refFromURL(nweetObj.attachmentUrl).delete();
+      
     }
   };
   const toggleEditing = () => setEditing((prev)=> !prev);
@@ -51,19 +51,23 @@ const Nweet =({nweetObj ,isOwner  }) =>{
         </>
         )
         :
-        <>
-        <UserProfile nweetObj ={nweetObj}/>
-
-        <h4>{nweetObj.text}</h4>
-        { nweetObj.attachmentUrl && 
-        <img src={nweetObj.attachmentUrl}  max-width="300px" height="150px" alt="Nweet_photofile"/>}
-        {isOwner && 
-          <>
-            <button onClick={onDeleteClick}>Delete Nweet</button>
-            <button onClick={toggleEditing}>Edit Nweet</button>
-          </>
-        }
-        </>
+        <div>
+          <UserProfile nweetObj ={nweetObj}/>
+          <h4>{nweetObj.text}</h4>
+          { nweetObj.attachmentUrl && 
+          <img src={nweetObj.attachmentUrl}  max-width="300px" height="150px" alt="Nweet_photofile"/>}
+          <div className="function">
+            <LikeFun nweetObj={nweetObj} userObj={userObj}/>
+            <RtFun nweetObj={nweetObj} userObj={userObj}/>
+          </div>
+          
+          {isOwner && 
+            <>
+              <button onClick={onDeleteClick}>Delete Nweet</button>
+              <button onClick={toggleEditing}>Edit Nweet</button>
+            </>
+          }
+        </div>
       }
     </div>
   )
