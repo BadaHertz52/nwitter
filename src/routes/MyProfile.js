@@ -27,12 +27,12 @@ const MyProfile = ({userObj ,refreshUser} ) => {
 
 
   const getMyProfile = async () =>{
-    console.log(dbService.collection('users').doc(userObj.uid));
     const get_myProfiles = dbService
     .collection("users")
     .doc(userObj.uid);
-    const get_myProfile =  await get_myProfiles.get().then((doc) => {
+    await get_myProfiles.get().then((doc) => {
       if (doc.exists) {
+        setMyProfile(doc.data()); 
           console.log("Document data:", doc.data());
       } else {
           // doc.data() will be undefined in this case
@@ -41,7 +41,6 @@ const MyProfile = ({userObj ,refreshUser} ) => {
   }).catch((error) => {
       console.log("Error getting document:", error);
   });
-    setMyProfile(get_myProfile); 
     console.log(myProfile);
   };
 
@@ -66,7 +65,7 @@ const MyProfile = ({userObj ,refreshUser} ) => {
           userObj={userObj} 
           refreshUser={refreshUser} 
           myProfileStore={myProfileStore} 
-          //getMyProfile={getMyProfile}
+          getMyProfile={getMyProfile}
           onToggle ={onToggle}
         />)
       } 

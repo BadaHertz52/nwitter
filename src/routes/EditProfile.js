@@ -1,24 +1,15 @@
 import { storageService } from '../Fbase';
 import React, { useState } from 'react' ;
 
-const EditProfile = ( {userObj ,refreshUser , myProfileStore , /*getMyProfile*/ }) =>{
-
-  const [newDisplayName , setNewDisplayName] = useState("");
+const EditProfile = ( {userObj ,refreshUser , myProfileStore , getMyProfile }) =>{
+  const [toggle, setToggle] =useState(false);
+  const [newDisplayName , setNewDisplayName] = useState(userObj.displayName);
   const [profilePhoto, setProfilePhoto] =useState("");
   const [profilePhotoUrl ,setProfilePhotoUrl] =useState("");
-  const profilePhotoRef = storageService.ref().child(`${userObj.uid}/profile_photo`);
-  //console.log(profilePhotoRef.getDownloadURL());
-      //프로필 저장소 생성 여부 확인 및 생성 
-      if (myProfileStore !== true){
-        const myProfile = {
-          creatorId:userObj.uid,
-          userName: userObj.displayName,
-          photoUrl:profilePhotoUrl, 
-        };
-      myProfileStore.set(myProfile); 
-      }
+  
 
-      
+  //console.log(profilePhotoRef.getDownloadURL());
+
   const onChange =(event) => {
     const {target:{value}} = event ;
     setNewDisplayName(value);
@@ -36,42 +27,59 @@ const EditProfile = ( {userObj ,refreshUser , myProfileStore , /*getMyProfile*/ 
   } ;
   const onSubmit = async(event) => {
     event.preventDefault();
-
+     //프로필 저장소 생성 여부 확인 및 생성 
+    if (myProfileStore !== true){
+      const myProfile = {
+        creatorId:userObj.uid,
+        userName: userObj.displayName,
+        photoUrl:profilePhotoUrl, 
+      };
+    myProfileStore.set(myProfile); 
+    }
     // username = displayname 변경 
-    if(userObj.displayName !== newDisplayName){
+    if(newDisplayName!== userObj.displayName  ){
+      console.log(newDisplayName);
       await userObj.updateProfile({
         displayName :newDisplayName ,
       });
       await myProfileStore.update({
-        userName: userObj.displayName
-      })
+        userName: newDisplayName
+      });
+      console.log(userObj.displayName);
     };
     // 프로필 사진 변경 
-    if(profilePhoto !== " " ){
+    if(profilePhoto !== "" ){
+      const profilePhotoRef = storageService.ref().child(`${userObj.uid}/profile_photo`);
       const response = await profilePhotoRef.putString(profilePhoto , "data_url") ; 
       const PhotoUrl =  await response.ref.getDownloadURL();
       setProfilePhotoUrl(PhotoUrl); 
       await myProfileStore.update({
-        photoUrl:profilePhotoUrl
+        photoUrl:PhotoUrl
       })
     }
-    console.log(myProfileStore);
-
     refreshUser();
-    //getMyProfile();
+    getMyProfile();
     setProfilePhoto("");
+    setToggle(true);
   }
 
   return (
     <section>
-      <h2>Edit your profile</h2>
-      <form onSubmit={onSubmit}>
-        <input type="text" placeholder="User name" onChange={onChange} value={newDisplayName} />
-        <img src={profilePhotoUrl} width="150px" height="100px" alt="profile"></img>
-        <input type="file" accept="image/*"  onChange={onFileChange}/>
-        <input type="submit" value="Update Profile" />
-      </form>
-    </section>  
+      {!toggle &&
+        (
+          <>
+            <h2>Edit your profile</h2>
+            <form onSubmit={onSubmit}>
+              <input type="text" placeholder="User name" onChange={onChange}  value={newDisplayName} />
+              <img src={profilePhotoUrl} width="150px" height="100px"   alt="profile"></img>
+              <input type="file" accept="image/*"  onChange={onFileChange}/>
+              <input type="submit" value="Update Profile" />
+            </form>
+          </>
+        )
+      }
+
+    </section>
   )
 } ; 
 

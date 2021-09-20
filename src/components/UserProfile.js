@@ -30,7 +30,7 @@ const UserProfile = ({nweetObj }) => {
           }
         }}>
           <img src={userProfile.photoUrl}  
-            width="80px" height="80px"    alt="profile"/>
+            width="50px" height="50px"    alt="profile"/>
           <span>{userProfile.userName}</span>
         </Link>
       </div>
