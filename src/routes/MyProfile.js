@@ -55,8 +55,8 @@ const MyProfile = ({userObj ,refreshUser} ) => {
     <>
       <section>
         <div>
-          <img width="150px" height="100px"  alt="profile"/>
-          <span>{userObj.displayName}</span>
+          <img src={myProfile.photoUrl} width="150px" height="100px"  alt="profile"/>
+          <span>{myProfile.userName}</span>
         </div>
         <button onClick={onLogOutClick}> Log Out </button>
         <button onClick={onToggle}>Edit Profile</button>
