@@ -1,7 +1,7 @@
 import { storageService } from '../Fbase';
 import React, { useState } from 'react' ;
 
-const EditProfile = ( {userObj ,refreshUser , myProfileStore , getMyProfile }) =>{
+const EditProfile = ( {userObj ,refreshUser , myProfileStore }) =>{
   const [toggle, setToggle] =useState(false);
   const [newDisplayName , setNewDisplayName] = useState(userObj.displayName);
   const [profilePhoto, setProfilePhoto] =useState("");
@@ -58,7 +58,6 @@ const EditProfile = ( {userObj ,refreshUser , myProfileStore , getMyProfile }) =
       })
     }
     refreshUser();
-    getMyProfile();
     setProfilePhoto("");
     setToggle(true);
   }
