@@ -9,20 +9,33 @@ import EditProfile from "./EditProfile";
 
 const Home =  ({userObj ,refreshUser}) => {
   const [nweets, setNweets] = useState([]);
+  const [IsMyProfile , setIsMyProfile] = useState(false);
   const myProfileStore = dbService.collection("users").doc(userObj.uid) ;
-  
+  const findMyProfile =()=> myProfileStore.get()
+  .then(doc => {
+    if(doc.exists){
+      setIsMyProfile(true);
+    }else {
+      setIsMyProfile(false);
+      console.log("No such document");
+    }
+  }).catch((e) => {
+    console.log("Error getting document", e)
+  });
   useEffect(() => {
+      findMyProfile();
       dbService.collection(`nweets_${userObj.uid}`).onSnapshot((snapshot) => {
       const nweetArray = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
       setNweets(nweetArray);
+      console.log(IsMyProfile);
     })}, []);
 
   return (
     <div>
-      {myProfileStore.creatorId === userObj.uid ?  
+      {IsMyProfile ?  
         (
           <>
             <NweetFactory userObj={userObj}/>
