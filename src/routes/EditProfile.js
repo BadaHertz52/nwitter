@@ -33,6 +33,8 @@ const EditProfile = ( {userObj ,refreshUser , myProfileStore }) =>{
         creatorId:userObj.uid,
         userName: userObj.displayName,
         photoUrl:profilePhotoUrl, 
+        following:[],
+        follower:[]
       };
     myProfileStore.set(myProfile); 
     }

@@ -2,15 +2,15 @@ import Nweet from '../components/Nweet';
 import authSerVice, { dbService, } from '../Fbase';
 import React, { useEffect, useState } from 'react' ;
 import { useHistory, } from 'react-router-dom';
+import { ProfileBottomForm, ProfileTopForm } from '../components/ProfileForm';
 
-const Profile = ( ) => {
+const Profile = ({userObj}) => {
   const [userNweets , setUserNweets] =useState([]);
   const history = useHistory().location.state;
   const userProfile =history.userProfile;
   const getUserNweets = async()=>{
     const nweets = await dbService
-      .collection("nweets")
-      .where("creatorId" ,"==",userProfile.creatorId)
+      .collection(`nweets_${userProfile.creatorId}`)
       .get()
     const UserNweets = nweets.docs.map(doc => doc.data())  ;
     setUserNweets(UserNweets);
@@ -18,6 +18,7 @@ const Profile = ( ) => {
   useEffect( ()=> {
     getUserNweets();
   },[]);
+  console.log(userNweets);
   const onFollow = ()=> {
 
     // dbService.collection('users').doc(currentUserUid).update({
@@ -27,16 +28,15 @@ const Profile = ( ) => {
   return (
     <>
       <section>
-        <img src={userProfile.photoUrl}  
-            width="80px" height="80px"    alt="profile"/>
-        <span>{userProfile.userName}</span>
-        <div>following : {userProfile.following ===[] ? 0 :userProfile.following.length }</div>
-        <div>follower :{userProfile.follower ===[]? 0 :userProfile.follower.length  }</div>
+        <ProfileTopForm  profile={userProfile}/>
         <button onClick={onFollow}>follow</button>
       </section>
       <sectoion >
+        {/* <ProfileBottomForm  
+        nweets={userNweets} 
+        /> */}
         {userNweets.map(nweet => <Nweet  nweetObj ={nweet}   />  )}
-      </sectoion>
+      </sectoion> 
     </> 
   ) 
 }

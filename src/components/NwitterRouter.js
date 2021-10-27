@@ -5,9 +5,10 @@ import Home from '../routes/Home';
 import Navigation from './Navigation';
 import MyProfile from '../routes/MyProfile';
 import Profile from '../routes/Profile';
+import EditProfile from '../routes/EditProfile';
 
 
-const NwitterRouter = ({isLoggedIn , userObj  ,refreshUser }) => {
+const NwitterRouter = ({isLoggedIn , userObj  , myPorfile, refreshUser }) => {
   
   return (
 
@@ -20,10 +21,13 @@ const NwitterRouter = ({isLoggedIn , userObj  ,refreshUser }) => {
           <Home userObj={userObj} refreshUser={refreshUser}/>
         </Route> 
         <Route exact path="/my_profile"> 
-          <MyProfile userObj={userObj} refreshUser={refreshUser}/>
+          <MyProfile userObj={userObj}  />
         </Route>
         <Route exact path="/userProfile">
-          <Profile  />
+          <Profile userObj={userObj} />
+        </Route>
+        <Route exact path="/editProfile">
+          <EditProfile refreshUser={refreshUser}  />
         </Route>
       </>
       : 
