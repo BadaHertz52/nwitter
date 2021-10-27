@@ -41,9 +41,8 @@ const MyProfile = ({userObj ,refreshUser} ) => {
   }).catch((error) => {
       console.log("Error getting document:", error);
   });
-    console.log(myProfile);
   };
-
+  
   const onToggle = ()=> setEditing((prev)=> !prev) ;
 
   useEffect( ()=> {
@@ -58,6 +57,8 @@ const MyProfile = ({userObj ,refreshUser} ) => {
           <img src={myProfile.photoUrl} width="150px" height="100px"  alt="profile"/>
           <span>{myProfile.userName}</span>
         </div>
+        <div>following : {myProfile.following ===[] ? 0 :myProfile.following.length }</div>
+        <div>follower :{myProfile.follower ===[]? 0 :myProfile.follower.length  }</div>
         <button onClick={onLogOutClick}> Log Out </button>
         <button onClick={onToggle}>Edit Profile</button>
         {editing &&
