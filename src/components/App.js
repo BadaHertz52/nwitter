@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import NwitterRouter from './NwitterRouter';
-import authSerVice, { dbService } from '../Fbase';
+import authSerVice from '../Fbase';
 
 function App() {
   // 초기 화면
@@ -14,7 +14,7 @@ function App() {
   useEffect(()=>{
     authSerVice.onAuthStateChanged((user)=> 
     {if(user){
-      if(user.displayName == null){
+      if(user.displayName == null){ //user displayname이 없다면 초기에 생성해주어서 나중에 오류발생 x 
         const ind = user.email.indexOf("@");
         const end = user.email.substring(0,ind);
         user.updateProfile({displayName:end}); 
@@ -23,8 +23,8 @@ function App() {
       /* 해결1 : 필요한 정보만 담아서 userObj을 만듦 단, refrecshUser에서 동일 코드가 반복 이는 Object.assign({}, user) 로 해결 */
       setUserObj({
         displayName : user.displayName,
-        uid: user.uid, //-creatorId ,uerId
-        updateProfile: (args) => user.updateProfile(args) ,
+        uid: user.uid, //-creatorId ,userId
+        updateProfile: (args) => user.updateProfile(args) , //프로필 업데이트 함수 
       }) ; 
       setIsLoggedIn(true); 
       
@@ -39,7 +39,7 @@ function App() {
   const refreshUser = ()=>{
     const user = authSerVice.currentUser ;
     setUserObj(
-      Object.assign({}, user)
+      Object.assign({}, user) // 객체를 복사해 대상 객체에 붙이는 assign을 이용해  사용자가
     );
   }
   return (
