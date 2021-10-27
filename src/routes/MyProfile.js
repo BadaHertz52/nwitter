@@ -19,11 +19,12 @@ const MyProfile = ({userObj ,refreshUser} ) => {
   const getMyNweets = async()=>{
     const nweets = await dbService
       .collection(`nweets_${userObj.uid}`)
-      .get()
+      .get();
     const MyNweets = nweets.docs.map(doc => ({
       id: doc.id ,
       ...doc.data()}))  ;
     setMyNweets(MyNweets);
+    console.log(MyNweets , "my",myNweets);
   };
   
 
@@ -35,7 +36,6 @@ const MyProfile = ({userObj ,refreshUser} ) => {
     await get_myProfiles.get().then((doc) => {
       if (doc.exists) {
         setMyProfile(doc.data());
-          console.log("Document data:",myProfile);
       } else {
           // doc.data() will be undefined in this case
           console.log("No such document!");
@@ -45,11 +45,18 @@ const MyProfile = ({userObj ,refreshUser} ) => {
   });
   };
 
+  useEffect( ()=> {
+    getMyNweets();
+    getMyProfile();
+  },[]);
+
   const onToggle = ()=> setEditing((prev)=> !prev) ;
   useEffect( ()=> {
     getMyNweets();
     getMyProfile()
   },[]);
+
+
   return (
     <>
       <section>
@@ -67,7 +74,7 @@ const MyProfile = ({userObj ,refreshUser} ) => {
       </section>
       <p>---프로필--- </p>
       <sectoion >
-        <ProfileBottomForm Nweets={myNweets} userObj={userObj}/>
+        <ProfileBottomForm nweets={myNweets} userObj={userObj}/>
       </sectoion>
 
     </>

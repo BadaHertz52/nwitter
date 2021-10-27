@@ -11,7 +11,7 @@ const Profile = ({userObj}) => {
   const getUserNweets = async()=>{
     const nweets = await dbService
       .collection(`nweets_${userProfile.creatorId}`)
-      .get()
+      .get();
     const UserNweets = nweets.docs.map(doc => doc.data())  ;
     setUserNweets(UserNweets);
   };
@@ -32,10 +32,10 @@ const Profile = ({userObj}) => {
         <button onClick={onFollow}>follow</button>
       </section>
       <sectoion >
-        {/* <ProfileBottomForm  
+        <ProfileBottomForm  
         nweets={userNweets} 
-        /> */}
-        {userNweets.map(nweet => <Nweet  nweetObj ={nweet}   />  )}
+        /> 
+        {/* {userNweets.map(nweet => <Nweet  nweetObj ={nweet}   />  )} */}
       </sectoion> 
     </> 
   ) 
