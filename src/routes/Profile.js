@@ -34,6 +34,7 @@ const Profile = ({userObj}) => {
       <sectoion >
         <ProfileBottomForm  
         nweets={userNweets} 
+        userObj={userObj}
         /> 
         {/* {userNweets.map(nweet => <Nweet  nweetObj ={nweet}   />  )} */}
       </sectoion> 
