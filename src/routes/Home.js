@@ -51,24 +51,16 @@ const Home =  ({userObj ,refreshUser}) => {
         id: doc.id ,
         ...doc.data()}))  ;
       setMyNweets(MyNweets);
+      
     };
 
   const getNweets = ( )=>{
-    
-    const explain =document.getElementsByClassName('nweet_calling');
-    if(nweets.length >0){
-      explain.parentNode.removeChild(explain);
-    }
-
-    
-    const allNweets =[...followNweets, ...myNweets];
-    
+    const allNweets =[...myNweets , ...followNweets];  
     allNweets.sort(function(a, b){
-      return a.id-b.id
+      return b.id-a.id //작성일별로 내림차순 정렬
     });
-  console.log(allNweets);
     setNweets(allNweets);
-    console.log("nweets", nweets)
+    console.log(nweets);
   };
 
   useEffect(() => {
@@ -76,7 +68,7 @@ const Home =  ({userObj ,refreshUser}) => {
       getFollowNweets();
       getMyNweets();
       getNweets();
-      console.log('followNweets' ,followNweets ,'my nweets' ,myNweets);
+      
       //내가 쓴 글 가져오는 함수 
       //내가 rt한 글 가져오는 함수
       //팔로잉 한 사람이 쓴 글  가져오는 함수 - 최근 시간으로 정열해서 가져오는 메시지수 제한 걸기 
@@ -91,41 +83,29 @@ const Home =  ({userObj ,refreshUser}) => {
         (
           <>
             <NweetFactory userObj={userObj}/>
-            <section class="nweets">
-              <div class="nweets_calling">
-                nweets를 불러오는 중 입니다. 
+            <section className="nweets">
+              <div className="nweets_calling">
+                {nweets[0]=== undefined ? '데이터를 가져오고 있습니다. 잠시만 기다려 주세요.' : ''} 
               </div>
-              {/* <div>
-              { myNweets.map((nweet) => (
-                <Nweet
-                key={nweet.id}
-                nweetObj={nweet}
-                userObj ={userObj}
-                isOwner={nweet.creatorId === userObj.uid}
-                />
-              ))}
-            </div>
-            <div>
-              { followNweets.map((nweet) => (
-                <Nweet
-                key={nweet.id}
-                nweetObj={nweet}
-                userObj ={userObj}
-                isOwner={nweet.creatorId === userObj.uid}
-                />
-              ))}
-            </div> */}
-            <div>
-              { nweets.map((nweet) => (
-                <Nweet
-                key={nweet.id}
-                nweetObj={nweet}
-                userObj ={userObj}
-                isOwner={nweet.creatorId === userObj.uid}
-                />
-              ))}
-            </div>
-    
+              <div>
+                { nweets !==[] ? ( nweets.map((nweet) => (
+                  <Nweet
+                  key={nweet.id}
+                  nweetObj={nweet}
+                  userObj ={userObj}
+                  isOwner={nweet.creatorId === userObj.uid}
+                  />
+                ))) :
+                (myNweets.map((nweet) => (
+                  <Nweet
+                  key={nweet.id}
+                  nweetObj={nweet}
+                  userObj ={userObj}
+                  isOwner={nweet.creatorId === userObj.uid}
+                  />
+                )))
+              }
+              </div>
           </section>
         </>
         )
