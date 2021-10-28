@@ -5,13 +5,26 @@ import Nweet from "../components/Nweet";
 import NweetFactory from "../components/NweetFactory";
 //import myNweets from "../components/GeData";
 import EditProfile from "./EditProfile";
+import UserProfile from "../components/UserProfile";
 
 const Home =  ({userObj ,refreshUser}) => {
   const [nweets, setNweets] = useState([]);
   const [myNweets, setMyNweets]=useState([]);
   const [followNweets, setFollowNweets] =useState([ ]);
   const [IsMyProfile , setIsMyProfile] = useState(false);
+  const [users , setUsers]=useState([]); 
+  const [follow, setFollow]=useState([]);
   const myProfileStore = dbService.collection("users").doc(userObj.uid) ;
+  const getFollow = ()=> myProfileStore.get().then(
+      doc => setFollow(doc.data().following) 
+    );
+  
+  const getAllUser =()=> dbService.collection('users').onSnapshot( (sanpShot)=> {
+    const allUser =sanpShot.docs.map(doc=> doc.data()).filter(data => data.creatorId !== userObj.uid);
+    setUsers(allUser);
+  } 
+  
+  ) ;
 
   const findMyProfile =()=> myProfileStore.get()
   .then(doc => {
@@ -26,12 +39,7 @@ const Home =  ({userObj ,refreshUser}) => {
   });
   
     const getFollowNweets = async()=>{
-      const currentUserProfile =  dbService.collection('users').doc(userObj.uid);
-      const getFollow = await currentUserProfile.get().then(
-          doc => doc.data().following
-        );
-        console.log("follow" , getFollow);
-      getFollow.forEach(
+      follow.forEach(
         user => {
           dbService.collection(`nweets_${user}`).onSnapshot((snapshot) => {
             const nweetArray = snapshot.docs.map((doc) => ({
@@ -54,18 +62,25 @@ const Home =  ({userObj ,refreshUser}) => {
       
     };
 
-  const getNweets = ( )=>{
-    const allNweets =[...myNweets , ...followNweets];  
+  const getNweets = async( )=>{
+    let allNweets ;
+
+    if(follow[0] == undefined){
+      allNweets=myNweets ;
+    }else{
+      allNweets =[...myNweets , ...followNweets]; 
+    }
     allNweets.sort(function(a, b){
       return b.id-a.id //작성일별로 내림차순 정렬
     });
     setNweets(allNweets);
-    console.log(nweets);
   };
 
   useEffect(() => {
       findMyProfile();
-      getFollowNweets();
+      getFollow();
+      getFollowNweets() ;
+      getAllUser();
       getMyNweets();
       getNweets();
       
@@ -76,7 +91,7 @@ const Home =  ({userObj ,refreshUser}) => {
       //getNweets();
     
   }, []);
-
+//mynweet바뀔 때 마다 getmynweet 
   return (
     <div>
       {IsMyProfile ?  
@@ -87,6 +102,14 @@ const Home =  ({userObj ,refreshUser}) => {
               <div className="nweets_calling">
                 {nweets[0]=== undefined ? '데이터를 가져오고 있습니다. 잠시만 기다려 주세요.' : ''} 
               </div>
+              {follow[0]==undefined && ( 
+                (users.map((user) =>
+                  <>
+                    <span>팔로우 추천</span>
+                    <UserProfile nweetObj={user} />
+                  </>
+              )))}
+              
               <div>
                 { nweets !==[] ? ( nweets.map((nweet) => (
                   <Nweet
