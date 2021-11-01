@@ -28,14 +28,14 @@ const Profile = ({userObj}) => {
   };
   const getUserFollower = async()=>{ 
     await userProfile.get().then(
-    doc => setFollower(doc.data().following) 
+    doc => setFollower(doc.data().follower) 
   );
 };
   const getUserNweets = async()=>{
     const nweets = await dbService
       .collection(`nweets_${historyUserProfile.creatorId}`)
       .get();
-    const UserNweets = nweets.docs.map(doc => doc.data())  ;
+    const UserNweets =  nweets.docs.map(doc => doc.data())  ;
     setUserNweets(UserNweets);
   };
   useEffect( ()=> {
