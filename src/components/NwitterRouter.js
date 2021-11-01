@@ -7,9 +7,8 @@ import MyProfile from '../routes/MyProfile';
 import Profile from '../routes/Profile';
 import EditProfile from '../routes/EditProfile';
 
+const NwitterRouter =({isLoggedIn , userObj , refreshUser }) => {
 
-const NwitterRouter = ({isLoggedIn , userObj  , myPorfile, refreshUser }) => {
-  
   return (
 
   <Router>
@@ -18,12 +17,12 @@ const NwitterRouter = ({isLoggedIn , userObj  , myPorfile, refreshUser }) => {
       {isLoggedIn ?
       <>
         <Route exact path="/"> 
-          <Home userObj={userObj} refreshUser={refreshUser}/>
+          <Home userObj={userObj}  refreshUser={refreshUser}/>
         </Route> 
         <Route exact path="/my_profile"> 
-          <MyProfile userObj={userObj}  />
+          <MyProfile userObj={userObj}   />
         </Route>
-        <Route exact path="/userProfile">
+        <Route exact path="/profile">
           <Profile userObj={userObj} />
         </Route>
         <Route exact path="/editProfile">

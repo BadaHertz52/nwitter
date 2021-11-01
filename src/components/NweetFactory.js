@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { dbService, storageService } from '../Fbase';
 import {v4 as uuidv4} from 'uuid';
+import { getNweets, HomeNeets } from './GetData';
 
 const NweetFactory = ({userObj }) => {
   const [nweet, setNweet] = useState("");
   const [attachment ,setAttachment] = useState("");
+  const [myNweets, setMyNweets]=useState([]);
+  const getMyNweets =()=> {
+    getNweets(userObj.uid , setMyNweets);
+    console.log("myNweets 가져옴" , myNweets);
+  };
   const date =Date.now();
+
   const onSubmit = async (event) => {
     event.preventDefault();
-    console.log("??")
     let attachmentUrl = "";
     if(attachment !== ""){
       
@@ -44,26 +50,33 @@ const NweetFactory = ({userObj }) => {
   };
   reader.readAsDataURL(theFile);
   };
-  const onClearAttachment = ()=> setAttachment(null);
-
+  const onClearAttachment = ()=> {
+    setAttachment(null);
+  };
+  useEffect( ()=>{
+    getMyNweets();
+  },[nweet]);
   return (
-    <form onSubmit={onSubmit}>
-      <input
-        value={nweet}
-        onChange={onChange}
-        type="text"
-        placeholder="무슨 일이 일어나고 있나요?"
-        maxLength={120}
-      />
-      <input type="file" accept="image/*" onChange={onFileChange} />
-      <input type="submit" value="Nweet" />
-      {attachment && (
-        <div>
-          <img src={attachment} width="50px"  height="50px" alt="nweet attachment"/>
-          <button onClick={onClearAttachment}>Clear</button>
-        </div>
-      )}
-  </form>
+    <>
+      <form onSubmit={onSubmit}>
+        <input
+          value={nweet}
+          onChange={onChange}
+          type="text"
+          placeholder="무슨 일이 일어나고 있나요?"
+          maxLength={120}
+        />
+        <input type="file" accept="image/*" onChange={onFileChange} />
+        <input type="submit" value="Nweet" />
+        {attachment && (
+          <div>
+            <img src={attachment} width="50px"  height="50px" alt="nweet attachment"/>
+            <button onClick={onClearAttachment}>Clear</button>
+          </div>
+        )}
+      </form>
+      <HomeNeets userObj={userObj} myNweets={myNweets}/>
+  </>
   )
 }
 
