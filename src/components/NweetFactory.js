@@ -1,18 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { dbService, storageService } from '../Fbase';
 import {v4 as uuidv4} from 'uuid';
-import { getNweets, HomeNeets } from './GetData';
 
 const NweetFactory = ({userObj }) => {
   const [nweet, setNweet] = useState("");
   const [attachment ,setAttachment] = useState("");
-  const [myNweets, setMyNweets]=useState([]);
-  const getMyNweets =()=> {
-    getNweets(userObj.uid , setMyNweets);
-    console.log("myNweets 가져옴" , myNweets);
-  };
   const date =Date.now();
-
   const onSubmit = async (event) => {
     event.preventDefault();
     let attachmentUrl = "";
@@ -21,13 +14,14 @@ const NweetFactory = ({userObj }) => {
       const attachmentRef =storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
       const response = await attachmentRef.putString(attachment, "data_url");
       attachmentUrl =await response.ref.getDownloadURL();
-    }
-    await dbService.collection(`nweets_${userObj.uid}`).doc(`${date}`).set({
+    };
+    const newNweet = {
       text:nweet,
       createdAt: date,
       creatorId: userObj.uid ,
       attachmentUrl
-    });
+    };
+    await dbService.collection(`nweets_${userObj.uid}`).doc(`${date}`).set(newNweet);
     setNweet("");
     setAttachment("");
   };
@@ -53,9 +47,7 @@ const NweetFactory = ({userObj }) => {
   const onClearAttachment = ()=> {
     setAttachment(null);
   };
-  useEffect( ()=>{
-    getMyNweets();
-  },[nweet]);
+
   return (
     <>
       <form onSubmit={onSubmit}>
@@ -75,7 +67,6 @@ const NweetFactory = ({userObj }) => {
           </div>
         )}
       </form>
-      <HomeNeets userObj={userObj} myNweets={myNweets}/>
   </>
   )
 }

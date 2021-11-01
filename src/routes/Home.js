@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-
 import { dbService} from "../Fbase";
 import NweetFactory from "../components/NweetFactory";
-//import myNweets from "../components/GeData";
 import EditProfile from "./EditProfile";
-
+import HomeNeets from "../HomeNweets";
 
 const Home =  ({userObj ,refreshUser}) => {
 
@@ -27,13 +25,14 @@ const Home =  ({userObj ,refreshUser}) => {
       findMyProfile();
   }, []);
 
-//mynweet바뀔 때 마다 getmynweet
   return (
     <div>
       {IsMyProfile ?
         (
           <>
+            <div>factory</div>
             <NweetFactory userObj={userObj} />
+            <HomeNeets userObj={userObj} />
           </>
         )
       :
