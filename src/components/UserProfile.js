@@ -13,7 +13,6 @@ const UserProfile = ({nweetObj }) => {
       
       const get_profile = profile.docs[0].data();
       setUserProfile(get_profile); 
-      console.log(userProfile);
   };
     useEffect(()=>{
     getUserProfile();
@@ -24,7 +23,7 @@ const UserProfile = ({nweetObj }) => {
     <>
       <div >
         <Link id={creatorId} to={{
-          pathname:"/userProfile",
+          pathname:"/profile",
           state :{
             userProfile :userProfile
           }
