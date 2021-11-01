@@ -10,8 +10,8 @@ const MyProfile = ({userObj ,refreshUser} ) => {
   const myProfileStore = dbService.collection(`users`).doc(userObj.uid) ;
   const [myNweets , setMyNweets] =useState([]);
   const [editing ,setEditing] = useState(false);
+  const [follower, setFollower]= useState([]);
   const history = useHistory();
-
   const onLogOutClick = () => {
     authSerVice.signOut();
     history.push("/");
@@ -36,8 +36,10 @@ const MyProfile = ({userObj ,refreshUser} ) => {
     await get_myProfiles.get().then((doc) => {
       if (doc.exists) {
         setMyProfile(doc.data());
+        setFollower(doc.data().follower);
+      
       } else {
-          // doc.data() will be undefined in this case
+            // doc.data() will be undefined in this case
           console.log("No such document!");
       }
   }).catch((error) => {
@@ -60,7 +62,7 @@ const MyProfile = ({userObj ,refreshUser} ) => {
   return (
     <>
       <section>
-        <ProfileTopForm  profile={myProfile}/>
+        <ProfileTopForm  profile={myProfile} follower={follower}/>
         <button onClick={onLogOutClick}> Log Out </button>
         <button onClick={onToggle}>Edit Profile</button>
         {editing &&

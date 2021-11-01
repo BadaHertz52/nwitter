@@ -1,7 +1,7 @@
 import React from 'react';
 import Nweet from './Nweet';
 
-export const ProfileTopForm = ({profile} )=>{
+export const ProfileTopForm = ({profile , follower} )=>{
   
   return(
     <section>
@@ -9,8 +9,8 @@ export const ProfileTopForm = ({profile} )=>{
         <img src={profile.photoUrl} width="150px" height="100px"  alt="profile"/>
         <span>{profile.userName}</span>
       </div>
-      <div>following : {profile.following === []|| profile.following === undefined ? 0 :profile.following.length }</div>
-      <div> follower:{profile.follower ===[] || profile.follower === undefined ? 0 :profile.follower.length  }</div>
+      <div>following : {profile.following[0] === undefined ? 0 :profile.following.length }</div>
+      <div> follower: {follower[0] === undefined ? 0 :follower.length  }</div>
     </section>
   )
 }
