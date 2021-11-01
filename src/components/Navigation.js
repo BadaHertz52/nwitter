@@ -13,10 +13,10 @@ const Navigation = ({userObj}) => {
         <li> 
           <Link to ="/my_profile"> {userObj.displayName == null ? " " : `${userObj.displayName}의`} Profile </Link>
         </li>
-        <li>
+        {/* <li>
           <button>Nweet</button> 
           <NweetFactory userObj={userObj}/>
-        </li>
+        </li> */}
       </ul>
     </nav>
   )

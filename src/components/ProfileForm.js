@@ -2,7 +2,6 @@ import React from 'react';
 import Nweet from './Nweet';
 
 export const ProfileTopForm = ({profile , follower} )=>{
-  console.log(profile.following);
   return(
     <section>
       <div>
