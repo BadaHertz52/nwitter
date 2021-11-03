@@ -4,18 +4,26 @@ import Nweet from './Nweet';
 export const ProfileTopForm = ({profile , follower} )=>{
 
   return(
-    <section>
-      <div>
+    <section id="profileForm">
+      <div id="profileForm_profile">
         <img src={profile.photoUrl} width="150px" height="100px"  alt="profile"/>
         <span>{profile.userName}</span>
       </div>
-      {profile.following && (
+      <div className="follow">
+        <ul>
+          <li>
+          {profile.following && (
         <div>following : {profile.following[0] === undefined ? 0 :profile.following.length }</div>
       )}
-      <div> follower : {follower[0] === undefined ? 
+          </li>
+          <li>
+          follower : {follower[0] === undefined ? 
       ( profile.follwer === [] ? 
         0 : profile.follower.length )
-      :follower.length }</div>
+      :follower.length }
+          </li>
+        </ul>
+      </div>
     </section>
   )
 }
