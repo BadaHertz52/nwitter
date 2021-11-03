@@ -6,27 +6,28 @@ import { getNweets, getProfileDoc} from '../components/GetData';
 const Profile = ({userObj}) => {
   const [userNweets , setUserNweets] =useState([]);
   const [calling, setCalling] =useState(true);
-  const [onFollow ,setOnFollow] = useState(false);
+  const [onFollow ,setOnFollow] = useState({});
   const [followList, setFollowList] = useState([]);
-  const [follower , setFollower]=useState([]);
   const historyUserProfile = useHistory().location.state.userProfile;
+  const [follower , setFollower]=useState(historyUserProfile.follower);
   const currentUserProfile =getProfileDoc(userObj.uid);
   const userProfile =getProfileDoc(historyUserProfile.creatorId) ;
-  const followBtn = document.getElementById('follow');
 
-  const ChangeFollowBtn = ()=>{
-    followList.includes(historyUserProfile.creatorId) ? setOnFollow(true) : setOnFollow(false);
-    if(followBtn){
-      onFollow === true ? followBtn.textContent ="팔로우중" : followBtn.textContent="팔로우하기";
-    }
-    
-  };
   const getFollowList = async()=>{
       await currentUserProfile.get().then(
         doc => setFollowList(doc.data().following) 
       );
-      ChangeFollowBtn();
   };
+
+  const changeFollowBtn = async()=>{
+    follower.includes(userObj.uid) ? setOnFollow({
+      follow: true , text : "팔로우 중"
+    }) :
+    setOnFollow({
+      follow: false , text : "팔로우 하기"
+    });
+  };
+
   const getUserFollower = async()=>{ 
     await userProfile.get().then(
     doc => setFollower(doc.data().follower) 
@@ -39,38 +40,40 @@ const Profile = ({userObj}) => {
   }
 
   useEffect( ()=> {
+    changeFollowBtn();
     getUserNweets();
-    getFollowList();
+    getFollowList()
     getUserFollower();
+    console.log(follower ,onFollow ,follower.includes(userObj.uid))
   },[]);
+
 
   const follow = (e)=> {
     e.preventDefault();
-    if(onFollow === false){
+    if(onFollow.follow === false){
       followList.unshift(historyUserProfile.creatorId); 
       setFollowList(followList);
       follower.unshift(userObj.uid);
       setFollower(follower);
       
-    }else if(onFollow === true){
+    }else if(onFollow.follow === true){
       setFollowList(list =>list.filter(user => user !== historyUserProfile.creatorId) );
       setFollower(list =>list.filter(user => user !== userObj.uid)  );
     }; 
-    ChangeFollowBtn();
     currentUserProfile.update({
       following : followList
     });
     userProfile.update({
       follower: follower
     });
-
+    changeFollowBtn();
   }
 
   return (
     <>
       <section>
-        <ProfileTopForm  profile={historyUserProfile} follower={follower}/>
-        <button id="follow"  onClick={follow}>btn</button>
+        <ProfileTopForm  profile={historyUserProfile} follower={follower} />
+        <button  onClick={follow}>{onFollow.text}</button>
         <div id="div"></div>
       </section>
       <sectoion >
