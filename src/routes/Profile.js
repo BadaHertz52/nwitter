@@ -13,21 +13,20 @@ const Profile = ({userObj}) => {
   const currentUserProfile =getProfileDoc(userObj.uid);
   const userProfile =getProfileDoc(historyUserProfile.creatorId) ;
 
-  const getFollowList = async()=>{
-      await currentUserProfile.get().then(
-        doc => setFollowList(doc.data().following) 
-      );
-  };
-
-  const changeFollowBtn = async()=>{
-    follower.includes(userObj.uid) ? setOnFollow({
+  const changeFollowBtn = ()=>{
+    followList.includes(historyUserProfile.creatorId) ? setOnFollow({
       follow: true , text : "팔로우 중"
     }) :
     setOnFollow({
       follow: false , text : "팔로우 하기"
     });
   };
-
+  const getFollowList = async()=>{
+      await currentUserProfile.get().then(
+        doc => setFollowList(doc.data().following) 
+      );
+      changeFollowBtn();
+  };
   const getUserFollower = async()=>{ 
     await userProfile.get().then(
     doc => setFollower(doc.data().follower) 
@@ -40,13 +39,10 @@ const Profile = ({userObj}) => {
   }
 
   useEffect( ()=> {
-    changeFollowBtn();
     getUserNweets();
-    getFollowList()
+    getFollowList();
     getUserFollower();
-    console.log(follower ,onFollow ,follower.includes(userObj.uid))
   },[]);
-
 
   const follow = (e)=> {
     e.preventDefault();
