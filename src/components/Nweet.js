@@ -1,6 +1,5 @@
 import { dbService, storageService } from '../Fbase';
 import React, { useState } from 'react';
-import LikeFun from './LikeFun';
 import RtFun from './RtFun';
 import UserProfile from './UserProfile';
 //edit, delete 
@@ -34,7 +33,7 @@ const Nweet =({nweetObj , userObj ,isOwner  }) =>{
   };
 
   return(
-    <div >
+    <div className="nweet" >
       { editing? 
         ( isOwner && 
           <>
@@ -56,8 +55,8 @@ const Nweet =({nweetObj , userObj ,isOwner  }) =>{
           <h4>{nweetObj.text}</h4>
           { nweetObj.attachmentUrl && 
           <img src={nweetObj.attachmentUrl}  max-width="300px" height="150px" alt="Nweet_photofile"/>}
-          <div className="function">
-            <LikeFun nweetObj={nweetObj} userObj={userObj}/>
+          <div className="likeFun">
+            {/*<LikeFun nweetObj={nweetObj} userObj={userObj}/>*/}
             <RtFun nweetObj={nweetObj} userObj={userObj}/>
           </div>
           
