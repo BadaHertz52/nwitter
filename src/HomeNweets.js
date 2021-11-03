@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { getNweets } from "./components/GetData";
+import { getNweets  , toggleCalling} from "./components/GetData";
 import Nweet from "./components/Nweet";
 import UserProfile from "./components/UserProfile";
 import { dbService } from "./Fbase";
 
 const HomeNeets =({userObj})=> {
+  const [calling, setCalling] = useState(true); 
   const [nweets, setNweets] = useState([]);
   const [followNweets, setFollowNweets] =useState([ ]);  
   const [myNweets, setMyNweets]=useState([]);
@@ -28,6 +29,7 @@ const HomeNeets =({userObj})=> {
   const getMyNweets =()=> {
     getNweets(userObj.uid , setMyNweets);
   };
+
   const plusNweets = async( )=>{
     getFollowNweets() ;
     getMyNweets();
@@ -42,14 +44,17 @@ const HomeNeets =({userObj})=> {
       return b.id-a.id //작성일별로 내림차순 정렬
     });
     setNweets(allNweets);
+    setCalling(false);
+    toggleCalling(calling);
   };
   useEffect(()=>{ getAllUser();},[]);
   useEffect(()=>{plusNweets();},[myNweets]);
+  useEffect(()=>{plusNweets();},[followNweets]);
 
   return (
-    <section id="nweets">
-      <div id="nweets_calling">
-        {nweets[0]=== undefined ? '데이터를 가져오고 있습니다. 잠시만 기다려 주세요.' : ''}
+    <section className="nweets">
+      <div className="nweets_calling">
+        데이터를 가져오고 있습니다. 잠시만 기다려 주세요.
       </div>
       <div id="nweets_noFollow">
         {follow[0] === undefined &&
@@ -63,7 +68,7 @@ const HomeNeets =({userObj})=> {
             </div>
         </div>}
       </div>
-      <div id='nweets_nweet'>
+      <div className='nweets_nweet'>
         { nweets[0] !== undefined ? ( nweets.map((nweet) => (
           <Nweet
           key={nweet.id}
