@@ -1,16 +1,17 @@
-import { dbService, } from '../Fbase';
 import React, { useEffect, useState } from 'react' ;
 import { useHistory, } from 'react-router-dom';
 import { ProfileBottomForm, ProfileTopForm } from '../components/ProfileForm';
+import { getNweets, getProfileDoc, toggleCalling } from '../components/GetData';
 
 const Profile = ({userObj}) => {
   const [userNweets , setUserNweets] =useState([]);
+  const [calling, setCalling] =useState(true);
   const [onFollow ,setOnFollow] = useState(false);
   const [followList, setFollowList] = useState([]);
   const [follower , setFollower]=useState([]);
   const historyUserProfile = useHistory().location.state.userProfile;
-  const currentUserProfile =  dbService.collection('users').doc(userObj.uid);
-  const userProfile = dbService.collection('users').doc(historyUserProfile.creatorId);
+  const currentUserProfile =getProfileDoc(userObj.uid);
+  const userProfile =getProfileDoc(historyUserProfile.creatorId) ;
   const followBtn = document.getElementById('follow');
 
   const ChangeFollowBtn = ()=>{
@@ -31,13 +32,13 @@ const Profile = ({userObj}) => {
     doc => setFollower(doc.data().follower) 
   );
 };
-  const getUserNweets = async()=>{
-    const nweets = await dbService
-      .collection(`nweets_${historyUserProfile.creatorId}`)
-      .get();
-    const UserNweets =  nweets.docs.map(doc => doc.data())  ;
-    setUserNweets(UserNweets);
-  };
+
+  const getUserNweets =()=> {
+    getNweets (historyUserProfile.creatorId ,setUserNweets) ; 
+    setCalling(false);
+    toggleCalling(calling);
+  }
+
   useEffect( ()=> {
     getUserNweets();
     getFollowList();
@@ -47,7 +48,7 @@ const Profile = ({userObj}) => {
   const follow = (e)=> {
     e.preventDefault();
     if(onFollow === false){
-      followList.push(historyUserProfile.creatorId); //concat을 하면 id의 철자마다 배열에 저장됨 
+      followList.push(historyUserProfile.creatorId); 
       setFollowList(followList);
       follower.push(userObj.uid);
       setFollower(follower);
@@ -74,6 +75,9 @@ const Profile = ({userObj}) => {
         <div id="div"></div>
       </section>
       <sectoion >
+        <div className ="nweets_calling">
+          데이터를 불러오는 중입니다.
+        </div>
         <ProfileBottomForm  
         nweets={userNweets} 
         userObj={userObj}

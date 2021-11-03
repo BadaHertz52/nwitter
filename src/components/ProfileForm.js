@@ -2,6 +2,7 @@ import React from 'react';
 import Nweet from './Nweet';
 
 export const ProfileTopForm = ({profile , follower} )=>{
+
   return(
     <section>
       <div>
@@ -11,7 +12,10 @@ export const ProfileTopForm = ({profile , follower} )=>{
       {profile.following && (
         <div>following : {profile.following[0] === undefined ? 0 :profile.following.length }</div>
       )}
-      <div> follower: {follower[0] === undefined ? 0 :follower.length  }</div>
+      <div> follower : {follower[0] === undefined ? 
+      ( profile.follwer === [] ? 
+        0 : profile.follower.length )
+      :follower.length }</div>
     </section>
   )
 }

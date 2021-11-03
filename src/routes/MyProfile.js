@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react' ;
 import { useHistory } from 'react-router-dom';
 import EditProfile from './EditProfile';
 import { ProfileTopForm, ProfileBottomForm } from '../components/ProfileForm';
+import { getNweets, getProfile } from '../components/GetData';
 
 
 const MyProfile = ({userObj ,refreshUser} ) => {
@@ -16,35 +17,13 @@ const MyProfile = ({userObj ,refreshUser} ) => {
     authSerVice.signOut();
     history.push("/");
   };
-  const getMyNweets = async()=>{
-    const nweets = await dbService
-      .collection(`nweets_${userObj.uid}`)
-      .get();
-    const MyNweets = nweets.docs.map(doc => ({
-      id: doc.id ,
-      ...doc.data()}))  ;
-    setMyNweets(MyNweets);
-    console.log(MyNweets , "my",myNweets);
-  };
+
+  const getMyNweets = () => getNweets(userObj.uid , setMyNweets);
   
-
-  const getMyProfile = async () =>{
-
-    const get_myProfiles = dbService
-    .collection("users")
-    .doc(userObj.uid);
-    await get_myProfiles.get().then((doc) => {
-      if (doc.exists) {
-        setMyProfile(doc.data());
-        setFollower(doc.data().follower);
-      
-      } else {
-            // doc.data() will be undefined in this case
-          console.log("No such document!");
-      }
-  }).catch((error) => {
-      console.log("Error getting document:", error);
-  });
+  const getMyProfile =  () =>{
+    getProfile(userObj.uid, setMyProfile);
+    console.log(myProfile);
+    Array.isArray(myProfile.follower) && setFollower(myProfile.follower);
   };
 
   useEffect( ()=> {
@@ -62,7 +41,7 @@ const MyProfile = ({userObj ,refreshUser} ) => {
   return (
     <>
       <section>
-        <ProfileTopForm  profile={myProfile} follower={follower}/>
+        {myProfile.follower && <ProfileTopForm  profile={myProfile} follower={follower}/> }
         <button onClick={onLogOutClick}> Log Out </button>
         <button onClick={onToggle}>Edit Profile</button>
         {editing &&
