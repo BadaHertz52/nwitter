@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getNweets  , toggleCalling} from "./components/GetData";
+import { getNweets } from "./components/GetData";
 import Nweet from "./components/Nweet";
 import UserProfile from "./components/UserProfile";
 import { dbService } from "./Fbase";
@@ -45,7 +45,6 @@ const HomeNeets =({userObj})=> {
     });
     setNweets(allNweets);
     setCalling(false);
-    toggleCalling(calling);
   };
   useEffect(()=>{ getAllUser();},[]);
   useEffect(()=>{plusNweets();},[myNweets]);
@@ -53,9 +52,10 @@ const HomeNeets =({userObj})=> {
 
   return (
     <section className="nweets">
+      {calling && 
       <div className="nweets_calling">
         데이터를 가져오고 있습니다. 잠시만 기다려 주세요.
-      </div>
+      </div>}
       <div id="nweets_noFollow">
         {follow[0] === undefined &&
           <div id='nweets_recommand_follow'>

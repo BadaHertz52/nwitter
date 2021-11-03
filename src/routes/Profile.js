@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react' ;
 import { useHistory, } from 'react-router-dom';
 import { ProfileBottomForm, ProfileTopForm } from '../components/ProfileForm';
-import { getNweets, getProfileDoc, toggleCalling } from '../components/GetData';
+import { getNweets, getProfileDoc} from '../components/GetData';
 
 const Profile = ({userObj}) => {
   const [userNweets , setUserNweets] =useState([]);
@@ -33,10 +33,9 @@ const Profile = ({userObj}) => {
   );
 };
 
-  const getUserNweets =()=> {
+  const getUserNweets = ()=> {
     getNweets (historyUserProfile.creatorId ,setUserNweets) ; 
     setCalling(false);
-    toggleCalling(calling);
   }
 
   useEffect( ()=> {
@@ -48,9 +47,9 @@ const Profile = ({userObj}) => {
   const follow = (e)=> {
     e.preventDefault();
     if(onFollow === false){
-      followList.push(historyUserProfile.creatorId); 
+      followList.unshift(historyUserProfile.creatorId); 
       setFollowList(followList);
-      follower.push(userObj.uid);
+      follower.unshift(userObj.uid);
       setFollower(follower);
       
     }else if(onFollow === true){
@@ -75,9 +74,9 @@ const Profile = ({userObj}) => {
         <div id="div"></div>
       </section>
       <sectoion >
-        <div className ="nweets_calling">
+        {calling && <div className ="nweets_calling">
           데이터를 불러오는 중입니다.
-        </div>
+        </div>  }
         <ProfileBottomForm  
         nweets={userNweets} 
         userObj={userObj}

@@ -10,10 +10,6 @@ export const getNweets = async(id , setFun)=>{
     ...doc.data()}))  ;
   setFun(nweets)
 };
-export   const toggleCalling = (calling)=>{
-  const htmlCalling = document.querySelector('.nweets_calling') ;
-  calling ? htmlCalling.style.display = "block" : htmlCalling.style.display ="none"
-};
 
 //프로필 
 export const getProfileDoc = (id)=>dbService.collection("users").doc(id)  ;
