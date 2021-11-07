@@ -1,28 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { dbService} from "../Fbase";
 import NweetFactory from "../components/NweetFactory";
 import EditProfile from "./EditProfile";
 import HomeNeets from "../HomeNweets";
+import { findMyProfile } from "../components/GetData";
+
 
 const Home =  ({userObj ,refreshUser}) => {
 
   const [IsMyProfile , setIsMyProfile] = useState(false);
-  const myProfileStore = dbService.collection("users").doc(userObj.uid) ;
-
-  const findMyProfile =()=> myProfileStore.get()
-  .then(doc => {
-    if(doc.exists){
-      setIsMyProfile(true);
-    }else {
-      setIsMyProfile(false);
-      console.log("No such document");
-    }
-  }).catch((e) => {
-    console.log("Error getting document", e)
-  });
 
   useEffect(() => {
-      findMyProfile();
+      findMyProfile(userObj.uid, setIsMyProfile);
   }, []);
 
   return (
@@ -37,7 +25,7 @@ const Home =  ({userObj ,refreshUser}) => {
         )
       :
         (
-          <EditProfile userObj={userObj} myProfileStore ={myProfileStore} refreshUser={refreshUser}/>
+          <EditProfile userObj={userObj}  refreshUser={refreshUser}/>
         )
       }
     </div>

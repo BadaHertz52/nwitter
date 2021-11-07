@@ -1,4 +1,4 @@
-import authSerVice, { dbService, } from '../Fbase';
+import authSerVice from '../Fbase';
 import React, { useEffect, useState } from 'react' ;
 import { useHistory } from 'react-router-dom';
 import EditProfile from './EditProfile';
@@ -8,7 +8,6 @@ import { getNweets, getProfile } from '../components/GetData';
 
 const MyProfile = ({userObj ,refreshUser} ) => {
   const [myProfile , setMyProfile] = useState({});
-  const myProfileStore = dbService.collection(`users`).doc(userObj.uid) ;
   const [myNweets , setMyNweets] =useState([]);
   const [editing ,setEditing] = useState(false);
   const [follower, setFollower]= useState([]);
@@ -22,7 +21,6 @@ const MyProfile = ({userObj ,refreshUser} ) => {
   
   const getMyProfile =  () =>{
     getProfile(userObj.uid, setMyProfile);
-    console.log(myProfile);
     Array.isArray(myProfile.follower) && setFollower(myProfile.follower);
   };
 
@@ -48,7 +46,7 @@ const MyProfile = ({userObj ,refreshUser} ) => {
         (<EditProfile
           userObj={userObj}
           refreshUser={refreshUser}
-          myProfileStore={myProfileStore}
+          myProfile={myProfile}
           onToggle ={onToggle}
         />)
       }
