@@ -1,15 +1,17 @@
 import { storageService } from '../Fbase';
-import React, { useState } from 'react' ;
+import React, { useEffect, useState } from 'react' ;
+import { findMyProfile, getProfileDoc } from '../components/GetData';
 
-const EditProfile = ( {userObj ,refreshUser , myProfileStore }) =>{
+const EditProfile = ( {userObj ,refreshUser , myProfile }) =>{
+  const [IsMyProfile , setIsMyProfile] =useState();
   const [toggle, setToggle] =useState(false);
   const [newDisplayName , setNewDisplayName] = useState(userObj.displayName);
   const [profilePhoto, setProfilePhoto] =useState("");
   const [profilePhotoUrl ,setProfilePhotoUrl] =useState("");
-  
 
-  //console.log(profilePhotoRef.getDownloadURL());
-
+  useEffect(() => {
+      findMyProfile(userObj.uid, setIsMyProfile);
+  }, []);
   const onChange =(event) => {
     const {target:{value}} = event ;
     setNewDisplayName(value);
@@ -27,27 +29,32 @@ const EditProfile = ( {userObj ,refreshUser , myProfileStore }) =>{
   } ;
   const onSubmit = async(event) => {
     event.preventDefault();
+    
      //프로필 저장소 생성 여부 확인 및 생성 
-    if (myProfileStore !== true){
-      const myProfile = {
+    if (IsMyProfile === false){
+      const newMyProfile = {
         creatorId:userObj.uid,
         userName: userObj.displayName,
         photoUrl:profilePhotoUrl, 
         following:[],
-        follower:[]
+        follower:[],
+        alram : []
       };
-    myProfileStore.set(myProfile); 
-    }
-    // username = displayname 변경 
+    getProfileDoc(userObj.uid).set(newMyProfile); 
+    }else if(IsMyProfile === true){
+          // username = displayname 변경 
     if(newDisplayName!== userObj.displayName  ){
-      console.log(newDisplayName);
       await userObj.updateProfile({
         displayName :newDisplayName ,
       });
-      await myProfileStore.update({
+      await  getProfileDoc(userObj.uid).set({
+        alram: myProfile.alram,
+        creatorId :myProfile.creatorId ,
+        follwer :myProfile.follower ,
+        following:myProfile.following,
+        photoUrl: myProfile.photoUrl,
         userName: newDisplayName
-      });
-      console.log(userObj.displayName);
+      }, {merge:true});
     };
     // 프로필 사진 변경 
     if(profilePhoto !== "" ){
@@ -55,10 +62,17 @@ const EditProfile = ( {userObj ,refreshUser , myProfileStore }) =>{
       const response = await profilePhotoRef.putString(profilePhoto , "data_url") ; 
       const PhotoUrl =  await response.ref.getDownloadURL();
       setProfilePhotoUrl(PhotoUrl); 
-      await myProfileStore.update({
-        photoUrl:PhotoUrl
-      })
+      await  getProfileDoc(userObj.uid).set({
+        alram: myProfile.alram,
+        creatorId :myProfile.creatorId ,
+        follwer :myProfile.follower ,
+        following:myProfile.following,
+        photoUrl:PhotoUrl ,
+        userName: myProfile.userName 
+      }, {merge:true});
     }
+    }
+
     refreshUser();
     setProfilePhoto("");
     setToggle(true);

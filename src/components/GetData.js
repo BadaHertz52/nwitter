@@ -12,6 +12,7 @@ export const getNweets = async(id , setFun)=>{
 };
 
 //프로필 
+
 export const getProfileDoc = (id)=>dbService.collection("users").doc(id)  ;
 
 export const getProfile = async(id ,setProfile)=>{
@@ -24,4 +25,16 @@ export const getProfile = async(id ,setProfile)=>{
   }).catch(error => {
     console.log("Error getting document:" ,error)
   })
-}
+};
+
+export const findMyProfile =(id ,setIsMyProfile)=> getProfileDoc(id).get()
+.then(doc => {
+  if(doc.exists){
+    setIsMyProfile(true);
+  }else {
+    setIsMyProfile(false);
+    console.log("No such document");
+  }
+}).catch((e) => {
+  console.log("Error getting document", e)
+});
