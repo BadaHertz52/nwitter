@@ -36,7 +36,6 @@ const HomeNeets =({userObj})=> {
     let allNweets ;
     if(follow[0] === undefined){
       allNweets= myNweets ;
-      console.log("팔로우없음")
     }else{
       allNweets =[...myNweets , ...followNweets];
     }
