@@ -11,13 +11,19 @@ const RtAndLikeFun = ( {nweetObj ,userObj})=> {
   useEffect(()=>{
   getProfile(nweetObj.creatorId ,setProfile);
   },[])
-  const updateAlram = (data)=> {
-    const userAlram  = profile.alram ; 
-    userAlram.push(`${userObj.displayName}님이 내 트윗을 ${data}.`);
+  const updatealarm = (data)=> {
+    const useralarm  = profile.alarm ; 
+    const newalarm = { 
+      who: userObj.uid,
+      how : data,
+      what: nweetObj,
+      time :date
+    };
+    useralarm.unshift(newalarm);
     //추후에  displayName 변경 시에 따른 알람 내용 변경을 코딩해야함 
     profile.userName !== userObj.displayName && (
       getProfileDoc(nweetObj.creatorId).set({
-      alram :userAlram 
+      alarm :useralarm 
     }, {merge:true}))
     
   };
@@ -32,7 +38,7 @@ const RtAndLikeFun = ( {nweetObj ,userObj})=> {
       attachmentUrl : nweetObj.attachmentUrl
     };
     dbService.collection(`nweets_${userObj.uid}`).doc(`${date}`).set(rt);
-    updateAlram('리트윗 했습니다.');
+    updatealarm('rt');
     };
 
   const sendHeart = () => {
@@ -45,7 +51,7 @@ const RtAndLikeFun = ( {nweetObj ,userObj})=> {
       attachmentUrl : nweetObj.attachmentUrl
     };
     dbService.collection(`nweets_${userObj.uid}`).doc(`${date}`).set(heart);
-    updateAlram('마음에 들어합니다.');
+    updatealarm('heart');
   };
 
   return(
