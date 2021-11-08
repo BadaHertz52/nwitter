@@ -20,7 +20,7 @@ const NwitterRouter =({isLoggedIn , userObj , refreshUser }) => {
           <Home userObj={userObj}  refreshUser={refreshUser}/>
         </Route> 
         <Route exact path="/my_profile"> 
-          <MyProfile userObj={userObj}   />
+          <MyProfile userObj={userObj} refreshUser={refreshUser}  />
         </Route>
         <Route exact path="/profile">
           <Profile userObj={userObj} />
