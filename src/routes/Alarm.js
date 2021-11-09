@@ -6,35 +6,34 @@ const Alarm = ({userObj}) => {
   const [profile, setProfile] =useState({
     alarm:[]
   }) ;
-  let alarms =[];
+  const [alarms ,setAlarms] =useState([]);
   const makeAlarm =async() =>{
     // userName 가져오기 
     const nameArry = await Promise.all(
       profile.alarm.map( a =>{
-        ;
       return getProfileDoc(a.who).get().then(doc=>doc.data().userName)
     }));
-    // userName 과  rt or heart  조합하기 
+    // userName 과  rt or heart  조합하기
     for(let i=0 ;i<profile.alarm.length ;i++){
-      alarms.push({who:nameArry[i], how: profile.alarm[i].how});};
+      const newAlarm ={who:nameArry[i], how: profile.alarm[i].how};
+      alarms[newAlarm] !== undefined && alarms.push(newAlarm);
+      setAlarms(alarms);
+    };
       console.log(alarms ,alarms[0] !== undefined)
   };
 
   useEffect(()=>{
     getProfile(userObj.uid, setProfile);
     makeAlarm();
-  } ,[])
-
-
+  } ,[]);
   return (
     <>
-      { alarms? 
+      { alarms[0]!==undefined &&
       (alarms.map( (a) => (
       <div>
-        아
         <Link 
         to={{
-        pathname:"/profile",
+        pathname:"/nweet",
         state :{
           nweetObj : a.what,
           userObj : userObj,
@@ -45,9 +44,9 @@ const Alarm = ({userObj}) => {
           </div>
         </Link>
       </div>)))
-      :
-      <div></div>
       }
+      <div>...</div>
+      
     </> 
 )}
 export default Alarm ;
