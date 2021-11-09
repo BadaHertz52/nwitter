@@ -18,7 +18,6 @@ const Home =  ({userObj ,refreshUser}) => {
       {IsMyProfile ?
         (
           <>
-            <div>factory</div>
             <NweetFactory userObj={userObj} />
             <HomeNeets userObj={userObj} />
           </>
