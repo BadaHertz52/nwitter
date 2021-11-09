@@ -1,13 +1,19 @@
 import { dbService, storageService } from '../Fbase';
-import React, { useState } from 'react';
-import RtFun from './RtFun';
+import React, { useEffect, useState } from 'react';
+import RtAndLikeFun from './RtAndLikeFun';
 import UserProfile from './UserProfile';
+import { getProfile } from './GetData';
+import { AiOutlineRetweet ,AiOutlineHeart } from "react-icons/ai";
+import { useHistory } from 'react-router';
 //edit, delete 
 const Nweet =({nweetObj , userObj ,isOwner  }) =>{
-  //editing 모드인지 알려줌 (boolean)
-  const [editing, setEditing] = useState(false) ; 
-  // newNweet 는 수정본 
-  const [newNweet , setNewNweet] = useState(nweetObj.text) ;
+  const historyState =useHistory().location.state ;
+  if( nweetObj === undefined && userObj ===undefined && isOwner ===undefined){
+    nweetObj = historyState.nweetObj;
+    userObj =historyState.userObj ;
+    isOwner =historyState.isOwner;
+  }
+  const [userProfile, setUserProfile] =useState({});
 
   const onDeleteClick = async () =>{
     const ok = window.confirm("Are you sure you want to delete this nweet?");
@@ -16,57 +22,39 @@ const Nweet =({nweetObj , userObj ,isOwner  }) =>{
       await dbService.doc(`nweets_${userObj.uid}/${nweetObj.id}`).delete();
       //delete photo 
       await storageService.refFromURL(nweetObj.attachmentUrl).delete();
-      
     }
   };
-  const toggleEditing = () => setEditing((prev)=> !prev);
-  const onSubmit = async(event) =>{
-    event.preventDefault();
-    await dbService.doc(`nweets/${nweetObj.id}`).update({
-      text:newNweet
-    });
-    setEditing(false);
-  }
-  const onChange = (event)=>{
-    const {target:{value}} = event ;
-    setNewNweet(value);
-  };
 
+  useEffect(()=>{
+    nweetObj.who && getProfile(nweetObj.who , setUserProfile)
+    },[]);
+  
   return(
     <div className="nweet" >
-      { editing? 
-        ( isOwner && 
-          <>
-          <form onSubmit={onSubmit}>
-            <input
-              type="text" 
-              placeholder="Edit your nweet" 
-              value={newNweet} 
-              onChange={onChange} 
-              required />
-            <input type="submit" value="Updatae Nweet" />
-          </form>
-          <button onClick={toggleEditing}>Cancle</button>
-        </>
-        )
-        :
-        <div>
-          <UserProfile nweetObj ={nweetObj}/>
-          <h4>{nweetObj.text}</h4>
-          { nweetObj.attachmentUrl && 
-          <img src={nweetObj.attachmentUrl}  max-width="300px" height="150px" alt="Nweet_photofile"/>}
-          <div className="likeFun">
-            {/*<LikeFun nweetObj={nweetObj} userObj={userObj}/>*/}
-            <RtFun nweetObj={nweetObj} userObj={userObj}/>
-          </div>
-          
-          {isOwner && 
-            <>
-              <button onClick={onDeleteClick}>Delete Nweet</button>
-              <button onClick={toggleEditing}>Edit Nweet</button>
-            </>
-          }
+      {nweetObj.value === "rt" && 
+        <div> 
+          <AiOutlineRetweet/> {userProfile.creatorId === userObj.uid  ? '내가' : `${userProfile.userName}님이`} 리트윗함
         </div>
+      }
+      {nweetObj.value === "heart" &&
+        <div>
+          <AiOutlineHeart/> {userProfile.creatorId === userObj.uid  ? '내가' : `${userProfile.userName}님이`} 이 트윗을 마음에 들어함
+        </div>
+      }
+      <UserProfile nweetObj ={nweetObj}/>
+      <h4>{nweetObj.text}</h4>
+      <div>
+        { nweetObj.attachmentUrl && 
+        <img src={nweetObj.attachmentUrl}  max-width="300px" height="150px" alt="Nweet_photofile"/>}
+      </div>
+      <div className="rtAndLikeFun">
+        <RtAndLikeFun nweetObj={nweetObj} userObj={userObj}/>
+      </div>
+      
+      {isOwner && 
+        <>
+          <button onClick={onDeleteClick}>Delete Nweet</button>
+        </>
       }
     </div>
   )

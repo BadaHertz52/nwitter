@@ -6,6 +6,8 @@ import Navigation from './Navigation';
 import MyProfile from '../routes/MyProfile';
 import Profile from '../routes/Profile';
 import EditProfile from '../routes/EditProfile';
+import Alarm from '../routes/Alarm';
+import Nweet from './Nweet';
 
 const NwitterRouter =({isLoggedIn , userObj , refreshUser }) => {
 
@@ -19,6 +21,9 @@ const NwitterRouter =({isLoggedIn , userObj , refreshUser }) => {
         <Route exact path="/"> 
           <Home userObj={userObj}  refreshUser={refreshUser}/>
         </Route> 
+        <Route exact path="/alarm">
+          <Alarm userObj={userObj} />
+        </Route>
         <Route exact path="/my_profile"> 
           <MyProfile userObj={userObj} refreshUser={refreshUser}  />
         </Route>
@@ -27,6 +32,9 @@ const NwitterRouter =({isLoggedIn , userObj , refreshUser }) => {
         </Route>
         <Route exact path="/editProfile">
           <EditProfile refreshUser={refreshUser}  />
+        </Route>
+        <Route exact path='/nweet' > 
+          <Nweet userObj={userObj}/>
         </Route>
       </>
       : 

@@ -38,7 +38,7 @@ const EditProfile = ( {userObj ,refreshUser , myProfile }) =>{
         photoUrl:profilePhotoUrl, 
         following:[],
         follower:[],
-        alram : []
+        alarm : []
       };
     getProfileDoc(userObj.uid).set(newMyProfile); 
     }else if(IsMyProfile === true){
@@ -48,7 +48,7 @@ const EditProfile = ( {userObj ,refreshUser , myProfile }) =>{
         displayName :newDisplayName ,
       });
       await  getProfileDoc(userObj.uid).set({
-        alram: myProfile.alram,
+        alarm: myProfile.alarm,
         creatorId :myProfile.creatorId ,
         follwer :myProfile.follower ,
         following:myProfile.following,
@@ -63,7 +63,7 @@ const EditProfile = ( {userObj ,refreshUser , myProfile }) =>{
       const PhotoUrl =  await response.ref.getDownloadURL();
       setProfilePhotoUrl(PhotoUrl); 
       await  getProfileDoc(userObj.uid).set({
-        alram: myProfile.alram,
+        alarm: myProfile.alarm,
         creatorId :myProfile.creatorId ,
         follwer :myProfile.follower ,
         following:myProfile.following,
