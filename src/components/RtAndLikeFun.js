@@ -1,57 +1,90 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { AiOutlineRetweet ,AiOutlineHeart } from "react-icons/ai";
 import { useState } from "react/cjs/react.development";
 import { dbService } from "../Fbase";
-import { getProfile, getProfileDoc } from "./GetData";
+
 
 const RtAndLikeFun = ( {nweetObj ,userObj})=> {
   const date = Date.now();
-  const [profile, setProfile] = useState({});
+  const [rt_alarm, setRtAlarm] =useState(nweetObj.rtAlarm);
+  const [heart_alarm, setHeartAlarm] = useState(nweetObj.heartAlarm) ;
+  const db_nweetObj = dbService.collection(`nweets_${nweetObj.creatorId}`).doc(`${nweetObj.id}`) ;
+  const originCreatedAt =JSON.stringify(nweetObj.createdAt) ;
+  const originDoc = dbService.collection(`nweets_${nweetObj.creatorId}`).doc(`${originCreatedAt}`);
+  const whoDoc =dbService.collection(`nweets_${nweetObj.who}`).doc(`${nweetObj.id}`);
 
-  useEffect(()=>{
-  getProfile(nweetObj.creatorId ,setProfile);
-  },[])
-  const updatealarm = (data)=> {
-    const useralarm  = profile.alarm ; 
-    const newalarm = { 
-      who: userObj.uid,
-      how : data,
-      what: nweetObj,
-      time :date
-    };
-    useralarm.unshift(newalarm);
-    //추후에  displayName 변경 시에 따른 알람 내용 변경을 코딩해야함 
-    profile.userName !== userObj.displayName && (
-      getProfileDoc(nweetObj.creatorId).set({
-      alarm :useralarm 
-    }, {merge:true}))
-    
-  };
-  const Rt =(event)=>{ 
+  const Rt =async(event)=>{ 
     event.preventDefault();
     const rt ={
       text: nweetObj.text,
       value :"rt",
-      createAt: date,
+      createdAt: nweetObj.createdAt,
       who:userObj.uid , 
       creatorId: nweetObj.creatorId,
-      attachmentUrl : nweetObj.attachmentUrl
+      attachmentUrl : nweetObj.attachmentUrl,
+      alarm: false,
+      rtAlarm :[],
+      heartAlarm:[]
     };
+    //RT 한 user db 에 저장 
     dbService.collection(`nweets_${userObj.uid}`).doc(`${date}`).set(rt);
-    updatealarm('rt');
+
+    //update Alarm 
+    rt_alarm.push(userObj.uid);
+    setRtAlarm(rt_alarm);
+    if(nweetObj.value === "nweet"){
+      db_nweetObj.set({rtAlarm :rt_alarm , alarm: true},{merge:true});
+    }else{
+      //다른 사람의 rt or heart에 rt 한 경우 
+      //1. 원본 nweet에 알림
+        const originRt = await originDoc.get().then(doc=> doc.data().rtAlarm);
+        originRt.push(userObj.uid);
+        originDoc.set({
+          rtAlarm :originRt
+        },{merge:true})
+      // 2. rt, heart 한  유저에게 알림
+        whoDoc.set({
+          rtAlarm: rt_alarm
+        },{merge:true})
+    }
     };
 
-  const sendHeart = () => {
+  const sendHeart =async (event) => {
+    event.preventDefault();
     const heart ={
       text: nweetObj.text,
       value :"heart",
-      createAt:date,
+      createdAt:nweetObj.createdAt,
       creatorId: nweetObj.creatorId,
       who:userObj.uid ,
-      attachmentUrl : nweetObj.attachmentUrl
+      attachmentUrl : nweetObj.attachmentUrl,
+      alarm :false,
+      rtAlarm :[],
+      heartAlarm:[]
     };
+    // heart 한 user의 db 에 저장 
     dbService.collection(`nweets_${userObj.uid}`).doc(`${date}`).set(heart);
-    updatealarm('heart');
+
+    //update Alarm 
+    heart_alarm.push(userObj.uid);
+    setHeartAlarm(heart_alarm);
+
+    if(nweetObj.value === "nweet"){
+      db_nweetObj.set({heartAlarm :heart_alarm , alarm: true},{merge:true});
+    }else{
+      //다른 사람의 rt or heart에 heart 를 누를 경우 
+      //1. 원본 nweet에 알림
+        const originHeart = await originDoc.get().then(doc=> doc.data().heartAlarm);
+        originHeart.push(userObj.uid);
+        originDoc.set({
+          heartAlarm :originHeart
+        },{merge:true})
+      // 2. rt, heart 한  유저에게 알림
+        whoDoc.set({
+          heartAlarm: heart_alarm
+        },{merge:true})
+    }
+
   };
 
   return(
