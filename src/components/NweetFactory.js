@@ -20,7 +20,10 @@ const NweetFactory = ({userObj }) => {
       value : "nweet" ,
       createdAt: date,
       creatorId: userObj.uid ,
-      attachmentUrl
+      attachmentUrl,
+      alarm : false,
+      rtAlarm:[],
+      heartAlarm:[],
     };
     await dbService.collection(`nweets_${userObj.uid}`).doc(`${date}`).set(newNweet);
     setNweet("");
