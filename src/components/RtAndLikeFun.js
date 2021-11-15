@@ -4,27 +4,56 @@ import { useState } from "react/cjs/react.development";
 import { dbService } from "../Fbase";
 import { getProfile, getProfileDoc } from "./GetData";
 
-const RtAndLikeFun = ( {nweetObj ,userObj})=> {
+const RtAndLikeFun = ( {nweetObj ,userObj , ownerProfile ,whoProfile,})=> {
   const date = Date.now();
-  const [ownerProfile, setOwnerProfile] = useState({alarm:[]});
-  const [whoProfile, setWhoProfile] = useState({alarm:[]});
-  const [rtValue ,setRtValue] =useState(false);
-  const [heartValue ,setHeartValue] =useState(false);
+  const [rt,setRt]=useState({
+    empty : undefined ,
+    id : ""
+  });
+  const [heart,setHeart]=useState(
+    {
+      empty :undefined ,
+      id : ""
+    }
+  );
+  const [alarm ,setAlarm] =useState([]);
   const newAlarm =(what)=>({userId:userObj.uid , creatorId : nweetObj.creatorId, createdAt: nweetObj.createdAt, value: what });
   const rtBtn = document.getElementsByClassName("rtBtn");
   const heartBtn = document.getElementsByClassName("heartBtn");
+  const userObjCollection = dbService.collection(`nweets_${userObj.uid}`)  ; 
 
-  const checkAlarm = ()=>{
-    ownerProfile.alarm[newAlarm("rt")] && setRtValue(true);
-    rtValue === true && (rtBtn.style.backgroundColor = "lightblue" );
-    ownerProfile.alarm[newAlarm("heart")] && setHeartValue(true);
-    heartValue === true && (heartBtn.style.backgroundColor = "lightblue" );
+  const whereRt = userObjCollection
+  .where("creatorId" , "==" , `${nweetObj.creatorId}` )
+  .where("createdAt" , "==" , `${nweetObj.createdAt}`)
+  .where("value" , "==" , "rt");
+
+  const whereHeart= userObjCollection
+  .where("creatorId" , "==" , `${nweetObj.creatorId}` )
+  .where("createdAt" , "==" , `${nweetObj.createdAt}`)
+  .where("value" , "==" , "heart");
+
+  const checkAlarm = async()=>{
+    await whereRt
+    .get()
+    .then(doc =>setRt({
+      empty:doc.empty ,
+      id: doc.docs.map(d=> d.id)[0]
+    }))
+    .catch(error => console.log("Error" , error))
+    ;
+
+    await whereHeart
+    .get()
+    .then(doc =>setHeart({
+      empty:doc.empty ,
+      id: doc.docs.map(d=> d.id)[0]
+    }) )
+    .catch(error => console.log("Error" , error)); 
+
   };
-
+  checkAlarm()
   useEffect(()=>{
-  getProfile(nweetObj.creatorId ,setOwnerProfile);
-  nweetObj.who && getProfile(nweetObj.who ,setWhoProfile) ;
-  checkAlarm();
+    checkAlarm()
   },[]);
 
   const updateAlram = (what)=> {
@@ -42,16 +71,34 @@ const RtAndLikeFun = ( {nweetObj ,userObj})=> {
     getProfileDoc(nweetObj.who).set({alarm: whoAlarm},{merge:true}) ;
     } 
   };
-
-  // const deleteAlarm = () => {
-  //   const ownerAlarm = ownerProfile.alarm.fi
-  //   getProfileDoc(nweetObj.creatorId).
-  // }
+  
+  const deleteAlarm = (what) => {
+    const ownerAlarm = ownerProfile.alarm;
+    console.log(ownerAlarm, newAlarm(what));
+    const Filter =(a)=> {
+      let value ;
+      (a.creatorId !== newAlarm(what).creatorId &&
+      a.createdAt !== newAlarm(what).createdAt &&
+      a.userId!== newAlarm(what).userId &&
+      a.value !== newAlarm(what).value) ?
+      value = true : value = false
+      return value 
+    }
+    console.log(ownerAlarm.includes(newAlarm(what)));
+    //getProfileDoc(nweetObj.creatorId).set({alarm:ownerAlarm} ,{merge:true});
+    console.log("delte alarm" ,ownerAlarm);
+    if(nweetObj.who){
+      const whoAlarm =whoProfile.alarm
+      whoAlarm.filter(a=>a !== newAlarm(what)) ;
+      //getProfileDoc(nweetObj.who).set({alarm:whoAlarm} ,{merge:true})
+    }
+  };
   const Rt =(event)=>{ 
+    console.log("rt버튼 누름 ,rt 여부를 확인 중 입니다." ,rt.empty)
     event.preventDefault();
-    console.log(rtValue );
-    
-    if(rtValue === false){
+    //await checkAlarm( );
+    if(rt.empty === true){
+      console.log("rt");
       const rt ={
         text: nweetObj.text,
         value :"rt",
@@ -60,20 +107,25 @@ const RtAndLikeFun = ( {nweetObj ,userObj})=> {
         creatorId: nweetObj.creatorId,
         attachmentUrl : nweetObj.attachmentUrl
       };
-      updateAlram("rt");
-      setRtValue(true);
-      dbService.collection(`nweets_${userObj.uid}`).doc(`${date}`).set(rt);
-    }else {
-      dbService.collection(`nweets_${userObj.uid}`).where("text" , "===" , `${nweetObj.text}`).delete();
-      //deltealarm (); 
-      setRtValue(false);
+    updateAlram("rt");
+    userObjCollection.doc(`${date}`).set(rt);
+
+    }else if( rt.empty === false) {
+    console.log("delete" )
+    //userObjCollection.doc(`${rt.id}`).delete();
+    deleteAlarm("rt"); 
+    console.log(rt)
+    }else{
+      console.log("alarm 을 아직 불러오는 중 입니다.",  rt)
     }
-    checkAlarm();
     };
 
-  const sendHeart = (event) => {
+  const sendHeart = async (event) => {
+    console.log("heart버튼 누름")
     event.preventDefault();
-    if(heartValue === false){
+    await checkAlarm();
+    if(heart.empty === true){
+      console.log("heart");
       const heart ={
         text: nweetObj.text,
         value :"heart",
@@ -82,22 +134,33 @@ const RtAndLikeFun = ( {nweetObj ,userObj})=> {
         who:userObj.uid ,
         attachmentUrl : nweetObj.attachmentUrl
       };
-      dbService.collection(`nweets_${userObj.uid}`).doc(`${date}`).set(heart);
+      await userObjCollection.doc(`${date}`).set(heart);
       updateAlram( "heart");
-      setHeartValue(true);
-    }else {
-      dbService.collection(`nweets_${userObj.uid}`).where("text" , "===" , `${nweetObj.text}`).delete();
-      setHeartValue(false);
+      setHeart({
+        empty:false ,
+        id: heart.id
+      });
+    }else if( heart.empty === false){
+      console.log("delete")
+      await userObjCollection.where("text" , "==" , `${nweetObj.text}`).delete();
+      deleteAlarm("heart");
+    setHeart({
+      empty:true ,
+      id:""
+    });
     }
-    checkAlarm();
+    else {
+      console.log( heart , "alarm 을 불러오는 중 입니다.")
+    }
+
   };
 
   return(
     <>
-      <button className="rtBtn" onClick={Rt} value={rtValue}>
+      <button className="rtBtn" onClick={Rt} value={rt.empty}>
         <AiOutlineRetweet/>
       </button>
-      <button className="heartBtn" onClick={sendHeart} value={heartValue}>
+      <button className="heartBtn" onClick={sendHeart} value={heart.empty}>
         <AiOutlineHeart/>
       </button>
     </>
