@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { findRenderedDOMComponentWithTag } from "react-dom/test-utils";
 import { AiOutlineRetweet ,AiOutlineHeart } from "react-icons/ai";
 import { useState } from "react/cjs/react.development";
 import { dbService } from "../Fbase";
@@ -74,29 +75,26 @@ const RtAndLikeFun = ( {nweetObj ,userObj , ownerProfile ,whoProfile,})=> {
   
   const deleteAlarm = (what) => {
     const ownerAlarm = ownerProfile.alarm;
-    console.log(ownerAlarm, newAlarm(what));
-    const Filter =(a)=> {
-      let value ;
-      (a.creatorId !== newAlarm(what).creatorId &&
-      a.createdAt !== newAlarm(what).createdAt &&
-      a.userId!== newAlarm(what).userId &&
-      a.value !== newAlarm(what).value) ?
-      value = true : value = false
-      return value 
-    }
-    console.log(ownerAlarm.includes(newAlarm(what)));
-    //getProfileDoc(nweetObj.creatorId).set({alarm:ownerAlarm} ,{merge:true});
-    console.log("delte alarm" ,ownerAlarm);
+    const filterAlarm =(a)=> {
+      if (a.creatorId === newAlarm(what).creatorId &&
+      a.createdAt === newAlarm(what).createdAt &&
+      a.userId === newAlarm(what).userId &&
+      a.value === newAlarm(what).value) {
+        return false
+      }
+      return true ;  
+    };
+    const newOwnerAlarm =ownerAlarm.filter(a=>filterAlarm(a));
+    getProfileDoc(nweetObj.creatorId).set({alarm :newOwnerAlarm} ,{merge:true});
     if(nweetObj.who){
-      const whoAlarm =whoProfile.alarm
-      whoAlarm.filter(a=>a !== newAlarm(what)) ;
-      //getProfileDoc(nweetObj.who).set({alarm:whoAlarm} ,{merge:true})
+      const whoAlarm =whoProfile.alarm ;
+      const newWhoAlarm = whoAlarm.filter(a=>filterAlarm(a)) ;
+      getProfileDoc(nweetObj.who).set({alarm:newWhoAlarm} ,{merge:true});
     }
   };
   const Rt =(event)=>{ 
     console.log("rt버튼 누름 ,rt 여부를 확인 중 입니다." ,rt.empty)
     event.preventDefault();
-    //await checkAlarm( );
     if(rt.empty === true){
       console.log("rt");
       const rt ={
@@ -112,9 +110,8 @@ const RtAndLikeFun = ( {nweetObj ,userObj , ownerProfile ,whoProfile,})=> {
 
     }else if( rt.empty === false) {
     console.log("delete" )
-    //userObjCollection.doc(`${rt.id}`).delete();
+    userObjCollection.doc(`${rt.id}`).delete();
     deleteAlarm("rt"); 
-    console.log(rt)
     }else{
       console.log("alarm 을 아직 불러오는 중 입니다.",  rt)
     }
