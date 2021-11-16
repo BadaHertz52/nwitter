@@ -5,7 +5,7 @@ import { dbService } from "../Fbase";
 import {  getProfileDoc } from "./GetData";
 
 const RtAndLikeFun = ( {nweetObj ,userObj , ownerProfile ,whoProfile,})=> {
-  const date = Date.now();
+  
   const [rt,setRt]=useState({
     empty : undefined ,
     id : ""
@@ -16,9 +16,10 @@ const RtAndLikeFun = ( {nweetObj ,userObj , ownerProfile ,whoProfile,})=> {
       id : ""
     }
   ); 
+  const [rtBtn,setRtBtn]= useState("rhBtn");
+  const [heartBtn,setHeartBtn]= useState("rhBtn");
+  const date = Date.now();
   const newAlarm =(what)=>({userId:userObj.uid , creatorId : nweetObj.creatorId, createdAt: nweetObj.createdAt, value: what });
-  const rtBtn = document.getElementsByClassName("rtBtn");
-  const heartBtn = document.getElementsByClassName("heartBtn");
   const userObjCollection = dbService.collection(`nweets_${userObj.uid}`)  ; 
 
   const whereRt = userObjCollection
@@ -49,19 +50,16 @@ const RtAndLikeFun = ( {nweetObj ,userObj , ownerProfile ,whoProfile,})=> {
     }) )
     .catch(error => console.log("Error" , error)); 
   };
-  const changeBtn =(rt, heart)=> {
-    rt.empty ? console.log("rt" ,!rt.empty, rtBtn.style) :console.log("rt" ,!rt.empty);
-    heart.empty ? console.log("heart" ,!heart.empty, heartBtn.style) :console.log("heart" ,!heart.empty);
+  const changeBtnName = (rt, heart)=>{
+    rt.empty ? setRtBtn("rhBtn") : setRtBtn("rhBtn_on");
+    heart.empty ? setHeartBtn("rhBtn") : setHeartBtn("rhBtn_on");
   };
-
   useEffect(()=>{
     checkAlarm();
   },[]);
-
   useEffect(()=>{
-    changeBtn(rt,heart);
-  },[rt, heart]);
-
+    changeBtnName(rt, heart)
+  },[rt, heart])
   const updateAlram = (what)=> {
     //data : nweetObj 
     const ownerAlarm  = ownerProfile.alarm ; 
@@ -161,12 +159,12 @@ const RtAndLikeFun = ( {nweetObj ,userObj , ownerProfile ,whoProfile,})=> {
 
   return(
     <>
-      <button className="rtBtn" onClick={Rt} value={rt.empty}>
+      <button className={rtBtn} onClick={Rt} name="rt" >
         <AiOutlineRetweet/>
       </button>
-      <button className="heartBtn" onClick={sendHeart} value={heart.empty}>
+      <button className={heartBtn} onClick={sendHeart} name="heart">
         <AiOutlineHeart/>
-      </button>
+      </button>  
     </>
   )
 };
