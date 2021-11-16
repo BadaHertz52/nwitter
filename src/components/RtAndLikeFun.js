@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
-import { findRenderedDOMComponentWithTag } from "react-dom/test-utils";
+import React from "react";
 import { AiOutlineRetweet ,AiOutlineHeart } from "react-icons/ai";
-import { useState } from "react/cjs/react.development";
+import { useEffect, useState } from "react/cjs/react.development";
 import { dbService } from "../Fbase";
-import { getProfile, getProfileDoc } from "./GetData";
+import {  getProfileDoc } from "./GetData";
 
 const RtAndLikeFun = ( {nweetObj ,userObj , ownerProfile ,whoProfile,})=> {
   const date = Date.now();
@@ -16,8 +15,7 @@ const RtAndLikeFun = ( {nweetObj ,userObj , ownerProfile ,whoProfile,})=> {
       empty :undefined ,
       id : ""
     }
-  );
-  const [alarm ,setAlarm] =useState([]);
+  ); 
   const newAlarm =(what)=>({userId:userObj.uid , creatorId : nweetObj.creatorId, createdAt: nweetObj.createdAt, value: what });
   const rtBtn = document.getElementsByClassName("rtBtn");
   const heartBtn = document.getElementsByClassName("heartBtn");
@@ -50,12 +48,19 @@ const RtAndLikeFun = ( {nweetObj ,userObj , ownerProfile ,whoProfile,})=> {
       id: doc.docs.map(d=> d.id)[0]
     }) )
     .catch(error => console.log("Error" , error)); 
-
   };
-  checkAlarm()
+  const changeBtn =(rt, heart)=> {
+    rt.empty ? console.log("rt" ,!rt.empty, rtBtn.style) :console.log("rt" ,!rt.empty);
+    heart.empty ? console.log("heart" ,!heart.empty, heartBtn.style) :console.log("heart" ,!heart.empty);
+  };
+
   useEffect(()=>{
-    checkAlarm()
+    checkAlarm();
   },[]);
+
+  useEffect(()=>{
+    changeBtn(rt,heart);
+  },[rt, heart]);
 
   const updateAlram = (what)=> {
     //data : nweetObj 
@@ -93,7 +98,8 @@ const RtAndLikeFun = ( {nweetObj ,userObj , ownerProfile ,whoProfile,})=> {
     }
   };
   const Rt =(event)=>{ 
-    console.log("rt버튼 누름 ,rt 여부를 확인 중 입니다." ,rt.empty)
+    (async()=> await checkAlarm())(); 
+    console.log("rt버튼 누름" ,"rt 했던 글 인지 여부" ,!rt.empty)
     event.preventDefault();
     if(rt.empty === true){
       console.log("rt");
@@ -107,18 +113,19 @@ const RtAndLikeFun = ( {nweetObj ,userObj , ownerProfile ,whoProfile,})=> {
       };
     updateAlram("rt");
     userObjCollection.doc(`${date}`).set(rt);
-
+    setRt({empty:false, id:""});
     }else if( rt.empty === false) {
     console.log("delete" )
     userObjCollection.doc(`${rt.id}`).delete();
     deleteAlarm("rt"); 
+    setRt({empty:true ,id:""});
     }else{
       console.log("alarm 을 아직 불러오는 중 입니다.",  rt)
     }
     };
 
   const sendHeart = async (event) => {
-    console.log("heart버튼 누름")
+    console.log("heart버튼 누름" , "heart 한 적 있는 글인지 " ,!heart.empty)
     event.preventDefault();
     await checkAlarm();
     if(heart.empty === true){
