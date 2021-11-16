@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { getNweets } from "./components/GetData";
-import Nweet from "./components/Nweet";
-import UserProfile from "./components/UserProfile";
-import { dbService } from "./Fbase";
+import { getNweets } from "./GetData";
+import Nweet from "./Nweet";
+import UserProfile from "./UserProfile";
+import { dbService } from "../Fbase";
 
 const HomeNeets =({userObj})=> {
   const [calling, setCalling] = useState(true); 

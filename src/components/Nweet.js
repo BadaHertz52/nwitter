@@ -4,16 +4,11 @@ import RtAndLikeFun from './RtAndLikeFun';
 import UserProfile from './UserProfile';
 import { getProfile } from './GetData';
 import { AiOutlineRetweet ,AiOutlineHeart } from "react-icons/ai";
-import { useHistory } from 'react-router';
-//edit, delete 
+import '../css/nweet.css'
+
 const Nweet =({nweetObj , userObj ,isOwner  }) =>{
-  const historyState =useHistory().location.state ;
-  if( nweetObj === undefined && userObj ===undefined && isOwner ===undefined){
-    nweetObj = historyState.nweetObj;
-    userObj =historyState.userObj ;
-    isOwner =historyState.isOwner;
-  }
-  const [userProfile, setUserProfile] =useState({});
+  const [ownerProfile, setOwnerProfile] = useState({alarm:[]});
+  const [whoProfile, setWhoProfile] = useState({alarm:[]});
 
   const onDeleteClick = async () =>{
     const ok = window.confirm("Are you sure you want to delete this nweet?");
@@ -26,19 +21,22 @@ const Nweet =({nweetObj , userObj ,isOwner  }) =>{
   };
 
   useEffect(()=>{
-    nweetObj.who && getProfile(nweetObj.who , setUserProfile)
+    nweetObj.who && getProfile(nweetObj.who , setWhoProfile);
+    getProfile(nweetObj.creatorId ,setOwnerProfile);
     },[]);
   
   return(
     <div className="nweet" >
       {nweetObj.value === "rt" && 
         <div> 
-          <AiOutlineRetweet/> {userProfile.creatorId === userObj.uid  ? '내가' : `${userProfile.userName}님이`} 리트윗함
+          <AiOutlineRetweet/> 
+          {whoProfile.creatorId === userObj.uid  ? '내가' : `${whoProfile.userName}님이`} 리트윗함
         </div>
       }
       {nweetObj.value === "heart" &&
         <div>
-          <AiOutlineHeart/> {userProfile.creatorId === userObj.uid  ? '내가' : `${userProfile.userName}님이`} 이 트윗을 마음에 들어함
+          <AiOutlineHeart/> 
+          {whoProfile.creatorId === userObj.uid  ? '내가' : `${whoProfile.userName}님이`}  마음에 들어함
         </div>
       }
       <UserProfile nweetObj ={nweetObj}/>
@@ -48,12 +46,19 @@ const Nweet =({nweetObj , userObj ,isOwner  }) =>{
         <img src={nweetObj.attachmentUrl}  max-width="300px" height="150px" alt="Nweet_photofile"/>}
       </div>
       <div className="rtAndLikeFun">
-        <RtAndLikeFun nweetObj={nweetObj} userObj={userObj}/>
+        <RtAndLikeFun 
+        nweetObj={nweetObj} 
+        userObj={userObj} 
+        ownerProfile={ownerProfile} 
+        whoProfile={whoProfile}
+        />
       </div>
       
       {isOwner && 
         <>
-          <button onClick={onDeleteClick}>Delete Nweet</button>
+          <button onClick={onDeleteClick}>
+            Delete Nweet
+          </button>
         </>
       }
     </div>
