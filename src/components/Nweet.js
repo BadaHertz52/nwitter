@@ -4,6 +4,7 @@ import RtAndLikeFun from './RtAndLikeFun';
 import UserProfile from './UserProfile';
 import { getProfile } from './GetData';
 import { AiOutlineRetweet ,AiOutlineHeart } from "react-icons/ai";
+import '../css/nweet.css'
 //edit, delete 
 const Nweet =({nweetObj , userObj ,isOwner  }) =>{
   const [ownerProfile, setOwnerProfile] = useState({alarm:[]});
