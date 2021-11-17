@@ -1,70 +1,47 @@
 import React, { useEffect, useState } from 'react';
+import { AiFillInstagram } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import {  getProfileDoc } from '../components/GetData';
+import { getNweets, getProfile, getProfileDoc } from '../components/GetData';
 import { dbService } from '../Fbase';
 
 const Alarm = ({userObj}) => {
-  //const [heart , setHeart] =useState([]);
-  //const [rt , setRt] =useState([]);
-  const [alarms, setAlarms]= useState();
+  const [profile, setProfile] =useState({
+    alarm:[]
+  }) ;
+  const [alarms ,setAlarms] =useState([]);
 
-  const getAlarm = async() =>{
-    const getDocs =  await dbService.collection(`nweets_${userObj.uid}`).where('alarm' , '==' , true).get();
-  
-    const getUserName = (id)=>  getProfileDoc(id).get().then(doc=> ({
-      name: doc.data().userName ,
-      userId: id}));
-  
-    const Docs = getDocs.docs.map(doc=> doc.data());
-
-    await Promise.all 
-      (Docs.map( (doc) => { 
-        const users = []; 
-        doc.heartAlarm.length >0 &&  users.push(
-        Promise.all ( doc.heartAlarm.map(id => getUserName(id) ).concat({nweet:doc , value :"heart"})) ) ;
-
-        doc.rtAlarm.length>0 && users.push(
-        Promise.all ( doc.rtAlarm.map(id => getUserName(id) ).concat({nweet:doc , value :"rt"}))); 
-        return users 
-      } 
-        //const heartUsers = getNames(doc.heartAlarm ,"heart") ;
-        //const rtUsers = getNames(doc.rtAlarm ,"rt") ;
-    ))
-    .then(values => {setAlarms(values); console.log(alarms)})
-    .catch(err => console.log('Erro', err));
-
-    // await Promise.all 
-    //   (Docs.map( (doc) => doc.rtAlarm.length >0 &&
-    //     Promise.all ( doc.rtAlarm.map(id => getUserName(id) ).concat({nweet:doc , value :"rt"})) 
-    //     const heartUsers = getNames(doc.heartAlarm ,"heart") ;
-    //     const rtUsers = getNames(doc.rtAlarm ,"rt") ;
-    // ))
-    // .then(values =>  setRt(values))
-    // .catch(err => console.log('Erro', err));
-    
-  };
-
-  // const makeAlarm = async()=>{
-  //   await getAlarm();
-  //   setAlarms({
-  //     heartAlarm :heart ,
-  //     rtAlarm:rt
-  //   })
-    
-  // }
   useEffect(()=>{
-    //getRtAlarm();
-    getAlarm();
-    console.log(alarms)
-  },[])
+    getProfile(userObj.uid, setProfile);
+    async function makeAlarm(){
+      const alarm = await Promise.all (profile.alarm.map( async (a) =>{
+        const user_name = await getProfileDoc(a.userId).get().then(doc=>doc.data().userName);
+        const nweetData = await dbService.collection(`nweets_${a.creatorId}`).doc(`${a.createdAt}`).get().then(doc => doc.data());
+        return {userName:user_name , nweet:nweetData , value: a.value}
+      }));
+    setAlarms(alarm);
+    }
+    makeAlarm();
+  } ,[profile.alarm])
 
   return (
     <>
-      <div id='alarm'>
-        {/* {Array.isArray(alarms)&& 
-          alarms.ma[]
-        } */}
-      </div>
+      { alarms.length >0 &&
+      (alarms.map( (a) => (
+      <div>
+        <Link 
+        to={{
+        pathname:"/nweet",
+        state :{
+          nweetObj : a.nweet,
+          userObj : userObj,
+          isOwner : true
+        }}}>
+          <div>
+          {a.userName} 님이 내 트윗을  {a.value === "rt" ? '리트윗' : '마음에 들어함'} 함
+          </div>
+        </Link>
+      </div>)))
+      }
     </> 
 )}
 export default Alarm ;
