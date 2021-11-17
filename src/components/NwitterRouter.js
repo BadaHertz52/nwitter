@@ -25,7 +25,7 @@ const NwitterRouter =({isLoggedIn , userObj , refreshUser }) => {
           <Alarm userObj={userObj} />
         </Route>
         <Route exact path="/my_profile"> 
-          <MyProfile userObj={userObj}   />
+          <MyProfile userObj={userObj} refreshUser={refreshUser}  />
         </Route>
         <Route exact path="/profile">
           <Profile userObj={userObj} />

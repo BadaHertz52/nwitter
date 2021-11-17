@@ -20,7 +20,7 @@ export const getProfile = async(id ,setProfile)=>{
     if(doc.exists){
       setProfile(doc.data());
     }else {
-      console.log("No such profile document!")
+      console.log("Can't find the document")
     }
   }).catch(error => {
     console.log("Error getting document:" ,error)

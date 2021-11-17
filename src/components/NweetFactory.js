@@ -5,7 +5,7 @@ import {v4 as uuidv4} from 'uuid';
 const NweetFactory = ({userObj }) => {
   const [nweet, setNweet] = useState("");
   const [attachment ,setAttachment] = useState("");
-  const date =Date.now();
+  const date = Date.now();
   const onSubmit = async (event) => {
     event.preventDefault();
     let attachmentUrl = "";
@@ -18,7 +18,7 @@ const NweetFactory = ({userObj }) => {
     const newNweet = {
       text:nweet,
       value : "nweet" ,
-      createdAt: date,
+      createdAt: JSON.stringify(date) ,
       creatorId: userObj.uid ,
       attachmentUrl,
       alarm : false,

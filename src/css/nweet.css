@@ -1,0 +1,18 @@
+
+button {
+  border: 1px solid  rgba(0, 0, 255, 0);
+  background-color: rgba(255, 255, 255, 0);
+}
+.rhBtn ,
+.rhBtn_on{
+  color:rgb(119, 119, 119);
+  font-size: 1.2rem;
+  border-radius: 50%;
+}
+.rhBtn_on {
+  color:rgb(0, 76, 218);
+}
+.rhBtn:hover,
+.rhBtn_on:hover{
+  background-color: rgb(197, 222, 255);
+}
