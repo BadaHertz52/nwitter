@@ -9,7 +9,6 @@ import { useHistory } from 'react-router';
 const Nweet =({nweetObj , userObj ,isOwner  }) =>{
   const historyState =useHistory().location.state ;
   if( nweetObj === undefined){
-    console.log(historyState);
     nweetObj = historyState.nweetObj;
     userObj =historyState.userObj ;
     isOwner =historyState.isOwner;
