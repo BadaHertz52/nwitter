@@ -114,21 +114,13 @@ const RtAndLikeFun = ( {nweetObj ,userObj , ownerProfile ,whoProfile,})=> {
         creatorId: nweetObj.creatorId,
         attachmentUrl : nweetObj.attachmentUrl
       };
-<<<<<<< HEAD
       userObj.uid !== nweetObj.creatorId && updateAlram("rt");
-=======
-    updateAlram("rt");
->>>>>>> develope
     userObjCollection.doc(`${date}`).set(rt);
     setRt({empty:false, id:""});
     }else if( rt.empty === false) {
     console.log("delete" )
     userObjCollection.doc(`${rt.id}`).delete();
-<<<<<<< HEAD
     userObj.uid !== nweetObj.creatorId && deleteAlarm("rt"); 
-=======
-    deleteAlarm("rt"); 
->>>>>>> develope
     setRt({empty:true ,id:""});
     }else{
       console.log("alarm 을 아직 불러오는 중 입니다.",  rt)
