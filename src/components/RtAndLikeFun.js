@@ -57,10 +57,7 @@ const RtAndLikeFun = ( {nweetObj ,userObj , ownerProfile ,whoProfile,})=> {
   useEffect(()=>{
     checkAlarm();
   },[]);
-<<<<<<< HEAD
 
-=======
->>>>>>> develope
   useEffect(()=>{
     changeBtnName(rt, heart)
   },[rt, heart]);
