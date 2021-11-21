@@ -11,7 +11,7 @@ const EditProfile = ( {userObj ,refreshUser , myProfile }) =>{
 
   useEffect(() => {
       findMyProfile(userObj.uid, setIsMyProfile);
-  }, []);
+  }, [userObj]);
   const onChange =(event) => {
     const {target:{value}} = event ;
     setNewDisplayName(value);
@@ -29,11 +29,11 @@ const EditProfile = ( {userObj ,refreshUser , myProfile }) =>{
   } ;
   const onSubmit = async(event) => {
     event.preventDefault();
-    
      //프로필 저장소 생성 여부 확인 및 생성 
     if (IsMyProfile === false){
       const newMyProfile = {
         creatorId:userObj.uid,
+        userId:userObj.id,
         userName: userObj.displayName,
         photoUrl:profilePhotoUrl, 
         following:[],
@@ -41,20 +41,13 @@ const EditProfile = ( {userObj ,refreshUser , myProfile }) =>{
         alarm : []
       };
     getProfileDoc(userObj.uid).set(newMyProfile); 
-    }else if(IsMyProfile === true){
+    }else if(IsMyProfile === true && userObj !== undefined){
           // username = displayname 변경 
     if(newDisplayName!== userObj.displayName  ){
       await userObj.updateProfile({
         displayName :newDisplayName ,
       });
-      await  getProfileDoc(userObj.uid).set({
-        alarm: myProfile.alarm,
-        creatorId :myProfile.creatorId ,
-        follwer :myProfile.follower ,
-        following:myProfile.following,
-        photoUrl: myProfile.photoUrl,
-        userName: newDisplayName
-      }, {merge:true});
+      await  getProfileDoc(userObj.uid).update({userName: newDisplayName});
     };
     // 프로필 사진 변경 
     if(profilePhoto !== "" ){
@@ -62,14 +55,7 @@ const EditProfile = ( {userObj ,refreshUser , myProfile }) =>{
       const response = await profilePhotoRef.putString(profilePhoto , "data_url") ; 
       const PhotoUrl =  await response.ref.getDownloadURL();
       setProfilePhotoUrl(PhotoUrl); 
-      await  getProfileDoc(userObj.uid).set({
-        alarm: myProfile.alarm,
-        creatorId :myProfile.creatorId ,
-        follwer :myProfile.follower ,
-        following:myProfile.following,
-        photoUrl:PhotoUrl ,
-        userName: myProfile.userName 
-      }, {merge:true});
+      await  getProfileDoc(userObj.uid).update({photoUrl:PhotoUrl ,});
     }
     }
 
