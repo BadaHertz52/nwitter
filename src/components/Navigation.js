@@ -10,7 +10,7 @@ const Navigation = ({userObj}) => {
           <Link to ="/"> Home </Link>
         </li>
         <li>
-          <Link to="/alarm" userObj={userObj} >{VscBell}Alarm </Link>
+          <Link to="/notification" userObj={userObj} >{VscBell}Alarm </Link>
         </li>
         <li> 
           <Link to ="/my_profile"> {userObj.displayName == null ? " " : `${userObj.displayName}의`} Profile </Link>

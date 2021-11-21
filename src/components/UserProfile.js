@@ -6,6 +6,7 @@ import { getProfile } from './GetData';
 
 const UserProfile = ({nweetObj }) => {
   const [userProfile, setUserProfile] =useState({});
+  const profilePath= `/profile/${userProfile.userId}`;
   const getUserProfile = async() =>{
     await getProfile(nweetObj.creatorId , setUserProfile); 
     }
@@ -20,7 +21,7 @@ const UserProfile = ({nweetObj }) => {
     (
       <div >
       <Link id={id} to={{
-        pathname:"/profile",
+        pathname:profilePath,
         state :{
           userProfile :userProfile
         }
