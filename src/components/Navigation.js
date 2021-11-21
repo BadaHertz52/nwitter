@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { VscBell ,VscBellDot } from "react-icons/vsc";
-const Navigation = ({userObj}) => {
+const Navigation = ({userobj}) => {
 
   return(
     <nav>
@@ -10,14 +10,14 @@ const Navigation = ({userObj}) => {
           <Link to ="/"> Home </Link>
         </li>
         <li>
-          <Link to="/notification" userObj={userObj} >{VscBell}Alarm </Link>
+          <Link to="/notification" userobj={userobj} >{VscBell}Alarm </Link>
         </li>
         <li> 
-          <Link to ="/my_profile"> {userObj.displayName == null ? " " : `${userObj.displayName}의`} Profile </Link>
+          <Link to ="/my_profile"> {userobj.displayName == null ? " " : `${userobj.displayName}의`} Profile </Link>
         </li>
         {/* <li>
           <button>Nweet</button> 
-          <NweetFactory userObj={userObj}/>
+          <NweetFactory userobj={userobj}/>
         </li> */}
       </ul>
     </nav>

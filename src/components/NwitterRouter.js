@@ -11,12 +11,13 @@ import Nweet from './Nweet';
 import Search from '../routes/Search';
 import NweetFactory from './NweetFactory';
 
-const NwitterRouter =({isLoggedIn , userObj , refreshUser,currentUser}) => {
+const NwitterRouter =({isLoggedIn , userobj , refreshUser,currentUser}) => {
+
   return (  
   <Router>
     {isLoggedIn && 
     <>
-      <Navigation userObj={userObj}/>
+      <Navigation userobj={userobj}/>
       <Search />
     </>
     }
@@ -24,25 +25,25 @@ const NwitterRouter =({isLoggedIn , userObj , refreshUser,currentUser}) => {
       {isLoggedIn  ?
       <>
         <Route exact path="/"> 
-          <Home userObj={userObj}  refreshUser={refreshUser}/>
+          <Home userobj={userobj}  refreshUser={refreshUser}/>
         </Route> 
         <Route exact path="/notification">
-          <Alarm userObj={userObj} />
+          <Alarm userobj={userobj} />
         </Route>
         <Route exact path="/my_profile"> 
-          <MyProfile userObj={userObj} refreshUser={refreshUser}  />
+          <MyProfile userobj={userobj} refreshUser={refreshUser}  />
         </Route>
         <Route strict path="/profile/">
-          <Profile userObj={userObj} />
+          <Profile userobj={userobj} />
         </Route>
         <Route exact path="/editProfile">
           <EditProfile refreshUser={refreshUser}  />
         </Route>
         <Route strict path="/status/" > 
-          <Nweet userObj={userObj}/>
+          <Nweet userobj={userobj}/>
         </Route>
         <Route exact path="/nweet">
-          <NweetFactory userObj={userObj} />
+          <NweetFactory userobj={userobj} />
         </Route>
       </>
       : 

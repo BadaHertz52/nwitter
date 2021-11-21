@@ -2,15 +2,17 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getProfile } from './GetData';
+import Nweet from './Nweet';
 
 
 const UserProfile = ({nweetObj }) => {
   const [userProfile, setUserProfile] =useState({});
   const profilePath= `/profile/${userProfile.userId}`;
-  const getUserProfile = async() =>{
-    await getProfile(nweetObj.creatorId , setUserProfile); 
-    }
+  
   useEffect(()=>{
+    const getUserProfile = async() =>{
+      await getProfile(nweetObj.creatorId , setUserProfile); 
+      };
     getUserProfile();
   },[]);
 

@@ -9,11 +9,11 @@ import '../css/nweet.css' ;
 import {FiMessageCircle} from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 //edit, delete
-const Nweet =({nweetObj , userObj ,isOwner  }) =>{
+const Nweet =({nweetObj , userobj ,isOwner  }) =>{
   const historyState =useHistory().location.state ;
   if( nweetObj === undefined){
     nweetObj = historyState.nweetObj;
-    userObj =historyState.userObj ;
+    userobj =historyState.userobj ;
     isOwner =historyState.isOwner;
   }
   const [userProfile, setUserProfile] =useState({});
@@ -22,24 +22,12 @@ const Nweet =({nweetObj , userObj ,isOwner  }) =>{
     const ok = window.confirm("Are you sure you want to delete this nweet?");
     if(ok){
       //delete nweet
-      await dbService.doc(`nweets_${userObj.uid}/${nweetObj.id}`).delete();
+      await dbService.doc(`nweets_${userobj.uid}/${nweetObj.id}`).delete();
       //delete photo
       await storageService.refFromURL(nweetObj.attachmentUrl).delete();
     }
   };
-  const AnswerFun = ()=>{
-    return (
-      <Link to={{
-        pathname:"/nweet",
-        state :{
-          nweetObj :nweetObj
-        }
-      }}>
-        <FiMessageCircle/>
-      </Link>
-    )
 
-  }
   useEffect(()=>{
     nweetObj.who && getProfile(nweetObj.who , setUserProfile)
     },[]);
@@ -52,7 +40,7 @@ const Nweet =({nweetObj , userObj ,isOwner  }) =>{
             {nweetObj.value === "rt" &&
               <div>
                 <AiOutlineRetweet/> 
-                {userProfile.creatorId === userObj.uid  ? 
+                {userProfile.creatorId === userobj.uid  ? 
                 '내가' 
                 : 
                 `${userProfile.userName}님이`} 리트윗함
@@ -61,7 +49,7 @@ const Nweet =({nweetObj , userObj ,isOwner  }) =>{
             {nweetObj.value === "heart" &&
               <div>
                 <AiOutlineHeart/> 
-                {userProfile.creatorId === userObj.uid  ? 
+                {userProfile.creatorId === userobj.uid  ? 
                 '내가' 
                 : 
                 `${userProfile.userName}님이`} 이 트윗을 마음에 들어함
@@ -78,10 +66,19 @@ const Nweet =({nweetObj , userObj ,isOwner  }) =>{
           </div>
           <div className="nweet_fun">
             <div className="nweet_fun_answer">
-              <AnswerFun nweetObj={nweetObj}/>
+              <Link to={{
+                pathname:"/nweet",
+                state :{
+                  value:"answer",
+                  nweetObj :nweetObj,
+                  userobj:userobj
+                }
+              }}>
+                <FiMessageCircle/>
+              </Link>
             </div>
             <div className="nweet_fun_rtAndLikeFun">
-              <RtAndLikeFun nweetObj={nweetObj} userObj={userObj}/>
+              <RtAndLikeFun nweetObj={nweetObj} userobj={userobj}/>
             </div>
 
           </div>
