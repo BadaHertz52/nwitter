@@ -5,7 +5,7 @@ import {v4 as uuidv4} from 'uuid';
 const NweetFactory = ({userObj }) => {
   const [nweet, setNweet] = useState("");
   const [attachment ,setAttachment] = useState("");
-  const date = Date.now();
+  const date = JSON.stringify(Date.now());
   const onSubmit = async (event) => {
     event.preventDefault();
     let attachmentUrl = "";
@@ -54,6 +54,7 @@ const NweetFactory = ({userObj }) => {
 
   return (
     <>
+      {/* 답글 시 nweet 보이게  */}
       <form onSubmit={onSubmit}>
         <input
           value={nweet}
