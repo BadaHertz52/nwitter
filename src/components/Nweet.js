@@ -5,6 +5,9 @@ import UserProfile from './UserProfile';
 import { getProfile } from './GetData';
 import { AiOutlineRetweet ,AiOutlineHeart } from "react-icons/ai";
 import { useHistory } from 'react-router';
+import '../css/nweet.css' ;
+import {FiMessageCircle} from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 //edit, delete
 const Nweet =({nweetObj , userObj ,isOwner  }) =>{
   const historyState =useHistory().location.state ;
@@ -24,7 +27,19 @@ const Nweet =({nweetObj , userObj ,isOwner  }) =>{
       await storageService.refFromURL(nweetObj.attachmentUrl).delete();
     }
   };
+  const AnswerFun = ()=>{
+    return (
+      <Link to={{
+        pathname:"/nweet",
+        state :{
+          nweetObj :nweetObj
+        }
+      }}>
+        <FiMessageCircle/>
+      </Link>
+    )
 
+  }
   useEffect(()=>{
     nweetObj.who && getProfile(nweetObj.who , setUserProfile)
     },[]);
@@ -32,27 +47,46 @@ const Nweet =({nweetObj , userObj ,isOwner  }) =>{
   return(
     <>
       {nweetObj !==undefined &&
-            <div className="nweet" >
+        <div className="nweet" >
+          <div className="nweet_value">
             {nweetObj.value === "rt" &&
               <div>
-                <AiOutlineRetweet/> {userProfile.creatorId === userObj.uid  ? '내가' : `${userProfile.userName}님이`} 리트윗함
+                <AiOutlineRetweet/> 
+                {userProfile.creatorId === userObj.uid  ? 
+                '내가' 
+                : 
+                `${userProfile.userName}님이`} 리트윗함
               </div>
             }
             {nweetObj.value === "heart" &&
               <div>
-                <AiOutlineHeart/> {userProfile.creatorId === userObj.uid  ? '내가' : `${userProfile.userName}님이`} 이 트윗을 마음에 들어함
+                <AiOutlineHeart/> 
+                {userProfile.creatorId === userObj.uid  ? 
+                '내가' 
+                : 
+                `${userProfile.userName}님이`} 이 트윗을 마음에 들어함
               </div>
             }
+          </div>
+          <div className="nweet_content">
             <UserProfile nweetObj ={nweetObj}/>
-            <h4>{nweetObj.text}</h4>
-            <div>
+            <div className="nweet_content_text" >{nweetObj.text}</div>
+            <div  className="nweet_content_attachment">
               { nweetObj.attachmentUrl &&
               <img src={nweetObj.attachmentUrl}  max-width="300px" height="150px" alt="Nweet_photofile"/>}
             </div>
-            <div className="rtAndLikeFun">
+          </div>
+          <div className="nweet_fun">
+            <div className="nweet_fun_answer">
+              <AnswerFun nweetObj={nweetObj}/>
+            </div>
+            <div className="nweet_fun_rtAndLikeFun">
               <RtAndLikeFun nweetObj={nweetObj} userObj={userObj}/>
             </div>
 
+          </div>
+            
+            
             {isOwner &&
               <>
                 <button onClick={onDeleteClick}>Delete Nweet</button>
