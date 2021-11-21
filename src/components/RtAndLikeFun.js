@@ -4,7 +4,7 @@ import { useEffect, useState } from "react/cjs/react.development";
 import { dbService } from "../Fbase";
 import {  getProfileDoc } from "./GetData";
 
-const RtAndLikeFun = ( {nweetObj ,userObj , ownerProfile ,whoProfile,})=> {
+const RtAndLikeFun = ( {nweetObj ,userobj , ownerProfile ,whoProfile,})=> {
   
   const [rt,setRt]=useState({
     empty : undefined ,
@@ -19,15 +19,15 @@ const RtAndLikeFun = ( {nweetObj ,userObj , ownerProfile ,whoProfile,})=> {
   const [rtBtn,setRtBtn]= useState("rhBtn");
   const [heartBtn,setHeartBtn]= useState("rhBtn");
   const date = Date.now();
-  const newAlarm =(what)=>({userId:userObj.uid , creatorId : nweetObj.creatorId, createdAt: nweetObj.createdAt, value: what });
-  const userObjCollection = dbService.collection(`nweets_${userObj.uid}`)  ; 
+  const newAlarm =(what)=>({userId:userobj.uid , creatorId : nweetObj.creatorId, createdAt: nweetObj.createdAt, value: what });
+  const userobjCollection = dbService.collection(`nweets_${userobj.uid}`)  ; 
 
-  const whereRt = userObjCollection
+  const whereRt = userobjCollection
   .where("creatorId" , "==" , `${nweetObj.creatorId}` )
   .where("createdAt" , "==" , `${nweetObj.createdAt}`)
   .where("value" , "==" , "rt");
 
-  const whereHeart= userObjCollection
+  const whereHeart= userobjCollection
   .where("creatorId" , "==" , `${nweetObj.creatorId}` )
   .where("createdAt" , "==" , `${nweetObj.createdAt}`)
   .where("value" , "==" , "heart");
@@ -68,7 +68,6 @@ const RtAndLikeFun = ( {nweetObj ,userObj , ownerProfile ,whoProfile,})=> {
     
     //  nweet  원래 작성자
     ownerAlarm.unshift(newAlarm(what));
-
     getProfileDoc(nweetObj.creatorId).set({alarm: ownerAlarm},{merge:true}) ;
     // rt, heart한 작성자 
     if(nweetObj.who){
@@ -107,17 +106,17 @@ const RtAndLikeFun = ( {nweetObj ,userObj , ownerProfile ,whoProfile,})=> {
         text: nweetObj.text,
         value :"rt",
         createdAt: nweetObj.createdAt,
-        who:userObj.uid , 
+        who:userobj.uid , 
         creatorId: nweetObj.creatorId,
         attachmentUrl : nweetObj.attachmentUrl
       };
-      userObj.uid !== nweetObj.creatorId && updateAlram("rt");
-    userObjCollection.doc(`${date}`).set(rt);
+      userobj.uid !== nweetObj.creatorId && updateAlram("rt");
+    userobjCollection.doc(`${date}`).set(rt);
     setRt({empty:false, id:""});
     }else if( rt.empty === false) {
     console.log("delete" )
-    userObjCollection.doc(`${rt.id}`).delete();
-    userObj.uid !== nweetObj.creatorId && deleteAlarm("rt"); 
+    userobjCollection.doc(`${rt.id}`).delete();
+    userobj.uid !== nweetObj.creatorId && deleteAlarm("rt"); 
     setRt({empty:true ,id:""});
     }else{
       console.log("alarm 을 아직 불러오는 중 입니다.",  rt)
@@ -135,19 +134,19 @@ const RtAndLikeFun = ( {nweetObj ,userObj , ownerProfile ,whoProfile,})=> {
         value :"heart",
         createdAt:nweetObj.createdAt,
         creatorId: nweetObj.creatorId,
-        who:userObj.uid ,
+        who:userobj.uid ,
         attachmentUrl : nweetObj.attachmentUrl
       };
-      await userObjCollection.doc(`${date}`).set(heart);
-      userObj.uid !== nweetObj.creatorId && updateAlram( "heart");
+      await userobjCollection.doc(`${date}`).set(heart);
+      userobj.uid !== nweetObj.creatorId && updateAlram( "heart");
       setHeart({
         empty:false ,
         id: heart.id
       });
     }else if( heart.empty === false){
       console.log("delete")
-      await userObjCollection.where("text" , "==" , `${nweetObj.text}`).delete();
-    userObj.uid !== nweetObj.creatorId && deleteAlarm("heart");
+      await userobjCollection.where("text" , "==" , `${nweetObj.text}`).delete();
+    userobj.uid !== nweetObj.creatorId && deleteAlarm("heart");
     setHeart({
       empty:true ,
       id:""

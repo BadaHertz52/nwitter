@@ -5,12 +5,12 @@ import HomeNeets from "../components/HomeNweets";
 import { findMyProfile } from "../components/GetData";
 
 
-const Home =  ({userObj ,refreshUser}) => {
+const Home =  ({userobj ,refreshUser}) => {
 
   const [IsMyProfile , setIsMyProfile] = useState(false);
 
   useEffect(() => {
-      findMyProfile(userObj.uid, setIsMyProfile);
+      findMyProfile(userobj.uid, setIsMyProfile);
   }, []);
 
   return (
@@ -18,13 +18,13 @@ const Home =  ({userObj ,refreshUser}) => {
       {IsMyProfile ?
         (
           <>
-            <NweetFactory userObj={userObj} />
-            <HomeNeets userObj={userObj} />
+            <NweetFactory userobj={userobj} />
+            <HomeNeets userobj={userobj} />
           </>
         )
       :
         (
-          <EditProfile userObj={userObj}  refreshUser={refreshUser}/>
+          <EditProfile userobj={userobj}  refreshUser={refreshUser}/>
         )
       }
     </div>

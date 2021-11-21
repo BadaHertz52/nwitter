@@ -28,11 +28,11 @@ export const ProfileTopForm = ({profile , follower} )=>{
   )
 }
 
-export const ProfileBottomForm = ({nweets ,userObj})=>{
+export const ProfileBottomForm = ({nweets ,userobj})=>{
   
   return (
     <sectoion >
-      {Array.isArray(nweets) && nweets.map(nweet => <Nweet  nweetObj ={nweet}  isOwner={nweet.creatorId === userObj.uid} userObj={userObj}/>  )}
+      {Array.isArray(nweets) && nweets.map(nweet => <Nweet  nweetObj ={nweet}  isOwner={nweet.creatorId === userobj.uid} userobj={userobj}/>  )}
     </sectoion>
   )
 }

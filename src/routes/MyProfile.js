@@ -6,7 +6,7 @@ import { ProfileTopForm, ProfileBottomForm } from '../components/ProfileForm';
 import { getNweets, getProfile } from '../components/GetData';
 
 
-const MyProfile = ({userObj ,refreshUser} ) => {
+const MyProfile = ({userobj ,refreshUser} ) => {
   const [myProfile , setMyProfile] = useState({});
   const [myNweets , setMyNweets] =useState([]);
   const [editing ,setEditing] = useState(false);
@@ -17,10 +17,10 @@ const MyProfile = ({userObj ,refreshUser} ) => {
     history.push("/");
   };
 
-  const getMyNweets = () => getNweets(userObj.uid , setMyNweets);
+  const getMyNweets = () => getNweets(userobj.uid , setMyNweets);
   
   const getMyProfile =  () =>{
-    getProfile(userObj.uid, setMyProfile);
+    getProfile(userobj.uid, setMyProfile);
     Array.isArray(myProfile.follower) && setFollower(myProfile.follower);
   };
 
@@ -44,7 +44,7 @@ const MyProfile = ({userObj ,refreshUser} ) => {
         <button onClick={onToggle}>Edit Profile</button>
         {editing &&
         (<EditProfile
-          userObj={userObj}
+          userobj={userobj}
           refreshUser={refreshUser}
           myProfile={myProfile}
           onToggle ={onToggle}
@@ -53,7 +53,7 @@ const MyProfile = ({userObj ,refreshUser} ) => {
       </section>
       <p>---프로필--- </p>
       <sectoion >
-        <ProfileBottomForm nweets={myNweets} userObj={userObj}/>
+        <ProfileBottomForm nweets={myNweets} userobj={userobj}/>
       </sectoion>
 
     </>

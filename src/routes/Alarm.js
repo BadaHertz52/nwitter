@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import { getProfile, getProfileDoc } from '../components/GetData';
 import { dbService } from '../Fbase';
 
-const Alarm = ({userObj}) => {
+const Alarm = ({useobj}) => {
   const [profile, setProfile] =useState({
     alarm:[]
   }) ;
   const [alarms ,setAlarms] =useState([]);
 
   useEffect(()=>{
-    getProfile(userObj.uid, setProfile);
+    getProfile(useobj.uid, setProfile);
     async function makeAlarm(){
       const alarm = await Promise.all(
         profile.alarm.map( async (a) =>{
@@ -56,7 +56,7 @@ const Alarm = ({userObj}) => {
         pathname:`/status`,
         state :{
           nweetObj :a.nweet,
-          userObj : userObj,
+          useobj : useobj,
           isOwner : true
         }
         }}>

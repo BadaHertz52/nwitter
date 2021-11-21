@@ -3,16 +3,16 @@ import { useHistory, } from 'react-router-dom';
 import { ProfileBottomForm, ProfileTopForm } from '../components/ProfileForm';
 import { getNweets, getProfileDoc} from '../components/GetData';
 
-const Profile = ({userObj}) => {
+const Profile = ({userobj}) => {
   const [userNweets , setUserNweets] =useState([]);
   const [calling, setCalling] =useState(true);
   const [onFollow ,setOnFollow] = useState({});
   const [followList, setFollowList] = useState([]);
   const historyUserProfile = useHistory().location.state.userProfile;
   const [follower , setFollower]=useState(historyUserProfile.follower);
-  const currentUserProfile =getProfileDoc(userObj.uid);
+  const currentUserProfile =getProfileDoc(userobj.uid);
   const userProfile =getProfileDoc(historyUserProfile.creatorId) ;
-  const newAlarm ={userId:userObj.uid , creatorId : "none", createdAt: "none", value: "follow" };
+  const newAlarm ={userId:userobj.uid , creatorId : "none", createdAt: "none", value: "follow" };
 
   const changeFollowBtn = ()=>{
     followList.includes(historyUserProfile.creatorId) ? setOnFollow({
@@ -55,15 +55,15 @@ const Profile = ({userObj}) => {
       followList.unshift(historyUserProfile.creatorId); 
       setFollowList(followList);
       //해당 프로필 유저의 팔로워 리스트에 나를 추가 
-      follower.unshift(userObj.uid);
+      follower.unshift(userobj.uid);
       setFollower(follower);
       //알람 보내기 
       historyUserProfile.alarm.unshift(newAlarm);
-      userProfile.update({alarm : newAlarm})
+      userProfile.update({alarm : historyUserProfile.alarm})
       
     }else if(onFollow.follow === true){
       setFollowList(list =>list.filter(user => user !== historyUserProfile.creatorId) );
-      setFollower(list =>list.filter(user => user !== userObj.uid)  );
+      setFollower(list =>list.filter(user => user !== userobj.uid)  );
     }; 
     //변경된 팔로워,팔로잉 리스트 업로드 
     currentUserProfile.update({
@@ -88,7 +88,7 @@ const Profile = ({userObj}) => {
         </div>  }
         <ProfileBottomForm  
         nweets={userNweets} 
-        userObj={userObj}
+        userobj={userobj}
         /> 
       </sectoion> 
     </> 

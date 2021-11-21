@@ -4,7 +4,7 @@ import Nweet from "./Nweet";
 import UserProfile from "./UserProfile";
 import { dbService } from "../Fbase";
 
-const HomeNeets =({userObj})=> {
+const HomeNeets =({userobj})=> {
   const [calling, setCalling] = useState(true); 
   const [nweets, setNweets] = useState([]);
   const [followNweets, setFollowNweets] =useState([ ]);  
@@ -12,12 +12,12 @@ const HomeNeets =({userObj})=> {
   const [users , setUsers]=useState([]);
   const [follow, setFollow]=useState([]);
   
-  const myProfileStore =dbService.collection("users").doc(userObj.uid);
+  const myProfileStore =dbService.collection("users").doc(userobj.uid);
   const getFollow = async()=> await myProfileStore.get().then(
     doc => setFollow(doc.data().following) ,
   );
   const getAllUser =()=> dbService.collection('users').onSnapshot( (sanpShot)=> {
-    const allUser =sanpShot.docs.map(doc=> doc.data()).filter(data => data.creatorId !== userObj.uid);
+    const allUser =sanpShot.docs.map(doc=> doc.data()).filter(data => data.creatorId !== userobj.uid);
     setUsers(allUser);
   }) ;
 
@@ -27,7 +27,7 @@ const HomeNeets =({userObj})=> {
       async (user) => getNweets(user,setFollowNweets)
   );};
   const getMyNweets =()=> {
-    getNweets(userObj.uid , setMyNweets);
+    getNweets(userobj.uid , setMyNweets);
   };
 
   const plusNweets = async( )=>{
@@ -72,16 +72,16 @@ const HomeNeets =({userObj})=> {
           <Nweet
           key={nweet.id}
           nweetObj={nweet}
-          userObj ={userObj}
-          isOwner={nweet.creatorId === userObj.uid}
+          userobj ={userobj}
+          isOwner={nweet.creatorId === userobj.uid}
           />
         ))) :
         (myNweets && myNweets.map((nweet) => (
           <Nweet
           key={nweet.id}
           nweetObj={nweet}
-          userObj ={userObj}
-          isOwner={nweet.creatorId === userObj.uid}
+          userobj ={userobj}
+          isOwner={nweet.creatorId === userobj.uid}
           />
         )))
       }
