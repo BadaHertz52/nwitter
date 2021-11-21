@@ -6,7 +6,7 @@ export const ProfileTopForm = ({profile , follower} )=>{
   return(
     <section id="profileForm">
       <div id="profileForm_profile">
-        <img src={profile.photoUrl} width="150px" height="100px"  alt="profile"/>
+        <img src={profile.photoUrl} width="100px" height="100px" border-radius ="50px"  alt="profile"/>
         <span>{profile.userName}</span>
       </div>
       <div className="follow">
