@@ -44,7 +44,8 @@ const NweetFactory = ({userobj }) => {
     if(history.location.state !==undefined){
     const newAlarm = {userId:userobj.uid , creatorId : historyNweetObj.nweetObj.creatorId, createdAt: historyNweetObj.nweetObj.createdAt, value: "answer" } ;
     profile.alarm.unshift(newAlarm);
-    getProfileDoc(historyNweetObj.nweetObj.creatorId).update({alarm:profile.alarm })
+    getProfileDoc(historyNweetObj.nweetObj.creatorId).update({alarm:profile.alarm });
+    history.push('/')
   }
   };
   const onChange = (event) => {
