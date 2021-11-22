@@ -16,7 +16,16 @@ button {
 .rhBtn.on:hover{
   background-color: rgb(197, 222, 255);
 }
-
-.rnToggle{
+.nweet_fun_rtAndLikeFun{
+  position: relative;
+}
+.rnPopup {
   display: none;
+  margin:0;
+  width: 180px;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+.rnPopup.show{
+  display: block;
 }
