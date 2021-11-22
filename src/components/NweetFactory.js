@@ -11,8 +11,8 @@ const NweetFactory = ({userobj }) => {
   const date = JSON.stringify(Date.now());
   const history =useHistory();
   const[historyNweetObj ,setHistoryNweetObj] =useState({
-    value :"",
-    nweetObj:{ creatorId:"null" , createdAt:"null"},
+    value : null,
+    nweetObj:{ creatorId: "id" , createdAt:"date"},
     userobj:{}
   })  ;
   const [profile, setProfile]=useState();
@@ -28,14 +28,14 @@ const NweetFactory = ({userobj }) => {
     };
     const newNweet = {
       text:nweet,
-      value :historyNweetObj.value !=="answer" ? "nweet" : "answer",
+      value :history.location.state !== undefined? history.location.state.value : "nweet",
       createdAt: JSON.stringify(date) ,
       creatorId: userobj.uid ,
       attachmentUrl,
       alarm : false,
-      rtAlarm:[],
+      rnAlarm:[],
       heartAlarm:[],
-      answer: historyNweetObj.nweetObj
+      answer: history.location.state !== undefined ? history.location.state.nweetObj : {}
     };
     await dbService.collection(`nweets_${userobj.uid}`).doc(`${date}`).set(newNweet);
     setNweet("");
