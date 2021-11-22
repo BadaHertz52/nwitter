@@ -26,28 +26,29 @@ const HomeNeets =({userobj})=> {
     follow.forEach(
       async (user) => getNweets(user,setFollowNweets)
   );};
-  const getMyNweets =()=> {
-    getNweets(userobj.uid , setMyNweets);
-  };
-
-  const plusNweets = async( )=>{
-    getFollowNweets() ;
-    getMyNweets();
-    let allNweets ;
-    if(follow[0] === undefined){
-      allNweets= myNweets ;
-    }else{
-      allNweets =[...myNweets , ...followNweets];
-    }
-    allNweets.sort(function(a, b){
-      return b.id-a.id //작성일별로 내림차순 정렬
-    });
-    setNweets(allNweets);
-    setCalling(false);
+  const getMyNweets =async()=> {
+    await getNweets(userobj.uid , setMyNweets);
   };
   useEffect(()=>{ getAllUser();},[]);
-  useEffect(()=>{plusNweets();},[myNweets]);
-  useEffect(()=>{plusNweets();},[followNweets]);
+  useEffect(()=>{
+    const plusNweets = async( )=>{
+      await getFollowNweets() ;
+      await getMyNweets();
+      
+      let allNweets ;
+      if(follow[0] === undefined){
+        allNweets= myNweets ;
+      }else{
+        allNweets =[...myNweets , ...followNweets];
+      }
+      allNweets.sort(function(a, b){
+        return b.id-a.id //작성일별로 내림차순 정렬
+      });
+      setNweets(allNweets);
+      setCalling(false);
+    };
+    plusNweets();
+  },[myNweets,followNweets]);
 
   return (
     <section className="nweets">
@@ -68,7 +69,7 @@ const HomeNeets =({userobj})=> {
         </div>}
       </div>
       <div className='nweets_nweet'>
-        { nweets[0] !== undefined ? ( nweets.map((nweet) => (
+        { followNweets[0] !== undefined ? ( nweets.map((nweet) => (
           <Nweet
           key={nweet.id}
           nweetObj={nweet}
