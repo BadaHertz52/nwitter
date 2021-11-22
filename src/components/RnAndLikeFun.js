@@ -1,11 +1,12 @@
 import React from "react";
 import { AiOutlineRetweet ,AiOutlineHeart } from "react-icons/ai";
+import { useHistory } from "react-router";
 import { useEffect, useState } from "react/cjs/react.development";
 import { dbService } from "../Fbase";
 import {  getProfileDoc } from "./GetData";
 
 const RnAndLikeFun = ( {nweetObj ,userobj , ownerProfile ,whoProfile,})=> {
-
+  const history = useHistory();
   const [rn,setRn]=useState({
     empty : undefined ,
     id : ""
@@ -95,12 +96,11 @@ const RnAndLikeFun = ( {nweetObj ,userobj , ownerProfile ,whoProfile,})=> {
   const popup = (event)=>{
     const target = event.target.parentNode;
     if(target.className){
-      !target.classList.contains("rhBtn") && setRnPop("rnPopup");
+      !target.classList.contains("rhBtn") && rnPopup=="rnPopup show"&& setRnPop("rnPopup");
     }else{
       setRnPop("rnPopup");
     }
   };
-  
   const popupRn =async(event)=>{
     event.preventDefault();
     console.log(rn.empty)
@@ -124,22 +124,22 @@ const RnAndLikeFun = ( {nweetObj ,userobj , ownerProfile ,whoProfile,})=> {
     console.log("rn버튼 누름" ,"rn 했던 글 인지 여부" ,!rn.empty)
     event.preventDefault();
     console.log("re nweet");
-    // const rn ={
-    //   text: nweetObj.text,
-    //   value :"rn",
-    //   createdAt: nweetObj.createdAt,
-    //   who:userobj.uid ,
-    //   creatorId: nweetObj.creatorId,
-    //   attachmentUrl : nweetObj.attachmentUrl
-    // };
-    // userobj.uid !== nweetObj.creatorId && updateAlram("rn");
-    // userobjCollection.doc(`${date}`).set(rn);
-    // setRn({empty:false, id:""});
+    const rn ={
+      text: nweetObj.text,
+      value :"rn",
+      createdAt: nweetObj.createdAt,
+      who:userobj.uid ,
+      creatorId: nweetObj.creatorId,
+      attachmentUrl : nweetObj.attachmentUrl
+    };
+    userobj.uid !== nweetObj.creatorId && updateAlram("rn");
+    userobjCollection.doc(`${date}`).set(rn);
+    setRn({empty:false, id:""});
     };
 
-  const citingNweet=(event)=>{
-    const toggleTarget = event.target.parentNode ;
-    toggleTarget !== null && (toggleTarget.style.display ="none" );
+  const citingNweet=()=>{
+    
+    history.push("/nweet");
     //citing Nweet page로 이동
 
   };
