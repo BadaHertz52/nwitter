@@ -4,12 +4,14 @@ import {v4 as uuidv4} from 'uuid';
 import { useHistory } from 'react-router';
 import Nweet from './Nweet';
 import { getProfile, getProfileDoc } from './GetData';
+import UserProfile from './UserProfile';
 
 const NweetFactory = ({userobj }) => {
   const [nweet, setNweet] = useState("");
   const [attachment ,setAttachment] = useState("");
   const date = JSON.stringify(Date.now());
   const history =useHistory();
+  const historyState =history.location.state;
   const[historyNweetObj ,setHistoryNweetObj] =useState({
     value : null,
     nweetObj:{ creatorId: "id" , createdAt:"date"},
@@ -28,20 +30,21 @@ const NweetFactory = ({userobj }) => {
     };
     const newNweet = {
       text:nweet,
-      value :history.location.state !== undefined? history.location.state.value : "nweet",
+      value :historyState !== undefined? historyState.value : "nweet",
       createdAt: JSON.stringify(date) ,
       creatorId: userobj.uid ,
       attachmentUrl,
       alarm : false,
       rnAlarm:[],
       heartAlarm:[],
-      answer: history.location.state !== undefined ? history.location.state.nweetObj : {}
+      answer: historyState !== undefined ? historyState.value === "answer" && historyState.nweetObj : {},
+      citingNweet:historyState !== undefined ? historyState.value === "cn" && historyState.nweetObj : {},
     };
     await dbService.collection(`nweets_${userobj.uid}`).doc(`${date}`).set(newNweet);
     setNweet("");
     setAttachment("");
 
-    if(history.location.state !==undefined){
+    if(historyState !==undefined){
     const newAlarm = {userId:userobj.uid , creatorId : historyNweetObj.nweetObj.creatorId, createdAt: historyNweetObj.nweetObj.createdAt, value: "answer" } ;
     profile.alarm.unshift(newAlarm);
     getProfileDoc(historyNweetObj.nweetObj.creatorId).update({alarm:profile.alarm });
@@ -72,18 +75,19 @@ const NweetFactory = ({userobj }) => {
   };
 
   useEffect(()=>{
-    setHistoryNweetObj(history.location.state);
-    console.log(historyNweetObj);
-    historyNweetObj.nweetObj.creatorId !== "null" && getProfile(historyNweetObj.nweetObj.creatorId ,setProfile);
+    if( historyState !== undefined){
+      setHistoryNweetObj(historyState);
+      getProfile(historyNweetObj.nweetObj.creatorId ,setProfile);
+    };
   },[])
-
+console.log(historyState);
   return (
     <>
-      { history.location.state !== undefined &&
-        <div className="answerNweet">
+      { historyState !== undefined && (historyState.value === "answer" &&
+        <div id="answerNweet">
           <Nweet nweetObj={historyNweetObj.nweetObj}  userobj={historyNweetObj.userobj} isOwner ={isOwner} />
         </div>
-      }
+      )}
       <div className="nweetFactory">
         <form onSubmit={onSubmit}>
           <input
@@ -93,6 +97,13 @@ const NweetFactory = ({userobj }) => {
             placeholder="무슨 일이 일어나고 있나요?"
             maxLength={120}
           />
+          {historyState !== undefined &&(
+            historyState.value === "cn" &&
+            <div id="cnNweet">
+              <Nweet nweetObj={historyNweetObj.nweetObj}  userobj={historyNweetObj.userobj} isOwner ={isOwner} />
+            </div>
+
+          )}
           <input type="file" accept="image/*" onChange={onFileChange} />
           <input type="submit" value="Nweet" />
           {attachment && (

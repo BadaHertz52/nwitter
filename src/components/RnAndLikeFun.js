@@ -1,12 +1,11 @@
 import React from "react";
 import { AiOutlineRetweet ,AiOutlineHeart } from "react-icons/ai";
-import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react/cjs/react.development";
 import { dbService } from "../Fbase";
 import {  getProfileDoc } from "./GetData";
 
 const RnAndLikeFun = ( {nweetObj ,userobj , ownerProfile ,whoProfile,})=> {
-  const history = useHistory();
   const [rn,setRn]=useState({
     empty : undefined ,
     id : ""
@@ -137,12 +136,6 @@ const RnAndLikeFun = ( {nweetObj ,userobj , ownerProfile ,whoProfile,})=> {
     setRn({empty:false, id:""});
     };
 
-  const citingNweet=()=>{
-    
-    history.push("/nweet");
-    //citing Nweet page로 이동
-
-  };
   const sendHeart = async (event) => {
     console.log("heart버튼 누름" , "heart 한 적 있는 글인지 " ,!heart.empty)
     event.preventDefault();
@@ -191,7 +184,19 @@ const RnAndLikeFun = ( {nweetObj ,userobj , ownerProfile ,whoProfile,})=> {
       </button>
       <div className={rnPopup}>
           <button onClick={reNweet}>리트윗</button>
-          <button onClick={citingNweet}>트윗 인용하기</button>
+          <button>
+            <Link to={{
+              pathname:'/nweet',
+              state:{
+                userobj: userobj,
+                nweetObj:nweetObj,
+                isOwner:false ,
+                value : "cn"}
+              
+            }}>
+            트윗 인용하기
+            </Link>
+          </button>
         </div>
       <button className={heartBtn} onClick={sendHeart} name="heart">
         <AiOutlineHeart/>
