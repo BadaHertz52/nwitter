@@ -2,35 +2,33 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getProfile } from './GetData';
-import Nweet from './Nweet';
-
 
 const UserProfile = ({nweetObj }) => {
-  const [userProfile, setUserProfile] =useState({});
-  const profilePath= `/profile/${userProfile.userId}`;
+  const [ownerProfile, setOwnerProfile] =useState({});
+  const profilePath= `/profile/${ownerProfile.userId}`;
   
   useEffect(()=>{
-    const getUserProfile = async() =>{
-      await getProfile(nweetObj.creatorId , setUserProfile); 
+    const getOwnerProfile = async() =>{
+      await getProfile(nweetObj.creatorId , setOwnerProfile); 
       };
-    getUserProfile();
+    getOwnerProfile();
   },[]);
 
   const id =JSON.stringify( nweetObj.creatorId);
   return (
     <>
-    {userProfile !== {} &&
+    {ownerProfile !== {} &&
     (
       <div >
       <Link id={id} to={{
         pathname:profilePath,
         state :{
-          userProfile :userProfile
+          userProfile :ownerProfile
         }
       }}>
-        <img src={userProfile.photoUrl}  
+        <img src={ownerProfile.photoUrl}  
           width="50px" height="50px"    alt="profile"/>
-        <span>{userProfile.userName}</span>
+        <span>{ownerProfile.userName}</span>
       </Link>
     </div>
     )

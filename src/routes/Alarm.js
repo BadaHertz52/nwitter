@@ -62,8 +62,8 @@ const Alarm = ({useobj}) => {
         }}>
           <div>
             {a.userName} 님이 내 트윗
-            {a.value === "rt"  && '을 리트윗함' }
-            {a.value === "reRt"  && '을 리트윗함' }
+            {a.value === "rn"  && '을 리트윗함' }
+            {a.value === "cn"  && '을 리트윗함' }
             { a.value === "heart" && '을 마음에 들어함'}
             {a.value ==="answer" && '에 답글을 남김'}
           </div>
