@@ -1,6 +1,6 @@
 import { dbService, storageService } from '../Fbase';
 import React, { useEffect, useState } from 'react';
-import RtAndLikeFun from './RtAndLikeFun';
+import RnAndLikeFun from './RnAndLikeFun';
 import UserProfile from './UserProfile';
 import { getProfile } from './GetData';
 import { AiOutlineRetweet ,AiOutlineHeart } from "react-icons/ai";
@@ -16,7 +16,8 @@ const Nweet =({nweetObj , userobj ,isOwner  }) =>{
     userobj =historyState.userobj ;
     isOwner =historyState.isOwner;
   }
-  const [userProfile, setUserProfile] =useState({});
+  const [whoProfile, setWhoProfile] =useState();
+  const [ownerProfile, setOwnerProfile] =useState();
 
   const onDeleteClick = async () =>{
     const ok = window.confirm("Are you sure you want to delete this nweet?");
@@ -27,37 +28,41 @@ const Nweet =({nweetObj , userobj ,isOwner  }) =>{
       await storageService.refFromURL(nweetObj.attachmentUrl).delete();
     }
   };
-
   useEffect(()=>{
-    nweetObj.who && getProfile(nweetObj.who , setUserProfile)
+    const getUsersProfile = async() =>{
+      await getProfile(nweetObj.creatorId , setOwnerProfile); 
+      nweetObj.who && await getProfile(nweetObj.who , setWhoProfile)
+      };
+    getUsersProfile();
+    
     },[]);
 
   return(
     <>
-      {nweetObj !==undefined &&
+      {nweetObj !==undefined && 
         <div className="nweet" >
           <div className="nweet_value">
             {nweetObj.value === "rt" &&
               <div>
                 <AiOutlineRetweet/> 
-                {userProfile.creatorId === userobj.uid  ? 
+                {whoProfile.creatorId === userobj.uid  ? 
                 '내가' 
                 : 
-                `${userProfile.userName}님이`} 리트윗함
+                `${whoProfile.userName}님이`} 리트윗함
               </div>
             }
             {nweetObj.value === "heart" &&
               <div>
                 <AiOutlineHeart/> 
-                {userProfile.creatorId === userobj.uid  ? 
+                {whoProfile.creatorId === userobj.uid  ? 
                 '내가' 
                 : 
-                `${userProfile.userName}님이`} 이 트윗을 마음에 들어함
+                `${whoProfile.userName}님이`} 이 트윗을 마음에 들어함
               </div>
             }
           </div>
           <div className="nweet_content">
-            <UserProfile nweetObj ={nweetObj}/>
+            <UserProfile nweetObj ={nweetObj}/> 
             <div className="nweet_content_text" >{nweetObj.text}</div>
             <div  className="nweet_content_attachment">
               { nweetObj.attachmentUrl &&
@@ -78,7 +83,8 @@ const Nweet =({nweetObj , userobj ,isOwner  }) =>{
               </Link>
             </div>
             <div className="nweet_fun_rtAndLikeFun">
-              <RtAndLikeFun nweetObj={nweetObj} userobj={userobj}/>
+              <RnAndLikeFun nweetObj={nweetObj} userobj={userobj} whoProfile={whoProfile
+              } ownerProfile={ownerProfile}/>
             </div>
 
           </div>
