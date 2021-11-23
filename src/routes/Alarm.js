@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 import { getProfile, getProfileDoc } from '../components/GetData';
 import { dbService } from '../Fbase';
 
-const Alarm = ({useobj}) => {
+const Alarm = ({userobj}) => {
   const [profile, setProfile] =useState({
     alarm:[]
   }) ;
   const [alarms ,setAlarms] =useState([]);
-
+  
   useEffect(()=>{
-    getProfile(useobj.uid, setProfile);
     async function makeAlarm(){
+      await getProfile(userobj.uid, setProfile);
       const alarm = await Promise.all(
         profile.alarm.map( async (a) =>{
           //nweet에 대한 알림
@@ -34,8 +34,6 @@ const Alarm = ({useobj}) => {
               value:a.value
             }
           }
-
-          return 
         })
       );
       setAlarms(alarm);
@@ -56,7 +54,7 @@ const Alarm = ({useobj}) => {
         pathname:`/status`,
         state :{
           nweetObj :a.nweet,
-          useobj : useobj,
+          userobj : userobj,
           isOwner : true
         }
         }}>
