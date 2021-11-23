@@ -3,18 +3,18 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getProfile } from './GetData';
 
-const UserProfile = ({nweetObj }) => {
+const UserProfile = ({userId}) => {
   const [ownerProfile, setOwnerProfile] =useState({});
   const profilePath= `/profile/${ownerProfile.userId}`;
   
   useEffect(()=>{
     const getOwnerProfile = async() =>{
-      await getProfile(nweetObj.creatorId , setOwnerProfile); 
+      await getProfile(userId , setOwnerProfile); 
       };
     getOwnerProfile();
   },[]);
 
-  const id =JSON.stringify( nweetObj.creatorId);
+  const id =JSON.stringify(userId);
   return (
     <>
     {ownerProfile !== {} &&

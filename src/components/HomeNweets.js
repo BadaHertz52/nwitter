@@ -52,6 +52,7 @@ const HomeNeets =({userobj})=> {
 
   return (
     <section className="nweets">
+      <div>홈</div>
       {calling && 
       <div className="nweets_calling">
         데이터를 가져오고 있습니다. 잠시만 기다려 주세요.
@@ -63,7 +64,7 @@ const HomeNeets =({userobj})=> {
             <div>
               { follow[0]=== undefined  && (
                   (users.map((user) =>
-                    <UserProfile nweetObj={user} />
+                    <UserProfile userId={user} />
                 )))}
             </div>
         </div>}

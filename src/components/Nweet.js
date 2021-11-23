@@ -72,7 +72,7 @@ const Nweet =({nweetObj , userobj ,isOwner  }) =>{
             }
           </div>
           <div className={nweetContentClassName}>
-            <UserProfile nweetObj ={nweetObj}/> 
+            <UserProfile userId ={nweetObj.creatorId}/> 
             <div className="nweet_content_text" >{nweetObj.text}</div>
             <div  className="nweet_content_attachment">
               { nweetObj.attachmentUrl &&
@@ -80,7 +80,7 @@ const Nweet =({nweetObj , userobj ,isOwner  }) =>{
             </div>
             {nweetObj.citingNweet && nweetObj.citingNweet !== {} &&(
               <div className="nweet_cn">
-                <UserProfile nweetObj ={nweetObj.citingNweet}/> 
+                <UserProfile userId ={nweetObj.citingNweet.creatorId}/> 
                 <div className="nweet_content_text" >{nweetObj.citingNweet.text}</div>
                 <div  className="nweet_content_attachment">
                   { nweetObj.citingNweet.attachmentUrl &&

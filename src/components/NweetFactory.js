@@ -46,8 +46,11 @@ const NweetFactory = ({userobj }) => {
 
     if(historyState !==undefined){
     const newAlarm = {userId:userobj.uid , creatorId : historyNweetObj.nweetObj.creatorId, createdAt: historyNweetObj.nweetObj.createdAt, value: "answer" } ;
-    profile.alarm.unshift(newAlarm);
-    getProfileDoc(historyNweetObj.nweetObj.creatorId).update({alarm:profile.alarm });
+    //내 nweet에 대한 나의 답글,인용 알람x
+    if(userobj.uid !== historyNweetObj.userobj.uid){
+      profile.alarm.unshift(newAlarm);
+      getProfileDoc(historyNweetObj.nweetObj.creatorId).update({alarm:profile.alarm });
+    }
     history.push('/')
   }
   };
@@ -73,9 +76,7 @@ const NweetFactory = ({userobj }) => {
   const onClearAttachment = ()=> {
     setAttachment(null);
   };
-  console.log(
-    profile
-  )
+
   useEffect(()=>{
     const getHistoryNweetObj =async()=>{
       if( historyState !== undefined){
@@ -95,6 +96,7 @@ const NweetFactory = ({userobj }) => {
         </div>
       )}
       <div className="nweetFactory">
+        <UserProfile userId={userobj.uid}/>
         <form onSubmit={onSubmit}>
           <input
             value={nweet}
