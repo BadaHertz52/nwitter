@@ -73,12 +73,18 @@ const NweetFactory = ({userobj }) => {
   const onClearAttachment = ()=> {
     setAttachment(null);
   };
-
+  console.log(
+    profile
+  )
   useEffect(()=>{
-    if( historyState !== undefined){
+    const getHistoryNweetObj =async()=>{
+      if( historyState !== undefined){
       setHistoryNweetObj(historyState);
-      getProfile(historyNweetObj.nweetObj.creatorId ,setProfile);
+      await getProfile(historyNweetObj.nweetObj.creatorId ,setProfile);
     };
+    }
+    getHistoryNweetObj();
+    
   },[])
 
   return (
