@@ -24,9 +24,10 @@ const Nweet =({nweetObj , userobj ,isOwner  }) =>{
     const ok = window.confirm("Are you sure you want to delete this nweet?");
     if(ok){
       //delete nweet
+      console.log(nweetObj);
       await dbService.doc(`nweets_${userobj.uid}/${nweetObj.id}`).delete();
       //delete photo
-      await storageService.refFromURL(nweetObj.attachmentUrl).delete();
+      nweetObj.attachmentUrl && await storageService.refFromURL(nweetObj.attachmentUrl).delete();
     }
   };
   const chagneClassName =()=>{
@@ -72,7 +73,7 @@ const Nweet =({nweetObj , userobj ,isOwner  }) =>{
             }
           </div>
           <div className={nweetContentClassName}>
-            <UserProfile nweetObj ={nweetObj}/> 
+            <UserProfile userId ={nweetObj.creatorId}/> 
             <div className="nweet_content_text" >{nweetObj.text}</div>
             <div  className="nweet_content_attachment">
               { nweetObj.attachmentUrl &&
@@ -80,7 +81,7 @@ const Nweet =({nweetObj , userobj ,isOwner  }) =>{
             </div>
             {nweetObj.citingNweet && nweetObj.citingNweet !== {} &&(
               <div className="nweet_cn">
-                <UserProfile nweetObj ={nweetObj.citingNweet}/> 
+                <UserProfile userId ={nweetObj.citingNweet.creatorId}/> 
                 <div className="nweet_content_text" >{nweetObj.citingNweet.text}</div>
                 <div  className="nweet_content_attachment">
                   { nweetObj.citingNweet.attachmentUrl &&
