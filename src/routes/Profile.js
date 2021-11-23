@@ -10,7 +10,11 @@ const Profile = ({userobj}) => {
   const [followList, setFollowList] = useState([]);
   const historyUserProfile = useHistory().location.state.userProfile;
   const [follower , setFollower]=useState(historyUserProfile.follower);
-  const currentUserProfile =getProfileDoc(userobj.uid);
+  const currentUserProfileDoc =getProfileDoc(userobj.uid);
+  const[currentUserProfile, setcurrentUserProfile]= useState({
+    follower:[],
+    following:[]
+  });
   const userProfile =getProfileDoc(historyUserProfile.creatorId) ;
   const newAlarm ={userId:userobj.uid , creatorId : "none", createdAt: "none", value: "follow" };
 
@@ -24,9 +28,10 @@ const Profile = ({userobj}) => {
   };
   // 나의 팔로잉 명단
   const getFollowList = async()=>{
-      await currentUserProfile.get().then(
-        doc => setFollowList(doc.data().following) 
+      await currentUserProfileDoc.get().then(
+        doc => setcurrentUserProfile(doc.data()) 
       );
+      setFollowList(currentUserProfile.following);
       changeFollowBtn();
   };
 
@@ -66,7 +71,7 @@ const Profile = ({userobj}) => {
       setFollower(list =>list.filter(user => user !== userobj.uid)  );
     }; 
     //변경된 팔로워,팔로잉 리스트 업로드 
-    currentUserProfile.update({
+    currentUserProfileDoc.update({
       following : followList
     });
     userProfile.update({
@@ -78,7 +83,7 @@ const Profile = ({userobj}) => {
   return (
     <>
       <section>
-        <ProfileTopForm  profile={historyUserProfile} follower={follower} />
+        <ProfileTopForm  profile={historyUserProfile} follower={follower} currentUserProfile={currentUserProfile} />
         <button  onClick={follow}>{onFollow.text}</button>
         <div id="div"></div>
       </section>

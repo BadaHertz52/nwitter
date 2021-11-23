@@ -39,7 +39,7 @@ const MyProfile = ({userobj ,refreshUser} ) => {
   return (
     <>
       <section>
-        {myProfile.follower && <ProfileTopForm  profile={myProfile} follower={follower}/> }
+        {myProfile.follower && <ProfileTopForm  profile={myProfile} follower={follower} currentUserProfile={myProfile}/> }
         <button onClick={onLogOutClick}> Log Out </button>
         <button onClick={onToggle}>Edit Profile</button>
         {editing &&

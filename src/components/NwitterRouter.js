@@ -11,9 +11,10 @@ import Nweet from './Nweet';
 import Search from '../routes/Search';
 import NweetFactory from './NweetFactory';
 import '../css/router.css';
+import List from '../routes/List';
+
 
 const NwitterRouter =({isLoggedIn , userobj , refreshUser}) => {
-
   return (  
   <div id="inner">
   <Router>
@@ -38,11 +39,14 @@ const NwitterRouter =({isLoggedIn , userobj , refreshUser}) => {
         <Route exact path="/editProfile">
           <EditProfile refreshUser={refreshUser}  />
         </Route>
-        <Route strict path="/status/" > 
+        <Route strict path="/status/" >
           <Nweet userobj={userobj}/>
         </Route>
         <Route exact path="/nweet">
           <NweetFactory userobj={userobj} />
+        </Route>
+        <Route strict path="/list/">
+          <List />
         </Route>
       </div>
       : 

@@ -8,10 +8,10 @@ const UserProfile = ({userId}) => {
   const profilePath= `/profile/${ownerProfile.userId}`;
   
   useEffect(()=>{
-    const getOwnerProfile = async() =>{
+    const getOwnerProfile = async(userId) =>{
       await getProfile(userId , setOwnerProfile); 
       };
-    getOwnerProfile();
+    getOwnerProfile(userId);
   },[]);
 
   const id =JSON.stringify(userId);
@@ -19,7 +19,7 @@ const UserProfile = ({userId}) => {
     <>
     {ownerProfile !== {} &&
     (
-      <div >
+      <div className="userProfile">
       <Link id={id} to={{
         pathname:profilePath,
         state :{
@@ -33,8 +33,6 @@ const UserProfile = ({userId}) => {
     </div>
     )
     }
-
-
     </>
   )
 };

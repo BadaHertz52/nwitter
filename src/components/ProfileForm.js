@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Nweet from './Nweet';
 
-export const ProfileTopForm = ({profile , follower} )=>{
+export const ProfileTopForm = ({profile , currentUserProfile} )=>{
 
   return(
     <section id="profileForm">
@@ -10,19 +11,34 @@ export const ProfileTopForm = ({profile , follower} )=>{
         <span>{profile.userName}</span>
       </div>
       <div className="follow">
-        <ul>
-          <li>
-          {profile.following && (
-        <div>following : {profile.following[0] === undefined ? 0 :profile.following.length }</div>
-      )}
-          </li>
-          <li>
-          follower : {follower[0] === undefined ? 
-      ( profile.follwer === [] ? 
-        0 : profile.follower.length )
-      :follower.length }
-          </li>
-        </ul>
+        <Link to={{
+          pathname:`/list/${profile.userId}`,
+          state :{
+            currentUserProfile : currentUserProfile,
+            userId: profile.creatorId,
+            following: profile.following
+          }
+        }}>
+        {profile.following && (
+          <div> 
+            {profile.following[0] === undefined ? 0 :profile.following.length } 팔로워 중 
+          </div>
+        )}
+        </Link>
+        <Link to={{
+          pathname :`/list/${profile.userId}`,
+          state:{
+            currentUserProfile : currentUserProfile,
+            userId: profile.creatorId,
+            follower:profile.follwer
+          }
+        }}>
+          { profile.follwer && (
+            <div>
+              {profile.follower[0] === undefined ? 0 :profile.follower.length} 팔로워
+            </div>
+          )}
+        </Link>
       </div>
     </section>
   )
