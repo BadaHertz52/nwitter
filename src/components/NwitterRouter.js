@@ -10,20 +10,19 @@ import Alarm from '../routes/Alarm';
 import Nweet from './Nweet';
 import Search from '../routes/Search';
 import NweetFactory from './NweetFactory';
+import '../css/router.css';
 
-const NwitterRouter =({isLoggedIn , userobj , refreshUser,currentUser}) => {
+const NwitterRouter =({isLoggedIn , userobj , refreshUser}) => {
 
   return (  
+  <div id="inner">
   <Router>
     {isLoggedIn && 
-    <>
-      <Navigation userobj={userobj}/>
-      <Search />
-    </>
+    <Navigation userobj={userobj}/>
     }
     <Switch>
       {isLoggedIn  ?
-      <>
+      <div id="main">
         <Route exact path="/"> 
           <Home userobj={userobj}  refreshUser={refreshUser}/>
         </Route> 
@@ -45,18 +44,22 @@ const NwitterRouter =({isLoggedIn , userobj , refreshUser,currentUser}) => {
         <Route exact path="/nweet">
           <NweetFactory userobj={userobj} />
         </Route>
-      </>
+      </div>
       : 
-      <>
+      <div id="main">
         <Route  exact path="/"> 
           <Auth/>
         </Route> 
-      </>
+      </div>
       }
-    
     </Switch>
+    {isLoggedIn && 
+    <div id="side">
+      <Search/>
+    </div>
+    }
   </Router>
-
+  </div>
   )
 };
 

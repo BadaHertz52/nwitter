@@ -44,7 +44,7 @@ function App() {
   return (
     <>
       {init ? 
-      <NwitterRouter isLoggedIn = {isLoggedIn} userobj={userobj} refreshUser={refreshUser} currentUser={currentUser}/> 
+      <NwitterRouter isLoggedIn = {isLoggedIn} userobj={userobj} refreshUser={refreshUser} /> 
       : "Initializing..." 
       }
       <div></div>

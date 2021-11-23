@@ -4,7 +4,7 @@ import { VscBell ,VscBellDot } from "react-icons/vsc";
 const Navigation = ({userobj}) => {
 
   return(
-    <nav>
+    <nav id="nav">
       <ul>
         <li> 
           <Link to ="/"> Home </Link>

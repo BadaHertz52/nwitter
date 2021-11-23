@@ -1,0 +1,19 @@
+#inner{
+  display: flex;
+
+}
+#nav
+#switch
+#side{
+  border: 2px solid skyblue;
+}
+
+#nav{
+  width: 25%;
+}
+#switch{
+  width: 50%;
+}
+#side{
+  width:25%
+}
