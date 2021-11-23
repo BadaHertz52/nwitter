@@ -80,7 +80,7 @@ const NweetFactory = ({userobj }) => {
       getProfile(historyNweetObj.nweetObj.creatorId ,setProfile);
     };
   },[])
-console.log(historyState);
+
   return (
     <>
       { historyState !== undefined && (historyState.value === "answer" &&
