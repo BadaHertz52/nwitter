@@ -18,7 +18,8 @@ const Nweet =({nweetObj , userobj ,isOwner  }) =>{
   }
   const [whoProfile, setWhoProfile] =useState();
   const [ownerProfile, setOwnerProfile] =useState();
-
+  const [nweetClassName ,setNCName]=useState("nweet");
+  const [nweetContentClassName ,setNCCName]=useState("nweet_content");
   const onDeleteClick = async () =>{
     const ok = window.confirm("Are you sure you want to delete this nweet?");
     if(ok){
@@ -28,19 +29,25 @@ const Nweet =({nweetObj , userobj ,isOwner  }) =>{
       await storageService.refFromURL(nweetObj.attachmentUrl).delete();
     }
   };
+  const chagneClassName =()=>{
+  if(nweetObj.value === "answer"){
+    setNCName("nweet answer");
+    setNCCName("nweet_content answer");
+  }
+};
   useEffect(()=>{
     const getUsersProfile = async() =>{
       await getProfile(nweetObj.creatorId , setOwnerProfile); 
       nweetObj.who && await getProfile(nweetObj.who , setWhoProfile)
       };
     getUsersProfile();
-    
+    chagneClassName();
     },[]);
 
   return(
     <>
       {nweetObj !==undefined && 
-        <div className="nweet" >
+        <div className={nweetClassName} >
           <div className="nweet_value">
             {nweetObj.value === "rt" &&
               <div>
@@ -60,8 +67,11 @@ const Nweet =({nweetObj , userobj ,isOwner  }) =>{
                 `${whoProfile.userName}님이`} 이 트윗을 마음에 들어함
               </div>
             }
+            {nweetObj.value === "answer" &&
+              <Nweet nweetObj={nweetObj.answer} isOwner={false} userobj={userobj} />
+            }
           </div>
-          <div className="nweet_content">
+          <div className={nweetContentClassName}>
             <UserProfile nweetObj ={nweetObj}/> 
             <div className="nweet_content_text" >{nweetObj.text}</div>
             <div  className="nweet_content_attachment">
