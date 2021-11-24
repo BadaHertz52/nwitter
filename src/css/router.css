@@ -2,17 +2,16 @@
   display: flex;
 
 }
-#nav,
-#main,
+#nav
+#switch
 #side{
   border: 2px solid skyblue;
-  height: 100vh;
 }
 
 #nav{
   width: 25%;
 }
-#main{
+#switch{
   width: 50%;
 }
 #side{
