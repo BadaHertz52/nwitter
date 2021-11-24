@@ -59,6 +59,12 @@ const NweetFactory = ({userobj }) => {
       target: { value },
     } = event;
     setNweet(value);
+    if(value.includes('http://') || value.includes('https://')){
+      const start = value.indexOf("http");
+      const last = value.indexOf(" " ,start);
+      const url = value.substring(start, last+1);
+      console.log(url)
+    }
   };
   const onFileChange =(event) => {
   const {
