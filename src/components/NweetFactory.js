@@ -5,6 +5,7 @@ import { useHistory } from 'react-router';
 import Nweet from './Nweet';
 import { getProfile, getProfileDoc } from './GetData';
 import UserProfile from './UserProfile';
+import axios from 'axios'; 
 
 const NweetFactory = ({userobj }) => {
   const [nweet, setNweet] = useState("");
@@ -53,7 +54,20 @@ const NweetFactory = ({userobj }) => {
     }
     history.push('/')
   }
-  };
+  }; 
+  // const doOG =async(url)=>{
+  //   await axios.get(`${url}`)
+  //   .then(doc=>{
+  //     if(doc.data){
+  //       console.log(doc.data);
+  //       return doc.data
+  //     }else {
+  //       console.log("Can't find document")
+  //     }
+  //   }).catch(error  =>
+  //     console.log("Error" ,error) )
+  // };
+
   const onChange = (event) => {
     const {
       target: { value },
@@ -63,7 +77,8 @@ const NweetFactory = ({userobj }) => {
       const start = value.indexOf("http");
       const last = value.indexOf(" " ,start);
       const url = value.substring(start, last+1);
-      console.log(url)
+      //console.log(url);
+      //doOG(url);
     }
   };
   const onFileChange =(event) => {
