@@ -14,7 +14,7 @@ export const ProfileTopForm = ({profile , currentUserProfile} )=>{
     follower:profile.follower
   };
   return(
-    <section id="profileForm">
+    <section id="profileTopForm">
       <div id="profileForm_profile">
         <img src={profile.photoUrl} width="100px" height="100px" border-radius ="50px"  alt="profile"/>
         <span>{profile.userName}</span>
@@ -48,8 +48,8 @@ export const ProfileTopForm = ({profile , currentUserProfile} )=>{
 export const ProfileBottomForm = ({nweets ,userobj})=>{
   
   return (
-    <sectoion >
+    <section id="profileBootmForm" >
       {Array.isArray(nweets) && nweets.map(nweet => <Nweet  nweetObj ={nweet}  isOwner={nweet.creatorId === userobj.uid} userobj={userobj}/>  )}
-    </sectoion>
+    </section>
   )
 }

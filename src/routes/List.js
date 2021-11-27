@@ -191,7 +191,7 @@ const List =()=>{
             //show following 
               (following[0] !== undefined ?
                 following.map(user=> 
-                  <UserList user={user}/>
+                  <UserList user={user} key={user.userId}/>
                   )
                 :
                 "팔로우하는 사용자가 없습니다."
@@ -200,7 +200,7 @@ const List =()=>{
             //show follower
               (follower[0]!== undefined ?
                 follower.map(user =>
-                  <UserList user={user}/>)
+                  <UserList user={user} key={user.userId}/>)
                 :
                 "팔로워하는 사용자가 없습니다."
               )

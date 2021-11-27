@@ -4,9 +4,9 @@ import authSerVice from '../Fbase';
 
 function App() {
   // 초기 화면
-  const [init ,setInit] = useState() ; 
-  const [isLoggedIn ,setIsLoggedIn] = useState(); 
-  const [userobj ,setuserobj] = useState() ; 
+  const [init ,setInit] = useState(false) ; 
+  const [isLoggedIn ,setIsLoggedIn] = useState(false); 
+  const [userobj ,setuserobj] = useState({}) ; 
   const currentUser = authSerVice.currentUser ;
   // profilestore 만들기 
   
@@ -30,7 +30,8 @@ function App() {
       setIsLoggedIn(true); 
       setInit(true) ;
     }else{
-      setIsLoggedIn(false)
+      setIsLoggedIn(false);
+      setInit(false);
     };
     
   }); 

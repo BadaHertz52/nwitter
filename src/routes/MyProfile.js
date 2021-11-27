@@ -52,9 +52,9 @@ const MyProfile = ({userobj ,refreshUser} ) => {
       }
       </section>
       <p>---프로필--- </p>
-      <sectoion >
+      <section >
         <ProfileBottomForm nweets={myNweets} userobj={userobj}/>
-      </sectoion>
+      </section>
 
     </>
   )

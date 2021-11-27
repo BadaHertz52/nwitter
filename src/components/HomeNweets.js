@@ -64,7 +64,7 @@ const HomeNeets =({userobj})=> {
             <div>
               { follow[0]=== undefined  && (
                   (users.map((user) =>
-                    <UserProfile userId={user} />
+                    <UserProfile userId={user} key={user.creatorId} />
                 )))}
             </div>
         </div>}
