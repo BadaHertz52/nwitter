@@ -169,7 +169,6 @@ const List =()=>{
       userName:state.userName
     })
     setData();
-    console.log(state);
   } 
   ,[]) ;
 
