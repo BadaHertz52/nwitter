@@ -13,7 +13,7 @@ export const getNweets = async(id , setFun)=>{
 
 //프로필 
 
-export const getProfileDoc = (id)=>dbService.collection("users").doc(id)  ;
+export const getProfileDoc = (id)=>dbService.collection("users").doc(`${id}`)  ;
 
 export const getProfile = async(id ,setProfile)=>{
   await getProfileDoc(id).get().then((doc)=>{
