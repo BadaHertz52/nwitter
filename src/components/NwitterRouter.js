@@ -15,6 +15,7 @@ import List from '../routes/List';
 
 
 const NwitterRouter =({isLoggedIn , userobj , refreshUser}) => {
+  const myProfile =`/profile/${userobj.id}`; 
   return (  
   <div id="inner">
   <Router>
@@ -30,7 +31,7 @@ const NwitterRouter =({isLoggedIn , userobj , refreshUser}) => {
         <Route exact path="/notification">
           <Alarm userobj={userobj} />
         </Route>
-        <Route exact path="/my_profile"> 
+        <Route exact path={myProfile}> 
           <MyProfile userobj={userobj} refreshUser={refreshUser}  />
         </Route>
         <Route strict path="/profile/">

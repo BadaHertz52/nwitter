@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { VscBell ,VscBellDot } from "react-icons/vsc";
-const Navigation = ({userobj}) => {
+import { VscBell } from "react-icons/vsc";
 
+const Navigation = ({userobj}) => {
   return(
     <nav id="nav">
       <ul>
@@ -10,10 +10,16 @@ const Navigation = ({userobj}) => {
           <Link to ="/"> Home </Link>
         </li>
         <li>
-          <Link to="/notification" userobj={userobj} >{VscBell}Alarm </Link>
+          <Link to="/notification" userobj={userobj} >
+            {VscBell}Alarm 
+          </Link>
         </li>
         <li> 
-          <Link to ="/my_profile"> {userobj.displayName == null ? " " : `${userobj.displayName}의`} Profile </Link>
+          <Link to ={{
+            pathname: `/profile/${userobj.id}`}}
+          > 
+            {userobj.displayName == null ? " " : `${userobj.displayName}의`} Profile 
+          </Link>
         </li>
         {/* <li>
           <button>Nweet</button> 
