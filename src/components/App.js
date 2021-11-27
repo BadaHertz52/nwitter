@@ -23,8 +23,8 @@ function App() {
       /* 해결1 : 필요한 정보만 담아서 userobj을 만듦 단, refrecshUser에서 동일 코드가 반복 이는 Object.assign({}, user) 로 해결 */
       setuserobj({
         displayName : user.displayName,
-        uid: user.uid,
-        id: end, //-creatorId ,userId
+        uid: user.uid,//-creatorId ,userId
+        id: end, 
         updateProfile: (args) => user.updateProfile(args) , //프로필 업데이트 함수 
       }) ; 
       setIsLoggedIn(true); 

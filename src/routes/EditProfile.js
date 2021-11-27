@@ -2,7 +2,7 @@ import { storageService } from '../Fbase';
 import React, { useEffect, useState } from 'react' ;
 import { findMyProfile, getProfileDoc } from '../components/GetData';
 
-const EditProfile = ( {userobj ,refreshUser , myProfile }) =>{
+const EditProfile = ( {userobj ,refreshUser }) =>{
   const [IsMyProfile , setIsMyProfile] =useState();
   const [toggle, setToggle] =useState(false);
   const [newDisplayName , setNewDisplayName] = useState(userobj.displayName);
