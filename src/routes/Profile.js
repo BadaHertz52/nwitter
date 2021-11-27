@@ -10,6 +10,7 @@ const Profile = ({userobj}) => {
   const [followList, setFollowList] = useState([]);
   const historyUserProfile = useHistory().location.state.userProfile;
   const [follower , setFollower]=useState(historyUserProfile.follower);
+  //currentUser : 로그인 한 현재 유저
   const currentUserProfileDoc =getProfileDoc(userobj.uid);
   const[currentUserProfile, setcurrentUserProfile]= useState({
     follower:[],
