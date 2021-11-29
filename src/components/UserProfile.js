@@ -1,11 +1,13 @@
 
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import {  Link } from 'react-router-dom';
+import {Route} from 'react-router-dom';
+import Profile from '../routes/Profile';
 import { getProfile } from './GetData';
 
 const UserProfile = ({userId}) => {
   const [ownerProfile, setOwnerProfile] =useState({});
-  const profilePath= `/profile/${ownerProfile.userId}`;
+  const profilePath= `/user/${ownerProfile.userId}`;
   
   useEffect(()=>{
     const getOwnerProfile = async(userId) =>{
@@ -15,6 +17,8 @@ const UserProfile = ({userId}) => {
   },[]);
 
   const id =JSON.stringify(userId);
+  const user = ownerProfile.userId ;
+  sessionStorage.setItem(user,JSON.stringify(ownerProfile) );
   return (
     <>
     {ownerProfile !== {} &&

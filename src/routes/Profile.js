@@ -8,19 +8,24 @@ const Profile = ({userobj}) => {
   const [calling, setCalling] =useState(true);
   const [onFollow ,setOnFollow] = useState({});
   const [followList, setFollowList] = useState([]);
-  const historyUserProfile = useHistory().location.state.userProfile;
-  const [follower , setFollower]=useState(historyUserProfile.follower);
+  const history = useHistory();
+  const pathname = history.location.pathname ;
+  const user = pathname.substring(6);
+  //const userProfile = history.location.state.userProfile; 
+  const userProfile =JSON.parse(sessionStorage.getItem(user)) ;
+  //console.log(userProfile);
+  const [follower , setFollower]=useState([]);
   //currentUser : 로그인 한 현재 유저
   const currentUserProfileDoc =getProfileDoc(userobj.uid);
   const[currentUserProfile, setcurrentUserProfile]= useState({
     follower:[],
     following:[]
   });
-  const userProfile =getProfileDoc(historyUserProfile.creatorId) ;
   const newAlarm ={userId:userobj.uid , creatorId : "none", createdAt: "none", value: "follow" };
 
+
   const changeFollowBtn = ()=>{
-    followList.includes(historyUserProfile.creatorId) ? setOnFollow({
+    followList.includes(userProfile.creatorId) ? setOnFollow({
       follow: true , text : "팔로우 중"
     }) :
     setOnFollow({
@@ -38,44 +43,53 @@ const Profile = ({userobj}) => {
 
   // 해당 프로필 유저의 팔로워 명단 
   const getUserFollower = async()=>{ 
-    await userProfile.get().then(
+    await getProfileDoc(userProfile.creatorId).get().then(
     doc => setFollower(doc.data().follower) 
   );
 };
   // 해당 프로필 유저의 nweets 
   const getUserNweets = ()=> {
-    getNweets (historyUserProfile.creatorId ,setUserNweets) ; 
+    getNweets (userProfile.creatorId ,setUserNweets) ; 
     setCalling(false);
-  }
+  };
 
   useEffect( ()=> {
-    getUserNweets();
-    getFollowList();
-    getUserFollower();
-  },[]);
+      // const getHistory =()=>{
+      //   sessionStorage.setItem("user", JSON.stringify( userProfile));
+      // if(history.location.state === undefined){
+      //   const storageItem =  JSON.parse(sessionStorage.getItem('user'));
+      //   setHistoryUserProfile(storageItem);
+      // };
+      // console.log(userProfile);
+      // };
+      // getHistory(); 
+      getUserNweets();
+      getFollowList();
+      getUserFollower();
+  },[history.action]);
 
   const follow = (e)=> {
     e.preventDefault();
     if(onFollow.follow === false){
       //나의 팔로잉 리스트에 해당 프로필 유저를 추가 
-      followList.unshift(historyUserProfile.creatorId); 
+      followList.unshift(userProfile.creatorId); 
       setFollowList(followList);
       //해당 프로필 유저의 팔로워 리스트에 나를 추가 
       follower.unshift(userobj.uid);
       setFollower(follower);
       //알람 보내기 
-      historyUserProfile.alarm.unshift(newAlarm);
-      userProfile.update({alarm : historyUserProfile.alarm})
+      userProfile.alarm.unshift(newAlarm);
+      getProfileDoc(userProfile.creatorId).update({alarm : userProfile.alarm})
       
     }else if(onFollow.follow === true){
-      setFollowList(list =>list.filter(user => user !== historyUserProfile.creatorId) );
+      setFollowList(list =>list.filter(user => user !== userProfile.creatorId) );
       setFollower(list =>list.filter(user => user !== userobj.uid)  );
     }; 
     //변경된 팔로워,팔로잉 리스트 업로드 
     currentUserProfileDoc.update({
       following : followList
     });
-    userProfile.update({
+    getProfileDoc(userProfile.creatorId).update({
       follower: follower
     });
     changeFollowBtn();
@@ -84,11 +98,11 @@ const Profile = ({userobj}) => {
   return (
     <>
       <section>
-        <ProfileTopForm  profile={historyUserProfile} follower={follower} currentUserProfile={currentUserProfile} />
+        <ProfileTopForm  profile={userProfile} follower={follower} currentUserProfile={currentUserProfile} />
         <button  onClick={follow}>{onFollow.text}</button>
         <div id="div"></div>
       </section>
-      <sectoion >
+      <section >
         {calling && <div className ="nweets_calling">
           데이터를 불러오는 중입니다.
         </div>  }
@@ -96,7 +110,7 @@ const Profile = ({userobj}) => {
         nweets={userNweets} 
         userobj={userobj}
         /> 
-      </sectoion> 
+      </section> 
     </> 
   ) 
 }

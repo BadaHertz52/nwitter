@@ -38,7 +38,9 @@ const Nweet =({nweetObj , userobj ,isOwner  }) =>{
   useEffect(()=>{
     const getUsersProfile = async() =>{
       await getProfile(nweetObj.creatorId , setOwnerProfile); 
-      nweetObj.who && await getProfile(nweetObj.who , setWhoProfile)
+      if( nweetObj.who){
+        await getProfile(nweetObj.who , setWhoProfile)
+      }
       };
     getUsersProfile();
     chagneClassName();
@@ -72,7 +74,7 @@ const Nweet =({nweetObj , userobj ,isOwner  }) =>{
             }
           </div>
           <div className={nweetContentClassName}>
-            <UserProfile userId ={nweetObj.creatorId}/> 
+            <UserProfile userId ={nweetObj.creatorId} /> 
             <div className="nweet_content_text" >{nweetObj.text}</div>
             <div  className="nweet_content_attachment">
               { nweetObj.attachmentUrl &&

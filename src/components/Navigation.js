@@ -16,7 +16,7 @@ const Navigation = ({userobj}) => {
         </li>
         <li> 
           <Link to ={{
-            pathname: `/profile/${userobj.id}`}}
+            pathname: `/${userobj.id}`}}
           > 
             {userobj.displayName == null ? " " : `${userobj.displayName}의`} Profile 
           </Link>
