@@ -26,9 +26,6 @@ const UserProfile = ({userId}) => {
       <div className="userProfile">
       <Link id={id} to={{
         pathname:profilePath,
-        state :{
-          userProfile :ownerProfile
-        }
       }}>
         <img src={ownerProfile.photoUrl}  
           width="50px" height="50px"    alt="profile"/>
