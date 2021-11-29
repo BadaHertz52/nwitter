@@ -13,13 +13,13 @@ const AuthForm = ()=> {
   const onSubmit =async(event) => {
     event.preventDefault(); //preventDefalut() : 기본행위가 실행되는 것을 원치않음 / submit 버튼을 누르면 발생하는 새로고침을 방지, 
     try{
-      let data ;
+      
       if(newAcount){
         //create account
-        data= await authSerVice.createUserWithEmailAndPassword(email, password);
+        await authSerVice.createUserWithEmailAndPassword(email, password);
       }else{
         //log in 
-        data = await authSerVice.signInWithEmailAndPassword(email, password);
+        await authSerVice.signInWithEmailAndPassword(email, password);
       }
     }catch(error){
       setError(error.message);

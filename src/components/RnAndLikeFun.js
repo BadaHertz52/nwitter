@@ -6,15 +6,17 @@ import { dbService } from "../Fbase";
 import {  getProfileDoc } from "./GetData";
 
 const RnAndLikeFun = ( {nweetObj ,userobj , ownerProfile ,whoProfile,})=> {
-  const [rn,setRn]=useState({
+  const initialRn ={
     empty : undefined ,
     id : ""
-  });
+  };
+  const initialHeart ={
+    empty :undefined ,
+    id : ""
+  };
   const [heart,setHeart]=useState(
-    {
-      empty :undefined ,
-      id : ""
-    }
+    initialHeart);
+  const [rn,setRn]=useState( initialRn
   );
   const [rnBtn,setRnBtn]= useState("rhBtn"); //rn & heart btn
   const [rnPopup, setRnPop] =useState("rnPopup");
@@ -171,10 +173,17 @@ const RnAndLikeFun = ( {nweetObj ,userobj , ownerProfile ,whoProfile,})=> {
   };
   useEffect(()=>{
     checkAlarm();
+    return()=>{
+      setRn(initialRn);
+      setHeart(initialHeart);
+    }
   },[]);
 
   useEffect(()=>{
-    changeBtnName(rn, heart)
+    changeBtnName(rn, heart);
+    return ()=>{
+      setRnBtn("rhBtn") ;
+      setHeartBtn("rhBtn")   }
   },[rn, heart]);
 
   return(

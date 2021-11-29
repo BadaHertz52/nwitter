@@ -4,12 +4,9 @@ import authSerVice from '../Fbase';
 
 function App() {
   // 초기 화면
-  const [init ,setInit] = useState(false) ; 
   const [isLoggedIn ,setIsLoggedIn] = useState(false); 
   const [userobj ,setuserobj] = useState({}) ; 
   const currentUser = authSerVice.currentUser ;
-  // profilestore 만들기 
-  
   // 마운트 마다 로그인 상태를 알아보는  observer 사용해서 유저 여부에 따른 로그인 여부 상태 변화, 초기 화면 로그아웃으로 세팅 
   useEffect(()=>{
     authSerVice.onAuthStateChanged((user)=> 
@@ -28,28 +25,28 @@ function App() {
         updateProfile: (args) => user.updateProfile(args) , //프로필 업데이트 함수 
       }) ; 
       setIsLoggedIn(true); 
-      setInit(true) ;
     }else{
       setIsLoggedIn(false);
-      setInit(false);
     };
     
   }); 
   } ,[]); 
   // userobj 바뀌면 전체가 다시 렌더링
-  const refreshUser = ()=>{
+  const refreshUser = (currentUser)=>{
     setuserobj(
       Object.assign({}, currentUser) // 객체를 복사해 대상 객체에 붙이는 assign을 이용해  사용자가
     );
-  }
+  };
+  useEffect( ()=>{
+    refreshUser(currentUser)
+  },[currentUser]
+  )
   return (
     <>
-      {init ? 
-      <NwitterRouter isLoggedIn = {isLoggedIn} userobj={userobj} refreshUser={refreshUser} /> 
-      : "Initializing..." 
-      }
-      <div></div>
-      <fotter>@copy {new Date().getFullYear()} Nwitter</fotter>
+      <NwitterRouter isLoggedIn = {isLoggedIn} userobj={userobj}  /> 
+      <div id="fotter">
+        @copy {new Date().getFullYear()} Nwitter
+      </div>
     </>
     
   );

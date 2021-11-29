@@ -14,7 +14,8 @@ import '../css/router.css';
 import List from '../routes/List';
 
 
-const NwitterRouter =({isLoggedIn , userobj , refreshUser}) => {
+const NwitterRouter =({isLoggedIn , userobj }) => {
+
   const myProfile =`/${userobj.id}`; 
   return (  
   <div id="inner">
@@ -23,22 +24,23 @@ const NwitterRouter =({isLoggedIn , userobj , refreshUser}) => {
     <Navigation userobj={userobj}/>
     }
     <Switch>
+      <>
       {isLoggedIn  ?
       <div id="main">
         <Route exact path="/"> 
-          <Home userobj={userobj}  refreshUser={refreshUser}/>
+          <Home userobj={userobj} />
         </Route> 
         <Route exact path="/notification">
           <Alarm userobj={userobj} />
         </Route>
         <Route exact path={myProfile}> 
-          <MyProfile userobj={userobj} refreshUser={refreshUser}  />
+          <MyProfile userobj={userobj}   />
         </Route>
         <Route strict path="/user/">
           <Profile userobj={userobj} />
         </Route>
         <Route exact path="/editProfile">
-          <EditProfile refreshUser={refreshUser}  />
+          <EditProfile  />
         </Route>
         <Route strict path="/status/" >
           <Nweet userobj={userobj}/>
@@ -57,6 +59,7 @@ const NwitterRouter =({isLoggedIn , userobj , refreshUser}) => {
         </Route> 
       </div>
       }
+      </>
     </Switch>
     {isLoggedIn && 
     <div id="side">
