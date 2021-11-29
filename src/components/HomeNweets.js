@@ -16,10 +16,18 @@ const HomeNeets =({userobj})=> {
   const getFollow = async()=> await myProfileStore.get().then(
     doc => setFollow(doc.data().following) ,
   );
-  const getAllUser =()=> dbService.collection('users').onSnapshot( (sanpShot)=> {
-    const allUser =sanpShot.docs.map(doc=> doc.data()).filter(data => data.creatorId !== userobj.uid);
-    setUsers(allUser);
-  }) ;
+  const getAllUser =async()=> await dbService.collection('users')
+  .get().then(docs =>{
+    let all=[];
+    docs.forEach(doc=> {
+      if(doc.id !== userobj.uid){
+        all.push(doc.id)
+      }
+    });
+    setUsers(all);
+  }
+
+  )
 
   const getFollowNweets = async()=>{
     await getFollow();
@@ -29,15 +37,15 @@ const HomeNeets =({userobj})=> {
   const getMyNweets =async()=> {
     await getNweets(userobj.uid , setMyNweets);
   };
-  useEffect(()=>{ getAllUser();},[]);
+
   useEffect(()=>{
     const plusNweets = async( )=>{
       await getFollowNweets() ;
       await getMyNweets();
-      
       let allNweets ;
       if(follow[0] === undefined){
         allNweets= myNweets ;
+        getAllUser();
       }else{
         allNweets =[...myNweets , ...followNweets];
       }
@@ -62,10 +70,9 @@ const HomeNeets =({userobj})=> {
           <div id='nweets_recommand_follow'>
             <p>팔로우 추천 계정</p>
             <div>
-              { follow[0]=== undefined  && (
-                  (users.map((user) =>
+              {users.map((user) =>
                     <UserProfile userId={user} key={user.creatorId} />
-                )))}
+                )}
             </div>
         </div>}
       </div>
