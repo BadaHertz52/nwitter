@@ -1,8 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
 import {  Link } from 'react-router-dom';
-import {Route} from 'react-router-dom';
-import Profile from '../routes/Profile';
 import { getProfile } from './GetData';
 
 const UserProfile = ({userId}) => {

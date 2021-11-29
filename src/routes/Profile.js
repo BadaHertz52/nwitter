@@ -11,9 +11,7 @@ const Profile = ({userobj}) => {
   const history = useHistory();
   const pathname = history.location.pathname ;
   const user = pathname.substring(6);
-  //const userProfile = history.location.state.userProfile; 
   const userProfile =JSON.parse(sessionStorage.getItem(user)) ;
-  //console.log(userProfile);
   const [follower , setFollower]=useState([]);
   //currentUser : 로그인 한 현재 유저
   const currentUserProfileDoc =getProfileDoc(userobj.uid);
@@ -54,15 +52,6 @@ const Profile = ({userobj}) => {
   };
 
   useEffect( ()=> {
-      // const getHistory =()=>{
-      //   sessionStorage.setItem("user", JSON.stringify( userProfile));
-      // if(history.location.state === undefined){
-      //   const storageItem =  JSON.parse(sessionStorage.getItem('user'));
-      //   setHistoryUserProfile(storageItem);
-      // };
-      // console.log(userProfile);
-      // };
-      // getHistory(); 
       getUserNweets();
       getFollowList();
       getUserFollower();
