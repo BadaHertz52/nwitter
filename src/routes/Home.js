@@ -5,7 +5,7 @@ import HomeNeets from "../components/HomeNweets";
 import { findMyProfile } from "../components/GetData";
 
 
-const Home =  ({userobj ,refreshUser}) => {
+const Home =  ({userobj}) => {
 
   const [IsMyProfile , setIsMyProfile] = useState(false);
 
@@ -24,7 +24,7 @@ const Home =  ({userobj ,refreshUser}) => {
         )
       :
         (
-          <EditProfile userobj={userobj}  refreshUser={refreshUser}/>
+          <EditProfile userobj={userobj} />
         )
       }
     </div>
