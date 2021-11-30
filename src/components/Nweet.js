@@ -80,7 +80,7 @@ const Nweet =({nweetObj , userobj ,isOwner  }) =>{
               { nweetObj.attachmentUrl &&
               <img src={nweetObj.attachmentUrl}  max-width="300px" height="150px" alt="Nweet_photofile"/>}
             </div>
-            {nweetObj.citingNweet && nweetObj.citingNweet !== {} &&(
+            { nweetObj.citingNweet !==  null &&(
               <div className="nweet_cn">
                 <UserProfile userId ={nweetObj.citingNweet.creatorId}/> 
                 <div className="nweet_content_text" >{nweetObj.citingNweet.text}</div>
