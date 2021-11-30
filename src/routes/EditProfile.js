@@ -1,6 +1,7 @@
 import { dbService, storageService } from '../Fbase';
 import React, { useEffect, useState } from 'react' ;
 import { findMyProfile, getProfileDoc } from '../components/GetData';
+import { useHistory } from 'react-router';
 
 const EditProfile = ( {userobj}) =>{
   const [IsMyProfile , setIsMyProfile] =useState();
@@ -8,22 +9,11 @@ const EditProfile = ( {userobj}) =>{
   const [newDisplayName , setNewDisplayName] = useState(userobj.displayName);
   const [profilePhoto, setProfilePhoto] =useState("");
   const [profilePhotoUrl ,setProfilePhotoUrl] =useState("");
+  const history =useHistory();
 
   useEffect(() => {
       findMyProfile(userobj.uid, setIsMyProfile);
-      console.log(IsMyProfile)
-      if (IsMyProfile === false){
-        const newMyProfile = {
-          creatorId:userobj.uid,
-          userId:userobj.id,
-          userName: userobj.displayName,
-          photoUrl:profilePhotoUrl, 
-          following:[],
-          follower:[],
-          alarm : []
-        };
-      getProfileDoc(userobj.uid).set(newMyProfile)}; 
-  }, [userobj]);
+  }, []);
   const onChange =(event) => {
     const {target:{value}} = event ;
     setNewDisplayName(value);
@@ -48,7 +38,6 @@ const EditProfile = ( {userobj}) =>{
       await userobj.updateProfile({
         displayName :newDisplayName ,
       });
-      console.log(userobj);
       await  getProfileDoc(userobj.uid).update({userName: newDisplayName});
     };
     // 프로필 사진 변경 
@@ -62,6 +51,7 @@ const EditProfile = ( {userobj}) =>{
     }
     setProfilePhoto("");
     setToggle(true);
+    history.push(`/${userobj.id}`);
   }
 
   return (
