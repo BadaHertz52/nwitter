@@ -33,7 +33,7 @@ export const findMyProfile =(userobj ,setIsMyProfile)=> getProfileDoc(userobj.ui
     setIsMyProfile(true);
   }else {
     setIsMyProfile(false);
-    console.log("No such document");
+    console.log("Can't find profile document, so start making profile");
     const newMyProfile = {
       creatorId:userobj.uid,
       userId:userobj.id,
