@@ -1,4 +1,4 @@
-import { storageService } from '../Fbase';
+import { dbService, storageService } from '../Fbase';
 import React, { useEffect, useState } from 'react' ;
 import { findMyProfile, getProfileDoc } from '../components/GetData';
 
@@ -11,6 +11,18 @@ const EditProfile = ( {userobj}) =>{
 
   useEffect(() => {
       findMyProfile(userobj.uid, setIsMyProfile);
+      console.log(IsMyProfile)
+      if (IsMyProfile === false){
+        const newMyProfile = {
+          creatorId:userobj.uid,
+          userId:userobj.id,
+          userName: userobj.displayName,
+          photoUrl:profilePhotoUrl, 
+          following:[],
+          follower:[],
+          alarm : []
+        };
+      getProfileDoc(userobj.uid).set(newMyProfile)}; 
   }, [userobj]);
   const onChange =(event) => {
     const {target:{value}} = event ;
@@ -30,23 +42,13 @@ const EditProfile = ( {userobj}) =>{
   const onSubmit = async(event) => {
     event.preventDefault();
      //프로필 저장소 생성 여부 확인 및 생성 
-    if (IsMyProfile === false){
-      const newMyProfile = {
-        creatorId:userobj.uid,
-        userId:userobj.id,
-        userName: userobj.displayName,
-        photoUrl:profilePhotoUrl, 
-        following:[],
-        follower:[],
-        alarm : []
-      };
-    getProfileDoc(userobj.uid).set(newMyProfile); 
-    }else if(IsMyProfile === true && userobj !== undefined){
+    if(IsMyProfile === true && userobj !== undefined){
           // username = displayname 변경 
     if(newDisplayName!== userobj.displayName  ){
       await userobj.updateProfile({
         displayName :newDisplayName ,
       });
+      console.log(userobj);
       await  getProfileDoc(userobj.uid).update({userName: newDisplayName});
     };
     // 프로필 사진 변경 
