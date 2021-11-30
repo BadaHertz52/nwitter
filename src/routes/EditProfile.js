@@ -1,19 +1,13 @@
-import { dbService, storageService } from '../Fbase';
-import React, { useEffect, useState } from 'react' ;
-import { findMyProfile, getProfileDoc } from '../components/GetData';
-import { useHistory } from 'react-router';
+import {  storageService } from '../Fbase';
+import React, { useState } from 'react' ;
+import {  getProfileDoc } from '../components/GetData';
 
-const EditProfile = ( {userobj}) =>{
-  const [IsMyProfile , setIsMyProfile] =useState();
+const EditProfile = ( {userobj }) =>{
   const [toggle, setToggle] =useState(false);
   const [newDisplayName , setNewDisplayName] = useState(userobj.displayName);
   const [profilePhoto, setProfilePhoto] =useState("");
   const [profilePhotoUrl ,setProfilePhotoUrl] =useState("");
-  const history =useHistory();
 
-  useEffect(() => {
-      findMyProfile(userobj.uid, setIsMyProfile);
-  }, []);
   const onChange =(event) => {
     const {target:{value}} = event ;
     setNewDisplayName(value);
@@ -32,7 +26,7 @@ const EditProfile = ( {userobj}) =>{
   const onSubmit = async(event) => {
     event.preventDefault();
      //프로필 저장소 생성 여부 확인 및 생성 
-    if(IsMyProfile === true && userobj !== undefined){
+    if(userobj !== undefined){
           // username = displayname 변경 
     if(newDisplayName!== userobj.displayName  ){
       await userobj.updateProfile({
@@ -46,12 +40,14 @@ const EditProfile = ( {userobj}) =>{
       const response = await profilePhotoRef.putString(profilePhoto , "data_url") ; 
       const PhotoUrl =  await response.ref.getDownloadURL();
       setProfilePhotoUrl(PhotoUrl); 
+      await userobj.updateProfile({
+        photoURL:PhotoUrl
+      });
       await  getProfileDoc(userobj.uid).update({photoUrl:PhotoUrl ,});
     }
     }
     setProfilePhoto("");
     setToggle(true);
-    history.push(`/${userobj.id}`);
   }
 
   return (
