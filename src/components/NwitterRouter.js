@@ -12,32 +12,22 @@ import Search from '../routes/Search';
 import NweetFactory from './NweetFactory';
 import '../css/router.css';
 import List from '../routes/List';
-import { useEffect, useState } from 'react/cjs/react.development';
-import { getProfile } from './GetData';
-
 
 const NwitterRouter =({isLoggedIn , userobj ,IsMyProfile }) => {
-  const [myProfile, setMyProfile] =useState({});
+  
   const myProfilePath =`/${userobj.id}`;  
-
-  useEffect(()=>{
-    const getMyProfile= async()=>{
-      await getProfile(userobj.uid, setMyProfile);
-    }
-    getMyProfile();
-  },[])
   return (  
   <div id="inner">
   <Router>
     {isLoggedIn && 
-    <Navigation userobj={userobj}  myProfile={myProfile}/>
+    <Navigation userobj={userobj} />
     }
     <Switch>
       <>
       {isLoggedIn  ?
       <div id="main">
         <Route exact path="/"> 
-          <Home userobj={userobj} myProfile={myProfile} />
+          <Home userobj={userobj} />
         </Route> 
         <Route exact path="/notification">
           <Alarm userobj={userobj}  />
@@ -55,7 +45,7 @@ const NwitterRouter =({isLoggedIn , userobj ,IsMyProfile }) => {
           <Nweet userobj={userobj}/>
         </Route>
         <Route exact path="/nweet">
-          <NweetFactory userobj={userobj} myProfile={myProfile} />
+          <NweetFactory userobj={userobj}/>
         </Route>
         <Route strict path="/list/">
           <List />

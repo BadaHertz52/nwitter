@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { VscBell } from "react-icons/vsc";
 
-const Navigation = ({userobj , myProfile}) => {
+const Navigation = ({userobj}) => {
 
   return(
     <nav id="nav">
@@ -24,10 +24,10 @@ const Navigation = ({userobj , myProfile}) => {
         </li>
         <li>
           <button>
-            <img src ={myProfile.photoUrl} with="50px" height="50px" alt="myProfile"></img>
+            <img src ={userobj.photoURL} with="50px" height="50px" alt="myProfile"></img>
             <div>
-              <div>{myProfile.userName}</div>
-              <div>@{myProfile.userId}</div>
+              <div>{userobj.displayName}</div>
+              <div>@{userobj.id}</div>
             </div>
           </button>
         </li>
