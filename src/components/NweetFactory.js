@@ -4,9 +4,9 @@ import {v4 as uuidv4} from 'uuid';
 import { useHistory } from 'react-router';
 import Nweet from './Nweet';
 import { getProfile, getProfileDoc } from './GetData';
-import UserProfile from './UserProfile';
+import { Link } from 'react-router-dom';
 
-const NweetFactory = ({userobj }) => {
+const NweetFactory = ({userobj ,myProfile }) => {
   const [nweet, setNweet] = useState("");
   const [attachment ,setAttachment] = useState("");
   const date = JSON.stringify(Date.now());
@@ -37,8 +37,8 @@ const NweetFactory = ({userobj }) => {
       alarm : false,
       rnAlarm:[],
       heartAlarm:[],
-      answer: historyState !== undefined ? historyState.value === "answer" && historyState.nweetObj : {},
-      citingNweet:historyState !== undefined ? historyState.value === "cn" && historyState.nweetObj : {},
+      answer: historyState !== undefined ? historyState.value === "answer" && historyState.nweetObj : null,
+      citingNweet:historyState !== undefined ? historyState.value === "cn" && historyState.nweetObj : null,
     };
     await dbService.collection(`nweets_${userobj.uid}`).doc(`${date}`).set(newNweet);
     setNweet("");
@@ -96,7 +96,17 @@ const NweetFactory = ({userobj }) => {
         </div>
       )}
       <div className="nweetFactory">
-        <UserProfile userId={userobj.uid}/>
+        <div className="userProfile">
+          {myProfile !== undefined &&
+              <Link  to={{
+                pathname:`/${userobj.id}`,
+              }}>
+                <img src={myProfile.photoUrl}  
+                  width="50px" height="50px"    alt="profile"/>
+              </Link>
+          }
+
+        </div>
         <form onSubmit={onSubmit}>
           <input
             value={nweet}
@@ -107,7 +117,7 @@ const NweetFactory = ({userobj }) => {
           />
           {historyState !== undefined &&(
             historyState.value === "cn" &&
-            <div id="cnNweet">
+            <div className="cnNweet">
               <Nweet nweetObj={historyNweetObj.nweetObj}  userobj={historyNweetObj.userobj} isOwner ={isOwner} />
             </div>
 

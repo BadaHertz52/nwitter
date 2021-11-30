@@ -1,14 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import NweetFactory from "../components/NweetFactory";
 import EditProfile from "./EditProfile";
 import HomeNeets from "../components/HomeNweets";
 
-const Home =  ({userobj}) => {
 
+
+const Home =  ({userobj ,myProfile}) => {
   return (
     <div>
-      <NweetFactory userobj={userobj} />
-      <HomeNeets userobj={userobj} />
+      {userobj.photoURL !==""?
+        (
+          <>
+            <NweetFactory userobj={userobj} myProfile={myProfile} />
+            <HomeNeets userobj={userobj} />
+          </>
+        )
+      :
+        (
+          <EditProfile userobj={userobj}  />
+        )
+      }
     </div>
   );
 };
