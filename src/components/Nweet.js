@@ -8,6 +8,7 @@ import { useHistory } from 'react-router';
 import '../css/nweet.css' ;
 import {FiMessageCircle} from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import { VscCombine } from 'react-icons/vsc';
 //edit, delete
 const Nweet =({nweetObj , userobj ,isOwner  }) =>{
   const historyState =useHistory().location.state ;
@@ -16,7 +17,10 @@ const Nweet =({nweetObj , userobj ,isOwner  }) =>{
     userobj =historyState.userobj ;
     isOwner =historyState.isOwner;
   }
-  const [whoProfile, setWhoProfile] =useState();
+  const [whoProfile, setWhoProfile] =useState({ 
+    creatorId:"" ,
+    userName:""
+  });
   const [ownerProfile, setOwnerProfile] =useState();
   const [nweetClassName ,setNCName]=useState("nweet");
   const [nweetContentClassName ,setNCCName]=useState("nweet_content");
@@ -32,10 +36,11 @@ const Nweet =({nweetObj , userobj ,isOwner  }) =>{
   const chagneClassName =()=>{
   if(nweetObj.value === "answer"){
     setNCName("nweet answer");
-    setNCCName("nweet_content answer");
+    setNCCName("nweet answer content");
   }
 };
   useEffect(()=>{
+    console.log(nweetObj)
     const getUsersProfile = async() =>{
       await getProfile(nweetObj.creatorId , setOwnerProfile); 
       if( nweetObj.who){
@@ -46,11 +51,12 @@ const Nweet =({nweetObj , userobj ,isOwner  }) =>{
     chagneClassName();
     },[]);
 
+  
   return(
     <>
       {nweetObj !==undefined && 
         <div className={nweetClassName} >
-          <div className="nweet_value">
+          <div className="value">
             {nweetObj.value === "rt" &&
               <div>
                 <AiOutlineRetweet/> 
@@ -75,24 +81,31 @@ const Nweet =({nweetObj , userobj ,isOwner  }) =>{
           </div>
           <div className={nweetContentClassName}>
             <UserProfile userId ={nweetObj.creatorId} /> 
-            <div className="nweet_content_text" >{nweetObj.text}</div>
-            <div  className="nweet_content_attachment">
+            <div className="text" >{nweetObj.text}</div>
               { nweetObj.attachmentUrl &&
-              <img src={nweetObj.attachmentUrl}  max-width="300px" height="150px" alt="Nweet_photofile"/>}
-            </div>
-            { nweetObj.citingNweet !==  null &&(
-              <div className="nweet_cn">
+              <div  className="attachment">
+                <img src={nweetObj.attachmentUrl}  max-width="300px" height="150px" alt="Nweet_attachment"/>
+              </div>
+              }
+            
+            { nweetObj.citingNweet !== null &&(
+              <div className="cnNweet">
                 <UserProfile userId ={nweetObj.citingNweet.creatorId}/> 
-                <div className="nweet_content_text" >{nweetObj.citingNweet.text}</div>
-                <div  className="nweet_content_attachment">
+                <div className="content">
+                  <div className="text" >
+                    {nweetObj.citingNweet.text}
+                  </div>
                   { nweetObj.citingNweet.attachmentUrl &&
-                    <img src={nweetObj.citingNweet.attachmentUrl}  max-width="300px" height="150px" alt="Nweet_photofile"/>}
+                  <div  className="attachment">
+                    <img src={nweetObj.citingNweet.attachmentUrl}  max-width="300px" height="150px" alt="Nweet_photofile"/>
+                  </div>
+                  }
                 </div>
               </div>
             )}
           </div>
           <div className="nweet_fun">
-            <div className="nweet_fun_answer">
+            <div className="answer">
               <Link to={{
                 pathname:"/nweet",
                 state :{
@@ -104,7 +117,7 @@ const Nweet =({nweetObj , userobj ,isOwner  }) =>{
                 <FiMessageCircle/>
               </Link>
             </div>
-            <div className="nweet_fun_rtAndLikeFun">
+            <div className="rtAndLikeFun">
               <RnAndLikeFun nweetObj={nweetObj} userobj={userobj} whoProfile={whoProfile
               } ownerProfile={ownerProfile}/>
             </div>
