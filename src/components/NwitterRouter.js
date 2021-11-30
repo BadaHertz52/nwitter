@@ -13,7 +13,7 @@ import NweetFactory from './NweetFactory';
 import '../css/router.css';
 import List from '../routes/List';
 
-const NwitterRouter =({isLoggedIn , userobj ,IsMyProfile }) => {
+const NwitterRouter =({isLoggedIn , userobj ,IsMyProfile  ,basicPhoto}) => {
   
   const myProfilePath =`/${userobj.id}`;  
   return (  
@@ -27,7 +27,7 @@ const NwitterRouter =({isLoggedIn , userobj ,IsMyProfile }) => {
       {isLoggedIn  ?
       <div id="main">
         <Route exact path="/"> 
-          <Home userobj={userobj} />
+          <Home userobj={userobj} basicPhoto={basicPhoto} />
         </Route> 
         <Route exact path="/notification">
           <Alarm userobj={userobj}  />
