@@ -71,7 +71,7 @@ const HomeNeets =({userobj})=> {
             <p>팔로우 추천 계정</p>
             <div>
               {users.map((user) =>
-                    <UserProfile userId={user} key={user.creatorId} />
+                    <UserProfile userId={user} key={user} />
                 )}
             </div>
         </div>}
