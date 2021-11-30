@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import NwitterRouter from './NwitterRouter';
 import authSerVice from '../Fbase';
-import { findMyProfile, getProfile } from './GetData';
+import { findMyProfile} from './GetData';
 
 function App() {
   // 초기 화면
