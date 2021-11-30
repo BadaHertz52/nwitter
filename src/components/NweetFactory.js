@@ -12,12 +12,7 @@ const NweetFactory = ({userobj}) => {
   const date = JSON.stringify(Date.now());
   const history =useHistory();
   const historyState =history.location.state;
-  const[historyNweetObj ,setHistoryNweetObj] =useState({
-    value : null,
-    nweetObj:{ creatorId: "id" , createdAt:"date"},
-    userobj:{}
-  })  ;
-  const [profile, setProfile]=useState();
+  const [profile, setProfile]=useState({photoUrl:""});
   const isOwner =false ;
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -43,16 +38,12 @@ const NweetFactory = ({userobj}) => {
     await dbService.collection(`nweets_${userobj.uid}`).doc(`${date}`).set(newNweet);
     setNweet("");
     setAttachment("");
-
-    if(historyState !==undefined){
-    const newAlarm = {userId:userobj.uid , creatorId : historyNweetObj.nweetObj.creatorId, createdAt: historyNweetObj.nweetObj.createdAt, value: "answer" } ;
-    //내 nweet에 대한 나의 답글,인용 알람x
-    if(userobj.uid !== historyNweetObj.userobj.uid){
+    //알림 
+    if(historyState !==undefined && userobj.uid !== historyState.nweetObj.creatorId){
+      const newAlarm ={userId:userobj.uid , creatorId : historyState.nweetObj.creatorId, createdAt: historyState.nweetObj.createdAt, value: historyState.value , docId: historyState.value =="cn"? date:null } ;
       profile.alarm.unshift(newAlarm);
-      getProfileDoc(historyNweetObj.nweetObj.creatorId).update({alarm:profile.alarm });
-    }
-    history.push('/')
-  }
+      getProfileDoc(historyState.nweetObj.creatorId).update({alarm:profile.alarm });
+      }
   };
   const onChange = (event) => {
     const {
@@ -80,8 +71,7 @@ const NweetFactory = ({userobj}) => {
   useEffect(()=>{
     const getHistoryNweetObj =async()=>{
       if( historyState !== undefined){
-      setHistoryNweetObj(historyState);
-      await getProfile(historyNweetObj.nweetObj.creatorId ,setProfile);
+      await getProfile(historyState.nweetObj.creatorId ,setProfile);
     };
     }
     getHistoryNweetObj();
@@ -92,7 +82,7 @@ const NweetFactory = ({userobj}) => {
     <>
       { historyState !== undefined && (historyState.value === "answer" &&
         <div id="answerNweet">
-          <Nweet nweetObj={historyNweetObj.nweetObj}  userobj={historyNweetObj.userobj} isOwner ={isOwner} />
+          <Nweet nweetObj={historyState.nweetObj}  userobj={historyState.userobj} isOwner ={isOwner} />
         </div>
       )}
       <div className="nweetFactory">
@@ -115,7 +105,17 @@ const NweetFactory = ({userobj}) => {
           {historyState !== undefined &&(
             historyState.value === "cn" &&
             <div className="cnNweet">
-              <Nweet nweetObj={historyNweetObj.nweetObj}  userobj={historyNweetObj.userobj} isOwner ={isOwner} />
+              <img src={profile.photoUrl} width="50px" height="50px" alt="userProfilePhoto"/>
+              <div className="content">
+                <div className="text">
+                  {historyState.nweetObj.text}
+                </div>
+              {historyState.nweetObj.attachmentUrl && 
+                <div className="attachment">
+                  <img src={historyState.nweetObj.attachmentUrl}  max-width="200px" height="100px" alt="Nweet_attachment"/>
+                </div>
+              }
+              </div>
             </div>
 
           )}
