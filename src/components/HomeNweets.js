@@ -13,9 +13,19 @@ const HomeNeets =({userobj})=> {
   const [follow, setFollow]=useState([]);
   
   const myProfileStore =dbService.collection("users").doc(userobj.uid);
-  const getFollow = async()=> await myProfileStore.get().then(
-    doc => setFollow(doc.data().following) ,
-  );
+  const getFollow = async()=> await myProfileStore
+  .get()
+  .then( doc =>{
+    if(doc.exists){
+      setFollow(doc.data().following)
+    }else{
+      console.log("Can't find document");
+    }
+  })
+  .catch(error => {
+  console.log("Error", error)
+  })
+  ;
   const getAllUser =async()=> await dbService.collection('users')
   .get().then(docs =>{
     let all=[];
@@ -56,7 +66,7 @@ const HomeNeets =({userobj})=> {
       setCalling(false);
     };
     plusNweets();
-  },[myNweets,followNweets]);
+  },[ myNweets]);
 
   return (
     <section className="nweets">
