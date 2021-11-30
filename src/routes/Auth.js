@@ -8,8 +8,6 @@ const Auth = ( ) => {
     let provider ;
     if (name === "google"){
       provider = new  friebaseInstance.auth.GoogleAuthProvider();
-    } else if (name === "github"){
-      provider = new friebaseInstance.auth.GithubAuthProvider(); 
     }
     const data = await authSerVice.signInWithPopup(provider) ;
     console.log("popup //" , data) ;
@@ -20,9 +18,6 @@ const Auth = ( ) => {
       <div>
       <button  onClick={onSocialClick}  name="google">
         Continue with Goggle
-      </button>
-      <button onClick={onSocialClick} name="github">
-        Continue with Github
       </button>
     </div>
   </div>
