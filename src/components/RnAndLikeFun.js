@@ -55,7 +55,7 @@ const RnAndLikeFun = ( {nweetObj ,userobj , ownerProfile ,whoProfile,})=> {
     rn.empty ? setRnBtn("rhBtn") : setRnBtn("rhBtn on");
     heart.empty ? setHeartBtn("rhBtn") : setHeartBtn("rhBtn on");
   };
-  const newAlarm =(what)=>({userId:userobj.uid , creatorId : nweetObj.creatorId, createdAt: nweetObj.createdAt, value: what });
+  const newAlarm =(what)=>({userId:userobj.uid , creatorId : nweetObj.creatorId, createdAt: nweetObj.createdAt, value: what , docId:null});
 
   const updateAlram = (what)=> {
     //data : nweetObj
