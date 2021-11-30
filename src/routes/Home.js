@@ -5,13 +5,14 @@ import HomeNeets from "../components/HomeNweets";
 
 
 
-const Home =  ({userobj ,myProfile}) => {
+const Home =  ({userobj }) => {
+  
   return (
     <div>
       {userobj.photoURL !==""?
         (
           <>
-            <NweetFactory userobj={userobj} myProfile={myProfile} />
+            <NweetFactory userobj={userobj} />
             <HomeNeets userobj={userobj} />
           </>
         )
