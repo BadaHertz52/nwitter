@@ -19,7 +19,7 @@ const Profile = ({userobj}) => {
     follower:[],
     following:[]
   });
-  const newAlarm ={userId:userobj.uid , creatorId : "none", createdAt: "none", value: "follow" };
+  const newAlarm ={userId:userobj.uid , creatorId : "none", createdAt: "none", value: "follow" ,docId:null  };
 
 
   const changeFollowBtn = ()=>{
