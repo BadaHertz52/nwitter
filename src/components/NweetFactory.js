@@ -44,6 +44,7 @@ const NweetFactory = ({userobj}) => {
       profile.alarm.unshift(newAlarm);
       getProfileDoc(historyState.nweetObj.creatorId).update({alarm:profile.alarm });
       }
+    history.goBack();
   };
   const onChange = (event) => {
     const {
