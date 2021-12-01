@@ -148,7 +148,9 @@ const RnAndLikeFun = ( {nweetObj ,userobj , ownerProfile ,whoProfile,})=> {
         createdAt:nweetObj.createdAt,
         creatorId: nweetObj.creatorId,
         who:userobj.uid ,
-        attachmentUrl : nweetObj.attachmentUrl
+        attachmentUrl : nweetObj.attachmentUrl,
+        answer: null,
+        citingNweet:null,
       };
       await userobjCollection.doc(`${date}`).set(heart);
       userobj.uid !== nweetObj.creatorId && updateAlram( "heart");
