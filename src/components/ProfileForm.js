@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react/cjs/react.development';
 import Nweet from './Nweet';
 
 export const ProfileTopForm = ({profile , currentUserProfile} )=>{
@@ -46,10 +47,56 @@ export const ProfileTopForm = ({profile , currentUserProfile} )=>{
 }
 
 export const ProfileBottomForm = ({nweets ,userobj})=>{
-  
+  const filtering = nweets.filter(nweet => ['nweet', 'rn', 'cn'].includes(nweet.value));
+  const [contents, setcontents]=useState(filtering);
+  const buttons =document.querySelectorAll('#pb_buttons button');
+  const nweetBtn = document.getElementById('pb_btn_nweet');
+  const changeStyle =(target)=>{
+    buttons.forEach(button =>button.style.color="black");
+    target && (target.style.color ="blue");
+  }
+  const showNweet =(event)=>{
+    setcontents(filtering);
+    const target = event ? event.target :nweetBtn;
+    changeStyle(target);
+  };
+  const showNweetAnwer =(event)=>{
+    const filtering = nweets.filter(nweet =>  nweet.value !== 'heart');
+    setcontents(filtering);
+    event && changeStyle(event.target);
+  };
+
+  const showMedia =(event)=>{
+    const filtering = nweets.filter(nweet => nweet.attachmentUrl !=="" && nweet.value == 'nweet');
+    setcontents(filtering);
+    event &&  changeStyle(event.target);
+  };
+  const showHeart =(event)=>{
+    const filtering =nweets.filter(nweet => nweet.value ==='heart');
+    setcontents(filtering);
+    event && changeStyle(event.target);
+  };
+  useEffect(()=>{
+    showNweet();
+    console.log( nweets,nweets[0] == undefined)
+  },[nweets])
   return (
     <section id="profileBootmForm" >
-      {Array.isArray(nweets) && nweets.map(nweet => <Nweet  nweetObj ={nweet}  isOwner={nweet.creatorId === userobj.uid} userobj={userobj}/>  )}
+      <div id='pb_buttons'>
+        <button id="pb_btn_nweet" onClick={showNweet}>트윗 </button>
+        <button  onClick={showNweetAnwer}>트윗 및 답글</button>
+        <button onClick={showMedia}>미디어</button>
+        <button onClick={showHeart}>마음에 들어요</button>
+      </div>
+      <div id="contents">
+      {nweets[0] == undefined ?
+        <div>
+          nweet을 불러오는 중 입니다.
+        </div>
+      :
+      contents.map(content => <Nweet  nweetObj ={content}  isOwner={content.creatorId === userobj.uid} userobj={userobj}/>  )
+      }
+      </div>
     </section>
   )
 }
