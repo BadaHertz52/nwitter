@@ -6,7 +6,7 @@ import { ProfileTopForm, ProfileBottomForm } from '../components/ProfileForm';
 import { getNweets, getProfile } from '../components/GetData';
 
 
-const MyProfile = ({userobj ,IsMyProfile} ) => {
+const MyProfile = ({userobj} ) => {
   const [myProfile , setMyProfile] = useState({});
   const [myNweets , setMyNweets] =useState([]);
   const [editing ,setEditing] = useState(false);
@@ -42,14 +42,13 @@ const MyProfile = ({userobj ,IsMyProfile} ) => {
         {myProfile.follower && <ProfileTopForm  profile={myProfile} follower={follower} currentUserProfile={myProfile}/> }
         <button onClick={onLogOutClick}> Log Out </button>
         <button onClick={onToggle}>Edit Profile</button>
-        {IsMyProfile &&
-        (editing &&
+        {editing &&
         (<EditProfile
           userobj={userobj}
           myProfile={myProfile}
           onToggle ={onToggle}
         />)
-        )}
+        }
       </section>
       <p>---프로필--- </p>
       <section >

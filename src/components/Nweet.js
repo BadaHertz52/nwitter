@@ -40,7 +40,6 @@ const Nweet =({nweetObj , userobj ,isOwner  }) =>{
   }
 };
   useEffect(()=>{
-    console.log(nweetObj)
     const getUsersProfile = async() =>{
       await getProfile(nweetObj.creatorId , setOwnerProfile); 
       if( nweetObj.who){
