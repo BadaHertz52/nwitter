@@ -8,7 +8,6 @@ import { useHistory } from 'react-router';
 import '../css/nweet.css' ;
 import {FiMessageCircle} from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import { VscCombine } from 'react-icons/vsc';
 //edit, delete
 const Nweet =({nweetObj , userobj ,isOwner  }) =>{
   const historyState =useHistory().location.state ;
