@@ -12,7 +12,7 @@ const Navigation = ({userobj}) => {
         </li>
         <li>
           <Link to="/notification" userobj={userobj} >
-            {VscBell}Alarm 
+            <VscBell/>Alarm 
           </Link>
         </li>
         <li> 
