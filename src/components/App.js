@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import NwitterRouter from './NwitterRouter';
 import authSerVice from '../Fbase';
-import { findMyProfile} from './GetData';
+import { getProfileDoc } from './GetData';
+
 
 function App() {
   // 초기 화면
@@ -11,9 +12,31 @@ function App() {
   const basicPhoto ='https://firebasestorage.googleapis.com/v0/b/nwitter-aaae4.appspot.com/o/icons8-user-64%20(1).png?alt=media&token=edde3c05-85d4-4473-a730-c039e975ce92' ;
   const currentUser = authSerVice.currentUser ;
   // 마운트 마다 로그인 상태를 알아보는  observer 사용해서 유저 여부에 따른 로그인 여부 상태 변화, 초기 화면 로그아웃으로 세팅 
-  useEffect(()=>{
-    const logIn =()=>
-    authSerVice.onAuthStateChanged(async(user)=> 
+  const findMyProfile =(userobj ,setIsMyProfile)=> getProfileDoc(userobj.uid)
+  .get()
+  .then(doc => {
+    if(doc.exists){
+      setIsMyProfile(true);
+    }else {
+      setIsMyProfile(false);
+      console.log("Can't find profile document, so start making profile");
+      const newMyProfile = {
+        creatorId:userobj.uid,
+        userId:userobj.id,
+        userName: userobj.displayName,
+        photoUrl:"", 
+        following:[],
+        follower:[],
+        alarm : []
+      };
+      getProfileDoc(userobj.uid).set(newMyProfile)
+    }
+  })
+  .catch((e) => {
+  console.log("Error getting document", e)
+  });
+
+  const LogIn =()=>authSerVice.onAuthStateChanged(async(user)=> 
     {if(user){
       const ind = user.email.indexOf("@");
       const end = user.email.substring(0,ind);
@@ -41,8 +64,10 @@ function App() {
     }else{
       setIsLoggedIn(false);
     };
-  }); 
-  logIn();
+  });
+  
+  useEffect(()=>{
+  LogIn();
   } ,[]); 
 
   useEffect( ()=>{

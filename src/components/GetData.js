@@ -27,24 +27,3 @@ export const getProfile = async(id ,setProfile)=>{
   })
 };
 
-export const findMyProfile =(userobj ,setIsMyProfile)=> getProfileDoc(userobj.uid).get()
-.then(doc => {
-  if(doc.exists){
-    setIsMyProfile(true);
-  }else {
-    setIsMyProfile(false);
-    console.log("Can't find profile document, so start making profile");
-    const newMyProfile = {
-      creatorId:userobj.uid,
-      userId:userobj.id,
-      userName: userobj.displayName,
-      photoUrl:"", 
-      following:[],
-      follower:[],
-      alarm : []
-    };
-    getProfileDoc(userobj.uid).set(newMyProfile)
-  }
-}).catch((e) => {
-  console.log("Error getting document", e)
-});
