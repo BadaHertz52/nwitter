@@ -9,6 +9,11 @@ import {HiOutlinePhotograph} from "react-icons/hi";
 import Cropper from './Cropper';
 
 const NweetFactory = ({userobj}) => {
+  const initialCrop ={
+    unti:'%',
+    aspect:16/9,
+    width:100
+  };
   const [nweet, setNweet] = useState("");
   const [attachment ,setAttachment] = useState("");
   const [cropPopup, setCropPopup]=useState(false);
@@ -136,7 +141,7 @@ const NweetFactory = ({userobj}) => {
             </div>
           )}
           {cropPopup &&
-            <Cropper src={attachment} setAttachment={setAttachment} setCropPopup={setCropPopup}/>
+            <Cropper  initialCrop={initialCrop} src={attachment} setAttachment={setAttachment} setCropPopup={setCropPopup}/>
           }
         </form>
       </div>

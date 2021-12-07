@@ -12,6 +12,7 @@ const HomeNeets =({userobj})=> {
   const [users , setUsers]=useState([]);
   const [follow, setFollow]=useState([]);
   
+  const myNweetsStorage = dbService.collection(`nweets_${userobj.uid}`).get();
   const myProfileStore =dbService.collection("users").doc(userobj.uid);
   const getFollow = async()=> await myProfileStore
   .get()

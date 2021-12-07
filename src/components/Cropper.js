@@ -2,16 +2,10 @@ import { useState ,useRef } from 'react';
 import ReactCrop from 'react-image-crop';
 import '../../node_modules/react-image-crop/dist/ReactCrop.css';
 import React from 'react';
-import { useHistory } from 'react-router';
-
-const Cropper =({src ,setAttachment ,setCropPopup})=> {
+import {BiArrowBack} from "react-icons/bi";
+const Cropper =({ initialCrop, src ,setAttachment ,setCropPopup })=> {
   const imageRef = useRef(null);
   const previewCanvasRef = useRef(null);
-  const initialCrop ={
-    unti:'%',
-    aspect:16/9,
-    width:100
-  };
   const [crop, setCrop]= useState(initialCrop); 
   const [completedCrop, setCompletedCrop]=useState(null);
   const [cropResult, setCropResult]=useState(null);
@@ -44,31 +38,16 @@ const Cropper =({src ,setAttachment ,setCropPopup})=> {
       completedCrop.width * scaleX,
       completedCrop.height * scaleY
     );
-
-    return new Promise((resolve, reject) => {
-      canvas.toBlob(
-        (blob) => {
-          if (!blob) {
-            //reject(new Error('Canvas is empty'));
-            console.error('Canvas is empty');
-            return;
-          }
-          blob.name = fileName;
-          const fileUrl =window.URL.createObjectURL(blob);
-          const src = URL.createObjectURL(blob);
-          resolve(src);
-          window.URL.revokeObjectURL(fileUrl);
-        },
-        'image/jpeg',
-        1
-      );
-    });
+      
+    const base64Image = canvas.toDataURL("image/jpeg", 1);
+    return base64Image ;
   };
   const makeClientCrop = async(completedCrop)=> {
     if(imageRef && completedCrop.width && completedCrop.height){
       const croppedImageUrl = await getCroppedImg(
         imageRef.current, completedCrop, 'newFile.jpeg'
       );
+
       setCropResult(croppedImageUrl);
     } 
   };
@@ -84,6 +63,11 @@ const Cropper =({src ,setAttachment ,setCropPopup})=> {
   const onSaveImg =(event)=>{
     event.preventDefault();
     setAttachment(cropResult);
+    setCropPopup(false);
+  };
+
+  const onBack=(event)=>{
+    event.preventDefault();
     setCropPopup(false);
   }
   return (
@@ -109,6 +93,11 @@ const Cropper =({src ,setAttachment ,setCropPopup})=> {
           onClick={onSaveImg}
           >
             저장
+          </button>
+          <button type="button" 
+            onClick={onBack}
+          >
+            <BiArrowBack/>
           </button>     
     </div>
   );

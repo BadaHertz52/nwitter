@@ -17,7 +17,8 @@ export const ProfileTopForm = ({profile , currentUserProfile} )=>{
   return(
     <section id="profileTopForm">
       <div id="profileForm_profile">
-        <img src={profile.photoUrl} width="100px" height="100px" border-radius ="50px"  alt="profile"/>
+        <img src={profile.headerUrl} width="100%" height="100px" alt="profileHeader" />
+        <img src={profile.photoUrl} width="100px" height="100px" border-radius ="50"  alt="profile"/>
         <span>{profile.userName}</span>
       </div>
       <div className="follow">
@@ -78,7 +79,6 @@ export const ProfileBottomForm = ({nweets ,userobj})=>{
   };
   useEffect(()=>{
     showNweet();
-    console.log( nweets,nweets[0] == undefined)
   },[nweets])
   return (
     <section id="profileBootmForm" >
