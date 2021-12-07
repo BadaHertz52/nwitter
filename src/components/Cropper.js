@@ -14,7 +14,7 @@ const Cropper =({ initialCrop, src ,setAttachment ,setCropPopup })=> {
     imageRef.current =img;
     return false
   };
-  const getCroppedImg=(image, completedCrop, fileName)=>{
+  const getCroppedImg=(image, completedCrop)=>{
     const canvas = previewCanvasRef.current;
     const pixelRatio = window.devicePixelRatio;
     const scaleX = image.naturalWidth / image.width;
