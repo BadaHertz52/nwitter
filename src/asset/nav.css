@@ -1,0 +1,259 @@
+#nav {
+  position: absolute;
+  width: 100%;
+  height: 5rem;
+  top:90%;
+  left: 0;
+  z-index: 1;
+}
+#nav a:hover,
+#nav #nav_myProfile:hover {
+  background-color: rgb(235,235,235);
+  border-radius: 45px;
+}
+#nav #nav_nwitter:hover{
+  background-color:rgb(215, 243, 253) ;
+}
+#nav button{
+  color: #fff;
+  margin-top: 0;
+  padding:0;
+}
+#nav #nav_myProfile {
+  background-color: initial;
+  color:initial;
+}
+#do_nweet {
+  display: none;
+  transition-duration: 0.5s;
+}
+#nav > div:first-child{
+  padding-top: 2%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  box-sizing: border-box;
+  background-color: #ffff;
+} 
+
+#nav a {
+  width: fit-content;
+  height: fit-content;
+}
+#nav a{
+  padding: 10px;
+  position: relative;
+}
+#nav #nav_nwitter {
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+#nav #nav_myProfile{
+  position: relative;
+  margin-left: 0.2rem;
+  width: 3.3rem ;
+  padding: 10px 
+}
+#nav svg{
+  font-size: 2rem;
+}
+#nav img ,
+#nav >div:first-child a{
+  width: 2rem;
+  height: 2rem;
+}
+#nav img{
+  border-radius: 50%;
+}
+
+#nav #nav_nwitter {
+  display: none;
+}
+#nav > div:nth-child(3){
+  display: none;
+}
+#nav > div:nth-child(2) {
+  position: absolute;
+  top: -15vh;
+  right: 10vw;
+}
+
+#nav>div:nth-child(2) svg{
+  font-size: 1.5rem;
+  padding: 10px 12px;
+}
+.nav_label{
+  display: none;
+}
+
+@media screen and (min-width:500px) {
+  #nav {
+    position: sticky;
+    top:0;
+    left: 0;
+    height: 100vh;
+    padding-left: 2%;
+    padding-right: 2%;
+    width: 10%;
+    border-right: 1px solid rgba(190, 190, 190, 0.192);
+  }
+  #nav #nav_nwitter {
+    display: block;
+}
+
+  #nav > div:first-child {
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0;
+  }
+  #nav a,
+  #nav #nav_myProfile{
+    margin-top: 1.5rem;
+  }
+  #nav svg{
+    font-size: 2rem;
+  }
+  #nav_myProfile svg{
+    font-size: 1.7rem;
+  }
+  #nav img ,
+  #nav #nav_nwitter{
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  #nav_profile img{
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+  #nav > div:nth-child(3) {
+    display: block;
+    position: relative;
+    margin-top: 2rem;
+  }
+  #nav > div:nth-child(2){
+    display: block;
+    position: relative;
+    top:initial;
+    right: initial;
+    margin-top: 2rem;
+  }
+  #nav #nav_popUp , 
+  #nav #nav_profile img{
+    margin-left: 6px
+  }
+
+  #nav>div:nth-child(2)  svg{
+    font-size: 1.5rem;
+  }
+  
+}
+@media screen and (min-width:728px) {
+  #nav > div {
+    margin-left: 10%;
+  }
+}
+@media screen and (min-width:1024px) {
+
+  #nav {
+    width: 8%;
+    padding-left: 3%;
+    padding-right: 3%;
+  }
+  #nav >div {
+    margin-left: 2rem;
+  }
+  #nav >div:first-child{
+    font-size: 1.8rem;
+  }
+  #nav >div:nth-child(2){
+    width: initial;
+    margin-left: 2rem;
+  }
+  #nav img ,
+  #nav #nav_nwitter{
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+  #nav #nav_nwitter {
+    padding:5px
+  }
+  #nav #nav_popUp {
+    font-size: 10px;
+  }
+  #nav_profile{
+    margin-top: 0;
+    margin-left: 0;
+  }
+
+}
+
+@media  screen and (min-width:1300px) {
+
+  #do_nweet {
+    display: block;
+    font-size: 1.2rem;
+    padding: 3% 0;
+    border-radius: 9999px;
+    box-shadow: rgba(0, 0, 0, 0.014) 0px 8px 28px;
+  }
+  #nav_popUp svg{
+    display: none;
+  }
+  #nav >div:first-child a,
+  #nav #nav_myProfile{
+    display: flex;
+    width: 80%;
+    padding-left: 14px;
+    height: auto;
+  }
+  #nav svg{
+    font-size: 1.8rem;
+  }
+  .nav_label{
+    display: block;
+    margin-left: 5%;
+    font-size: 1.3rem;
+  }
+  .nav_label.on {
+    font-weight: bold;
+  }
+  #nav > div:nth-child(2) {
+    width: 80%;
+  }
+  #nav #nav_popUp{
+    width: 90%;
+
+  }
+  #nav img,
+  #nav #nav_nwitter{
+    width: 3rem;
+    height: 3rem;
+  }
+  #nav #nav_nwitter{
+    padding:6px
+  }
+  #nav_profile{
+    display: flex;
+    flex-direction: row;
+  }
+  #nav_profile .nav_label{
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+  }
+  #nav_profile .nav_label div:first-child{
+    font-weight: bold;
+  }
+}
+
+@media screen and (min-width:1440px) {
+  #nav {
+    width: 275px;
+    padding: 0;
+  }
+}
+
+
+

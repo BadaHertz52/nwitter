@@ -1,0 +1,81 @@
+
+
+#home{
+  width: 100%;
+  height: 100%;
+}
+#smallMobile{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 6vh;
+  border:none;
+  border-radius: 0;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+#smallMobile button {
+  background-color: none;
+  width: 5vh;
+  height: 5vh;
+  padding: 0;
+  margin-left: 6vh;
+  margin-top: 0;
+}
+#smallMobile img{
+  width: 100%;
+  height: 100%;
+  background-color: none;
+}
+#smallMobile div {
+  margin-left: 5%;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+  .nweets_calling{
+    padding-top: 15vh ;
+    text-align: center;
+  }
+  .nweets_calling {
+    width: 100%;
+    padding-left: 15vw;
+  }
+  #nweets_recommand_follow {
+    margin-top: 4vh;
+    border :1px solid rgba(54,54,54);
+    border-radius: 10px;
+    padding: 4vw;
+  }
+  #nweets_recommand_follow p{
+    margin: 0;
+    margin-bottom: 2vh;
+    text-align: center;
+    font-weight: bold;
+  }
+  @media screen and (max-width:280px) {
+    .nweets_calling {
+      width: 100%;
+      padding-left: 20%;
+    }
+  }
+
+@media screen and (min-width:768px) {
+
+  #smallMobile {
+    padding: 0;
+  }
+  #smallMobile button {
+    display: none;
+  }
+  #smallMobile div {
+    padding-left: 0;
+  }
+  
+}
+
+@media  screen and (min-width:1024px) {
+  #smallMobile div {
+    font-size: 1.5rem;
+}
+}

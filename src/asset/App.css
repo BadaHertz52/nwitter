@@ -1,0 +1,86 @@
+/*전체 공통*/
+@font-face {
+  font-family: nanum-gothic-coding;
+  src: url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
+  font-weight: bold;
+}
+@font-face {
+  font-family: Be-vietnam-pro;
+  src: url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300&display=swap'); 
+  font-weight: 500;
+}
+img{
+  border-radius: 10px;
+}
+body, textarea{
+  font-family: nanum-gothic-coding,Be-vietnam-pro,system-ui ;
+}
+
+a:link ,a:visited , a:hover, a:active{
+  color: rgb(54, 54, 54);
+  text-decoration:none;
+}
+.profile_photo{
+  border-radius: 50%;
+}
+#root{
+  width: 100vw;
+  height: 100vh;
+}
+#inner{ 
+  display: flex;
+  position: relative;
+  width:100%;
+  height: 100%;
+
+}
+.header {
+  margin-left: 1rem;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+button , 
+.btn {
+  border-radius: 9999px;
+  background-color: rgb(111, 179, 243);
+  margin-top: 0.5rem;
+  border: none;
+}
+
+button:hover , .btn:hover{
+  background-color: rgb(29, 155, 240)
+;
+  color: rgb(245, 245, 245);
+}
+
+#inner {
+  box-sizing: border-box;
+}
+.nweetFactory textarea:focus ,
+input:focus{
+  outline: none;
+}
+.back{
+  transition-duration: 0.5s;
+}
+@media screen and (min-width:1800px) {
+  #inner {
+    width: 80%;
+    padding: 0;
+    position: fixed;
+    left: 10%;
+  }
+}
+@media screen and (min-width:2300px) {
+  #inner {
+    width: 70%;
+    left: 15%;
+  }
+}
+@media screen and (min-width:3000px) {
+  #inner {
+    width: 60%;
+    left: 20%;
+  }
+}

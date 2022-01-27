@@ -1,0 +1,98 @@
+/*auth*/
+#auth {
+  margin: 35% 20%;
+}
+#auth input{
+  width: 200px;
+}
+#auth >div{
+  margin-bottom: 1rem;
+}
+#auth button ,
+#authForm input:last-child {
+  margin-top: 0.5rem;
+  font-size: 1.1rem;
+  background-color:rgb(201, 226, 250);
+  padding : 5px ;
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+  border-radius:45px ;
+}
+#auth button:hover,
+#authForm input:last-child:hover{
+  color: rgb(255, 255, 255);
+  background-color:rgb(6, 106, 199);
+}
+#createAccount ,#logIn {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+}
+#createAccount button, 
+#logIn button{
+  text-align: center;
+  width: 100%;
+  font-size: 1rem;
+  margin-top: 3vh;
+}
+#createAccount >div ,
+#logIn > div {
+  font-size: 1.2rem;
+  font-weight: 700;
+  width: 100%;
+}
+#logIn >div {
+  margin-top: 5vh;
+}
+
+/*authForm*/
+#authForm{
+  margin-top:1.2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 1.2rem
+}
+
+#authForm input{
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  width: 100%;
+}
+
+#authError {
+  margin-top: 1rem;
+  padding: 1rem 10px;
+  font-size: 1rem;
+  background-color: rgb(240, 240, 240);
+  overflow-wrap: break-word;
+}
+@media screen and (min-width:660px) {
+  #auth {
+    margin:25%;
+    margin-bottom: 0;
+  }
+  #auth >div{
+    margin-bottom: 4rem;
+  }
+}
+@media screen and (min-width:900px) {
+  #auth {
+    margin: 20% 30% ;
+  }
+  #auth>div {
+    margin-bottom: 1.5rem;
+
+  }
+}
+@media screen and (min-width:1300px) {
+  #auth{
+    margin:15% 35% ;
+  }
+  #createAccount ,#logIn {
+    text-align: center;
+  }
+}

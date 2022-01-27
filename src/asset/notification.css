@@ -1,0 +1,135 @@
+#notification {
+  margin-left: 0;
+}
+#notification >div:first-child{
+  margin-left :1rem;
+}
+#notificationBtns{
+  width: 100%;
+  display: flex;
+}
+.notificationBtn{
+  width: 50%;
+  height: 4rem;
+  text-align: center;
+  background-color: initial;
+  border-bottom:1px solid rgba(190, 190, 190, 0.192);
+  border-radius: 0;
+  font-size: 1.2rem;
+  
+}
+.notificationBtn:hover,
+#notification .mention:hover{
+  color: initial;
+  background-color:rgb(235, 235, 235); 
+} 
+.notificationBtn.check div{
+    padding-top:1rem;
+    margin:0 30% ;
+    height: 100%;
+    box-sizing: border-box;
+    border-bottom:5px solid rgb(0, 140, 255);
+}
+#notification .mention{
+  width: 100%;
+  background-color: initial;
+  border-radius: 0;
+  margin-top: 0;
+}
+
+.mention .value{
+  display: none;
+}
+.mention .nweet{
+  padding-left: 0;
+}
+#notification .answer .nweet_content{
+  padding:0;
+}
+.mention .nweet_form{
+  width: 100%;
+  justify-content: stretch;
+}
+.mention .goStatusBtn {
+  display: none;
+}
+
+#notification_notification{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background-color: initial;
+  border-radius: 0;
+  padding-left: 1rem;
+  padding-top: 1rem;
+  margin-top: 0;
+}
+#notification_notification:hover{
+  background-color: rgb(235, 235, 235);
+  color:initial
+}
+.notification_left{
+  width: 3rem;
+}
+.notification_left svg{
+  margin-right: 1rem;
+  font-size: 2rem;
+}
+.rnIcon {
+  color: rgb(0, 132, 255);
+}
+.heartIcon {
+  color: rgb(243, 56, 56);
+}
+.notification_right{
+  display: flex;
+  flex-direction: column;
+}
+.notification_inform{
+  font-size: 1rem;
+  font-weight: initial;
+  margin-top: 1rem;
+}
+.notification_inform div:last-child{
+  margin-top: 1rem;
+  color: rgb(88, 86, 86);
+
+}
+.notification_right img{
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right:2rem;
+}
+#notification .nweet {
+  font-weight: initial;
+  padding-left: 10px;
+}
+#notification .nweet_content {
+  padding:0 10px;
+}
+#notification .nweet .text {
+  font-size: 1.2rem;
+  text-align: start;
+}
+#notification .nweet_header > div, #notification .nweet_header button {
+  font-size: 1.1rem;
+}
+
+#notification   .nweetSide ,
+#notification .userProfile img{
+  width: 2.5rem;
+}
+
+@media screen and (max-width:320px) {
+  .notification_left {
+    width: 2rem;
+  }
+  .notification_left svg {
+    font-size:1.5rem;
+    margin-right:10px;
+  }
+  #notification.nweet_header .nweet_time{
+    font-size: 11px;
+  }
+
+}
