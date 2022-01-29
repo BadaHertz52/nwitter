@@ -10,22 +10,11 @@ import { UserContext } from '../context/UserContext';
 import { goBack } from './GetData';
 
 
-export const ProfileTopForm = ({ isMine } )=>{
+export const ProfileTopForm = ({ isMine ,nweets,profile} )=>{
   const location =useLocation();
-  const {myNweets, nweetDispatch} =useContext(NweetContext);
-  const {myProfile, profileDispatch} =useContext(ProfileContext);
-  const {userNweets, userProfile ,userDispatch}=useContext(UserContext);
-  const [nweets, setNweets]= useState([{},{}]);
-  const [profile, setProfile]=useState({
-    userName:"",
-    userId:"",
-    hotoUrl:"",
-    headerUrl:"",
-    introduce:"",
-    follower:[],
-    following:[],
-    notifications:[]
-  });
+  const {nweetDispatch} =useContext(NweetContext);
+  const {profileDispatch} =useContext(ProfileContext);
+  const {userDispatch}=useContext(UserContext);
 
   const navigate= useNavigate();
 
@@ -53,20 +42,7 @@ export const ProfileTopForm = ({ isMine } )=>{
     const inner =document.getElementById('inner');
     inner.style.zIndex='-1' ;
     } ;
-    useEffect(()=>{
-      switch (isMine) {
-        case true:
-          setNweets(myNweets);
-          setProfile(myProfile);
-          break;
-        case false:
-          setNweets(userNweets);
-          setProfile(userProfile);
-          break;
-        default:
-          break;
-      };
-    },[userNweets,userProfile])
+
   return(
     <section id="profileTopForm">
       <div id="profileTopForm_header">
@@ -78,7 +54,7 @@ export const ProfileTopForm = ({ isMine } )=>{
         </button>
         <div>
           <div>{profile.userName}</div>
-          <div>{nweets.length}개의 트윗</div>
+          <div>{nweets.length} Nweets</div>
         </div>
       </div>
       <div id="profileForm_profile">
@@ -128,10 +104,7 @@ export const ProfileTopForm = ({ isMine } )=>{
   )
 }
 
-export const ProfileBottomForm = ({isMine, userobj})=>{
-  const {myNweets} =useContext(NweetContext);
-  const {userNweets}=useContext(UserContext);
-  const [nweets, setNweets]=useState([{value:"" , attachmentUrl:""}]);
+export const ProfileBottomForm = ({isMine, userobj , nweets})=>{
 
   const filterNweets = nweets.filter(nweet => nweet.value=== "nweet"|| nweet.value === "qn");
   const  filterNandA = nweets.filter (nweet=> nweet.value !== 'heart');
@@ -171,9 +144,7 @@ export const ProfileBottomForm = ({isMine, userobj})=>{
   useEffect(()=>{
     shownweet();
   },[nweets])
-  useEffect(()=>{
-    isMine? setNweets(myNweets) : setNweets(userNweets)
-  },[isMine])
+
   return (
     <section id="profileBottomForm" >
       <div id='pb_buttons'>

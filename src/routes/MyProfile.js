@@ -1,19 +1,28 @@
-import React from 'react' ;
+import React, { useContext } from 'react' ;
 import { ProfileTopForm, ProfileBottomForm } from '../components/ProfileForm'
 import '../asset/profile.css';
+import { NweetContext } from '../context/NweetContex';
+import { ProfileContext } from '../context/ProfileContex';
+import Loading from '../components/Loading';
 
 
 const MyProfile = ({ userobj} ) => {
+  const {myNweets} =useContext(NweetContext);
+  const {myProfile} =useContext(ProfileContext);
   return (
     <>
-      <section>
-          <ProfileTopForm  isMine={true}  />
-      </section>
-      
-      <section>
-      <ProfileBottomForm  isMine={true}  userobj={userobj}/>
-      </section>
-
+    {(myNweets===undefined || myProfile===undefined)?
+      <Loading/>
+    :
+      <>
+        <section>
+          <ProfileTopForm  isMine={true} profile={myProfile} nweets={myNweets} />
+        </section>
+        <section>
+          <ProfileBottomForm  isMine={true}  userobj={userobj} nweets={myNweets}/>
+        </section>
+      </>
+    }
     </>
   )
 }

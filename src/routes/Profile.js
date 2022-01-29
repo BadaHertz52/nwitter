@@ -4,12 +4,12 @@ import { ProfileBottomForm, ProfileTopForm } from '../components/ProfileForm';
 import '../asset/profile.css';
 import { ProfileContext } from '../context/ProfileContex';
 import { UserContext } from '../context/UserContext';
+import Loading from '../components/Loading';
 
 const Profile = ({userobj}) => {
   const {myProfile, profileDispatch} =useContext(ProfileContext);
-  const {userDispatch, userProfile} =useContext(UserContext);
+  const {userDispatch, userProfile , userNweets} =useContext(UserContext);
   const myFollowingList =myProfile!==undefined? myProfile.following:[];
-  const [calling, setCalling] =useState(true);
   const [onFollow ,setOnFollow] = useState({following:false , text:"Follow"});
 
   const changeFollowBtn = ()=>{
@@ -68,25 +68,28 @@ const Profile = ({userobj}) => {
   }
 
   useEffect(()=>{
-    setCalling(false);
     myFollowingList[0]!== undefined && changeFollowBtn();
   },[]);
 
   
   return (
     <>
+    {(userProfile===undefined|| userNweets===undefined)?
+      <Loading/>
+    :
+    <>
       <section>
-        <ProfileTopForm isMine={false}  />
-        <button id='profile_followBtn' onClick={follow} 
-       >{onFollow.text}</button>
+        <ProfileTopForm isMine={false} profile={userProfile} nweets={userNweets} />
+        <button id='profile_followBtn' onClick={follow} >
+          {onFollow.text}
+        </button>
       </section>
       <section >
-        {calling && <div className ="nweets_calling">
-          데이터를 불러오는 중입니다.
-        </div>  }
-        <ProfileBottomForm  isMine={false} userobj={userobj}
-        /> 
+        <ProfileBottomForm  isMine={false} userobj={userobj} nweets={userNweets}/> 
       </section> 
+    </>
+    }
+      
     </> 
   ) 
 }
