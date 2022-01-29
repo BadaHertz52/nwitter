@@ -6,7 +6,6 @@ import NweetFactory from './NweetFactory';
 import { getNweetsDocs } from '../components/GetData';
 import { NweetContext } from '../context/NweetContex';
 import { ProfileContext } from '../context/ProfileContex';
-import { FaStepBackward } from 'react-icons/fa';
 
 
 const Home =  ({userobj}) => {
@@ -57,7 +56,7 @@ const Home =  ({userobj}) => {
     return (
       <div id="userInform">
         <div>
-          <div>계정 정보</div>
+          <div>user intorm</div>
           <button  onClick={()=>setPopup(false)}>x</button>
         </div>
         <div>

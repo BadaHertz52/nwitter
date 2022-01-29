@@ -1,15 +1,20 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useContext } from "react/cjs/react.development";
 import { NweetContext } from "../context/NweetContex";
+import Loading from "./Loading";
 import Nweet from "./Nweet";
 
 
 const HomeNeets =({userobj})=> {
   const {allNweets}=useContext(NweetContext);
   return (
-    <section className="nweets">
+    <>
+      {allNweets ==undefined ?
+        <Loading/>
+      :
+      <section className="nweets">
       <div className='nweets_nweet'>
-        { allNweets!== undefined &&
+        { allNweets!== undefined ?
         allNweets.map((nweet) => (
           <Nweet
           key={`nweet'_${nweet.docId}`}
@@ -19,9 +24,14 @@ const HomeNeets =({userobj})=> {
           answer={false}
           />
         ))
+        :
+        <Loading/>
         }
       </div>
     </section>
+      }
+    </>
+   
   )
 }
 
