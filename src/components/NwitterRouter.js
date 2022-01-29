@@ -3,8 +3,7 @@ import { Route, Routes ,useLocation } from 'react-router-dom';
 import ProfileContextProvier, { ProfileContext } from '../context/ProfileContex';
 import NweetContextProvier, { NweetContext } from '../context/NweetContex';
 import { useContext, useEffect } from 'react/cjs/react.development';
-import {getNweetDocs, getNweetsDocs, getProfileDoc } from './GetData';
-import { dbService } from '../Fbase';
+import { getNweetsDocs, getProfileDoc } from './GetData';
 
 import Cropper from '../routes/Cropper';
 import Auth from '../routes/Auth';
@@ -168,7 +167,7 @@ const NwitterRouter =({isLoggedIn,IsMyProfile , userobj }) => {
                     element={<TimeLine userobj={userobj} />}
                   />
                   <Route 
-                    path={`/${location.state.previous}${userId}/status/${docId}`}
+                    path={`/${location.state.previous}/${userId}/status/${docId}`}
                     element={<Nweet userobj={userobj}/>}
                   />
                   <Route 
