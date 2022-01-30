@@ -3,6 +3,7 @@ import { FiArrowLeft } from 'react-icons/fi';
 import { useLocation, useNavigate} from 'react-router';
 import { useContext, useEffect, useState } from 'react/cjs/react.development';
 import { goBack } from '../components/GetData';
+import Loading from '../components/Loading';
 import Nweet from '../components/Nweet';
 import { NweetContext } from '../context/NweetContex';
 
@@ -14,14 +15,12 @@ const TimeLine =({userobj})=>{
   const [nweet,setNweet]=useState({docId:"" ,about:null});
 
   useEffect(()=>{ 
-    if(nweet.docId==""){
       if(state.value.aboutDocId == null){
         const targetNweet =myNweets.filter(n=> n.docId == state.docId)[0];
       setNweet(targetNweet);
       }else{
         setNweet(state.aboutDocId)
       }
-    }
 
   },[state, myNweets]);
 
@@ -50,11 +49,15 @@ const TimeLine =({userobj})=>{
         </div>
       </div>
       <div id="timeLine_nweet">
+        {(nweet !==undefined && nweet.docId!=="") ?
         <Nweet  
           nweetObj={nweet} 
           userobj={userobj} 
           isOwner={true} 
           answer={ false} />
+          :
+          <Loading/>
+      }
       </div>
     </div>
   )
