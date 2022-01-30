@@ -3,7 +3,9 @@
   top:50%;
   left: 50%;
 }
-
+.nweet .value .container{
+  margin: 100px;
+}
 .loader {
   position: relative;
   width: 4rem;
