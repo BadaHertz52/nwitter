@@ -9,9 +9,11 @@ import Rn from './Rn';
 import {  deleteNweetNotification, deleteProfileNotification, getNweet, getNweetDoc, getProfile, getProfileDoc, goBack} from './GetData';
 import  { NweetContext } from '../context/NweetContex';
 import {ProfileContext} from '../context/ProfileContex';
-import {BiDotsHorizontalRounded } from 'react-icons/bi';;
+import {BiDotsHorizontalRounded } from 'react-icons/bi';
+import Loading from './Loading';
 
-const Nweet =({key, nweetObj , userobj ,isOwner ,answer }) =>{
+
+const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
   const navigate =useNavigate();
   const location =useLocation();
   const state =location.state !==null && location.state.previousState !==null ? location.state.previousState :location.state ;
@@ -49,9 +51,6 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer }) =>{
     nweetobj.notifications!==undefined&& 
     nweetobj.notifications[0]!==undefined) ?
   nweetobj.notifications.filter(n=> (n.user ===userobj.uid)&&(n.value==="heart"|| n.value==="rn"))[0] :undefined;
-  const pathName = (nweetobj.value==="nweet")? 
-  `${ownerProfile.userId}/status/${nweetobj.docId}`:
-  `${aboutProfile.userId}/status/${aboutNweet.docId}`;
 
   const getAnswerNweets=async(nweet)=>{
     const answerNotifications = nweet.notifications.filter(n=> n.value=="answer");
@@ -64,21 +63,6 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer }) =>{
       setStatusAnswer(true);
   }
   //fun
-  const onDeleteClick = (event) =>{
-    event.preventDefault();
-    const ok = window.confirm("Are you sure you want to delete this nweet?");
-    nweetDispatch({
-      type:"DELETE",
-      uid:userobj.uid,
-      docId: nweetobj.docId ,
-      attachmentUrl:nweetobj.attachmentUrl
-    });
-    if(nweetObj.value=== "qn" || 
-    nweetObj.value==="answer"){
-      deleteNweetNotification(aboutNweet,nweetobj,userobj,nweetobj.value);
-      deleteProfileNotification(aboutProfile,aboutNweet,nweetobj,userobj,nweetobj.value )
-    }
-  };
 
   const chagneClassName =()=>{
   if(nweetobj.value === "answer"){
@@ -99,26 +83,21 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer }) =>{
       goBack(location, `${location.state.previousState.userId}/status`,navigate)
     }
   useEffect(()=>{
+
     if( location.pathname.includes("status")||
     location.pathname.includes("timeLine")){
-      nweetobj.value=="answer"? getAnswerNweets(aboutNweet):
-      getAnswerNweets(nweetobj)
+      nweetobj.value==="answer"? getAnswerNweets(aboutNweet) :getAnswerNweets(nweetobj)
       }
-  },[location ,nweetobj]);
+  },[location ,nweetobj,aboutNweet]);
 
   useEffect(()=>{
   nweetClassName !=="nweet answer" && chagneClassName();
-  if(location.pathname.includes("status")){
-    setOwnerProfile(state.ownerProfile);
-    setAboutProfile(state.aboutProfile);
-    setAboutNweet(state.aboutNweet);
-  }else{
-
-    if(myProfile.userName !==""){
-      if(ownerProfile.userId ===""){
+  if(myProfile.userName !==""){
+    if(ownerProfile.userId ===""){
+      location.pathname.includes("status")?
+      setOwnerProfile(state.ownerProfile):
       getProfile(nweetobj.creatorId ,setOwnerProfile);
       };
-
     if(aboutProfile.userId ===""){
       if( nweetobj.about !== null ){
         getProfile(nweetobj.about.creatorId ,setAboutProfile);
@@ -128,15 +107,13 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer }) =>{
   }else {
       console.log("Can't find myProfile")
     }
-  } 
-  },[myProfile ,aboutProfile]);
 
+  },[myProfile ,aboutProfile]);
   const NweetForm =({what ,IsAnswer, profile})=>{
     const now = new Date();
     const year = now.getFullYear();
     const date = now.getDate();
     const month =now.getMonth()+1;
-
     const [time ,setTime] =useState("");
     const [aboutTime ,setAboutTime]=useState("");
     const textId =what.docId;
@@ -152,21 +129,47 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer }) =>{
       about:what.about,
     } ;
     const monthArry =["Jan", "Feb", "Mar", "Apr","May", "Jun", "Jul","Aug","sep","Oct","Nov","Dec"];
-    const condition = nweet.creatorId==ownerProfile.uid
+
+
+    const onDeleteClick = (event) =>{
+      event.preventDefault();
+      const ok = window.confirm("Are you sure you want to delete this nweet?");
+      nweetDispatch({
+        type:"DELETE",
+        uid:userobj.uid,
+        docId: nweet.docId ,
+        attachmentUrl:nweet.attachmentUrl
+      });
+      switch (nweet.value) {
+        case "qn":
+          deleteNweetNotification(aboutNweet,nweet,userobj,nweetobj.value);
+          deleteProfileNotification(aboutProfile,aboutNweet,nweet,userobj,nweetobj.value )
+          break;
+        case "answer":
+          deleteNweetNotification(nweetobj,nweet,userobj,nweetobj.value);
+          deleteProfileNotification(ownerProfile,nweetobj,nweet,userobj,nweet.value )
+          break;
+        default:
+          break;
+      }
+    };
+
+
     const goState =(event)=>{
       const target =event.target;
+      const condition = nweet.creatorId===ownerProfile.uid;
       const condition1 =!target.classList.contains("fun");
       const condition2 = !target.parentNode.classList.contains("fun");
+      const pathName = `${profile.userId}/status/${nweet.docId}`;
+  
       if(condition1 && condition2){
         navigate(`${pathName}` , {state:{
             previous:location.pathname,
-            previousState:{ 
-              nweetObj:what,
-              isOwner:is_owner,
+            previousState:{                         
+              nweetObj:nweet,
+              isOwner:condition,
               answer:false,
-              ownerProfile:what.creatorId== ownerProfile.uid? ownerProfile : aboutProfile,
-              aboutProfile:what.creatorId== ownerProfile.uid? profileForm: aboutProfile,
-              aboutNweet:what.creatorId== ownerProfile.uid? nweetForm: aboutNweet,
+              ownerProfile:profile,
               value :"status",
               userId:condition? ownerProfile.userId : aboutProfile.userId,
               docId:condition? nweetobj.docId: aboutNweet.docId},
@@ -195,7 +198,6 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer }) =>{
       : setAboutTime(`${monthArry[aboutNweet.createdAt[1]]} ${aboutNweet.createdAt[2]},${aboutNweet.createdAt[0]}`)
     },[aboutNweet]);
 
-
     const target =document.getElementById(`${textId}`);
     if(target !==null && target.innerHTML !== nweet.text){
       target.innerHTML =nweet.text
@@ -205,14 +207,17 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer }) =>{
   <div 
   className={!location.pathname.includes("status")&&"statusBtn"}
   >
-    <div
+    {(nweet.docId==="" || profile.photoUrl==="")?
+      <Loading/>
+      :
+      <div
       className='nweet_form'
       id={key}
       ref={answerForm} 
       onClick={goState} 
     >
       <div className='nweetSide'>
-          <UserProfile profile={profile}/>
+        <UserProfile profile={profile}/>
         {  IsAnswer &&   !statusAnswer &&
           <div className='answerLine'  >
           </div> 
@@ -276,12 +281,14 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer }) =>{
           </div>
           {IsAnswer &&  !statusAnswer &&
             <div className='answer_who'>
-              @{ownerProfile.userId}
+              @{aboutProfile.userId}
               에 대한 답글
             </div>
           }
       </div>
     </div>
+    }
+
   </div>
   )
   };
