@@ -51,6 +51,7 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
     nweetobj.notifications!==undefined&& 
     nweetobj.notifications[0]!==undefined) ?
   nweetobj.notifications.filter(n=> (n.user ===userobj.uid)&&(n.value==="heart"|| n.value==="rn"))[0] :undefined;
+  const [loading,setLoading]=useState(false);
 
   const getAnswerNweets=async(nweet)=>{
     const answerNotifications = nweet.notifications.filter(n=> n.value=="answer");
@@ -102,13 +103,28 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
       if( nweetobj.about !== null ){
         getProfile(nweetobj.about.creatorId ,setAboutProfile);
         getNweet(nweetobj.about.creatorId, nweetobj.about.docId, setAboutNweet);
-      };
+      }
     };
   }else {
       console.log("Can't find myProfile")
-    }
-
+    };
   },[myProfile ,aboutProfile]);
+  useEffect(()=>{
+    if(nweetobj.about!==null){
+      (ownerProfile.photoUrl!=="" &&aboutProfile.photoUrl!=="" && aboutNweet.docId!=="")
+        ?
+        setLoading(false)
+        :
+        setLoading(true);
+      }else{
+        (ownerProfile.photoUrl!=="")
+        ?
+        setLoading(false)
+        :
+        setLoading(true);
+      };
+  },[ownerProfile,aboutProfile,aboutNweet]);
+  
   const NweetForm =({what ,IsAnswer, profile})=>{
     const now = new Date();
     const year = now.getFullYear();
@@ -207,15 +223,12 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
   <div 
   className={!location.pathname.includes("status")&&"statusBtn"}
   >
-    {(nweet.docId==="" || profile.photoUrl==="")?
-      <Loading/>
-      :
       <div
       className='nweet_form'
       id={key}
       ref={answerForm} 
       onClick={goState} 
-    >
+      >
       <div className='nweetSide'>
         <UserProfile profile={profile}/>
         {  IsAnswer &&   !statusAnswer &&
@@ -287,15 +300,13 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
           }
       </div>
     </div>
-    }
-
   </div>
   )
   };
 
   return(
     <div >
-      {nweetobj !==undefined &&
+      {(nweetobj !==undefined && !loading)?
       <>
         <div className={nweetClassName} 
         id={location.pathname !==undefined && 
@@ -386,6 +397,8 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
           )}
         </div>}
       </>
+      :
+      <Loading/>
       }
     </div>
   )
