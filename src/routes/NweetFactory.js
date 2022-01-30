@@ -108,7 +108,12 @@ const NweetFactory = ({userobj ,setPopup }) => {
 
     //     })
     // };
-    if(location.state !==null && location.state.value !== undefined){
+    if(location.state !==null && 
+      location.state.value !== undefined && 
+      (location.state.value ==="qu" ||
+      location.state.value ==="answer" ||
+      location.state.value ==="nweet" 
+      )){
          //알림 가기, 알림 업데이트 
       const profile =location.state.profile ;
       const nweetObj =location.state.nweetObj;
