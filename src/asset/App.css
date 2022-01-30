@@ -46,6 +46,7 @@ button ,
   background-color: rgb(111, 179, 243);
   margin-top: 0.5rem;
   border: none;
+  transition-duration: 0.8s;
 }
 
 button:hover , .btn:hover{
