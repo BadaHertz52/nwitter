@@ -35,6 +35,7 @@ export const ProfileTopForm = ({ isMine ,nweets,profile} )=>{
   profileDispatch({
     type:"CLEAR_MY_PROFILE"
   })
+  navigate('/')
   authSerVice.signOut();
 };
   const goEdit =()=> {
