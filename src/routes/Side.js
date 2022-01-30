@@ -8,11 +8,13 @@ import { dbService } from '../Fbase';
 import UserProfile from '../components/UserProfile';
 import { UserContext } from '../context/UserContext';
 import { getNweetsDocs } from '../components/GetData';
+import { ProfileContext } from '../context/ProfileContex';
 
 const Side =({userobj})=>{
   const location =useLocation();
   const navigate=useNavigate();
   const {userDispatch}=useContext(UserContext);
+  const {myProfile}=useContext(ProfileContext);
   const state =location.state; 
   const initialResult ={userId:"" ,userName:""}
   const [result, setResult]=useState(initialResult);
@@ -92,7 +94,9 @@ const Side =({userobj})=>{
           </ul>
         </div>
       </div>
-      <Recommend userobj={userobj}/>
+      {myProfile!==undefined && 
+        <Recommend userobj={userobj}/>
+      }
     </>
   )
 };
