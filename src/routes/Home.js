@@ -49,7 +49,12 @@ const Home =  ({userobj}) => {
   useEffect(()=>{
     if( myProfile.following[0]!==undefined){
       !end && getAllNweets();
-    }
+    }else {
+      nweetDispatch({
+        type:"UPDATE_ALL_NWEETS",
+        allNweets:myNweets
+      })
+    };
   },[myProfile.following ,allNweets ])
 
   const Popup =()=>{
