@@ -1497,10 +1497,6 @@ img, div, button, #nav, input {
   padding: 0;
 }
 
-#status .nweet_form {
-  padding: 1rem;
-}
-
 #status_header {
   padding-left: 1rem;
   display: -webkit-box;
@@ -1527,10 +1523,6 @@ img, div, button, #nav, input {
 
 #status_header div {
   padding: 0.5rem;
-}
-
-.statusAnswers .nweet_form {
-  padding: 1rem;
 }
 
 @media screen and (min-width: 768px) {
@@ -2883,6 +2875,36 @@ input:focus {
     width: 60%;
     left: 20%;
   }
+}
+
+#timeLine_header {
+  border-bottom: 1px solid #e4e4e4;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  padding: 10px 0;
+}
+
+#timeLine_header button {
+  background-color: initial;
+  margin: 1rem;
+  margin-left: 2rem;
+  font-size: 1.5rem;
+  height: 2.5rem;
+  padding: 0.5rem;
+}
+
+#timeLine_header button:hover {
+  background-color: #ebebeb;
+  color: initial;
+}
+
+#timeLine_value {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 @font-face {
