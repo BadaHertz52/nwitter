@@ -27,7 +27,7 @@ const EditProfile = ( { userobj}) =>{
   const [src, setSrc]=useState("");
 
   const closeEdit =()=>{
-    goBack(location, "edit", navigate);
+    goBack(location, "/edit", navigate);
     profileDispatch({
       type:'CLEAR_INPUT'
     })

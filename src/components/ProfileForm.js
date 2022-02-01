@@ -50,7 +50,7 @@ export const ProfileTopForm = ({ isMine ,nweets,profile} )=>{
         <button 
         id="profile_goHomeBtn" 
         className='back'
-        onClick={()=>goBack(location, profile.userId, navigate)}>
+        onClick={()=>goBack(location, `/${profile.userId}`, navigate)}>
           <FiArrowLeft/>
         </button>
         <div>

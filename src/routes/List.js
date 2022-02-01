@@ -61,7 +61,7 @@ const List =({userobj})=>{
     changeStyle(listFollowing);
   };
   const goBack=()=>{
-    navigate(`${back}`, {state:state})
+    navigate(`/${back}`, {state:state})
   };
   const goListFollower=()=>{navigate(`${back}/list/follower` , 
   {state:state})};

@@ -79,8 +79,8 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
   };
     const onBack=()=>{
       location.pathname.includes("nweet")?
-      goBack(location, "nweet",navigate):
-      goBack(location, `${location.state.previousState.userId}/status`,navigate)
+      goBack(location, "/nweet",navigate):
+      goBack(location, `/${location.state.previousState.userId}/status`,navigate)
     }
   useEffect(()=>{
 
