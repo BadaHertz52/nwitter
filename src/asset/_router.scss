@@ -23,6 +23,115 @@
   display: none;
 }
 
+#root{
+  width: 100vw;
+  height: 100vh;
+}
+#inner{ 
+  display: flex;
+  position: relative;
+  width:100%;
+  height: 100%;
+
+}
+.header {
+  margin-left: 1rem;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+button , 
+.btn {
+  border-radius: 9999px;
+  background-color: $btnLightBlue;
+  margin-top: 0.5rem;
+  border: none;
+  transition-duration: 0.5s;
+}
+
+button:hover , .btn:hover{
+  background-color: $btnHoverBlue
+;
+  color: rgb(245, 245, 245);
+}
+
+#inner {
+  box-sizing: border-box;
+}
+.nweetFactory textarea:focus ,
+input:focus{
+  outline: none;
+}
+.back{
+  transition-duration: 0.5s;
+}
+#auth{
+  margin:35% 20%;
+  input{
+    width: 200px;
+  }
+  & > div{
+    margin-bottom: 1rem;
+  }
+  button, input:last-child{
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+    background-color:rgb(201, 226, 250);
+    padding : 5px ;
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+    border-radius:45px ;
+    &:hover{
+      color:#ffff;
+      background-color: $btnHoverBlue;
+    }
+  }
+}
+#createAccount ,#logIn {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+  button{
+    text-align: center;
+    width: 100%;
+    font-size: 1rem;
+    margin-top: 3vh;
+  }
+  &>div{
+    font-size: 1.2rem;
+    font-weight: 700;
+    width: 100%;
+  }
+}
+#logIn > div{
+  margin-top: 5vh;
+}
+
+#authForm{
+  margin-top:1.2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  
+  input{
+    margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  width: 100%;
+  }
+}
+
+#authError {
+  margin-top: 1rem;
+  padding: 1rem 10px;
+  font-size: 1rem;
+  background-color: rgb(240, 240, 240);
+  overflow-wrap: break-word;
+}
+
 @media screen and (min-width:500px) {
   #inner {
     overflow-y:scroll;
@@ -40,6 +149,25 @@
   }
   #side{
     display: none;
+  }
+}
+
+
+@media screen and (min-width:660px) {
+  #auth {
+    margin:25%;
+    margin-bottom: 0;
+    & >div{
+      margin-bottom: 4rem;
+    }
+  }
+}
+@media screen and (min-width:900px) {
+  #auth {
+    margin: 20% 30% ;
+    & >div{
+      margin-bottom: 1.5rem;
+    }
   }
 }
 
@@ -296,6 +424,7 @@
 
 }
 
+
 @media  screen and (min-width:1300px) {
   #inner {
     padding:0;
@@ -309,7 +438,12 @@
   #trend li{
     font-weight: normal;
   }
-
+  #auth{
+    margin:15% 35% ;
+  }
+  #createAccount ,#logIn {
+    text-align: center;
+  }
 }
 
 @media screen and (min-width:1440px) {
@@ -317,3 +451,27 @@
     padding:0 4%;
   }
 }
+@media screen and (min-width:1800px) {
+  #inner {
+    width: 80%;
+    padding: 0;
+    position: fixed;
+    left: 10%;
+  }
+}
+@media screen and (min-width:2300px) {
+  #inner {
+    width: 70%;
+    left: 15%;
+  }
+}
+@media screen and (min-width:3000px) {
+  #inner {
+    width: 60%;
+    left: 20%;
+  }
+}
+
+
+
+
