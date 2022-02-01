@@ -40,7 +40,7 @@ img, div, button  ,#nav , input {
 #edit_header{
   display:flex ;
   justify-content: space-between;
-  margin-bottom: 1;
+  margin-bottom: 1rem;
   font-size: 1.2rem;
   padding:0 5%;
 
@@ -120,8 +120,7 @@ img, div, button  ,#nav , input {
     margin-bottom: 0;
 }
 }
-#editProfile_name ,
-#editProfile_introcude{
+.editProfile_introduce {
   font-size:1rem ;
   padding-left: 3%;
   border: 1px solid rgb(175, 175, 175);

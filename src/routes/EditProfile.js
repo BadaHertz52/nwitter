@@ -189,7 +189,7 @@ const EditProfile = ( { userobj}) =>{
           </div>
           
         </div>
-        <div id="editProfile_name">
+        <div class="editProfile_introduce">
           <p>이름</p>
           <input
             type="text"
@@ -199,7 +199,7 @@ const EditProfile = ( { userobj}) =>{
             id="profile_userName"
           />
         </div>
-        <div id="editProfile_introduce">
+        <div class="editProfile_introduce">
           <p>자기 소개</p>
           <input
             id="profile_introduce"
