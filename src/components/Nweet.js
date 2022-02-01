@@ -389,7 +389,7 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
           }
         </div>
       {statusAnswer&& 
-        <div class="nweet answers" >
+        <div class="nweet statusAnswers" >
           {answerNweets.map(
             answer => 
             <NweetForm what={answer.nweet} IsAnswer={false} profile={answer.profile}  />

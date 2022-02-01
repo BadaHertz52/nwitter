@@ -1244,10 +1244,6 @@ img, div, button, #nav, input {
   margin-left: 3vw;
 }
 
-.nweetSide {
-  width: 3.2rem;
-}
-
 .nweet .userProfile {
   width: 3.2rem;
 }
@@ -1426,10 +1422,6 @@ img, div, button, #nav, input {
   height: inherit;
 }
 
-.nweet.answer .userProfile {
-  width: 80%;
-}
-
 .answer_who {
   font-size: 0.8rem;
   margin-bottom: 10px;
@@ -1541,6 +1533,10 @@ img, div, button, #nav, input {
   padding: 0.5rem;
 }
 
+.statusAnswers .nweet_form {
+  padding: 1rem;
+}
+
 @media screen and (min-width: 768px) {
   .nweet_form {
     padding-left: 2rem;
@@ -1552,11 +1548,8 @@ img, div, button, #nav, input {
   .nweet .text {
     font-size: 1rem;
   }
-  .nweetSide {
+  .nweet .userProfile {
     width: 3.5rem;
-  }
-  .nweet .userProfile img {
-    width: 100%;
   }
   .nweet_content {
     padding: 0;

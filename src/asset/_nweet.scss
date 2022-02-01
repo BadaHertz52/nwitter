@@ -8,7 +8,9 @@
   border-bottom: 1px solid #bebebe31;
   width: 100%;
   box-sizing: border-box;
+
 }
+
 .statusBtn {
   transition-duration: 0.5s;
   &:hover{
@@ -76,11 +78,8 @@
 }
 }
 
-.nweetSide {
-  width: 3.2rem ;
-}
 .nweet .userProfile{
-  width:3.2rem;
+  width: 3.2rem;
   button{
     width: 100%;
     margin: 0;
@@ -127,7 +126,6 @@
 .heartBtn {
   background-color: rgba(0, 0,0,0)
 }
-
 
 .nweet .qn {
   border :1px solid rgba(94, 93, 93, 0.658);
@@ -207,9 +205,6 @@
   }
   .value {
     height: inherit;
-  }
-  .userProfile{
-    width: 80%;
   }
 }
 
@@ -306,26 +301,28 @@
     padding:0.5rem
   }
 }
+.statusAnswers {
+  .nweet_form{
+    padding: 1rem;
+  }
+}
 
 @media screen and (min-width:768px) {
-.nweet_form{
-    padding-left: 2rem;
-    padding-top:2rem
-  }
-.nweet_header > div, 
-.nweet_header button, 
-.nweet .qn .nweet_header> div:nth-child(2), 
-.nweet .text{
-    font-size: 1rem;
-  }
-.nweetSide {
-    width:3.5rem ;
+  .nweet_form{
+      padding-left: 2rem;
+      padding-top:2rem
   }
 
+  .nweet_header > div, 
+  .nweet_header button, 
+  .nweet .qn .nweet_header> div:nth-child(2), 
+  .nweet .text{
+      font-size: 1rem;
+    }
   .nweet {
-    .userProfile img{
-    width: 100%;
-  }
+    .userProfile{
+      width: 3.5rem;
+    }
   &_content{
     padding: 0;
     padding-left: 10px;   
