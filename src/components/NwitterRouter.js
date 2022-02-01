@@ -18,20 +18,10 @@ import List from '../routes/List';
 import Side from '../routes/Side';
 import UserContextProvider from '../context/UserContext';
 import TimeLine from '../routes/TimeLine';
-//css
-import '../asset/router.css';
-import '../asset/auth.css';
-import '../asset/home.css';
-import '../asset/nav.css';
-import '../asset/nweet.css';
-import '../asset/nweetFactory.css';
-import '../asset/profile.css';
-import '../asset/notification.css';
-import '../asset/list.css';
-import '../asset/nweetFun.css'
-import '../asset/timeLine.css'
 import Nweet from './Nweet';
 
+//css
+import '../asset/main.css';
 
 
 const NwitterRouter =({isLoggedIn,IsMyProfile , userobj }) => {

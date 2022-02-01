@@ -188,9 +188,9 @@ const List =({userobj})=>{
               <button className='back' onClick={goBack}>
                 <FiArrowLeft/>
               </button>
-              <div> 
-              <div>{profile.userName}</div>
-              <div>@{profile.userId}</div>
+              <div id="list_userInform"> 
+                <div>{profile.userName}</div>
+                <div>@{profile.userId}</div>
               </div>
             </div>
           <div id="list_btn">

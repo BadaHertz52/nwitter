@@ -3,7 +3,7 @@ import ReactCrop from 'react-image-crop';
 import '../../node_modules/react-image-crop/dist/ReactCrop.css';
 import React from 'react';
 import {BiArrowBack} from "react-icons/bi";
-import '../asset/cropper.css';
+
 import { useLocation, useNavigate } from 'react-router';
 import { NweetContext } from '../context/NweetContex';
 import { ProfileContext } from '../context/ProfileContex';

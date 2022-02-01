@@ -1,0 +1,27 @@
+@mixin initialBtn {
+  background-color: initial;
+  &:hover{
+    background-color: initial;
+    color: initial;
+  }
+}
+@mixin backBtnHover {
+  background-color: rgb(235,235, 235);
+  color: initial;
+}
+@mixin backBtn {
+  font-size: 1.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: {
+    right: 1rem ; 
+    left: 2rem
+  };
+  &:hover{
+    @include backBtnHover()
+  }
+}
+$deep_blue:rgb(0, 140, 255);
+$btnLightBlue: rgb(29, 155, 240);
+$btnHoverBlue:rgb(111, 179, 243);
+

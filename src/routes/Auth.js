@@ -1,7 +1,7 @@
 import AuthForm from '../components/AuthForm';
 import React from 'react' ;
 import { useState } from 'react/cjs/react.development';
-import '../asset/auth.css';
+
 import authSerVice , { friebaseInstance } from '../Fbase';
 
 const Auth = ( ) => {

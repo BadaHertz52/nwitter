@@ -1,0 +1,412 @@
+@import './common';
+
+.nweets , .nweets_nweet  {
+  width: 100%;
+  height: 80vh;
+}
+.nweet {
+  border-bottom: 1px solid #bebebe31;
+  width: 100%;
+  box-sizing: border-box;
+}
+.statusBtn {
+  transition-duration: 0.5s;
+  &:hover{
+    background-color: rgba(235, 235, 235, 0.432);
+  }
+}
+
+.nweet_content .nweet_fun,
+.nweetSide .userProfile {
+  transition-duration: 0.2s;
+}
+.nweet_form {
+  padding : {
+    left: 1rem;
+    top: 1rem
+  }
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+}
+
+.nweet_content{
+  margin: 0 5%;
+  height: 100%;
+  width: 75%;
+}
+
+.nweet_header {
+  display: flex; 
+  flex-direction: row;
+  justify-content: space-between;
+  margin : {
+    bottom: 1rem;
+    right: 1rem;
+  }
+  &>div{
+    display: flex;
+  }
+}
+
+.nweet_header > div ,
+.nweet_header button,
+.nweet .qn .nweet_header> div:nth-child(2) ,
+.nweet .text{
+  font-size: 15px;
+}
+.nweet_header .nweet_time ,
+.nweet .qn .qn_time {
+  color: gray;
+  text-align: center;
+}
+.nweet_header span {  
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  margin-left:5px;
+  &:first-child{
+    font-weight: bold;
+  }
+  &> div> div> div {
+  color: grey;
+  margin-left: 3vw;
+}
+}
+
+.nweetSide {
+  width: 3.2rem ;
+}
+.nweet .userProfile{
+  width:3.2rem;
+  button{
+    width: 100%;
+    margin: 0;
+    padding:0;
+    background-color: initial;
+  }
+  button:hover{
+    @include initialBtn
+  }
+  img{
+    width: 100%;
+    aspect-ratio: 1/1;
+  }
+  span {
+    text-align: center;
+    margin-left: 2vw;
+  }
+}
+
+
+.nweet .text ,.nweet .attachment{
+  margin: 1rem 10% 1rem 2%;
+}
+
+.nweet .attachment{
+  height: inherit;
+  img{
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+}
+
+.nweet_header button{
+  margin: 0 ;
+  background-color: initial ;
+  &:hover{
+  background-color: rgb(213, 234, 253);
+  color: $deep_blue;
+  }
+}
+
+.rnBtn , .heartBtn {
+  background-color: rgba(0, 0,0,0)
+}
+
+
+.nweet .qn {
+  border :1px solid rgba(94, 93, 93, 0.658);
+  border-radius: 10px;
+  margin: 5% 0;
+  padding: 0;
+  .nweet_form {
+    padding-left: 5%;
+    padding-top: 5%;
+    display: flex;
+    flex-direction: column;
+  }
+  .nweet_header div:last-child div{
+    white-space: nowrap;
+    overflow :hidden;
+    text-overflow: ellipsis;
+  }
+  .nweet_content {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    margin:0;
+    &>div{
+      width: 100%;
+    }
+  }
+
+  .userProfile {
+    width: 2rem;
+    height: 2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    img{
+      width: 100% ;
+      aspect-ratio: 1/1;
+    }
+  }
+
+  .userProfile 
+  .nweet_header {
+    flex-direction: row;
+    justify-content: stretch;
+  }
+  
+  .nweet_header > div:last-child {
+    display: flex;
+    justify-content: space-between;
+  }
+  .text{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    -webkit-line-clamp: 2;
+    overflow :hidden;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+    width: 90%;
+    line-height: 1.6rem;
+    max-height:3.2rem;
+  }
+  .attachment{
+    margin:0;
+    margin-bottom: 10px;
+    img{
+      max-width:90% ;
+      margin:0 5%; 
+    }
+  }
+  .nweet_fun {
+    display: none;
+  }
+}
+
+/*answer*/
+.nweet .answer {
+  display: flex;
+  flex-direction:column ;
+  &:hover{
+    @include initialBtn
+  }
+  .value {
+    height: inherit;
+  }
+  .userProfile{
+    width: 80%;
+  }
+}
+
+.answer_who{
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+  color: rgb(83, 83, 83);
+  padding:0;
+  a {
+    background-color: initial;
+    font-size: 1.1rem;
+    color: $deep_blue;
+    &:hover{
+      font-weight: bolder;
+    }
+    &:link , 
+    &:active {
+      font-size: 1.1rem;
+      color:$deep_blue ;
+      text-decoration:$deep_blue;
+    }
+  }
+}
+
+.answerLine{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  border-right: 1px solid rgb(197, 189, 189);
+  width: 1px;
+  height: 90%;
+  margin-left: 50%;
+}
+
+.value_explain{
+  margin: 1rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: rgb(131, 124, 124);
+  svg{
+    margin-right: 1rem;
+  }
+}
+
+#nweetFactory_qn .nweet {
+  margin: 0;
+}
+#nweetFactory_qn .nweet_fun{
+  display: none;
+}
+#nweetFactory_qn .nweetSide,
+#nweetFactory_qn .userProfile img{
+  width: 3rem;
+}
+#nweetFactory_qn .nweet_header > div,
+#nweetFactory_qn .nweet_header button, 
+#nweetFactory_qn .nweet .qn .nweet_header> div:nth-child(2), 
+#nweetFactory_qn .nweet .text{
+  font-size: 15px;
+}
+
+
+#status {
+  padding: 0;
+  .nweet_form{
+    padding: 1rem;
+  }
+  
+}
+#status_header {
+  padding-left: 1rem;
+  display: flex;
+  font: {
+    size:1.5rem;
+    weight:bold;
+  };
+  border-bottom: 1px solid rgba(190, 190, 190, 0.192);
+  padding: {
+    top:5px;
+    bottom:10px
+  }
+  button{
+    background-color: initial;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    padding: 0.25rem 0.5rem;
+    &:hover {
+      background-color: rgb(235,235,235);
+      color:initial
+    }
+  }
+  div{
+    padding:0.5rem
+  }
+}
+
+@media screen and (min-width:768px) {
+.nweet_form{
+    padding-left: 2rem;
+    padding-top:2rem
+  }
+.nweet_header > div, 
+.nweet_header button, 
+.nweet .qn .nweet_header> div:nth-child(2), 
+.nweet .text{
+    font-size: 1rem;
+  }
+.nweetSide {
+    width:3.5rem ;
+  }
+
+  .nweet {
+    .userProfile img{
+    width: 100%;
+  }
+  &_content{
+    padding: 0;
+    padding-left: 10px;   
+  }
+  .text ,
+  .attachment{
+    margin-left: 2%;
+  }
+  .attachment{
+    margin-right: 30%;
+  }
+  &_furn {
+    width:70%
+  }
+  .qn{
+    .nweet_content >div {
+      width: 90%;
+    }
+    .userProfile{
+      width: 2.5rem;
+      height: 2.5rem;
+      img{
+        width: 100%;
+      }
+    }
+    .nweet_header  {
+      width: 90%;
+    }
+    .text {
+      width: 90%;
+    
+      margin-top: 2vw;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .attachment img{
+      max-width: 100%;
+    }
+  }
+  }
+}
+
+@media screen and (min-width:1024px) {
+
+  .nweet_content{
+    width: 87%;
+  }
+  .nweet_header{
+    width:88%
+  }
+
+  .nweet .attachment img{
+    max-width: 90%;
+    margin-left:5%;
+  }
+  .nweet_fun{
+    margin-bottom: 2vh;
+  }
+  .answer a ,
+  .rnBtn , 
+  .heartBtn{
+    margin-top: 0;
+  }
+  .nweet .qn {
+    margin-left: 5%;
+    .nweet_content {
+      padding: 5% ;
+      margin-left:0 ;
+    }
+    .attachment img{
+      max-width: initial;
+      width: 100%;
+    }
+    .text{
+      margin-top: 0;
+    }
+  }
+}
+@media screen and (min-width:1440px) {
+  .nweet .qn{
+    width: 80%;
+  }
+}

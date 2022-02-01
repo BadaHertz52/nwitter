@@ -1,6 +1,5 @@
 import React, { useContext } from 'react' ;
 import { ProfileTopForm, ProfileBottomForm } from '../components/ProfileForm'
-import '../asset/profile.css';
 import { NweetContext } from '../context/NweetContex';
 import { ProfileContext } from '../context/ProfileContex';
 import Loading from '../components/Loading';

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react' ;
 
 import { ProfileBottomForm, ProfileTopForm } from '../components/ProfileForm';
-import '../asset/profile.css';
+
 import { ProfileContext } from '../context/ProfileContex';
 import { UserContext } from '../context/UserContext';
 import Loading from '../components/Loading';

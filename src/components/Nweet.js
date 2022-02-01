@@ -1,7 +1,6 @@
 import React, {  useContext, useEffect, useRef, useState } from 'react';
 import UserProfile from './UserProfile';
 import {  AiOutlineHeart, AiOutlineRetweet } from "react-icons/ai";
-import '../asset/nweet.css' ;
 import {FiArrowLeft, FiMessageCircle} from 'react-icons/fi';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Heart from './Heart';

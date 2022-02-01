@@ -2,7 +2,7 @@
 import React, { useCallback, useContext, useState } from 'react' ;
 
 import {MdAddPhotoAlternate } from "react-icons/md";
-import '../asset/editProfile.css';
+
 import { HiArrowNarrowLeft } from 'react-icons/hi';
 import { ProfileContext } from '../context/ProfileContex';
 import { storageService } from '../Fbase';

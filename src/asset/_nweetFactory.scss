@@ -1,0 +1,413 @@
+@import './common';
+
+.nweetFactory{
+  height: auto;
+  textarea::-webkit-scrollbar {
+    width: 0;
+  }
+  input {
+    border: none;
+    font : {
+      size: 1.1rem;
+      weight:500;
+    }
+    color: rgb(105, 105, 105);
+    background-color: rgb(208, 227, 245);
+    margin:5px 0 ;
+    padding:0 10px;
+  }
+  form {
+    margin-left: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    &>div:last-child{
+      width: 90%;
+      display: flex;
+      justify-content: space-between;
+    }
+    label {
+      border-radius: 50%;
+      text-align: center;
+      padding: 6px 10px;
+    &:hover{
+      background-color: rgb(213, 234, 253);
+    }
+    svg{
+      color:rgb(40, 139, 231);
+    }
+  }
+  }
+  
+  textarea{
+  font-size: 1.2rem;
+  color:rgb(87, 87, 87);
+  border: none;
+  margin-bottom: 10px;
+  width:90% ;
+  height:fit-content;
+  resize:none;
+  word-break:keep-all ;
+  white-space: break-spaces;
+  line-height: 30px;
+
+  &:hover{
+  color: black;
+  }
+  }
+
+  svg {
+    font-size: 1.5rem;
+  }
+
+}
+
+#home .nweetFactory{
+  display: none;
+  &_inner{
+    width: 100%;
+    margin: 0;
+  }
+}
+
+.nweetFactory_box{
+  display: flex;
+  flex-direction: row;
+}
+
+
+#nweetfactory_attachment {
+  margin: 0 15% 1rem 15%;
+  margin-bottom: 1rem;
+  width: 60%;
+  position:relative;
+  img{
+    max-width: 100%;
+    height: auto;
+  }
+  button {
+    position:absolute ;
+    background-color: rgba(53, 53, 53, 0.699);
+    color: #fff;
+    &:nth-child(2){
+      top:2% ;
+      left:2%
+    }
+    &:nth-child(3){
+      bottom: 5%;
+      right: 5%;
+    }
+  }
+}
+
+ 
+/*popup*/
+.nweetFactory_popup {
+  z-index: 3;
+  .nweetFactory_inner{
+    margin: 1rem;
+    &>div{
+      width: 100%;
+    }
+  }
+}
+
+#nweetBtn{
+  display: none;
+}
+
+.nweetFactory.popup,
+.cropper.factory {
+  position: absolute;
+  top:0;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%; 
+  background-color: #ffff;
+}
+.cropper.factory{
+  z-index: 5;
+}
+.nweetFactory_header {
+  display: flex;
+  padding: 0;
+  justify-content: space-between;
+  box-sizing: border-box;
+  button{
+    background-color: initial;
+    padding: 5px 10px;
+    font-size: 1.2rem;
+    &:first-child:hover{
+      color: black;
+      background-color: rgb(235,235,235);
+    }
+  }
+}
+
+.nweetFactory.popup {
+  #nweetBtn{
+  display: block;
+  font: {
+    size:1rem;
+    weight:550;
+  }
+  margin: 6px 0;
+  padding: 0 10px;
+  display: block;
+  color: rgb(78, 78, 78);
+  background-color: rgb(208, 227, 245);
+  &:hover{
+    background-color: $btnHoverBlue;
+    color: rgb(245, 245, 245);
+  }
+  }
+  input {
+    display: none;
+  }
+  .nweetFactory {
+    width: 100%;
+    margin:0 2rem;
+    margin-top: 1rem;
+    padding-bottom: 2rem;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+
+    textarea{
+      width: 100%;
+    }
+    
+  }
+  #close_nav_nweetFactory{
+    background-color: initial;
+    font : {
+      size: 2rem;
+      weight:bold;
+    }
+    margin-top: 0;
+    padding: 6px 8px;
+    padding-bottom: 5px;
+    &:hover{
+      background-color: rgb(235,235,235);
+      color: black
+    }
+  }
+  .nweetSide,
+  .nweetFactory_box .userProfile{
+    width: 3rem;
+  }
+  .nweetSide .userProfile {
+    width: 100%;
+  }
+  .nweet_content{
+    padding : {
+      right:0;
+      left:5px
+    }
+    width: 85%
+  }
+  .userProfile  img{
+    width: 3rem;
+    aspect-ratio: 1/1;
+  }
+  .nweet {
+    border:none;
+    box-sizing: border-box;
+    margin: 0;
+  }
+  form{
+    margin: 0;
+    padding: 0;
+    .btn{
+      display: none;
+    }
+  }
+  textarea{
+    width: 100%;
+  }
+  
+  .answerLine{
+    margin-left: 50%;
+  }
+} 
+
+
+/*answer, qn*/
+#nweetFactory_nweet .nweetFactory form .btn{
+  display: none;
+}
+
+
+
+@media screen and (max-width:355px) {
+  .nweetFactory textarea{
+    font-size: 1rem
+  }
+}
+@media screen and (min-width:500px) { 
+  .nweetFactory form{
+    padding-left: 1rem;
+  }
+  /*home*/
+  #home .nweetFactory{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 1rem;
+    padding-right: 0;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(190, 190, 190, 0.192);
+    .userProfile{
+      width:3.2rem;
+    }
+    .profile_photo {
+      width: 3.2rem;
+      aspect-ratio: 1/1;
+    }
+  }
+}
+@media screen and (min-width:570px) {
+  .nweetFactory_inner {
+    margin: 0 5%;
+  }
+}
+@media screen and (min-width:720px) {
+  .nweetFactory.popup {
+    .nweetFactory_box{
+      margin :0
+    }
+    .nweetFactory_header {
+      margin:0;
+      margin-bottom: 1rem;
+      width: 100%;
+    }
+    .nweetSide,
+    .userProfile{
+    width: 3rem;
+  }
+  .userProfile img ,
+  .nweet .userProfile img{
+    width: 3rem;
+  }
+  .nweet_header > div, 
+  .nweet_header button, 
+  .nweet .qn .nweet_header> div:nth-child(2), 
+  .nweet .text{
+    font-size: 1rem;
+  }
+  .nweet .attachment {
+    margin-bottom: 10px;
+    img{
+      display: none;
+    }
+  }
+  .nweetFactory {
+    margin: 0;
+    padding:0;
+    width: 100%;
+    height: 90%;
+    box-sizing: border-box; 
+  }
+  .nweet .userProfile{
+    width: 100%
+  }
+  .userProfile button 
+  {
+    padding: 0;
+  }
+  form{
+    padding-left: 5px;
+  }
+  #nweetfactory_attachment {
+    margin-left: 5%;
+    width:80% ;
+  }
+  form>div:last-child{
+    margin-top: 10px;
+  }
+  .nweet ,
+  .nweetFactory {
+    margin:0 ;
+    padding: 0;
+  }
+  .nweet .nweet_content{
+    padding-right: 0;
+  }
+  .answerLine {
+    margin-left: 1.5rem;
+  }
+  }
+
+  .nweetFactory.popup,
+  .cropper.factory {
+    overflow-y: hidden;
+    background-color: rgba(0, 0, 0, 0.404);
+  }
+
+  .nweetFactory.popup .nweetFactory_inner ,
+  .cropper.factory #cropper_inner{
+    background-color: #fff;
+    position: absolute;
+    top:20%;
+    left: 15%;
+    width: 70%;
+    max-height: 80%;
+    min-height: 40%;
+    margin: 0;
+    padding: 1rem 2rem;
+    border-radius: 15px;
+    z-index: 3;
+    box-sizing: border-box;
+  }
+}
+
+@media  screen and (min-width:1024px) {
+  #home .nweetFactory {
+    textarea ,
+    form>div:last-child{
+      width: 95%;
+    }
+    svg{
+      font-size: 1.6rem;
+    }
+    input{
+      font-size: 1.2rem;
+    }
+    textarea {
+      font-size: 1.2rem;
+    }
+  }
+
+  .nweetFactory.popup 
+  .nweetFactory_inner,
+  .cropper.factory #cropper_inner{
+    left: 25%;
+    width: 45%;
+  }
+}
+
+@media screen and (min-width:1200px){
+  .nweetFactory.popup 
+  .nweetFactory_inner,
+  .cropper.factory #cropper_inner{
+    left: 30%;
+    width: 40%;
+  }
+}
+
+@media screen and (min-width:1400px) {
+  .nweetFactory.popup 
+  .nweetFactory_inner,
+  .cropper #cropper_inner {
+    width: 35% ;
+    left: 32.5%;
+}
+}
+@media screen and (min-width:1880px) {
+  .nweetFactory.popup 
+  .nweetFactory_inner,
+  .cropper #cropper_inner {
+    width: 600px ;
+    left: calc(50%-300px);
+}
+}

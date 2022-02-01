@@ -2,7 +2,7 @@ import React, { useEffect,useState } from 'react';
 import NwitterRouter from './components/NwitterRouter';
 import authSerVice from './Fbase';
 import { getProfileDoc } from './components/GetData';
-import './asset/App.css';
+
 function App() {
   // 초기 화면
   const [isLoggedIn ,setIsLoggedIn] = useState(false); 
