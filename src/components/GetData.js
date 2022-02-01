@@ -198,5 +198,10 @@ export  const goBack=(location, what ,navigate)=>{
   const pathname=location.pathname;
   const start =pathname.indexOf(what);
   const back=pathname.slice(0,start);
-  navigate(back);
+  if(back===""){
+    navigate('/')
+  }else{
+    navigate(back);
+  }
+  console.log(back)
 }
