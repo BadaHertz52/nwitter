@@ -9,16 +9,22 @@
 #list button{
   @include initialBtn
 }
-
-#list_header {
-  display: flex;
+#list .back {
   @include backBtn;
+  &:hover{
+    @include backBtnHover
+  }
+}
+#list_header {
+  @include routHeader
 }
 
 #list_userInform {
   div:first-child{
-    font-size: 1.3rem;
-    font-weight: bolder;
+    font : {
+      size: 1.3rem;
+      weight:bold;
+    }
   }
   div:last-child{
     font-size: 13px;
@@ -127,11 +133,13 @@
   font-weight: 700;
   padding: 0 1rem;
   z-index: 2;
-  .following {
+
+  &.following {
     background-color: #ffff;
     color: black;
     border :1px solid black;
-    .unFollow{
+
+    &.unFollow{
       color:rgb(231, 2, 40);
       border:1px solid rgb(231, 2, 40)
     }

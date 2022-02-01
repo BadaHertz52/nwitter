@@ -108,13 +108,14 @@
       padding: 0;
     }
     a,
-    &_myProfile{
+    #nav_myProfile{
       margin-top: 1.5rem;
+      margin-left: 0;
     }
     svg{
       font-size: 2rem;
     }
-    &_myProfile svg{
+    #nav_myProfile svg{
       font-size: 1.7rem;
     }
     img ,

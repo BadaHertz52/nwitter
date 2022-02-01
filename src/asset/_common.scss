@@ -5,6 +5,11 @@
     color: initial;
   }
 }
+@mixin routHeader {
+  display: flex;
+  height: fit-content;
+  padding:10px 0
+}
 @mixin backBtnHover {
   background-color: rgb(235,235, 235);
   color: initial;

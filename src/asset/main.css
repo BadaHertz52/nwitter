@@ -140,7 +140,7 @@ img, div, button, #nav, input {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  margin-bottom: 1;
+  margin-bottom: 1rem;
   font-size: 1.2rem;
   padding: 0 5%;
 }
@@ -225,8 +225,7 @@ img, div, button, #nav, input {
   margin-bottom: 0;
 }
 
-#editProfile_name,
-#editProfile_introcude {
+.editProfile_introduce {
   font-size: 1rem;
   padding-left: 3%;
   border: 1px solid #afafaf;
@@ -234,8 +233,7 @@ img, div, button, #nav, input {
   margin: 1.2rem;
 }
 
-#editProfile_name input,
-#editProfile_introcude input {
+.editProfile_introduce input {
   font-size: 1rem;
   padding-left: 3%;
   border: none;
@@ -243,8 +241,7 @@ img, div, button, #nav, input {
   padding: 0;
 }
 
-#editProfile_name p,
-#editProfile_introcude p {
+.editProfile_introduce p {
   margin-top: 10px;
   margin-bottom: 5px;
   color: gray;
@@ -325,10 +322,7 @@ img, div, button, #nav, input {
   color: initial;
 }
 
-#list_header {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+#list .back {
   font-size: 1.5rem;
   width: 2.5rem;
   height: 2.5rem;
@@ -336,14 +330,29 @@ img, div, button, #nav, input {
   margin-left: 2rem;
 }
 
-#list_header:hover {
+#list .back:hover {
   background-color: #ebebeb;
   color: initial;
 }
 
+#list .back:hover {
+  background-color: #ebebeb;
+  color: initial;
+}
+
+#list_header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  padding: 10px 0;
+}
+
 #list_userInform div:first-child {
   font-size: 1.3rem;
-  font-weight: bolder;
+  font-weight: bold;
 }
 
 #list_userInform div:last-child {
@@ -474,13 +483,13 @@ img, div, button, #nav, input {
   z-index: 2;
 }
 
-#list .list_followBtn .following {
+#list .list_followBtn.following {
   background-color: #ffff;
   color: black;
   border: 1px solid black;
 }
 
-#list .list_followBtn .following .unFollow {
+#list .list_followBtn.following.unFollow {
   color: #e70228;
   border: 1px solid #e70228;
 }
@@ -807,13 +816,15 @@ img, div, button, #nav, input {
             justify-content: space-between;
     padding: 0;
   }
-  #nav a, #nav_myProfile {
+  #nav a,
+  #nav #nav_myProfile {
     margin-top: 1.5rem;
+    margin-left: 0;
   }
   #nav svg {
     font-size: 2rem;
   }
-  #nav_myProfile svg {
+  #nav #nav_myProfile svg {
     font-size: 1.7rem;
   }
   #nav img, #nav_nwitter {
@@ -1152,6 +1163,7 @@ img, div, button, #nav, input {
 
 .statusBtn:hover {
   background-color: rgba(235, 235, 235, 0.432);
+  color: initial;
 }
 
 .nweet_content .nweet_fun,
@@ -1290,7 +1302,8 @@ img, div, button, #nav, input {
   color: #008cff;
 }
 
-.rnBtn, .heartBtn {
+.rnBtn,
+.heartBtn {
   background-color: rgba(0, 0, 0, 0);
 }
 
@@ -1343,8 +1356,7 @@ img, div, button, #nav, input {
   aspect-ratio: 1/1;
 }
 
-.nweet .qn .userProfile
-.nweet_header {
+.nweet .qn .nweet_header {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
@@ -1391,7 +1403,7 @@ img, div, button, #nav, input {
 }
 
 /*answer*/
-.nweet .answer {
+.nweet.answer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1401,20 +1413,20 @@ img, div, button, #nav, input {
           flex-direction: column;
 }
 
-.nweet .answer:hover {
+.nweet.answer:hover {
   background-color: initial;
 }
 
-.nweet .answer:hover:hover {
+.nweet.answer:hover:hover {
   background-color: initial;
   color: initial;
 }
 
-.nweet .answer .value {
+.nweet.answer .value {
   height: inherit;
 }
 
-.nweet .answer .userProfile {
+.nweet.answer .userProfile {
   width: 80%;
 }
 
@@ -2129,7 +2141,7 @@ img, div, button, #nav, input {
   color: #00bb54;
 }
 
-.answer:hover {
+.fun .answer:hover {
   background-color: #d5eafd;
   color: #0c87fa;
 }
@@ -2187,7 +2199,7 @@ img, div, button, #nav, input {
   font-weight: bolder;
 }
 
-#profileTopForm_header > dv {
+#profileTopForm_header > div {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -2195,12 +2207,12 @@ img, div, button, #nav, input {
   padding-left: 10px;
 }
 
-#profileTopForm_header > dv div:first-child {
+#profileTopForm_header > div div:first-child {
   font-size: 1.3rem;
   font-weight: bolder;
 }
 
-#profileTopForm_header > dv div:last-child {
+#profileTopForm_header > div div:last-child {
   font-size: 1rem;
   margin-top: 2px;
   color: gray;
@@ -2345,19 +2357,18 @@ img, div, button, #nav, input {
   #profileTopForm_header {
     margin-bottom: 10px;
   }
+  #profileTopForm_header > div {
+    padding-left: 1rem;
+  }
   #profileTopForm_header svg,
   #profileTopForm_header > div {
     font-size: 1.1rem;
-  }
-  #profileTopForm_header > div {
-    padding-left: 1rem;
   }
   #pb_buttons button {
     margin-top: 0;
     width: auto;
   }
-  #pb_buttons button:nth-child(1),
-  #pb_buttons button:nth-child(3) {
+  #pb_buttons button:nth-child(1), #pb_buttons button:nth-child(3) {
     width: 20%;
   }
   #pb_buttons button:nth-child(2) {
@@ -2464,7 +2475,7 @@ img, div, button, #nav, input {
     border-radius: 9999px;
     position: relative;
   }
-  #search #search form {
+  #search form {
     padding: 1rem;
     margin: 0;
     border-radius: 10px;
@@ -2476,7 +2487,7 @@ img, div, button, #nav, input {
         -ms-flex-direction: row;
             flex-direction: row;
   }
-  #search #search form svg {
+  #search form svg {
     font-size: 1.2rem;
   }
   #search input:last-child {
@@ -2605,14 +2616,14 @@ img, div, button, #nav, input {
     padding-bottom: 2vh;
     overflow-wrap: break-word;
   }
-  #side #recommend {
+  #recommend {
     padding: 0;
   }
-  #side #recommend p {
+  #recommend p {
     text-align: center;
     font-weight: bold;
   }
-  #side #recommend .recommend_user {
+  #recommend .recommend_user {
     background-color: initial;
     border-radius: 0;
     width: 100%;
@@ -2630,12 +2641,30 @@ img, div, button, #nav, input {
     margin-bottom: 1rem;
     padding: 0 1rem;
   }
-  #side #recommend .recommend_user:hover {
+  #recommend .recommend_user:hover {
     color: initial;
     background-color: #e7e7e7;
   }
-  #side #recommend .recommend_user button {
+  #recommend .recommend_user button {
     z-index: 2;
+    width: 5rem;
+    height: 2rem;
+    font-size: 1rem;
+    padding: 0 1rem;
+    margin-top: 0;
+    background-color: #353535;
+    color: #fff;
+  }
+  #recommend .recommend_user .userProfile button {
+    background-color: initial;
+    padding: 0;
+    width: 3rem;
+    aspect-ratio: 1;
+  }
+  #recommend .userProfile a,
+  #recommend .profile_photo {
+    width: 100%;
+    aspect-ratio: 1/1;
   }
   .userInform {
     width: 35%;
@@ -2650,26 +2679,6 @@ img, div, button, #nav, input {
     margin-top: 0.3rem;
     color: gray;
     font-size: 0.9rem;
-  }
-  #recommend .userProfile a,
-  #recommend .profile_photo {
-    width: 100%;
-    aspect-ratio: 1/1;
-  }
-  .userProfile button {
-    background-color: initial;
-    padding: 0;
-    width: 3rem;
-    aspect-ratio: 1;
-  }
-  .recommend_user button {
-    width: 5rem;
-    height: 2rem;
-    font-size: 1rem;
-    padding: 0 1rem;
-    margin-top: 0;
-    background-color: #353535;
-    color: #fff;
   }
 }
 
@@ -2755,8 +2764,8 @@ button,
   background-color: #1d9bf0;
   margin-top: 0.5rem;
   border: none;
-  -webkit-transition-duration: 0.8s;
-          transition-duration: 0.8s;
+  -webkit-transition-duration: 0.5s;
+          transition-duration: 0.5s;
 }
 
 button:hover, .btn:hover {
