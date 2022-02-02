@@ -50,7 +50,7 @@ export  const updateNweetNotifications=async(nweet, profile ,value, userobj , ab
 };
 //당사자의 profile notification update
 export const updateProfileNotification = async(user,id ,notifications)=>{
-  const newNotification =notifications!==undefined? notifications.concat(user): []; 
+  const newNotification =notifications!==undefined?[user].concat(notifications): []; 
   await getProfileDoc(id).set({notifications: newNotification },{merge:true})
 } 
 export const sendNotification=async(value,userobj, nweetObj, profile, aboutDocId)=>{
@@ -203,5 +203,4 @@ export  const goBack=(location, what ,navigate)=>{
   }else{
     navigate(back);
   }
-  console.log(back)
 }
