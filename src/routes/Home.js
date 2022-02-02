@@ -47,7 +47,7 @@ const Home =  ({userobj}) => {
       ); 
   }
   useEffect(()=>{
-    if( myProfile.following[0]!==undefined){
+    if(myProfile !==undefined && myProfile.following[0]!==undefined){
       !end && getAllNweets();
     }else {
       nweetDispatch({
@@ -55,7 +55,7 @@ const Home =  ({userobj}) => {
         allNweets:myNweets
       })
     };
-  },[myProfile ,allNweets ])
+  },[myProfile ,allNweets ]);
 
   const Popup =()=>{
     return (

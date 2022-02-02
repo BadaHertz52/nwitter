@@ -1,7 +1,7 @@
 import React, { useState, useContext , useEffect} from 'react';
 import { Link , useLocation, useNavigate} from 'react-router-dom';
 import {HiOutlinePhotograph} from "react-icons/hi";
-import { dbService, storageService } from '../Fbase';
+import { storageService } from '../Fbase';
 import {NweetContext} from '../context/NweetContex';
 import {ProfileContext} from '../context/ProfileContex';
 import Nweet from '../components/Nweet';
@@ -15,7 +15,6 @@ const NweetFactory = ({userobj ,setPopup }) => {
   const navigate =useNavigate();
   const {nweetInput, nweetDispatch ,myNweets} =useContext(NweetContext);
   const {myProfile}=useContext(ProfileContext);
-  const {text} =nweetInput ;
   const [attachment ,setAttachment] = useState("");
   const now = new Date();
   const year = now.getFullYear();
@@ -48,7 +47,7 @@ const NweetFactory = ({userobj ,setPopup }) => {
     const docId= JSON.stringify(Date.now());
     let url ="" ;
 
-    if(attachment !== ""){
+    if(attachment !== "" && nweetInput!==undefined){
     const attachmentRef =storageService.ref().child(`${userobj.uid}/${docId}`);
     const response = await attachmentRef.putString(attachment, "data_url");
     url=await response.ref.getDownloadURL();
@@ -57,7 +56,7 @@ const NweetFactory = ({userobj ,setPopup }) => {
       value:location.state ==null || location.state.value ==undefined ?
       "nweet" : 
       location.state.value  ,
-      text:text.replace(/(\r\n|\n)/g, '<br/>'),
+      text:nweetInput.text.replace(/(\r\n|\n)/g, '<br/>'),
       attachmentUrl:url,
       creatorId: userobj.uid,
       docId:docId,
@@ -222,14 +221,17 @@ const NweetFactory = ({userobj ,setPopup }) => {
                 </Link>
           </div>
           <form onSubmit={onSubmit}>
-            <textarea
-              value={text}
-              name='text'
-              onChange={onChange}
-              type="text"
-              placeholder="무슨 일이 일어나고 있나요?"
-              maxLength={120}
-            />
+            {nweetInput!==undefined &&
+                          <textarea
+                          value={nweetInput.text}
+                          name='text'
+                          onChange={onChange}
+                          type="text"
+                          placeholder="무슨 일이 일어나고 있나요?"
+                          maxLength={120}
+                        />
+            }
+
               {attachment !== ""&& (
                 <div id="nweetfactory_attachment">
                   <img src={attachment}  alt="nweet attachment"/>
