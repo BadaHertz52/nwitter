@@ -76,7 +76,6 @@ const NwitterRouter =({isLoggedIn,IsMyProfile , userobj }) => {
 };
 
   useEffect(()=>{
-    console.log("nr", location.state)
     isLoggedIn &&setContext()
     },[]);
 
@@ -86,7 +85,6 @@ const NwitterRouter =({isLoggedIn,IsMyProfile , userobj }) => {
       if(state.value ==="status"){
         setUserId(state.previousState.userId)
         setDocId(state.previousState.docId)
-        console.log("/.",userId ,docId)
       }
     }
   },[location]);
