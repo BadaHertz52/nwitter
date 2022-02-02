@@ -1070,11 +1070,16 @@ img, div, button, #nav, input {
 }
 
 .rnIcon {
-  color: #0084ff;
+  color: #00bb54;
 }
 
 .heartIcon {
   color: #f33838;
+}
+
+.nweetIcon {
+  color: #008cff;
+  font-weight: bolder;
 }
 
 .notification_right {
@@ -1801,7 +1806,7 @@ img, div, button, #nav, input {
 }
 
 .nweetFactory.popup #nweetBtn:hover {
-  background-color: #6fb3f3;
+  background-color: #1d9bf0;
   color: whitesmoke;
 }
 
@@ -2389,7 +2394,7 @@ img, div, button, #nav, input {
 button,
 .btn {
   border-radius: 9999px;
-  background-color: #1d9bf0;
+  background-color: #6fb3f3;
   margin-top: 0.5rem;
   border: none;
   -webkit-transition-duration: 0.5s;
@@ -2397,7 +2402,7 @@ button,
 }
 
 button:hover, .btn:hover {
-  background-color: #6fb3f3;
+  background-color: #1d9bf0;
   color: whitesmoke;
 }
 
@@ -2440,7 +2445,7 @@ input:focus {
 
 #auth button:hover, #auth input:last-child:hover {
   color: #ffff;
-  background-color: #6fb3f3;
+  background-color: #1d9bf0;
 }
 
 #createAccount, #logIn {

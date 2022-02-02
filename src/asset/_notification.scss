@@ -83,10 +83,14 @@
 }
 
 .rnIcon {
-  color: rgb(0, 132, 255);
+  color:$rnBtn ;
 }
 .heartIcon {
-  color: rgb(243, 56, 56);
+  color: $heartBtn;
+}
+.nweetIcon {
+  color:$deep_blue;
+  font-weight: bolder;
 }
 .notification_right{
   display: flex;
