@@ -1,13 +1,12 @@
-import React, { useState, useContext } from 'react';
-
+import React, { useState, useContext , useEffect} from 'react';
 import { Link , useLocation, useNavigate} from 'react-router-dom';
 import {HiOutlinePhotograph} from "react-icons/hi";
-import { storageService } from '../Fbase';
+import { dbService, storageService } from '../Fbase';
 import {NweetContext} from '../context/NweetContex';
-import { useEffect } from 'react/cjs/react.development';
+import {ProfileContext} from '../context/ProfileContex';
 import Nweet from '../components/Nweet';
 import { BiArrowBack, BiX } from 'react-icons/bi';
-import {  sendNotification, updateMyNweetsByMe, updateNweetNotifications } from '../components/GetData';
+import {  sendNotification, updateMyNweetsByMe, updateNweetNotifications ,getProfileDoc } from '../components/GetData';
 
 const NweetFactory = ({userobj ,setPopup }) => {
 
@@ -15,6 +14,7 @@ const NweetFactory = ({userobj ,setPopup }) => {
   const location= useLocation();
   const navigate =useNavigate();
   const {nweetInput, nweetDispatch ,myNweets} =useContext(NweetContext);
+  const {myProfile}=useContext(ProfileContext);
   const {text} =nweetInput ;
   const [attachment ,setAttachment] = useState("");
   const now = new Date();
@@ -82,32 +82,21 @@ const NweetFactory = ({userobj ,setPopup }) => {
     
     setPopup !== undefined && setPopup(false)
     // 알림
-    // 나의 팔로우들에게 알림 -오류 해결 
-    // if(myProfile.following[0]!==undefined){
-    //   myProfile.following.forEach(user=>
-    //     { dbService
-    //       .collection('users')
-    //       .doc(`${user}`)
-    //       .get()
-    //       .then(doc=> {
-    //         if(doc.exists){ 
-    //           const profile={...doc.data()};
-    //           const newNotifications= profile.notifications.concat({
-    //             user:userobj.uid.concat,
-    //             docId: docId,
-    //             value:"nweet"
-    //           });
-    //           dbService
-    //           .collection('users')
-    //           .doc(`${user}`)
-    //           .set({notifications:newNotifications},{merge:true});
-    //         }
-    //         else
-    //         {console.log("Can't find user's profile")}})
-    //       .catch(error=> console.log(error,"in NweetFactory"));
-
-    //     })
-    // };
+    
+    if(myProfile.follower[0]!==undefined){
+      myProfile.follower.forEach(async(user)=>
+        { 
+          await getProfileDoc(user)
+          .get()
+          .then(async(doc)=>{
+            if(doc.exists){ 
+              const profile=doc.data();
+              sendNotification("nweet",userobj, newNweet, profile, "")
+            }
+            else{console.log("Can't find user's profile")}})
+          .catch(error=> console.log(error,"in NweetFactory"));
+        })
+    };
     if(location.state !==null && 
       location.state.value !== undefined && 
       (location.state.value ==="qu" ||
