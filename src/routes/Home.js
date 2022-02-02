@@ -55,7 +55,7 @@ const Home =  ({userobj}) => {
         allNweets:myNweets
       })
     };
-  },[myProfile.following ,allNweets ])
+  },[myProfile ,allNweets ])
 
   const Popup =()=>{
     return (
