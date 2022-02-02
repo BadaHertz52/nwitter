@@ -1,10 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { AiOutlineRetweet, AiOutlineUser} from "react-icons/ai";
 import { AiOutlineHeart } from "react-icons/ai";
+import {VscBell} from 'react-icons/vsc';
 import Nweet from '../components/Nweet';
 import {ProfileContext} from '../context/ProfileContex';
 import { NweetContext } from '../context/NweetContex';
-import {  getNweet, getNweetDoc, getNweetsDocs, getProfileDoc} from '../components/GetData';
+import {  getNweetsDocs, getProfileDoc} from '../components/GetData';
 import { useEffect } from 'react/cjs/react.development';
 import {  useLocation, useNavigate } from 'react-router';
 import { dbService } from '../Fbase';
@@ -109,20 +110,38 @@ const Notification = ({userobj}) => {
             {n.value === 'following'&&
                 <AiOutlineUser className='followIcon'/>
               }
+            {n.value === 'nweet'&&
+                <VscBell className='nweetIcon'/>
+              }
           </div>
           
             <div className='notification_right'>
             <img className="profile_photo" src={n.user.photoUrl} alt="usrProfilePhoto"/>
             <div className='notification_inform'>
-              <div>
-                <span style={{fontWeight :'bold'}}>{n.user.userName}</span>님이 &nbsp; 
-                {(n.value === 'qn'|| n.value=== 'rn') && '내 트윗을 리뉴윗했습니다.'}
-                {(n.value === 'heart') && '내 트윗을 마음에 들어합니다.'}
-                {(n.value === 'following') && '나를 팔로우합니다.'}
-              </div>
-            <div>
+              <>
+                { n.value == 'nweet'?
+                  (n.value === 'nweet') && 
+                  <div>
+                  New Nweet Notifications for 
+                  &nbsp;
+                  <span style={{fontWeight :'bold'}}>{n.user.userName}</span>
+                  </div>
+                :
+                (
+                  <div>
+                    <span style={{fontWeight :'bold'}}>{n.user.userName}</span> &nbsp; 
+                    {(n.value === 'qn'|| n.value=== 'rn') && 'ReNweet your' &&
+                      n.aboutDocId ===""? 'nweet' : 'ReNweet'
+                    }
+                    {(n.value === 'heart') && `like your`&&
+                      n.aboutDocId ===""? 'nweet' : 'ReNweet'
+                    }
+                    {(n.value === 'following') && 'follow you'}
+                  </div>
+                )
+                }
+              </>
             </div>
-          </div>
         </div>
       </div>)
       :( 
