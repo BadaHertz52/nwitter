@@ -44,7 +44,6 @@
   border: none;
   margin-bottom: 10px;
   width:90% ;
-  height:fit-content;
   resize:none;
   word-break:keep-all ;
   white-space: break-spaces;
@@ -164,20 +163,14 @@
   input {
     display: none;
   }
-  .nweetFactory {
-    width: 100%;
-    margin:0 2rem;
-    margin-top: 1rem;
-    padding-bottom: 2rem;
-    display: flex;
-    flex-direction: row;
-    box-sizing: border-box;
 
-    textarea{
-      width: 100%;
-    }
-    
+
+  textarea{
+    width: 100%;
+    margin-left: 1rem;
   }
+    
+
   #close_nav_nweetFactory{
     background-color: initial;
     font : {
@@ -222,10 +215,6 @@
       display: none;
     }
   }
-  textarea{
-    width: 100%;
-  }
-  
   .answerLine{
     margin-left: 50%;
   }

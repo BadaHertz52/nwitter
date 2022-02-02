@@ -1673,9 +1673,6 @@ img, div, button, #nav, input {
   border: none;
   margin-bottom: 10px;
   width: 90%;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
   resize: none;
   word-break: keep-all;
   white-space: break-spaces;
@@ -1812,24 +1809,9 @@ img, div, button, #nav, input {
   display: none;
 }
 
-.nweetFactory.popup .nweetFactory {
+.nweetFactory.popup textarea {
   width: 100%;
-  margin: 0 2rem;
-  margin-top: 1rem;
-  padding-bottom: 2rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-.nweetFactory.popup .nweetFactory textarea {
-  width: 100%;
+  margin-left: 1rem;
 }
 
 .nweetFactory.popup #close_nav_nweetFactory {
@@ -1880,10 +1862,6 @@ img, div, button, #nav, input {
 
 .nweetFactory.popup form .btn {
   display: none;
-}
-
-.nweetFactory.popup textarea {
-  width: 100%;
 }
 
 .nweetFactory.popup .answerLine {

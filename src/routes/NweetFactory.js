@@ -130,8 +130,15 @@ const NweetFactory = ({userobj ,setPopup }) => {
       onClose()
     };
 
+  const adjustingHeight=(target)=>{
+    target.style.height='auto';
+    const scrollHeight =target.scrollHeight;
+    target.style.height=`${scrollHeight}px`;
+  }
   const onChange =  (event) => {
+    const target =event.target;
     const {name, value}= event.target;
+    target.addEventListener("keyup", adjustingHeight(target));
     nweetDispatch({
       type:"WRITE",
       name,
