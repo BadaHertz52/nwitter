@@ -1,14 +1,19 @@
-import React from 'react';
+import React, {useState } from 'react';
 import { Link, useNavigate ,useLocation} from 'react-router-dom';
 
 import nwitterImg from "../asset/img/icons8-지저귀다-48.png"; 
 import { BsBell, BsBellFill, BsPencil } from "react-icons/bs";
 import { FaRegUser, FaUser } from "react-icons/fa";
 import { AiFillHome, AiOutlineHome } from 'react-icons/ai';
+
 const Navigation = ({userobj}) => {
   const location= useLocation();
   const navigate =useNavigate();
-  
+
+  const inner =document.getElementById('inner');
+
+  const [set, setSet] =useState(false);
+
   const goMyProfile=()=>{
     navigate(`/${userobj.id}` ,{state:{value:"profile", previous:location.pathname}})
   };
@@ -21,6 +26,12 @@ const Navigation = ({userobj}) => {
     previous:location.pathname , 
     previousState: (location.pathname.includes("status")|| location.pathname.includes("list"))?location.state.previousState : null }})
   };
+  
+    set && inner !== null && inner.addEventListener('click', (event)=>{
+      const target =event.target;
+      !target.className.includes('account')&&setSet(false)
+    });
+
   return(
     <>
     <nav id="nav">
@@ -85,14 +96,35 @@ const Navigation = ({userobj}) => {
           <div id="do_nweet">Nweet</div>
         </button>
       </div> 
-      <div>
-        <div id="nav_profile">
+      <div id="nav_profile">
+      {set &&
+            <div  class="account" id="account">
+              <div  class="account"  id="account_user">
+                <img className="profile_photo dark_target acccount" src ={userobj.photoURL} alt="myProfile" ></img>
+                <div className="nav_label account">
+                  <div  class="account">{userobj.displayName}</div>
+                  <div  class="account">@{userobj.id}</div>
+                </div>
+              </div>
+              <div  class="account" id="account_btn"> 
+                <button   class="account" id="account_logOut" 
+                onClick={()=>
+                  navigate('/logout')}>
+                  Log out @{userobj.id}
+                </button>
+              </div>
+            </div>
+          }
+        <button 
+        onClick={()=>setSet(!set)}
+        >
           <img className="profile_photo dark_target" src ={userobj.photoURL} alt="myProfile" ></img>
           <div className="nav_label">
             <div>{userobj.displayName}</div>
             <div>@{userobj.id}</div>
           </div>
-        </div>
+        </button>
+
       </div>
 
     </nav>

@@ -1,20 +1,15 @@
-import React, {  useContext} from 'react';
+import React from 'react';
 import { useNavigate , useLocation} from 'react-router-dom';
 import { useEffect, useState } from 'react/cjs/react.development';
 import Nweet from './Nweet';
 import { FiArrowLeft } from "react-icons/fi";
-import authSerVice from '../Fbase';
-import { NweetContext } from '../context/NweetContex';
-import { ProfileContext } from '../context/ProfileContex';
-import { UserContext } from '../context/UserContext';
+
 import { goBack } from './GetData';
 
 
 export const ProfileTopForm = ({ isMine ,nweets,profile} )=>{
   const location =useLocation();
-  const {nweetDispatch} =useContext(NweetContext);
-  const {profileDispatch} =useContext(ProfileContext);
-  const {userDispatch}=useContext(UserContext);
+
 
   const navigate= useNavigate();
 
@@ -25,19 +20,6 @@ export const ProfileTopForm = ({ isMine ,nweets,profile} )=>{
         previousState:{isMine:isMine}
       }})
   };
-  const onLogOutClick = () => {
-  userDispatch({
-    type:"CLEAR_USER"
-  });
-  nweetDispatch({
-    type:"CLEAR_NWEETS"
-  });
-  profileDispatch({
-    type:"CLEAR_MY_PROFILE"
-  })
-  navigate('/')
-  authSerVice.signOut();
-};
   const goEdit =()=> {
     navigate(`editProfile` ,{state:{previous:location.pathname}})
     const inner =document.getElementById('inner');
@@ -69,7 +51,7 @@ export const ProfileTopForm = ({ isMine ,nweets,profile} )=>{
           </div>
             { isMine &&
               <div id="logOutAndEdit">
-                <button onClick={onLogOutClick}> Log Out </button>
+                <button onClick={()=>{navigate('/logout')}}> Log Out </button>
                 <button onClick={goEdit} >
                   Edit Profile
                 </button>

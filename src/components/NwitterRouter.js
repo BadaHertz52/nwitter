@@ -22,6 +22,7 @@ import Nweet from './Nweet';
 
 //css
 import '../asset/main.css';
+import LogOut from '../routes/LogOut';
 
 
 const NwitterRouter =({isLoggedIn,IsMyProfile , userobj }) => {
@@ -113,6 +114,10 @@ const NwitterRouter =({isLoggedIn,IsMyProfile , userobj }) => {
           }
             <Route exact path={`/${userobj.id}/editProfile`} 
             element={<EditProfile userobj={userobj}  />}/>
+            <Route
+                exact path="/logout"
+                element={<LogOut />}
+              />
         </Routes>
       <div id="inner">
         <>
