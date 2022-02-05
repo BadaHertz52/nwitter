@@ -1,8 +1,7 @@
 import React, {useState } from 'react';
 import { Link, useNavigate ,useLocation} from 'react-router-dom';
 
-import nwitterImg from "../asset/img/icons8-지저귀다-48.png"; 
-import { BsBell, BsBellFill, BsPencil } from "react-icons/bs";
+import { BsBell, BsBellFill, BsPencil, BsTwitter } from "react-icons/bs";
 import { FaRegUser, FaUser } from "react-icons/fa";
 import { AiFillHome, AiOutlineHome } from 'react-icons/ai';
 
@@ -37,7 +36,7 @@ const Navigation = ({userobj}) => {
     <nav id="nav">
       <div>
         < Link to ="/" id="nav_nwitter">
-          <img src={nwitterImg} alt="nwitter"/>
+          <BsTwitter/>
         </Link>
         <Link to ="/">
           {location.pathname=="/"? 
