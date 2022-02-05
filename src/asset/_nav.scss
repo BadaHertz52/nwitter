@@ -7,13 +7,16 @@
   top:90%;
   left: 0;
   z-index: 1;
-  a:hover,
-  #nav_myProfile:hover {
-    background-color: rgb(235,235,235);
-    border-radius: 45px;
+  &_myProfile:hover ,a:hover{
+      background-color: rgb(235,235,235);
   }
-  #nav_nwitter:hover{
-    background-color:rgb(215, 243, 253) ;
+  #nav_nwitter{
+    &:hover{
+      background-color:rgb(215, 243, 253) ;
+    }
+    svg{
+      color:$btnHoverBlue
+    }
   }
   button{
     color: #fff;
@@ -21,14 +24,68 @@
     padding:0;
   }
 
+  & >div:first-child{
+    padding-top: 2%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    box-sizing: border-box;
+  } 
+  a {
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    position: relative;
+  }
+  #nav_myProfile{
+    position: relative;
+    margin-left: 0.2rem;
+    width: 3.3rem ;
+    padding: 10px ;
+    background-color: initial;
+    color:initial;
+  }
+  svg{
+    font-size: 2rem;
+  }
+  img ,
+  &>div:first-child a{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+  }
+
+  &_nwitter {
+    display: none;
+  }
+  &> div:nth-child(3){
+    display: none;
+  }
+  &> div:nth-child(2) {
+    position: absolute;
+    top: -15vh;
+    right: 10vw;
+    svg{
+      font-size: 1.5rem;
+      padding: 10px 12px;
+    }
+  }
   #nav_profile{
     button{
       @include initialBtn;
       transition: 0.5s;
-      & img:hover{
-        border:8px solid $btnLightBlue
+      margin:0;
+      padding:0;
+      img {
+        box-sizing: content-box;
+        margin:0;
+        border:10px solid transparent;
+        &:hover{
+        border:10px solid rgba(226, 226, 226, 0.897)
+      }
       }
     }
+
   }
   #account{
     position: absolute;
@@ -74,69 +131,15 @@
         padding:1.5rem;
         color:initial;
         font-size: 1rem;
+        border-radius: 0;
         &:hover{
           background-color: rgb(235, 235, 235); 
-          border-radius: 0;
           width: 100%;
           text-align: left;
         }
       }
     }
   }
-  & >div:first-child{
-    padding-top: 2%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    box-sizing: border-box;
-    background-color: #ffff;
-  } 
-  a {
-    width: fit-content;
-    height: fit-content;
-    padding: 10px;
-    position: relative;
-  }
-  #nav_nwitter {
-    padding: 0.5rem;
-    border-radius: 50%;
-  }
-  #nav_myProfile{
-    position: relative;
-    margin-left: 0.2rem;
-    width: 3.3rem ;
-    padding: 10px ;
-    background-color: initial;
-    color:initial;
-  }
-  svg{
-    font-size: 2rem;
-  }
-  img ,
-  &>div:first-child a{
-    width: 2rem;
-    height: 2rem;
-  }
-  img{
-    border-radius: 50%;
-  }
-
-  &_nwitter {
-    display: none;
-  }
-  &> div:nth-child(3){
-    display: none;
-  }
-  &> div:nth-child(2) {
-    position: absolute;
-    top: -15vh;
-    right: 10vw;
-    svg{
-      font-size: 1.5rem;
-      padding: 10px 12px;
-    }
-  }
-
 }
 
 #do_nweet {
@@ -154,21 +157,19 @@
     top:0;
     left: 0;
     height: 100vh;
-    padding-left: 2%;
-    padding-right: 2%;
-    width: 10%;
+    width: 20%;
     border-right: 1px solid rgba(190, 190, 190, 0.192);
-
+    &>div {
+      padding: 0 20%;
+    }
     &_nwitter {
       display: block;
     }
   
     &> div:first-child {
-      padding-top: 2rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 0;
     }
     a,
     #nav_myProfile{
