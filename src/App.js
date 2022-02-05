@@ -84,6 +84,10 @@ function App() {
   return (
     <>
       <NwitterRouter isLoggedIn = {isLoggedIn} userobj={userobj}  IsMyProfile={IsMyProfile}  setIsMyProfile ={setIsMyProfile} basicPhoto={basicPhoto} newProfile={newProfile} /> 
+      {/* <footer>
+      Photo by <a href="https://unsplash.com/@jeremybezanger?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jeremy Bezanger</a> on <a href="https://unsplash.com/s/photos/twitter?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+  
+      </footer> */}
     </>
     
   );

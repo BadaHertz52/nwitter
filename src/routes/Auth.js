@@ -1,8 +1,10 @@
 import AuthForm from '../components/AuthForm';
-import React from 'react' ;
+import React, { useEffect } from 'react' ;
 import { useState } from 'react/cjs/react.development';
-
 import authSerVice , { friebaseInstance } from '../Fbase';
+import { RiTwitterLine } from 'react-icons/ri';
+import auth_img from '../asset/img/auth_img.jpg';
+import auth_img_width from '../asset/img/auth_img_width.jpg';
 
 const Auth = ( ) => {
   const [newAcount, setNewAccount] =useState();
@@ -17,16 +19,33 @@ const Auth = ( ) => {
     const data = await authSerVice.signInWithPopup(provider) ;
     console.log("popup //" , data) ;
   };
+
   return(
-    <div id="auth">
+    <section id="auth">
+      <div id="auth_left">
+        <img
+          class="auth_img small" 
+          src={auth_img} 
+          alt="nwitter img"/>
+        <img
+          class="auth_img width" 
+          src={auth_img_width} 
+          alt="nwitter img"/>
+      </div>
       {!popup ?
-        <>
+        <div id="auth_main">
           <div id="createAccount">
             <div>
-              오늘 Nwitter에 가입하세요.
+            Sign up for Nwitter today.
+              <RiTwitterLine/>
+            </div>
+            <div id="newAccount">
+              When closing the browser window, 
+              <br/>
+              all data related to the new ID will be deleted.
             </div>
             <button onClick={()=>{setPopup(true) ; setNewAccount(true)}} >
-                이메일 주소로 가입하기
+            Subscribe to your email address
             </button>
             <button name="google"
             onClick={onSocialClick}>
@@ -35,17 +54,17 @@ const Auth = ( ) => {
           </div>
           <div id="logIn">
             <div>
-              이미 Nwitter에 가입하셨나요?
+            Did you already sign up for NWITTER?
             </div>
             <button onClick={()=>{setPopup(true); setNewAccount(false)}}>
-              로그인
+              Log In
             </button>
           </div>
-      </>
+      </div>
       :
       <AuthForm newAcount={newAcount} setPopup={setPopup}/>
       }
-    </div>
+    </section>
   )
 }
 
