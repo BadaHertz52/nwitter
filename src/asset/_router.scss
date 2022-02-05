@@ -34,7 +34,7 @@
   position: relative;
   width:100%;
   height: 100%;
-
+  box-sizing: border-box;
 }
 .header {
   margin-left: 1rem;
@@ -55,10 +55,6 @@ button:hover , .btn:hover{
   background-color: $btnHoverBlue
 ;
   color: rgb(245, 245, 245);
-}
-
-#inner {
-  box-sizing: border-box;
 }
 .nweetFactory textarea:focus ,
 input:focus{
