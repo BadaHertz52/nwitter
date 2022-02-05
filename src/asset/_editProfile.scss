@@ -1,3 +1,5 @@
+@import './common';
+
 img, div, button  ,#nav , input {
   position:relative;
   z-index: inherit;
@@ -151,7 +153,7 @@ img, div, button  ,#nav , input {
 }
 @media screen and (min-width:726px) {
 #editProfile ,.cropper{
-  background-color: rgba(0, 0, 0, 0.473);
+  background-color: $popupBgColor;
 }
 #editProfile form ,
 .cropper #cropper_inner{
