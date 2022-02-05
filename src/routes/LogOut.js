@@ -28,19 +28,21 @@ const LogOut =()=>{
   };
 
   return (
-    <section id="logout">
-      <div id="logout_icon">
+    <section id="logOut">
+      <div id='logOut_inner'>
+      <div id="logOut_icon">
         <BsTwitter/>
       </div>
-      <div id="logout_alert">
+      <div id="logOut_alert">
         <div>
-          Log out of Twitter?
+          Log out of Nwitter?
         </div>
         <div>
-          You can always log back in at any time. If you just want to switch accounts, you can do that by adding an existing account. 
+          You can always log back in at any time.
+          If you just want to switch accounts, you can do that by adding an existing account. 
         </div>
       </div>
-      <div id="logout_Btn">
+      <div id="logOut_Btn">
         <button 
         onClick={onLogOut}>
           Log out
@@ -48,6 +50,7 @@ const LogOut =()=>{
         <button onClick={()=>{navigate(-1)}} >
           Cancel
         </button>
+      </div>
       </div>
     </section>
   )
