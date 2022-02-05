@@ -1,3 +1,279 @@
+\
+#auth {
+  position: absolute;
+  top: 15%;
+  left: 20%;
+  width: 60%;
+}
+
+\
+#auth_left {
+  display: none;
+}
+
+\
+#auth input {
+  padding: 0;
+  margin-left: 0;
+  margin-right: 0;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+}
+
+\
+#auth svg {
+  font-size: 1.4rem;
+  color: #008cff;
+}
+
+\
+#auth #newAccount {
+  margin-top: 2rem;
+  width: 100%;
+  text-align: left;
+  padding: 10px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: 10px;
+  border: 2px solid #ff6d6d;
+  font-size: 1.1rem;
+  font-family: system-ui;
+  font-weight: initial;
+  line-height: 1.5rem;
+}
+
+\
+#auth button, \
+#auth input:last-child {
+  margin-top: 0.5rem;
+  font-size: 1.1rem;
+  padding: 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+          box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+  border-radius: 45px;
+}
+
+\
+#auth button:hover, \
+#auth input:last-child:hover {
+  color: #ffff;
+  background-color: #1d9bf0;
+}
+
+#createAccount, #logIn {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  text-align: center;
+}
+
+#createAccount button, #logIn button {
+  text-align: center;
+  width: 100%;
+  font-size: 1rem;
+  margin-top: 2rem;
+}
+
+#createAccount > div, #logIn > div {
+  font-size: 1.2rem;
+  font-weight: 700;
+  width: 100%;
+}
+
+#createAccount button {
+  background-color: initial;
+  border: 1px solid #505050;
+}
+
+#createAccount button:hover {
+  border: none;
+  padding: 8px;
+}
+
+#logIn button {
+  background-color: #a4d3ff;
+}
+
+#logIn button:hover {
+  padding: 8px;
+}
+
+#logIn > div {
+  margin-top: 5vh;
+}
+
+#authForm {
+  margin-top: 20%;
+  width: 100%;
+  height: 100%;
+}
+
+#authForm svg {
+  color: initial;
+}
+
+#authForm form {
+  margin-top: 1.2rem;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  font-size: 1.2rem;
+}
+
+#authForm form label {
+  margin-left: 10px;
+}
+
+#authForm form input {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 10px 8px;
+  border-radius: 9999px;
+  border: 1px solid #242424;
+  font-size: 1rem;
+}
+
+#authForm form input:last-child {
+  border: none;
+}
+
+#authForm form input:last-child:hover {
+  padding: 8px;
+  border: none;
+}
+
+#authError {
+  margin-top: 1rem;
+  padding: 1rem 10px;
+  font-size: 1rem;
+  background-color: #f0f0f0;
+  overflow-wrap: break-word;
+}
+
+@media screen and (min-width: 728px) {
+  #auth {
+    left: 25%;
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 828px) {
+  #auth {
+    left: 30%;
+    width: 40%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  #auth {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: stretch;
+        -ms-flex-pack: stretch;
+            justify-content: stretch;
+    overflow: hidden;
+  }
+  #auth_left {
+    display: block;
+    height: 100%;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+  #auth_left .auth_img {
+    width: auto;
+    height: 100%;
+    border-radius: 0;
+  }
+  #auth_left .width {
+    display: none;
+  }
+  #auth_main {
+    padding-top: 10%;
+    padding-left: 0;
+    height: 100%;
+    width: 80%;
+  }
+  #auth #newAccount {
+    width: 90%;
+    padding: 5%;
+  }
+  #authForm {
+    width: 30%;
+    margin-top: 10%;
+    margin-left: 0;
+    padding-left: 3%;
+  }
+  #createAccount, #logIn {
+    width: 70%;
+    padding: 0 17.5%;
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  #authForm {
+    padding-left: 5%;
+    width: 30%;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  #auth_main {
+    padding-left: 5%;
+  }
+  #authForm {
+    width: 30%;
+    padding-left: 10%;
+  }
+  #createAccount, #logIn {
+    width: 60%;
+    padding: 0 10%;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  #auth_main {
+    padding-top: 8%;
+  }
+  #createAccount, #logIn {
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  #auth .width {
+    display: block;
+  }
+  #auth .small {
+    display: none;
+  }
+  #authForm {
+    width: 25%;
+    padding-left: 7%;
+  }
+}
+
 #cropper_inner {
   margin: 2rem;
 }
@@ -258,7 +534,7 @@ img, div, button, #nav, input {
 
 @media screen and (min-width: 726px) {
   #editProfile, .cropper {
-    background-color: rgba(0, 0, 0, 0.473);
+    background-color: rgba(0, 0, 0, 0.4);
   }
   #editProfile form,
   .cropper #cropper_inner {
@@ -675,6 +951,90 @@ img, div, button, #nav, input {
   background-color: #ffff;
 }
 
+#logOut {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+#logOut_inner {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  width: 50%;
+  height: 50%;
+  padding: 1rem;
+  background-color: #ffff;
+  border-radius: 10px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+}
+
+#logOut_icon {
+  color: #1d9bf0;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+#logOut_alert {
+  font-size: 1rem;
+  padding: 0 1rem;
+}
+
+#logOut_alert div:first-child {
+  margin: 10px 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+#logOut_Btn {
+  margin-top: 1.5rem;
+  padding: 0 15%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#logOut_Btn button {
+  padding: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  -webkit-box-shadow: rgba(184, 184, 184, 0.514) 0px 5px 0px;
+          box-shadow: rgba(184, 184, 184, 0.514) 0px 5px 0px;
+}
+
+#logOut_Btn button:hover {
+  color: initial;
+}
+
+#logOut_Btn button:first-child {
+  background-color: black;
+  color: #ffff;
+}
+
+#logOut_Btn button:first-child:hover {
+  background-color: #dfdfdf;
+  color: black;
+}
+
+#logOut_Btn button:last-child {
+  background-color: #ffff;
+  border: 1px solid black;
+}
+
+#logOut_Btn button:last-child:hover {
+  background-color: #dfdfdf;
+  border: none;
+}
+
 #nav {
   position: absolute;
   width: 100%;
@@ -684,25 +1044,22 @@ img, div, button, #nav, input {
   z-index: 1;
 }
 
-#nav a:hover,
-#nav #nav_myProfile:hover {
+#nav_myProfile:hover, #nav a:hover {
   background-color: #ebebeb;
-  border-radius: 45px;
 }
 
 #nav #nav_nwitter:hover {
   background-color: #d7f3fd;
 }
 
+#nav #nav_nwitter svg {
+  color: #1d9bf0;
+}
+
 #nav button {
   color: #fff;
   margin-top: 0;
   padding: 0;
-}
-
-#nav #nav_myProfile {
-  background-color: initial;
-  color: initial;
 }
 
 #nav > div:first-child {
@@ -718,7 +1075,6 @@ img, div, button, #nav, input {
       justify-content: space-around;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  background-color: #ffff;
 }
 
 #nav a {
@@ -732,16 +1088,13 @@ img, div, button, #nav, input {
   position: relative;
 }
 
-#nav #nav_nwitter {
-  padding: 0.5rem;
-  border-radius: 50%;
-}
-
 #nav #nav_myProfile {
   position: relative;
   margin-left: 0.2rem;
   width: 3.3rem;
   padding: 10px;
+  background-color: initial;
+  color: initial;
 }
 
 #nav svg {
@@ -752,9 +1105,6 @@ img, div, button, #nav, input {
 #nav > div:first-child a {
   width: 2rem;
   height: 2rem;
-}
-
-#nav img {
   border-radius: 50%;
 }
 
@@ -777,6 +1127,99 @@ img, div, button, #nav, input {
   padding: 10px 12px;
 }
 
+#nav #nav_profile button {
+  background-color: initial;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  margin: 0;
+  padding: 0;
+}
+
+#nav #nav_profile button:hover {
+  background-color: initial;
+  color: initial;
+}
+
+#nav #nav_profile button img {
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  margin: 0;
+  border: 10px solid transparent;
+}
+
+#nav #nav_profile button img:hover {
+  border: 10px solid rgba(226, 226, 226, 0.897);
+}
+
+#nav #account {
+  position: absolute;
+  bottom: 4rem;
+  left: 0;
+  width: 250px;
+  background-color: #ffff;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.329) 0px 5px 15px;
+          box-shadow: rgba(0, 0, 0, 0.329) 0px 5px 15px;
+  border-radius: 10px;
+  z-index: 5;
+}
+
+#nav #account::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  border: 20px solid transparent;
+  border-top-color: #ffff;
+  border-bottom: 0;
+  border-left: 0;
+  width: 0;
+  height: 0;
+  margin-left: -5px;
+  margin-bottom: -1.2rem;
+}
+
+#nav #account_user {
+  padding: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-bottom: 0.5px solid #dddddd;
+}
+
+#nav #account_user .nav_label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  color: initial;
+  margin-left: 1.2rem;
+  font-size: 1rem;
+}
+
+#nav #account_user .nav_label div:first-child {
+  font-weight: bold;
+}
+
+#nav #account #account_btn {
+  text-align: left;
+}
+
+#nav #account #account_btn button {
+  padding: 1.5rem;
+  color: initial;
+  font-size: 1rem;
+  border-radius: 0;
+}
+
+#nav #account #account_btn button:hover {
+  background-color: #ebebeb;
+  width: 100%;
+  text-align: left;
+}
+
 #do_nweet {
   display: none;
   -webkit-transition-duration: 0.5s;
@@ -794,16 +1237,16 @@ img, div, button, #nav, input {
     top: 0;
     left: 0;
     height: 100vh;
-    padding-left: 2%;
-    padding-right: 2%;
-    width: 10%;
+    width: 20%;
     border-right: 1px solid rgba(190, 190, 190, 0.192);
+  }
+  #nav > div {
+    padding: 0 20%;
   }
   #nav_nwitter {
     display: block;
   }
   #nav > div:first-child {
-    padding-top: 2rem;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -814,7 +1257,6 @@ img, div, button, #nav, input {
     -webkit-box-pack: justify;
         -ms-flex-pack: justify;
             justify-content: space-between;
-    padding: 0;
   }
   #nav a,
   #nav #nav_myProfile {
@@ -1074,7 +1516,7 @@ img, div, button, #nav, input {
 }
 
 .heartIcon {
-  color: #f33838;
+  color: #141010;
 }
 
 .nweetIcon {
@@ -1986,7 +2428,7 @@ img, div, button, #nav, input {
   .nweetFactory.popup,
   .cropper.factory {
     overflow-y: hidden;
-    background-color: rgba(0, 0, 0, 0.404);
+    background-color: rgba(0, 0, 0, 0.4);
   }
   .nweetFactory.popup .nweetFactory_inner,
   .cropper.factory #cropper_inner {
@@ -2383,6 +2825,8 @@ img, div, button, #nav, input {
   position: relative;
   width: 100%;
   height: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .header {
@@ -2406,11 +2850,6 @@ button:hover, .btn:hover {
   color: whitesmoke;
 }
 
-#inner {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
 .nweetFactory textarea:focus,
 input:focus {
   outline: none;
@@ -2419,149 +2858,6 @@ input:focus {
 .back {
   -webkit-transition-duration: 0.5s;
           transition-duration: 0.5s;
-}
-
-#auth {
-  position: absolute;
-  top: 15%;
-  left: 20%;
-  width: 60%;
-}
-
-#auth_left {
-  display: none;
-}
-
-#auth input {
-  padding: 0;
-  margin-left: 0;
-  margin-right: 0;
-  -webkit-box-sizing: content-box;
-          box-sizing: content-box;
-}
-
-#auth svg {
-  font-size: 1.4rem;
-  color: #008cff;
-}
-
-#auth #newAccount {
-  margin-top: 2rem;
-  width: 100%;
-  text-align: left;
-  padding: 10px;
-  overflow: hidden;
-  overflow-wrap: break-word;
-  border-radius: 10px;
-  border: 1px solid #cacaca;
-  font-size: 1.1rem;
-  font-family: system-ui;
-  font-weight: initial;
-  line-height: 1.5rem;
-}
-
-#auth button, #auth input:last-child {
-  margin-top: 0.5rem;
-  font-size: 1.1rem;
-  padding: 5px;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
-          box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
-  border-radius: 45px;
-}
-
-#auth button:hover, #auth input:last-child:hover {
-  color: #ffff;
-  background-color: #1d9bf0;
-}
-
-#createAccount, #logIn {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  text-align: center;
-}
-
-#createAccount button, #logIn button {
-  text-align: center;
-  width: 100%;
-  font-size: 1rem;
-  margin-top: 2rem;
-}
-
-#createAccount > div, #logIn > div {
-  font-size: 1.2rem;
-  font-weight: 700;
-  width: 100%;
-}
-
-#createAccount button {
-  background-color: initial;
-  border: 1px solid #505050;
-}
-
-#logIn button {
-  background-color: #a4d3ff;
-}
-
-#logIn > div {
-  margin-top: 5vh;
-}
-
-#authForm {
-  margin-top: 20%;
-  width: 100%;
-  height: 100%;
-}
-
-#authForm svg {
-  color: initial;
-}
-
-#authForm form {
-  margin-top: 1.2rem;
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  font-size: 1.2rem;
-}
-
-#authForm form label {
-  margin-left: 10px;
-}
-
-#authForm form input {
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-  padding: 10px 8px;
-  border-radius: 9999px;
-  border: 1px solid #242424;
-}
-
-#authForm form input:last-child {
-  border: none;
-}
-
-#authError {
-  margin-top: 1rem;
-  padding: 1rem 10px;
-  font-size: 1rem;
-  background-color: #f0f0f0;
-  overflow-wrap: break-word;
 }
 
 @media screen and (min-width: 500px) {
@@ -2581,20 +2877,6 @@ input:focus {
   }
   #side {
     display: none;
-  }
-}
-
-@media screen and (min-width: 728px) {
-  #auth {
-    left: 25%;
-    width: 50%;
-  }
-}
-
-@media screen and (min-width: 828px) {
-  #auth {
-    left: 30%;
-    width: 40%;
   }
 }
 
@@ -2851,78 +3133,11 @@ input:focus {
     color: gray;
     font-size: 0.9rem;
   }
-  #auth {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: stretch;
-        -ms-flex-pack: stretch;
-            justify-content: stretch;
-    overflow: hidden;
-  }
-  #auth_left {
-    display: block;
-    height: 100%;
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-  }
-  #auth_left .auth_img {
-    width: auto;
-    height: 100%;
-    border-radius: 0;
-  }
-  #auth_left .width {
-    display: none;
-  }
-  #auth_main {
-    padding-top: 10%;
-    padding-left: 0;
-    height: 100%;
-    width: 80%;
-  }
-  #auth #newAccount {
-    width: 90%;
-    padding: 5%;
-  }
-  #authForm {
-    width: 30%;
-    margin-top: 10%;
-    margin-left: 0;
-    padding-left: 3%;
-  }
-  #createAccount, #logIn {
-    width: 70%;
-    padding: 0 17.5%;
-  }
-}
-
-@media screen and (min-width: 1100px) {
-  #authForm {
-    padding-left: 5%;
-    width: 30%;
-  }
 }
 
 @media screen and (min-width: 1200px) {
   #inner {
     padding: 0 4%;
-  }
-  #auth_main {
-    padding-left: 5%;
-  }
-  #authForm {
-    width: 30%;
-    padding-left: 10%;
-  }
-  #createAccount, #logIn {
-    width: 60%;
-    padding: 0 10%;
   }
 }
 
@@ -2939,27 +3154,11 @@ input:focus {
   #trend li {
     font-weight: normal;
   }
-  #auth_main {
-    padding-top: 8%;
-  }
-  #createAccount, #logIn {
-    text-align: center;
-  }
 }
 
 @media screen and (min-width: 1440px) {
   #inner {
     padding: 0 4%;
-  }
-  #auth .width {
-    display: block;
-  }
-  #auth .small {
-    display: none;
-  }
-  #authForm {
-    width: 25%;
-    padding-left: 7%;
   }
 }
 
