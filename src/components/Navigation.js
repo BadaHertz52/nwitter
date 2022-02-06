@@ -4,9 +4,12 @@ import { Link, useNavigate ,useLocation} from 'react-router-dom';
 import { BsBell, BsBellFill, BsPencil, BsTwitter } from "react-icons/bs";
 import { FaRegUser, FaUser } from "react-icons/fa";
 import { AiFillHome, AiOutlineHome } from 'react-icons/ai';
-import DeleteUser from './DeleteUser';
+
 import {ProfileContext} from '../context/ProfileContex';
 import {NweetContext} from '../context/NweetContex';
+import { getNweetDoc, getNweetsDocs, getProfileDoc } from './GetData';
+import authSerVice, { dbService } from '../Fbase';
+import DeleteUser from './DeleteUser';
 
 const Navigation = ({userobj}) => {
   const location= useLocation();
@@ -15,6 +18,7 @@ const Navigation = ({userobj}) => {
   const {myNweets}= useContext(NweetContext);
   const inner =document.getElementById('inner');
   const [set, setSet] =useState(false);
+  const [deleteError ,setDeleteError] =useState(false);
 
   const doneInitialSatate ={
     doneFollowing:false,
@@ -72,6 +76,16 @@ const Navigation = ({userobj}) => {
 
   return(
     <>
+    {deleteError &&
+      <div id="deleteError">
+        <div>
+          Please log out and try again.
+        </div>
+        <button onClick={()=>{setDeleteError(false)}}>
+          confirm
+        </button>
+      </div>
+        }
     <nav id="nav">
       <div>
         < Link to ="/" id="nav_nwitter">
@@ -151,8 +165,8 @@ const Navigation = ({userobj}) => {
                   Log out @{userobj.id}
                 </button>
                 <button   class="account" id="account_logOut" 
-                onClick={()=>
-                  DeleteUser(myProfile, myNweets, state, dispatch)}>
+                onClick={()=>{DeleteUser(myProfile, myNweets, state,dispatch, setDeleteError );
+                setSet(false)}}>
                   Delete @{userobj.id}
                 </button>
               </div>

@@ -151,6 +151,39 @@
   display: none;
 }
 
+#deleteError {
+  position: absolute;
+  top:30%;
+  left: 25%;
+  background-color: rgb(255, 255, 255);
+  box-shadow:rgba(0, 0, 0, 0.329) 0px 5px 15px;
+  border-radius: 10px;
+  z-index: 6;
+  width: 50%;
+  height: 25%;
+  font-size:1.2rem ;
+  padding:10px;
+  div{
+    margin: {
+      top:10%;
+      bottom: 2rem
+    };
+    text-align: center;
+  }
+  button{
+    @include initialBtn;
+    width: 40% ;
+    margin :0 30%;
+    background-color: rgb(59, 59, 59);
+    color:#ffff;
+    font-size: 1.2rem;
+    padding: 10px 0;
+    &:hover{
+      background-color: $btnLightBlue;
+      color:black
+    }
+  }
+}
 @media screen and (min-width:500px) {
   #nav {
     position: sticky;

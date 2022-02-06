@@ -3,7 +3,7 @@ import authSerVice, { dbService} from '../Fbase';
 import { getNweetDoc, getNweetsDocs, getProfileDoc } from './GetData';
 
 
-const DeleteUser =async(myProfile, myNweets, state,dispatch  )=> {
+const DeleteUser =async(myProfile, myNweets, state,dispatch, setDeleteError  )=> {
     const currentUser =authSerVice.currentUser;
     const {doneFollower,doneFollowing,doneNweet,doneOtherUserNweet}=state;
 
@@ -133,7 +133,13 @@ const DeleteUser =async(myProfile, myNweets, state,dispatch  )=> {
     getProfileDoc(currentUser.uid).delete();
     }; 
     deleteNweets();
-    currentUser.delete().then(()=>console.log("delete user")).catch(error=> console.log(error));
+    currentUser.delete().then(()=>{
+      console.log("delete user");
+      setDeleteError(false)
+    }
+    ).catch(error=> {
+      console.log(error);
+    setDeleteError(true)});
   }
 
 
