@@ -1,17 +1,56 @@
-import React, {useState } from 'react';
+import React, {useState , useContext, useReducer } from 'react';
 import { Link, useNavigate ,useLocation} from 'react-router-dom';
 
 import { BsBell, BsBellFill, BsPencil, BsTwitter } from "react-icons/bs";
 import { FaRegUser, FaUser } from "react-icons/fa";
 import { AiFillHome, AiOutlineHome } from 'react-icons/ai';
+import DeleteUser from './DeleteUser';
+import {ProfileContext} from '../context/ProfileContex';
+import {NweetContext} from '../context/NweetContex';
 
 const Navigation = ({userobj}) => {
   const location= useLocation();
   const navigate =useNavigate();
-
+  const {myProfile}=useContext(ProfileContext);
+  const {myNweets}= useContext(NweetContext);
   const inner =document.getElementById('inner');
-
   const [set, setSet] =useState(false);
+
+  const doneInitialSatate ={
+    doneFollowing:false,
+    doneFollower:false,
+    doneNweet:false,
+    doneOtherUserNweet:false
+  };
+
+  const reducer =(state, action)=> {
+    switch (action.type) {
+      case "FOLLOWING":
+        return {
+          ...state,
+          doneFollowing:true
+        }
+      case "FOLLOWER":
+        return {
+          ...state,
+          doneFollower:true
+        }
+      case "NWEET":
+        return {
+          ...state,
+          doneNweet:true
+        }
+      case "OTHER_USER_NWEET":
+        return {
+          ...state,
+          doneOtherUserNweet:true
+        }
+      default:
+        break;
+    }
+  };
+
+  const [state,dispatch]=useReducer(reducer,doneInitialSatate);
 
   const goMyProfile=()=>{
     navigate(`/${userobj.id}` ,{state:{value:"profile", previous:location.pathname}})
@@ -110,6 +149,11 @@ const Navigation = ({userobj}) => {
                 onClick={()=>
                   navigate('/logout')}>
                   Log out @{userobj.id}
+                </button>
+                <button   class="account" id="account_logOut" 
+                onClick={()=>
+                  DeleteUser(myProfile, myNweets, state, dispatch)}>
+                  Delete @{userobj.id}
                 </button>
               </div>
             </div>
