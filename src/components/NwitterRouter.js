@@ -83,7 +83,7 @@ const NwitterRouter =({isLoggedIn , userobj , IsMyProfile, setIsMyProfile }) => 
     },[]);
 
   useEffect(()=>{
-    console.log("state", location.state)
+
     if(state !==null && state.value !==null ){
       state.value  === "userProfile" && setUserId(state.userId);
       if(state.value ==="status"){
