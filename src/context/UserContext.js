@@ -14,7 +14,7 @@ const UserContextProvider=(props)=>{
       following:[],
       notifications:[]
     },
-    userNweets:[]
+    userNweets:[],
   };
   const reducer =(state,action)=>{
     switch (action.type) {
@@ -35,14 +35,14 @@ const UserContextProvider=(props)=>{
         return{
           state :initialState
         }
-        break;
       default:
         break;
     }
   };
   const [state, dispatch] =useReducer(reducer,initialState );
 
-  return (
+  return (  
+    state!==undefined &&
     <UserContext.Provider value={{userProfile:state.userProfile ,
     userNweets:state.userNweets ,
     userDispatch:dispatch}}>
