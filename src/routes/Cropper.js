@@ -27,6 +27,29 @@ const Cropper =()=> {
   const [crop, setCrop]= useState(initialCrop); 
   const [completedCrop, setCompletedCrop]=useState(null);
   const [cropResult, setCropResult]=useState("");
+
+  const onBack=()=>{
+    const pathname =location.pathname ;
+    const value =location.state.value;
+    const start = pathname.indexOf("/crop");
+    const backPathName =pathname.slice(0,start);
+
+    pathname!=="/crop" ?
+    navigate( `${backPathName}` , {state:
+      {what:what ,
+      value:value ,
+      previous: pathname.includes('nweet')? 
+      location.state.pre_previous :
+      location.state.previous
+    }})
+    :
+    navigate( '/' , {state:
+      {what:what ,
+      value:value ,
+      previous:location.state.pre_previous 
+    }})
+  } ;
+
   const onImageLoaded=(img)=>{
     imageRef.current =img;
     return false
@@ -108,20 +131,6 @@ const Cropper =()=> {
     };
     onBack();
   } ;
-
-  const onBack=()=>{
-    const pathname =location.pathname ;
-    const value =location.state.value;
-    const start = pathname.indexOf("/crop");
-    const backPathName =pathname.slice(0,start);
-    navigate( pathname.includes('nweet')? backPathName:'/' , {state:
-      {what:what ,
-      value:value ,
-      previous:backPathName.includes("nweet")? 
-      location.state.pre_previous : ""
-    }})
-  } ;
-
 
   useEffect(()=>{
 
