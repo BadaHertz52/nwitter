@@ -221,9 +221,8 @@ const NweetFactory = ({userobj ,setPopup }) => {
                 </Link>
           </div>
           <form onSubmit={onSubmit}>
-            
             <textarea
-            value={nweetInput.text}
+            value={nweetInput!==undefined&&nweetInput.text}
             name='text'
             onChange={onChange}
             type="text"
