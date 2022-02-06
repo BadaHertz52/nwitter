@@ -13,7 +13,6 @@ import { useEffect } from 'react/cjs/react.development';
 const EditProfile = ( { userobj ,setIsMyProfile}) =>{
   const navigate =useNavigate();
   const location =useLocation();
-
   const basicPhoto ='https://firebasestorage.googleapis.com/v0/b/nwitter-c8556.appspot.com/o/icons8-user-64.png?alt=media&token=0e76967a-3740-4666-a169-35523d1e07cb' ;
   const basicHeader ='https://firebasestorage.googleapis.com/v0/b/nwitter-c8556.appspot.com/o/basicHeader.png?alt=media&token=3fb9d8ee-95ba-4747-a64f-65c838247ca9';
   const {myProfile, profileInput, profileDispatch} =useContext(ProfileContext);
@@ -23,7 +22,6 @@ const EditProfile = ( { userobj ,setIsMyProfile}) =>{
   const [photo, setProfilePhoto] =useState(
     myProfile.photoUrl == "" ? basicPhoto : myProfile.photoUrl) ;
 
-
   const [src, setSrc]=useState("");
 
   const closeEdit =()=>{
@@ -32,7 +30,10 @@ const EditProfile = ( { userobj ,setIsMyProfile}) =>{
       type:'CLEAR_INPUT'
     })
     const inner =document.getElementById('inner');
-    inner.style.zIndex='0';
+    if(inner !== null){
+      inner.style.zIndex='0';
+    }
+    
   };
 
   const onChange =useCallback((event)=>{
@@ -105,10 +106,10 @@ const EditProfile = ( { userobj ,setIsMyProfile}) =>{
 
     const changeUrl =async()=>{
     if(profileInput.headerUrl !==""){
-      await  saveStorage("profile_header", header, setHeader);
+      await  saveStorage("profile_header", profileInput.headerUrl, setHeader);
     }
     if(profileInput.photoUrl !==""){
-      await  saveStorage("profile_photo" , photo, setProfilePhoto);
+      await  saveStorage("profile_photo" ,profileInput.photoUrl , setProfilePhoto);
     };
     };
     await changeUrl();
@@ -127,10 +128,11 @@ const EditProfile = ( { userobj ,setIsMyProfile}) =>{
       myProfile :newProfile
     });
     setIsMyProfile!==undefined && setIsMyProfile(true);
+
     closeEdit();
   };
+
   useEffect(()=>{
-    console.log(location)
     if(location.state !==null){
       const state= location.state;
       if(state.what !== undefined){
@@ -139,7 +141,8 @@ const EditProfile = ( { userobj ,setIsMyProfile}) =>{
         what ==="photo" && setProfilePhoto(profileInput.photoUrl);
       }
     }
-  },[location.pathname]) ;
+  },[location.state]) ;
+
   return (
     <section id="editProfile">
       <form onSubmit={onSubmit} className='back' >
@@ -152,7 +155,9 @@ const EditProfile = ( { userobj ,setIsMyProfile}) =>{
         </div>
         <div id="editProfile_header">
           <img
-            src={header}
+            src={(profileInput!==undefined && profileInput.headerUrl!=="")? 
+            profileInput.headerUrl
+            :header}
             alt="profileHeader"
             min-width="50px"
             min-height= "50px"
@@ -172,7 +177,10 @@ const EditProfile = ( { userobj ,setIsMyProfile}) =>{
           </div>
         </div>
         <div id="profile_photo">
-          <img   src={photo}  
+          <img 
+          src={(profileInput!==undefined && profileInput.photoUrl!=="")? 
+          profileInput.photoUrl
+          :photo}  
           alt="profile"/>
           <div>
             <label for="profile_photo_input">
