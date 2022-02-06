@@ -4,13 +4,12 @@ import { useEffect, useState } from 'react/cjs/react.development';
 import Nweet from './Nweet';
 import { FiArrowLeft } from "react-icons/fi";
 
-import { goBack } from './GetData';
+import { getNweetsDocs, goBack } from './GetData';
+import Loading from './Loading';
 
 
 export const ProfileTopForm = ({ isMine ,nweets,profile} )=>{
   const location =useLocation();
-
-
   const navigate= useNavigate();
 
   const goList=(what)=>{
@@ -93,7 +92,7 @@ export const ProfileBottomForm = ({isMine, userobj , nweets})=>{
   const  filterNandA = nweets.filter (nweet=> nweet.value !== 'heart');
   const filterHeartedThings= nweets.filter(nweet=> nweet.value === "heart");
   const filterMediaes =nweets.filter(nweet=> nweet.attachmentUrl !== "");
-
+  const [isNweet, setIsNweet]=useState(true);
   const [contents, setcontents]=useState([]);
   const buttons =document.querySelectorAll('#pb_buttons button');
   const values =document.querySelectorAll('.value');
@@ -103,7 +102,7 @@ export const ProfileBottomForm = ({isMine, userobj , nweets})=>{
     buttons.forEach(button =>button.classList.remove('check'));
     target && (target.classList.add('check'));
   }
-  const shownweet =(event)=>{
+  const showNweet =(event)=>{
     setcontents(filterNweets);
     changeStyle(event);
     values.forEach(value=> value.style.display="block");
@@ -123,15 +122,19 @@ export const ProfileBottomForm = ({isMine, userobj , nweets})=>{
     changeStyle(event);
     values.forEach(value=> value.style.display="none");
   }
-
+  const findNweets =async()=>{
+    await getNweetsDocs(userobj.uid).then(result=> {
+      console.log(result.empty)
+      setIsNweet(!result.empty)});
+  };
   useEffect(()=>{
-    shownweet();
+    nweets[0]!==undefined? showNweet(): findNweets();
   },[nweets])
 
   return (
     <section id="profileBottomForm" >
       <div id='pb_buttons'>
-        <button id="pb_btn_nweet" onClick={shownweet}>
+        <button id="pb_btn_nweet" onClick={showNweet}>
           Nweets
         </button>
         <button onClick={showNandA} >Nweets &#38; replies</button>
@@ -139,10 +142,16 @@ export const ProfileBottomForm = ({isMine, userobj , nweets})=>{
         <button onClick={showHeartedThings} >Likes</button>
       </div>
       <div id="contents">
-      {nweets[0] == undefined ?
-        <div>
-          nweet을 불러오는 중 입니다.
-        </div>
+      {nweets[0] === undefined ?
+        (isNweet ?
+          <Loading/>
+          :
+          <div class="noNweet" >
+          There's no nweet
+          <br/>
+          Write new nweet
+          </div>
+        )
       :
       contents.map(content => <Nweet 
           key={`nweets_${content.docId}`}

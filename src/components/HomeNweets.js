@@ -6,11 +6,11 @@ import Nweet from "./Nweet";
 
 const HomeNeets =({userobj})=> {
   const {allNweets}=useContext(NweetContext);
-
+  
   return (
       <section className="nweets">
       <div className='nweets_nweet'>
-        { (allNweets!== undefined) &&
+        { allNweets!== undefined && allNweets[0]!==undefined?
         allNweets.map((nweet) => (
           <Nweet
           key={`nweet'_${nweet.docId}`}
@@ -20,6 +20,12 @@ const HomeNeets =({userobj})=> {
           answer={false}
           />
         ))
+        :
+        <div class="noNweet" >
+        There's no nweet
+        <br/>
+        Write new nweet
+        </div>
         }
       </div>
     </section>
