@@ -221,34 +221,33 @@ const NweetFactory = ({userobj ,setPopup }) => {
                 </Link>
           </div>
           <form onSubmit={onSubmit}>
-            {nweetInput!==undefined &&
-                          <textarea
-                          value={nweetInput.text}
-                          name='text'
-                          onChange={onChange}
-                          type="text"
-                          placeholder="무슨 일이 일어나고 있나요?"
-                          maxLength={120}
-                        />
+            
+            <textarea
+            value={nweetInput.text}
+            name='text'
+            onChange={onChange}
+            type="text"
+            placeholder="What's happening?"
+            maxLength={120}
+            />
+            
+            {attachment !== ""&& (
+              <div id="nweetfactory_attachment">
+                <img src={attachment}  alt="nweet attachment"/>
+                <button onClick={onClearAttachment}>x</button>
+                <button onClick={OnEditAttachment}>Edit</button>
+              </div>
+            )}
+            {location.state !==null && location.state.value=="qn"&&
+              <div id="nweetFactory_qn">
+                <Nweet 
+                  nweetObj={location.state.nweetObj}  
+                  userobj={userobj} 
+                  isOwner ={location.state.isOwner} 
+                  answer={false}
+                />
+              </div>
             }
-
-              {attachment !== ""&& (
-                <div id="nweetfactory_attachment">
-                  <img src={attachment}  alt="nweet attachment"/>
-                  <button onClick={onClearAttachment}>x</button>
-                  <button onClick={OnEditAttachment}>Edit</button>
-                </div>
-              )}
-              {location.state !==null && location.state.value=="qn"&&
-                <div id="nweetFactory_qn">
-                  <Nweet 
-                    nweetObj={location.state.nweetObj}  
-                    userobj={userobj} 
-                    isOwner ={location.state.isOwner} 
-                    answer={false}
-                  />
-                </div>
-              }
             <div>
               <label for="nweet_fileBtn">
                 <HiOutlinePhotograph />
