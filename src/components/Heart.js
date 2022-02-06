@@ -20,12 +20,12 @@ import { OffRnHeart, OnRnHeart } from "./GetData";
 
     const onHeart =(event, heartRef)=>{
       event.preventDefault();
-      OnRnHeart(event ,nweetObj,original, userobj, profile, ownerProfile, nweetDispatch, "heart" , myNweets); 
+      OnRnHeart(nweetObj,original, userobj, profile, ownerProfile, nweetDispatch, "heart" , myNweets); 
       heartRef.classList.add("on")
     };
     const offHeart =(event ,heartRef)=>{
       event.preventDefault();
-      OffRnHeart(event, "heart" ,nweetObj,original,  userobj, profile,ownerProfile, nweetDispatch , myNweets);
+      OffRnHeart("heart" ,nweetObj,original,  userobj, profile,ownerProfile, nweetDispatch , myNweets);
     heartRef.classList.remove("on")
     }
 

@@ -27,13 +27,13 @@ import { useRef } from "react/cjs/react.development";
       const onRn=()=>{
         event.preventDefault();
         rnRef.current.classList.add("on");
-        OnRnHeart(event ,nweetObj, original, userobj, profile,ownerProfile, nweetDispatch, "rn"  , myNweets)
+        OnRnHeart(nweetObj, original, userobj, profile,ownerProfile, nweetDispatch, "rn"  , myNweets)
         
       }
       const offRn=()=>{
         event.preventDefault();
         rnRef.current.classList.remove("on")
-        OffRnHeart(event ,"rn" ,nweetObj,original,  userobj, profile, ownerProfile, nweetDispatch , myNweets) 
+        OffRnHeart("rn" ,nweetObj,original,  userobj, profile, ownerProfile, nweetDispatch , myNweets) 
       };
     rnRef.current.classList.contains("on")? offRn() : onRn()
     }; 

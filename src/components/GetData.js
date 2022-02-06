@@ -79,8 +79,7 @@ export const updateMyNweetsByMe=(myNweets,value,userobj,docId, nweetDispatch,nwe
       })
   }})
 };
-export const OnRnHeart=(event ,nweetObj,original, userobj, profile,ownerProfile, nweetDispatch, value , myNweets)=>{
-  event.preventDefault();
+export const OnRnHeart=(nweetObj,original, userobj, profile,ownerProfile, nweetDispatch, value , myNweets)=>{
   const docId= JSON.stringify(Date.now());
   const now = new Date();
   const year =now.getFullYear();
@@ -144,9 +143,7 @@ export const deleteProfileNotification =(userProfile, nweet ,target_myNweet, use
     notifications:newNotifications
   },{merge:true})
 };
-export const OffRnHeart =(event ,value ,nweetObj, original, userobj, profile,ownerProfile, nweetDispatch ,myNweets )=>{
-
-  event.preventDefault();
+export const OffRnHeart =(value ,nweetObj, original, userobj, profile,ownerProfile, nweetDispatch ,myNweets )=>{
   //nweet 알림 
    // currentUser  
   const modifyMyNweetNotifications=(nweet_docId)=>{
