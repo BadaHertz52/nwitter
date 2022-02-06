@@ -1,3 +1,7 @@
+//css
+import '../asset/main.css';
+
+
 import React, { useState } from 'react';
 import { Route, Routes ,useLocation } from 'react-router-dom';
 import ProfileContextProvier, { ProfileContext } from '../context/ProfileContex';
@@ -19,10 +23,8 @@ import Side from '../routes/Side';
 import UserContextProvider from '../context/UserContext';
 import TimeLine from '../routes/TimeLine';
 import Nweet from './Nweet';
-
-//css
-import '../asset/main.css';
 import LogOut from '../routes/LogOut';
+import Loading from './Loading';
 
 
 const NwitterRouter =({isLoggedIn , userobj , IsMyProfile, setIsMyProfile }) => {
@@ -81,6 +83,7 @@ const NwitterRouter =({isLoggedIn , userobj , IsMyProfile, setIsMyProfile }) => 
     },[]);
 
   useEffect(()=>{
+    console.log("state", location.state)
     if(state !==null && state.value !==null ){
       state.value  === "userProfile" && setUserId(state.userId);
       if(state.value ==="status"){
@@ -94,6 +97,9 @@ const NwitterRouter =({isLoggedIn , userobj , IsMyProfile, setIsMyProfile }) => 
     return (
       <>
         {isLoggedIn ?
+          IsMyProfile == undefined ?
+          <Loading/>
+          :
           (IsMyProfile ?
         <>
           <Routes>
@@ -183,12 +189,26 @@ const NwitterRouter =({isLoggedIn , userobj , IsMyProfile, setIsMyProfile }) => 
           </div>
         </>
         :
-        <EditProfile userobj={userobj} setIsMyProfile={setIsMyProfile} />
+        <>
+        <Routes>
+          <Route
+            path='/'
+            element={<EditProfile userobj={userobj} setIsMyProfile={setIsMyProfile} />}      
+          />
+          <Route 
+            path="/crop" 
+            element={ <Cropper/>}/>
+        </Routes>
+        </>
         )
       :
+      (isLoggedIn !==undefined?
       <Routes>
         <Route  exact path="/" element={ <Auth/>}/>
       </Routes>
+      :
+      <Loading/>
+      )
     }
       </>
     )
