@@ -25,7 +25,7 @@ import '../asset/main.css';
 import LogOut from '../routes/LogOut';
 
 
-const NwitterRouter =({isLoggedIn,IsMyProfile , userobj }) => {
+const NwitterRouter =({isLoggedIn , userobj , IsMyProfile, setIsMyProfile }) => {
 
   const myProfilePath =`/${userobj.id}`;
   const [userId, setUserId]=useState("");
@@ -94,94 +94,97 @@ const NwitterRouter =({isLoggedIn,IsMyProfile , userobj }) => {
     return (
       <>
         {isLoggedIn ?
+          (IsMyProfile ?
         <>
-        <Routes>
-          {location.state!==null && location.state.previous !==null  &&
+          <Routes>
+            {location.state!==null && location.state.previous !==null  &&
+              <>
+                <Route  
+                path="/nweet" 
+                element={ <NweetFactory userobj={userobj}/>}/>
+                <Route  
+                path={`${location.state.previous}/nweet`} 
+                element={ <NweetFactory userobj={userobj}/>}/>
+              <Route 
+                path="/crop" 
+                element={ <Cropper/>}/>
+              <Route 
+                path={`${location.state.previous}/crop`} 
+                element={ <Cropper/>}/>
+              </>
+            }
+              <Route exact path={`/${userobj.id}/editProfile`} 
+              element={<EditProfile userobj={userobj}  />}/>
+              <Route
+                  exact path="/logout"
+                  element={<LogOut />}
+                />
+          </Routes>
+          <div id="inner">
             <>
-              <Route  
-              path="/nweet" 
-              element={ <NweetFactory userobj={userobj}/>}/>
-              <Route  
-              path={`${location.state.previous}/nweet`} 
-              element={ <NweetFactory userobj={userobj}/>}/>
-            <Route 
-              path="/crop" 
-              element={ <Cropper/>}/>
-            <Route 
-              path={`${location.state.previous}/crop`} 
-              element={ <Cropper/>}/>
-            </>
-          }
-            <Route exact path={`/${userobj.id}/editProfile`} 
-            element={<EditProfile userobj={userobj}  />}/>
-            <Route
-                exact path="/logout"
-                element={<LogOut />}
-              />
-        </Routes>
-      <div id="inner">
-        <>
-          <Navigation userobj={userobj} />
-          <div id="main">
-            <Routes>
-              <Route 
-                exact path="/" 
-                element={<Home  userobj={userobj}/>}/> 
-              <Route 
-                exact path="/timeLine"
-                element={<TimeLine userobj={userobj} />}
-              />
-              <Route 
-                path={`${userId}/status/${docId}`}
-                element={<Nweet userobj={userobj}/>}
-              />
-              <Route  
-                path={myProfilePath} 
-                element={ 
-                <MyProfile userobj={userobj} 
-                          IsMyProfile={IsMyProfile}  />}/>
-              <Route 
-                exact path="/notification" 
-                element={<Notification userobj={userobj}  />} />
-              <Route  
-                  path={`/${userId}`} 
-                  element={<Profile userobj={userobj} 
-                  />}/>
-              <Route 
-                path={`/${userId}/list/follower`}
-                element={<List userobj={userobj}/>}/>
-              <Route 
-                path={`${userId}/list/following`}
-                element={<List userobj={userobj}/>}/>
-                {location.state !== null && location.state.previous !==null &&
-                  <>
+              <Navigation userobj={userobj} />
+              <div id="main">
+                <Routes>
                   <Route 
-                    path={`/${location.state.previous}/timeLine`}
+                    exact path="/" 
+                    element={<Home  userobj={userobj}/>}/> 
+                  <Route 
+                    exact path="/timeLine"
                     element={<TimeLine userobj={userobj} />}
                   />
                   <Route 
-                    path={`/${location.state.previous}/${userId}/status/${docId}`}
+                    path={`${userId}/status/${docId}`}
                     element={<Nweet userobj={userobj}/>}
                   />
+                  <Route  
+                    path={myProfilePath} 
+                    element={ 
+                    <MyProfile userobj={userobj} />}/>
                   <Route 
-                    exact path={`/${location.state.previous}/notification`}
+                    exact path="/notification" 
                     element={<Notification userobj={userobj}  />} />
                   <Route  
-                      path={`/${location.state.previous}/${userId}`} 
+                      path={`/${userId}`} 
                       element={<Profile userobj={userobj} 
                       />}/>
-                  </>
-                                  
-                }
-
-            </Routes>
-          </div>
-          <div id="side">
-            <Side userobj={userobj} />
+                  <Route 
+                    path={`/${userId}/list/follower`}
+                    element={<List userobj={userobj}/>}/>
+                  <Route 
+                    path={`${userId}/list/following`}
+                    element={<List userobj={userobj}/>}/>
+                    {location.state !== null && location.state.previous !==null &&
+                      <>
+                      <Route 
+                        path={`/${location.state.previous}/timeLine`}
+                        element={<TimeLine userobj={userobj} />}
+                      />
+                      <Route 
+                        path={`/${location.state.previous}/${userId}/status/${docId}`}
+                        element={<Nweet userobj={userobj}/>}
+                      />
+                      <Route 
+                        exact path={`/${location.state.previous}/notification`}
+                        element={<Notification userobj={userobj}  />} />
+                      <Route  
+                          path={`/${location.state.previous}/${userId}`} 
+                          element={<Profile userobj={userobj} 
+                          />}/>
+                      </>
+                                    
+                  }
+  
+              </Routes>
+              </div>
+              <div id="side">
+                <Side userobj={userobj} />
+              </div>
+            </>
           </div>
         </>
-      </div>
-      </>
+        :
+        <EditProfile userobj={userobj} setIsMyProfile={setIsMyProfile} />
+        )
       :
       <Routes>
         <Route  exact path="/" element={ <Auth/>}/>

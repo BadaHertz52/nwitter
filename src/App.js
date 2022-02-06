@@ -2,13 +2,13 @@ import React, { useEffect,useState } from 'react';
 import NwitterRouter from './components/NwitterRouter';
 import authSerVice from './Fbase';
 import { getProfileDoc } from './components/GetData';
+import EditProfile from './routes/EditProfile';
 
 function App() {
   // 초기 화면
   const [isLoggedIn ,setIsLoggedIn] = useState(false); 
   const [userobj ,setuserobj] = useState({}) ; 
   const [IsMyProfile , setIsMyProfile] =useState();
-  const [newProfile, setNewProfile]=useState({});
   const basicPhoto ='https://firebasestorage.googleapis.com/v0/b/nwitter-c8556.appspot.com/o/icons8-user-64.png?alt=media&token=0e76967a-3740-4666-a169-35523d1e07cb' ;
   const basicHeader ='https://firebasestorage.googleapis.com/v0/b/nwitter-c8556.appspot.com/o/basicHeader.png?alt=media&token=3fb9d8ee-95ba-4747-a64f-65c838247ca9';
   const currentUser = authSerVice.currentUser ;
@@ -32,7 +32,6 @@ function App() {
         follower:[],
         notifications : []
       };
-      setNewProfile(newMyProfile);
       getProfileDoc(userobj.uid).set(newMyProfile)
     };
   })
@@ -52,7 +51,7 @@ function App() {
         photoURL:user.photoURL,
         updateProfile: (args) => user.updateProfile(args) , //프로필 업데이트 함수 
       };
-      if(user.displayName == null){ //user displayname이 없다면 초기에 생성해주어서 나중에 오류발생 x 
+      if(user.displayName == null){
         user.updateProfile({displayName:end});
       };
       if(user.photoURL == null){
@@ -61,8 +60,6 @@ function App() {
         })
       }
       findMyProfile(newUserObj, setIsMyProfile);
-      // react는 랜더링에 특화되어 있지만 object 의 내용이 많으면 랜더링 시 랜더링이 안되는 문제가 발생할 수 있음
-      /* 해결1 : 필요한 정보만 담아서 userobj을 만듦 단, refrecshUser에서 동일 코드가 반복 이는 Object.assign({}, user) 로 해결 */
       setuserobj(newUserObj) ; 
       setIsLoggedIn(true); 
     }else{
@@ -83,7 +80,7 @@ function App() {
   )
   return (
     <>
-      <NwitterRouter isLoggedIn = {isLoggedIn} userobj={userobj}  IsMyProfile={IsMyProfile}  setIsMyProfile ={setIsMyProfile} basicPhoto={basicPhoto} newProfile={newProfile} /> 
+      <NwitterRouter isLoggedIn = {isLoggedIn} userobj={userobj} IsMyProfile={IsMyProfile} setIsMyProfile={setIsMyProfile} /> 
       {/* <footer>
       Photo by <a href="https://unsplash.com/@jeremybezanger?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jeremy Bezanger</a> on <a href="https://unsplash.com/s/photos/twitter?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
   

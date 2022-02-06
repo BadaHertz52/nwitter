@@ -10,7 +10,7 @@ import { getProfileDoc, goBack } from '../components/GetData';
 import { useLocation, useNavigate } from 'react-router';
 import { useEffect } from 'react/cjs/react.development';
 
-const EditProfile = ( { userobj}) =>{
+const EditProfile = ( { userobj ,setIsMyProfile}) =>{
   const navigate =useNavigate();
   const location =useLocation();
 
@@ -126,7 +126,7 @@ const EditProfile = ( { userobj}) =>{
       type:"EDIT_PROFILE",
       myProfile :newProfile
     });
-
+    setIsMyProfile!==undefined && setIsMyProfile(true);
     closeEdit();
   };
   useEffect(()=>{
