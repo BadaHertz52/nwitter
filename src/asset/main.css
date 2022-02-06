@@ -1035,7 +1035,7 @@ img, div, button, #nav, input {
   z-index: 1;
 }
 
-#nav_myProfile:hover, #nav a:hover {
+#nav #nav_myProfile:hover, #nav a:hover {
   background-color: #ebebeb;
 }
 
@@ -1303,23 +1303,26 @@ img, div, button, #nav, input {
   }
   #nav > div {
     margin-left: 2rem;
+    padding: 1rem 0;
   }
   #nav > div:first-child {
     font-size: 1.8rem;
+  }
+  #nav > div:first-child #nav_myProfile, #nav > div:first-child a {
+    border-radius: 9999px;
   }
   #nav > div:nth-child(2) {
     width: initial;
     margin-left: 2rem;
   }
-  #nav > div img,
-  #nav > div #nav_nwitter {
+  #nav img {
     width: 2.8rem;
     height: 2.8rem;
   }
-  #nav > div #nav_nwitter {
+  #nav #nav_nwitter {
     padding: 5px;
   }
-  #nav > div #nav_popUp {
+  #nav #nav_popUp {
     font-size: 10px;
   }
   #nav_profile {
@@ -1355,19 +1358,34 @@ img, div, button, #nav, input {
   #nav svg {
     font-size: 1.8rem;
   }
-  #nav > div::nth-child(2) {
+  #nav > div:nth-child(2) {
     width: 80%;
+    margin-top: 1rem;
+  }
+  #nav > div:nth-child(2) button {
+    padding: 4px 0;
+  }
+  #nav > div:nth-child(2) button:hover {
+    padding: 6px 0;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+  }
+  #nav > div:nth-child(3) {
+    margin-top: 1rem;
   }
   #nav #nav_popUp {
     width: 90%;
   }
-  #nav img,
-  #nav #nav_nwitter {
+  #nav img {
     width: 3rem;
     height: 3rem;
   }
   #nav #nav_nwitter {
-    padding: 6px;
+    margin-left: 14px;
+    padding: 10px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
   }
   .nav_label {
     display: block;
@@ -1377,7 +1395,7 @@ img, div, button, #nav, input {
   .nav_label.on {
     font-weight: bold;
   }
-  #nav_profile {
+  #nav_profile button {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -1385,16 +1403,11 @@ img, div, button, #nav, input {
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
             flex-direction: row;
+    color: initial;
   }
   #nav_profile .nav_label {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
     font-size: 1.2rem;
+    margin-top: 10px;
   }
   #nav_profile .nav_label div:first-child {
     font-weight: bold;
