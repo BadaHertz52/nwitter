@@ -1042,6 +1042,13 @@ img, div, button, #nav, input {
   }
 }
 
+@media screen and (min-width: 1440px) {
+  #logOut_inner {
+    width: 600px;
+    left: calc(50%-300px);
+  }
+}
+
 #nav {
   position: absolute;
   width: 100%;
@@ -3225,32 +3232,21 @@ input:focus {
   }
 }
 
-@media screen and (min-width: 1440px) {
-  #inner {
-    padding: 0 4%;
-  }
-}
-
 @media screen and (min-width: 1800px) {
   #inner {
-    width: 80%;
-    padding: 0;
-    position: fixed;
-    left: 10%;
+    position: absolute;
+    width: 1600px;
+    top: 0;
+    left: calc(50% - 800px);
   }
 }
 
-@media screen and (min-width: 2300px) {
+@media screen and (min-width: 2500px) {
   #inner {
-    width: 70%;
-    left: 15%;
-  }
-}
-
-@media screen and (min-width: 3000px) {
-  #inner {
-    width: 60%;
-    left: 20%;
+    position: absolute;
+    width: 2000px;
+    top: 0;
+    left: calc(50% - 1000px);
   }
 }
 
