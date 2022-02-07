@@ -340,8 +340,7 @@
     top:20%;
     left: 15%;
     width: 70%;
-    max-height: 80%;
-    min-height: 40%;
+    height: fit-content;
     margin: 0;
     padding: 1rem 2rem;
     border-radius: 15px;
@@ -397,6 +396,6 @@
   .nweetFactory_inner,
   .cropper #cropper_inner {
     width: 600px ;
-    left: calc(50%-300px);
+    left: calc(50% - 300px);
 }
 }
