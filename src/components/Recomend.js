@@ -35,17 +35,10 @@ const getUsersProfile =async()=>{
     setUsersProfile(profiles);
 };
 const goProfile =async(profile)=>{
-  const getDocs = await  dbService
-  .collection(`nweets_${profile.uid}`).get();
-  const nweets =getDocs.docs.map(doc =>({ id:doc.id ,...doc.data()}));    
-  
-  userDispatch({
-    type:"GET_USER_DATA",
-    userProfile :profile,
-    userNweets:nweets
-  });
+
   navigate(`/${profile.userId}` ,{state:
     {previous:location.pathname, 
+      userUid:profile.uid,
       userId:profile.userId ,
       value:"userProfile"
     }})
