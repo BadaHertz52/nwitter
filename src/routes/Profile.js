@@ -20,7 +20,8 @@ const Profile = ({userobj}) => {
       following: false , text : "Follow"
     });
   }
-  const editProfile =()=>{
+
+  const follow = ()=> {
     if(!onFollow.following ){
       //follow 
       profileDispatch({
