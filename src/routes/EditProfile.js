@@ -1,5 +1,5 @@
 
-import React, { useCallback, useContext, useState } from 'react' ;
+import React, { useCallback, useContext, useState, useEffect } from 'react' ;
 
 import {MdAddPhotoAlternate } from "react-icons/md";
 
@@ -8,7 +8,7 @@ import { ProfileContext } from '../context/ProfileContex';
 import { storageService } from '../Fbase';
 import { getProfileDoc, goBack } from '../components/GetData';
 import { useLocation, useNavigate } from 'react-router';
-import { useEffect } from 'react/cjs/react.development';
+import Loading from '../components/Loading';
 
 const EditProfile = ( { userobj ,setIsMyProfile}) =>{
   const navigate =useNavigate();
@@ -23,6 +23,7 @@ const EditProfile = ( { userobj ,setIsMyProfile}) =>{
     myProfile.photoUrl == "" ? basicPhoto : myProfile.photoUrl) ;
 
   const [src, setSrc]=useState("");
+  const [loading, setLoading] =useState(false);
 
   const closeEdit =()=>{
     goBack(location, "/edit", navigate);
@@ -130,6 +131,7 @@ const EditProfile = ( { userobj ,setIsMyProfile}) =>{
     setIsMyProfile!==undefined && setIsMyProfile(true);
 
     closeEdit();
+    setLoading(true)
   };
 
   useEffect(()=>{
@@ -145,6 +147,9 @@ const EditProfile = ( { userobj ,setIsMyProfile}) =>{
 
   return (
     <section id="editProfile">
+      {loading &&
+          <Loading/>
+      }
       <form onSubmit={onSubmit} className='back' >
         <div id="edit_header">
         <button onClick={closeEdit}>
