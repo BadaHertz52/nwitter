@@ -116,22 +116,22 @@ const Navigation = ({userobj}) => {
       {set &&
             <div  class="account" id="account">
               <div  class="account"  id="account_user">
-                <img className="profile_photo dark_target acccount" src ={userobj.photoURL} alt="myProfile" ></img>
+                <img className="profile_photo dark_target acccount" src ={myProfile.photoUrl} alt="myProfile" ></img>
                 <div className="nav_label account">
-                  <div  class="account">{userobj.displayName}</div>
-                  <div  class="account">@{userobj.id}</div>
+                  <div  class="account">{myProfile.userName}</div>
+                  <div  class="account">@{myProfile.userId}</div>
                 </div>
               </div>
               <div  class="account" id="account_btn"> 
                 <button   class="account" id="account_logOut" 
                 onClick={()=>
                   navigate('/logout')}>
-                  Log out @{userobj.id}
+                  Log out @{myProfile.userId}
                 </button>
                 <button   class="account" id="account_logOut" 
                 onClick={()=>{DeleteUser(myProfile, myNweets,setDeleteError );
                 setSet(false)}}>
-                  Delete @{userobj.id}
+                  Delete @{myProfile.userId}
                 </button>
               </div>
             </div>
@@ -139,10 +139,10 @@ const Navigation = ({userobj}) => {
         <button 
         onClick={()=>setSet(!set)}
         >
-          <img className="profile_photo dark_target" src ={userobj.photoURL} alt="myProfile" ></img>
+          <img className="profile_photo dark_target" src ={myProfile.photoUrl} alt="myProfile" ></img>
           <div className="nav_label">
-            <div>{userobj.displayName}</div>
-            <div>@{userobj.id}</div>
+            <div>{myProfile.userName}</div>
+            <div>@{myProfile.userId}</div>
           </div>
         </button>
 
