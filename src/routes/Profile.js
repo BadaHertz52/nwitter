@@ -11,6 +11,7 @@ const Profile = ({userobj}) => {
   const {userDispatch, userProfile , userNweets} =useContext(UserContext);
   const myFollowingList =myProfile!==undefined? myProfile.following:[];
   const [onFollow ,setOnFollow] = useState({following:false , text:"Follow"});
+  const followBtn =document.getElementById('profile_followBtn');
 
   const changeFollowBtn = ()=>{
     myFollowingList.includes(userProfile.uid) ? setOnFollow({
@@ -67,6 +68,14 @@ const Profile = ({userobj}) => {
     myFollowingList[0]!== undefined && changeFollowBtn();
   },[]);
 
+  useEffect(()=>{
+    if(followBtn !==null){
+      userProfile!== undefined ?
+    followBtn.style.disable=false:
+    followBtn.style.disable=true;
+    }
+    
+  },[userProfile])
   
   return (
     <>
