@@ -61,11 +61,6 @@ const Profile = ({userobj}) => {
       });
     }
 
-  };
-
-  const follow = async(e)=> {
-    e.preventDefault();
-    editProfile();
   }
 
   useEffect(()=>{
