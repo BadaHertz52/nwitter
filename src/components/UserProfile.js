@@ -1,18 +1,19 @@
 import React from 'react';
 import {  useNavigate ,useLocation} from 'react-router-dom';
 
+
 const UserProfile = ({profile}) => {
   const navigate=useNavigate();
   const location=useLocation()
-
   const goProfile =async()=>{
     navigate(`/${profile.userId}` ,{state:{
       previous:location.pathname,
-      userProfile:profile,
+      userUid:profile.uid,
       userId:profile.userId ,
-      value:"userProfile",
+      value:"userProfile", 
     }})
   }
+
   return (
     <>
     {profile !== null &&
