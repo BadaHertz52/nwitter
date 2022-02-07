@@ -10,6 +10,7 @@ import  { NweetContext } from '../context/NweetContex';
 import {ProfileContext} from '../context/ProfileContex';
 import {BiDotsHorizontalRounded } from 'react-icons/bi';
 import Loading from './Loading';
+import { storageService } from '../Fbase';
 
 
 const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
@@ -155,6 +156,8 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
         docId: nweet.docId ,
         attachmentUrl:nweet.attachmentUrl
       });
+      const storage= storageService.ref().child(`${userobj.uid}/${nweet.docId}`);
+      storage.delete();
       switch (nweet.value) {
         case "qn":
           deleteNweetNotification(aboutNweet,nweet,userobj,nweetobj.value);
