@@ -38,7 +38,6 @@ const Home =  ({userobj}) => {
             }else{
               if(doc.data().notifications.filter(n=> n.user!==userobj.uid || (n.value !=="qn"&& n.value!=="answer"))[0]!==undefined){
                 nweets.push({id:doc.id,...doc.data()});
-                console.log("flter", doc.data())
               }
             }});
         };
