@@ -957,8 +957,10 @@ img, div, button, #nav, input {
   top: 25%;
   left: 25%;
   width: 50%;
-  height: 50%;
-  padding: 1rem;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  padding: 1.5rem 1rem;
   background-color: #ffff;
   border-radius: 10px;
   overflow: hidden;
@@ -1024,6 +1026,20 @@ img, div, button, #nav, input {
 #logOut_Btn button:last-child:hover {
   background-color: #dfdfdf;
   border: none;
+}
+
+@media screen and (min-width: 900px) {
+  #logOut_inner {
+    width: 40%;
+    left: 30%;
+  }
+}
+
+@media screen and (min-width: 1020px) {
+  #logOut_inner {
+    width: 30%;
+    left: 35%;
+  }
 }
 
 #nav {

@@ -13,8 +13,8 @@
     top:25%;
     left: 25%;
     width: 50%;
-    height: 50%;
-    padding:1rem; 
+    height: fit-content;
+    padding:1.5rem 1rem; 
     background-color: #ffff;
     border-radius: 10px;
     overflow:hidden;
@@ -65,6 +65,23 @@
         background-color: rgb(223, 223, 223);
         border: none;
       }
+    }
+  }
+}
+
+@media screen and (min-width:900px) {
+  #logOut{
+    &_inner{
+      width:40%;
+      left:30%;
+    }
+  }
+}
+@media screen and (min-width:1020px) {
+  #logOut{
+    &_inner{
+      width:30%;
+      left:35%;
     }
   }
 }
