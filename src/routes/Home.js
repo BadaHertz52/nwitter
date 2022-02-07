@@ -22,7 +22,7 @@ const Home =  ({userobj}) => {
         if( i===0 &&myNweets[0]!==undefined){
         const filteringArry = myNweets.filter(nweet=> (nweet.notifications.map(n=> 
           myProfile.following.includes(n.user)).includes(true))===false);
-        const filteredNweets =filteringArry.filter(nweet=> nweet.about==null|| !myProfile.following.includes(nweet.about.creatorId));
+        const filteredNweets =filteringArry.filter(nweet=> nweet.about==null||nweet.value==="qn"|| nweet.value==="answer" ||!myProfile.following.includes(nweet.about.creatorId));
           setNweets(filteredNweets);
           nweetDispatch({
             type:"UPDATE_ALL_NWEETS",
@@ -32,7 +32,15 @@ const Home =  ({userobj}) => {
         const getDocs = await getNweetsDocs(user);
         i++;
         if(!getDocs.empty){
-          getDocs.docs.forEach(doc=> nweets.push({id:doc.id,...doc.data()}));
+          getDocs.docs.forEach(doc=> { 
+            if(doc.data().notifications[0]===undefined){
+              nweets.push({id:doc.id,...doc.data()})
+            }else{
+              if(doc.data().notifications.filter(n=> n.user!==userobj.uid || (n.value !=="qn"&& n.value!=="answer"))[0]!==undefined){
+                nweets.push({id:doc.id,...doc.data()});
+                console.log("flter", doc.data())
+              }
+            }});
         };
         if(i ===myProfile.following.length){
           setEnd(true);
