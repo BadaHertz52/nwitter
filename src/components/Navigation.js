@@ -1,4 +1,4 @@
-import React, {useState , useContext, useReducer } from 'react';
+import React, {useState , useContext } from 'react';
 import { Link, useNavigate ,useLocation} from 'react-router-dom';
 
 import { BsBell, BsBellFill, BsPencil, BsTwitter } from "react-icons/bs";
@@ -7,8 +7,7 @@ import { AiFillHome, AiOutlineHome } from 'react-icons/ai';
 
 import {ProfileContext} from '../context/ProfileContex';
 import {NweetContext} from '../context/NweetContex';
-import { getNweetDoc, getNweetsDocs, getProfileDoc } from './GetData';
-import authSerVice, { dbService } from '../Fbase';
+
 import DeleteUser from './DeleteUser';
 
 const Navigation = ({userobj}) => {
@@ -20,41 +19,6 @@ const Navigation = ({userobj}) => {
   const [set, setSet] =useState(false);
   const [deleteError ,setDeleteError] =useState(false);
 
-  const doneInitialSatate ={
-    doneFollowing:false,
-    doneFollower:false,
-    doneNweet:false,
-    doneOtherUserNweet:false
-  };
-
-  const reducer =(state, action)=> {
-    switch (action.type) {
-      case "FOLLOWING":
-        return {
-          ...state,
-          doneFollowing:true
-        }
-      case "FOLLOWER":
-        return {
-          ...state,
-          doneFollower:true
-        }
-      case "NWEET":
-        return {
-          ...state,
-          doneNweet:true
-        }
-      case "OTHER_USER_NWEET":
-        return {
-          ...state,
-          doneOtherUserNweet:true
-        }
-      default:
-        break;
-    }
-  };
-
-  const [state,dispatch]=useReducer(reducer,doneInitialSatate);
 
   const goMyProfile=()=>{
     navigate(`/${userobj.id}` ,{state:{value:"profile", previous:location.pathname}})
@@ -165,7 +129,7 @@ const Navigation = ({userobj}) => {
                   Log out @{userobj.id}
                 </button>
                 <button   class="account" id="account_logOut" 
-                onClick={()=>{DeleteUser(myProfile, myNweets, state,dispatch, setDeleteError );
+                onClick={()=>{DeleteUser(myProfile, myNweets,setDeleteError );
                 setSet(false)}}>
                   Delete @{userobj.id}
                 </button>
