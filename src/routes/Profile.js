@@ -7,6 +7,7 @@ import Loading from '../components/Loading';
 import { dbService } from '../Fbase';
 import { useLocation } from 'react-router';
 import { UserContext } from '../context/UserContext';
+import { getNweetsDocs, getProfileDoc } from '../components/GetData';
 
 const Profile = ({userobj}) => {
   const location =useLocation();
@@ -45,6 +46,11 @@ const Profile = ({userobj}) => {
         following: myFollowingList.concat(userProfile.uid)
       });
       
+      userDispatch({
+        type:"UPDATE_USERS_DATA",
+        newFollower:[userobj.uid].concat(userProfile.follower)
+      });
+
       setOnFollow({
         following: true , text : "Following"
       }) 
@@ -63,6 +69,10 @@ const Profile = ({userobj}) => {
       setOnFollow({
         following: false , text : "Follow"
       });
+      userDispatch({
+        type:"UPDATE_USERS_DATA",
+        newFollower:userProfile.follower.filter(f=> f!==userobj.uid)
+      })
     }
 
   }
@@ -70,11 +80,15 @@ const Profile = ({userobj}) => {
   useEffect(()=>{ 
     if(state !==null){
       const updateUserProfile =async()=>{
-        const profile =state.userProfile;
-        const getDocs = await  dbService
-        .collection(`nweets_${profile.uid}`).get();
-        const nweets =getDocs
-        .docs.map(doc =>({ id:doc.id ,...doc.data()}));    
+        const userUid =state.userUid;
+        const nweets =await getNweetsDocs(userUid).then(
+          result =>{
+            const docs =result.docs;
+            const array= docs.map(doc =>({ id:doc.id ,...doc.data()}))
+            return array
+          }); 
+        const profile = await getProfileDoc(userUid).get().then(doc=> doc.data());
+        console.log(profile, nweets)
         setUserProfile(profile);
         setUserNweets(nweets);
         userDispatch({
@@ -82,8 +96,6 @@ const Profile = ({userobj}) => {
           userProfile:profile,
           userNweets:nweets
         })
-        sessionStorage.setItem('userProfile', JSON.stringify(profile));
-        sessionStorage.setItem('userNweets', JSON.stringify(nweets));
       };
       updateUserProfile();
     }
@@ -97,6 +109,10 @@ const Profile = ({userobj}) => {
 
   useEffect(()=>{
     myFollowingList[0]!== undefined && changeFollowBtn();
+
+    sessionStorage.setItem('userProfile', JSON.stringify(userProfile));
+    sessionStorage.setItem('userNweets', JSON.stringify(userNweets));
+
     if(followBtn !==null){
       userProfile!== undefined ?
     followBtn.style.disable=false:
@@ -108,7 +124,7 @@ const Profile = ({userobj}) => {
 
   return (
     <>
-    {(userProfile===undefined|| userNweets===undefined)?
+    {(state!== null && state.userProfile !==undefined)?
       <Loading/>
     :
     <>
