@@ -160,20 +160,17 @@
   border-radius: 10px;
   z-index: 6;
   width: 50%;
-  height: 25%;
+  height: fit-content;
   font-size:1.2rem ;
-  padding:10px;
+  padding:1rem;
   div{
-    margin: {
-      top:10%;
-      bottom: 2rem
-    };
     text-align: center;
+    margin: 1rem 0;
   }
   button{
     @include initialBtn;
     width: 40% ;
-    margin :0 30%;
+    margin :1rem 30%;
     background-color: rgb(59, 59, 59);
     color:#ffff;
     font-size: 1.2rem;
@@ -282,6 +279,7 @@
     #nav_popUp {
       font-size: 10px;
     }
+
   }
 
   #nav_profile{
@@ -289,6 +287,11 @@
       top:0;
       left:0
     };
+  }
+
+  #deleteError {
+    width: 30%;
+    left:35%
   }
 }
 
@@ -371,4 +374,9 @@
   }
 }
 
-
+@media screen and (min-width:1440px) {
+  #deleteError{
+    width: 25%;
+    left: 37.5%;
+  }
+}
