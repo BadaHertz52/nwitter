@@ -124,7 +124,6 @@ export const ProfileBottomForm = ({isMine, userobj , nweets})=>{
   }
   const findNweets =async()=>{
     await getNweetsDocs(userobj.uid).then(result=> {
-      console.log(result.empty)
       setIsNweet(!result.empty)});
   };
   useEffect(()=>{
