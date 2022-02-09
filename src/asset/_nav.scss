@@ -1,5 +1,6 @@
 @import '../asset/common';
 
+
 #nav {
   position: absolute;
   width: 100%;
@@ -8,7 +9,7 @@
   left: 0;
   z-index: 1;
   #nav_myProfile:hover ,a:hover{
-      background-color: rgb(235,235,235);
+      background-color: $hoverGrey;
   }
   #nav_nwitter{
     &:hover{
@@ -81,7 +82,7 @@
         margin:0;
         border:10px solid transparent;
         &:hover{
-        border:10px solid rgba(226, 226, 226, 0.897)
+        border:10px solid $hoverGrey
       }
       }
     }
@@ -358,17 +359,25 @@
     }
   }
   
-  #nav_profile {
+  #nav #nav_profile {
     button {
       display: flex;
       flex-direction: row;
-      color:initial
+      color:initial;
+      width: 95%;
+      &:hover{
+        background-color: $hoverGrey;
+      }
+      img:hover{
+        border:none
+      }
     }
     .nav_label{
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin-top: 10px;
-    div:first-child{
-    font-weight: bold;
+    div:last-child{
+    margin-top: 10px;
+    font-size: 1rem;
     }
   }
   }
