@@ -22,21 +22,6 @@
   color: #008cff;
 }
 
-#auth #newAccount {
-  margin-top: 2rem;
-  width: 100%;
-  text-align: left;
-  padding: 10px;
-  overflow: hidden;
-  overflow-wrap: break-word;
-  border-radius: 10px;
-  border: 2px solid #ff6d6d;
-  font-size: 1.1rem;
-  font-family: system-ui;
-  font-weight: initial;
-  line-height: 1.5rem;
-}
-
 #auth button, #auth input:last-child {
   margin-top: 0.5rem;
   font-size: 1.1rem;
@@ -205,10 +190,6 @@
     padding-left: 0;
     height: 100%;
     width: 80%;
-  }
-  #auth #newAccount {
-    width: 90%;
-    padding: 5%;
   }
   #authForm {
     width: 30%;
@@ -1162,7 +1143,7 @@ img, div, button, #nav, input {
 }
 
 #nav #nav_profile button img:hover {
-  border: 10px solid rgba(226, 226, 226, 0.897);
+  border: 10px solid #ebebeb;
 }
 
 #nav #account {
@@ -1464,7 +1445,7 @@ img, div, button, #nav, input {
   .nav_label.on {
     font-weight: bold;
   }
-  #nav_profile button {
+  #nav #nav_profile button {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -1473,13 +1454,21 @@ img, div, button, #nav, input {
         -ms-flex-direction: row;
             flex-direction: row;
     color: initial;
+    width: 95%;
   }
-  #nav_profile .nav_label {
-    font-size: 1.2rem;
+  #nav #nav_profile button:hover {
+    background-color: #ebebeb;
+  }
+  #nav #nav_profile button img:hover {
+    border: none;
+  }
+  #nav #nav_profile .nav_label {
+    font-size: 1.1rem;
     margin-top: 10px;
   }
-  #nav_profile .nav_label div:first-child {
-    font-weight: bold;
+  #nav #nav_profile .nav_label div:last-child {
+    margin-top: 10px;
+    font-size: 1rem;
   }
 }
 
@@ -1695,7 +1684,8 @@ img, div, button, #nav, input {
           transition-duration: 0.2s;
 }
 
-.nweet_form {
+.nweet_form,
+.nweetFactory_box.answer {
   padding-left: 1rem;
   padding-top: 1rem;
   width: 100%;
@@ -2061,7 +2051,8 @@ img, div, button, #nav, input {
 }
 
 @media screen and (min-width: 768px) {
-  .nweet_form {
+  .nweet_form,
+  .nweetFactory_box.answer {
     padding-left: 2rem;
     padding-top: 2rem;
   }
@@ -2347,6 +2338,10 @@ img, div, button, #nav, input {
 .nweetFactory.popup textarea {
   width: 100%;
   margin-left: 1rem;
+}
+
+.nweetFactory.popup .answer textarea {
+  width: 90%;
 }
 
 .nweetFactory.popup #close_nav_nweetFactory {
