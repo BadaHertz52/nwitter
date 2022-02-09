@@ -212,17 +212,15 @@ const NweetFactory = ({userobj ,setPopup }) => {
           />
         </div>
         )}
-        <div className="nweetFactory_box">
+        <div className={(location.state !== null && location.state.value === "answer") 
+        ? "nweetFactory_box answer" : "nweetFactory_box"}>
           <div className="userProfile">
-                <Link  to={{
-                  pathname:`/${userobj.id}`,
-                }}>
                   <img 
                     className="profile_photo" 
                     src={userobj.photoURL}
                     alt="profile"
                   />
-                </Link>
+                
           </div>
           <form onSubmit={onSubmit}>
             <textarea
