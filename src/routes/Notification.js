@@ -5,11 +5,12 @@ import {VscBell} from 'react-icons/vsc';
 import Nweet from '../components/Nweet';
 import {ProfileContext} from '../context/ProfileContex';
 import { NweetContext } from '../context/NweetContex';
-import {  getNweetsDocs, getProfileDoc} from '../components/GetData';
+import { getProfileDoc} from '../components/GetData';
 import { useEffect } from 'react/cjs/react.development';
 import {  useLocation, useNavigate } from 'react-router';
 import { dbService } from '../Fbase';
 import { UserContext } from '../context/UserContext';
+import { goProfile } from '../components/UserProfile';
 
 const Notification = ({userobj}) => {
   const {myProfile} =useContext(ProfileContext);
@@ -29,20 +30,8 @@ const Notification = ({userobj}) => {
   };
 
   const go =(n)=>{
-    const goProfile =async(n)=>{
-      const nweetDocs =await getNweetsDocs(n.user.uid);
-      const nweets =nweetDocs.docs.map(doc =>({ id:doc.id ,...doc.data()}));    
-      userDispatch({
-        type:"GET_USER_DATA",
-        userProfile :n.user,
-        userNweets:nweets
-      });
-      navigate(`${n.user.userId}` ,{
-        state:{previous:location.pathname, 
-          userId:n.user.userId ,value:"userProfile"}})
-    }
     n.value === "following"?
-    goProfile(n)
+    goProfile(navigate,n.user,location)
     :
     navigate("timeLine" , {state:{
       previous:location.pathname,
@@ -130,13 +119,17 @@ const Notification = ({userobj}) => {
                 (
                   <div>
                     <span style={{fontWeight :'bold'}}>{n.user.userName}</span> &nbsp; 
-                    {(n.value === 'qn'|| n.value=== 'rn') && 'ReNweet your' &&
-                      n.aboutDocId ===""? 'nweet' : 'ReNweet'
+                    {n.value==="following" ?
+                      'follow you'
+                    :
+                    <>
+                      {n.value ==="heart" &&'like your'}
+                      {(n.value === 'qn'|| n.value=== 'rn') && 'ReNweet your'}
+                      {n.value ==="answer" && "answer your"} 
+                      &nbsp; 
+                      { n.aboutDocId ===""? 'nweet' : 'ReNweet'}
+                    </>
                     }
-                    {(n.value === 'heart') && `like your`&&
-                      n.aboutDocId ===""? 'nweet' : 'ReNweet'
-                    }
-                    {(n.value === 'following') && 'follow you'}
                   </div>
                 )
                 }

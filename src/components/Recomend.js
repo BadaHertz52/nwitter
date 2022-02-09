@@ -1,5 +1,5 @@
 import React, { useContext,  } from 'react';
-import UserProfile from './UserProfile';
+import UserProfile, { goProfile } from './UserProfile';
 import { dbService } from '../Fbase';
 import { useEffect, useState } from 'react/cjs/react.development';
 import { ProfileContext } from '../context/ProfileContex';
@@ -34,16 +34,6 @@ const getUsersProfile =async()=>{
   )).then(data=> data) ;
     setUsersProfile(profiles);
 };
-const goProfile =async(profile)=>{
-
-  navigate(`/${profile.userId}` ,{state:
-    {previous:location.pathname, 
-      userUid:profile.uid,
-      userId:profile.userId ,
-      value:"userProfile"
-    }})
-};
-
   useEffect(()=>{ 
     getUsersProfile();
   },[myProfile]);
@@ -57,7 +47,7 @@ const goProfile =async(profile)=>{
         <button 
         className='recommend_user' 
         key={`recommend_${usersProfiles.indexOf(profile)}`} 
-        onClick={()=>goProfile(profile)}
+        onClick={()=>goProfile(navigate,profile,location)}
         >
           <UserProfile profile={profile}  />
           <div className='userInform'>
