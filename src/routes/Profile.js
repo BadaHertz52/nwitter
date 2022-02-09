@@ -4,7 +4,6 @@ import { ProfileBottomForm, ProfileTopForm } from '../components/ProfileForm';
 
 import { ProfileContext } from '../context/ProfileContex';
 import Loading from '../components/Loading';
-import { dbService } from '../Fbase';
 import { useLocation } from 'react-router';
 import { UserContext } from '../context/UserContext';
 import { getNweetsDocs, getProfileDoc } from '../components/GetData';
@@ -88,7 +87,6 @@ const Profile = ({userobj}) => {
             return array
           }); 
         const profile = await getProfileDoc(userUid).get().then(doc=> doc.data());
-        console.log(profile, nweets)
         setUserProfile(profile);
         setUserNweets(nweets);
         userDispatch({
