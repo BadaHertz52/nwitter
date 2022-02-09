@@ -8,6 +8,7 @@ import { useRef } from "react/cjs/react.development";
   const Rn = ( {userobj  ,nweetObj, original ,profile, ownerProfile})=> {
     const navigate=useNavigate();
     const location=useLocation();
+    const state=location.state;
     const rnRef =useRef();
     const [popup, setPopup]= useState(false);
     const [rnBtn, setRnBtn] =useState(("fun rnBtn"));
@@ -43,7 +44,10 @@ import { useRef } from "react/cjs/react.development";
           nweetObj:nweetObj,
           profile:{uid:profile.uid, notifications:profile.notifications}, 
           isOwner:false ,
-          value : "qn"}
+          value : "qn",
+          userUid: state.userUid !==undefined ? state.userUid : undefined,
+          userId: state.userId !==undefined ? state.userId : undefined,
+        }
         })
     };
     useEffect(()=>{

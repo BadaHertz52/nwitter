@@ -1,4 +1,5 @@
 import { dbService } from "../Fbase";
+import { goProfile } from "./UserProfile";
 
 export const getNweetDoc=(uid, docId) =>dbService.collection(`nweets_${uid}`).doc(`${docId}`)
 .get();
@@ -193,11 +194,19 @@ export const OffRnHeart =(value ,nweetObj, original, userobj, profile,ownerProfi
 
 export  const goBack=(location, what ,navigate)=>{
   const pathname=location.pathname;
+  const state =location.state;
   const start =pathname.indexOf(what);
   const back=pathname.slice(0,start);
   if(back===""){
     navigate('/')
   }else{
-    navigate(back);
-  }
-}
+    state!==null && state.userUid!==undefined?
+    navigate(back ,{state:{
+      previous:location.pathname,
+      userUid:location.state.userUid,
+      userId:location.state.userId ,
+      value:"userProfile", 
+    }})
+    :navigate(back )
+};
+};

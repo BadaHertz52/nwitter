@@ -12,6 +12,7 @@ const NweetFactory = ({userobj ,setPopup }) => {
 
   const [nweetFactory, setNweetFactory]=useState("nweetFactory");
   const location= useLocation();
+  const state=location.state;
   const navigate =useNavigate();
   const {nweetInput, nweetDispatch ,myNweets} =useContext(NweetContext);
   const {myProfile}=useContext(ProfileContext);
@@ -28,8 +29,9 @@ const NweetFactory = ({userobj ,setPopup }) => {
       {type:'CLEAR_INPUT'}
     );
     const pathname=location.pathname;
-    const start =pathname.indexOf('nweet');
+    const start =pathname.indexOf('/nweet');
     const back =pathname.slice(0,start);
+
     location.pathname ==="/nweet"?
     navigate("/" ,{state:{previous:location.pathname}})
     :
@@ -39,7 +41,9 @@ const NweetFactory = ({userobj ,setPopup }) => {
         previous:location.pathname.includes("list")? location.state.pre_previous: location.pathname , 
         pre_previous:location.state.pre_previous,
         previousState: (location.pathname.includes("status")|| location.pathname.includes("list"))? location.state.previousState : null,
-        value :location.pathname.includes("status")? "status": null
+        value :location.pathname.includes("status")? "status": null,
+        userUid: state.userUid !==undefined ? state.userUid : undefined,
+        userId: state.userId !==undefined ? state.userId : undefined,
       }});
   };
   const onSubmit = async(event) => {
@@ -167,18 +171,18 @@ const NweetFactory = ({userobj ,setPopup }) => {
   };
   useEffect(()=>{
 
-    if(location.state !==null){
-      if(location.state.what !== undefined){
-        location.state.what =="attachment"&&
+    if(state !==null){
+      if(state.what !== undefined){
+        state.what =="attachment"&&
         setAttachment(nweetInput.attachmentUrl)
       };
-      if(location.state.value !== undefined){
-        const value =location.state.value;
+      if(state.value !== undefined){
+        const value =state.value;
         (value==="answer" || value ==="qn" || value==="nweet") &&
         setNweetFactory("nweetFactory popup");
       }
     }
-  },[location]) ;
+  },[state]) ;
 
   return (
     <div className={nweetFactory}>

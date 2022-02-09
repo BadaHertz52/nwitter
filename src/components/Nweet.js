@@ -1,5 +1,5 @@
 import React, {  useContext, useEffect, useRef, useState } from 'react';
-import UserProfile from './UserProfile';
+import UserProfile, { goProfile } from './UserProfile';
 import {  AiOutlineHeart, AiOutlineRetweet } from "react-icons/ai";
 import {FiArrowLeft, FiMessageCircle} from 'react-icons/fi';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -73,16 +73,24 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
   const onAnswer=()=>{
     navigate(`nweet`, {state:{
     previous:location.pathname,
-    nweetObj:nweetobj.value =="nweet"? nweetobj: aboutNweet, 
+    nweetObj:nweetobj.value ==="nweet"? nweetobj: aboutNweet, 
     value:"answer",
     profile:{uid:ownerProfile.uid, notifications:ownerProfile.notifications}, 
-    isOwner:false}})
+    isOwner:false,
+    userId:ownerProfile.udrId,
+    userUid:ownerProfile.uid
+  }});
+
   };
     const onBack=()=>{
-      location.pathname.includes("nweet")?
-      goBack(location, "/nweet",navigate):
-      goBack(location, `/${location.state.previousState.userId}/status`,navigate)
-    }
+      location.pathname.includes("nweet")&&
+      goBack(location, "/nweet",navigate);
+
+      location.pathname.includes("status")&&
+      goBack(location, `/${location.state.previousState.userId}/status`,navigate);
+    };
+
+
   useEffect(()=>{
 
     if( location.pathname.includes("status")||
@@ -132,8 +140,8 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
     const month =now.getMonth()+1;
     const [time ,setTime] =useState("");
     const [aboutTime ,setAboutTime]=useState("");
-    const textId =what.docId;
-    const nweet ={
+    const textId =what!==undefined? what.docId:"";
+    const nweet =what!==undefined? {
       id:what.id,
       docId:what.docId,
       text :what.text,
@@ -143,6 +151,16 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
       value:what.value,
       notifications:what.notifications,
       about:what.about,
+    }:{
+      id:"",
+      docId:"",
+      text :"",
+      attachmentUrl:"",
+      createdAt:"",
+      creatorId:"",
+      value:"",
+      notifications:"",
+      about:""
     } ;
     const monthArry =["Jan", "Feb", "Mar", "Apr","May", "Jun", "Jul","Aug","sep","Oct","Nov","Dec"];
 
@@ -179,7 +197,6 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
       const condition1 =!target.classList.contains("fun");
       const condition2 = !target.parentNode.classList.contains("fun");
       const pathName = `${profile.userId}/status/${nweet.docId}`;
-  
       if(condition1 && condition2){
         navigate(`${pathName}` , {state:{
             previous:location.pathname,
@@ -191,7 +208,10 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
               value :"status",
               userId:condition? ownerProfile.userId : aboutProfile.userId,
               docId:condition? nweetobj.docId: aboutNweet.docId},
-            value:"status"
+            value:"status",
+            userUid:(location.state!==null&& location.state.userUid !==undefined) ? location.state.userUid :undefined ,
+            userId:(location.state!==null&&  location.state.userId !==undefined )? location.state.userId :undefined ,
+
           }
           })
       }
@@ -220,7 +240,7 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
     if(target !==null && target.innerHTML !== nweet.text){
       target.innerHTML =nweet.text
     };
-  
+  ;
   return (
   <div 
   className={!location.pathname.includes("status")&&"statusBtn"}
@@ -290,9 +310,13 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
             <button className="fun answer" onClick={onAnswer}> 
                 <FiMessageCircle/>
             </button>
+            {profile!==undefined && what!==undefined &&
+            <>
               <Rn nweetObj={what} original={nweetobj} userobj={userobj} profile={profile} ownerProfile={ownerProfile}
               />
               <Heart nweetObj={what} original={nweetobj} userobj={userobj} profile={profile} ownerProfile={ownerProfile}/>
+            </>}
+              
           </div>
           {IsAnswer &&  !statusAnswer &&
             <div className='answer_who'>
