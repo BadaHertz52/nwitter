@@ -23,7 +23,8 @@
 .nweetSide .userProfile {
   transition-duration: 0.2s;
 }
-.nweet_form {
+.nweet_form,
+.nweetFactory_box.answer {
   padding : {
     left: 1rem;
     top: 1rem
@@ -309,7 +310,8 @@
 }
 
 @media screen and (min-width:768px) {
-  .nweet_form{
+  .nweet_form,
+  .nweetFactory_box.answer{
       padding-left: 2rem;
       padding-top:2rem
   }

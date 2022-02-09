@@ -164,12 +164,14 @@
     display: none;
   }
 
-
   textarea{
     width: 100%;
     margin-left: 1rem;
   }
-    
+  
+  & .answer textarea{
+    width: 90%;
+  }
 
   #close_nav_nweetFactory{
     background-color: initial;
