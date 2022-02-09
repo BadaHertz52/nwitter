@@ -39,11 +39,6 @@ const Auth = ( ) => {
             Sign up for Nwitter today.
               <RiTwitterLine/>
             </div>
-            <div id="newAccount">
-              When closing the browser window, 
-              <br/>
-              all data related to the new ID will be deleted.
-            </div>
             <button onClick={()=>{setPopup(true) ; setNewAccount(true)}} >
             Subscribe to your email address
             </button>

@@ -18,24 +18,6 @@
     font-size: 1.4rem;
     color:$deep_blue;
   }
-  #newAccount{
-    margin : {
-      top:2rem;
-    }
-    width: 100%;
-    text-align: left;
-    padding: 10px;
-    overflow:hidden;
-    overflow-wrap: break-word;
-    border-radius: 10px;
-    border:2px solid rgb(255, 109, 109);
-    font : {
-      size: 1.1rem;
-      family:system-ui;
-      weight:initial;
-    }
-    line-height: 1.5rem;
-  }
   button, input:last-child{
     margin-top: 0.5rem;
     font-size: 1.1rem;
@@ -175,10 +157,6 @@
       height: 100%;
       width: 80%;
     }
-    #newAccount{
-      width: 90%;
-      padding:5% ;
-    } 
 
     &Form{
       width:30%;
