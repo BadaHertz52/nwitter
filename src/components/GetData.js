@@ -57,8 +57,8 @@ export const updateProfileNotification = async(user,id ,notifications)=>{
 export const sendNotification=async(value,userobj, tweetObj, profile, aboutDocId)=>{
   const user = {
     value:value,
-    docId:  tweetObj.docId,
-    aboutDocId:aboutDocId,
+    docId:  tweetObj.docId, //상대방의 docId
+    aboutDocId:aboutDocId, //작성자의 docId
     user :userobj.uid
   };
 
