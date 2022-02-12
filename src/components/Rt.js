@@ -45,8 +45,6 @@ import { BsPencil } from "react-icons/bs";
           profile:{uid:profile.uid, notifications:profile.notifications}, 
           isOwner:false ,
           value : "qt",
-          userUid: state.userUid !==undefined ? state.userUid : undefined,
-          userId: state.userId !==undefined ? state.userId : undefined,
         }
         })
     };
