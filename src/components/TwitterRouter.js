@@ -81,14 +81,16 @@ const TwitterRouter =({isLoggedIn , userobj , IsMyProfile, setIsMyProfile }) => 
     },[]);
 
   useEffect(()=>{
-
-    if(state !==null && state.value !==null ){
-      state.value  === "userProfile" && setUserId(state.userId);
-      if(state.value ==="status"){
-        setUserId(state.previousState.userId)
-        setDocId(state.previousState.docId)
-      }
+    if(localStorage.getItem('user')){
+      const user = JSON.parse(localStorage.getItem('user'));
+      setUserId(user.userId);
     }
+    if(localStorage.getItem('status')){
+      const status  = JSON.parse( localStorage.getItem('status'));
+      setUserId(status.userId);
+      setDocId(status.docId);
+    }
+
   },[location]);
 
 

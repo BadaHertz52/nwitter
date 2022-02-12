@@ -16,12 +16,14 @@ import { storageService } from '../Fbase';
 const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
   const navigate =useNavigate();
   const location =useLocation();
-  const state =location.state !==null && location.state.previousState !==null ? location.state.previousState :location.state ;
-  const tweetobj = tweetObj!==undefined? tweetObj :   state.tweetObj;
-  const is_owner = isOwner !==undefined? isOwner :state.isOwner;
-  const is_answer = answer !==undefined? answer : state.answer;
+
+  const [tweetobj,setTweetObj]=useState(tweetObj);
+  const [is_owner, setIsOwner]=useState(isOwner);
+  const [is_answer ,setIsAnswer]=useState(answer);
+  
   const {myProfile} =useContext(ProfileContext);
   const {tweetDispatch} =useContext(TweetContext);
+
   const profileForm ={
     userId:"" ,
     userName:"",
@@ -66,7 +68,7 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
   //fun
 
   const chagneClassName =()=>{
-  if(tweetobj.value === "answer"){
+  if(tweetobj!==undefined && tweetobj.value === "answer"){
     setTCName("tweet answer");
   }
 };
@@ -87,38 +89,48 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
       goBack(location, "/tweet",navigate);
 
       location.pathname.includes("status")&&
-      goBack(location, `/${location.state.previousState.userId}/status`,navigate);
+      goBack(location, `/${ownerProfile.userId}/status`,navigate);
     };
 
+  
+  useEffect(()=>{
+    if( location.pathname.includes("status")){
+      if(localStorage.getItem("status")){
+        const status =JSON.parse(localStorage.getItem("status"));
+        setTweetObj(status.tweetObj);
+        setIsAnswer(status.answer);
+        setIsOwner(status.isOwner);
+        setOwnerProfile(status.ownerProfile);
+      }
+      }
+  },[location]);
 
   useEffect(()=>{
-
-    if( location.pathname.includes("status")||
-    location.pathname.includes("timeLine")){
+    if(tweetobj!==undefined){
+      console.log("tweetobj",tweetobj)
       tweetobj.value==="answer"? getAnswerTweets(aboutTweet) :getAnswerTweets(tweetobj)
-      }
-  },[location ,tweetobj,aboutTweet]);
+    }
+  },[tweetobj])
 
   useEffect(()=>{
-  tweetClassName !=="tweet answer" && chagneClassName();
-  if(myProfile.userName !==""){
-    if(ownerProfile.userId ===""){
-      location.pathname.includes("status")?
-      setOwnerProfile(state.ownerProfile):
-      getProfile(tweetobj.creatorId ,setOwnerProfile);
+      tweetClassName !=="tweet answer" && chagneClassName();
+      if(tweetobj!==undefined&& myProfile.userName !==""){
+      if(ownerProfile.userId ===""){
+        !location.pathname.includes("status")&&
+        getProfile(tweetobj.creatorId ,setOwnerProfile);
+        };
+      if(tweetobj!==undefined&& aboutProfile.userId ===""){
+        if( tweetobj.about !== null ){
+          getProfile(tweetobj.about.creatorId ,setAboutProfile);
+          getTweet(tweetobj.about.creatorId, tweetobj.about.docId, setAbouttweet);
+        }
       };
-    if(aboutProfile.userId ===""){
-      if( tweetobj.about !== null ){
-        getProfile(tweetobj.about.creatorId ,setAboutProfile);
-        getTweet(tweetobj.about.creatorId, tweetobj.about.docId, setAbouttweet);
-      }
-    };
-  }else {
-      console.log("Can't find myProfile")
-    };
-  },[myProfile ,aboutProfile]);
+    }
+
+  },[tweetobj,myProfile ,aboutProfile]);
+
   useEffect(()=>{
-    if(tweetobj.about!==null){
+    if(tweetobj!==undefined && tweetobj.about!==null){
       (ownerProfile.photoUrl!=="" &&aboutProfile.photoUrl!=="" && aboutTweet.docId!=="")
         ?
         setLoading(false)
@@ -131,7 +143,7 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
         :
         setLoading(true);
       };
-  },[ownerProfile,aboutProfile,aboutTweet]);
+  },[tweetobj,ownerProfile,aboutProfile,aboutTweet]);
   
   const TweetForm =({what ,IsAnswer, profile})=>{
     const now = new Date();
@@ -197,21 +209,21 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
       const condition1 =!target.classList.contains("fun");
       const condition2 = !target.parentNode.classList.contains("fun");
       const pathName = `${profile.userId}/status/${tweet.docId}`;
+      const status = JSON.stringify({
+        tweetObj:tweet,
+        isOwner:condition,
+        answer:false,
+        ownerProfile:profile,
+        value :"status",
+        userId:condition? ownerProfile.userId : aboutProfile.userId,
+        docId:condition? tweetobj.docId: aboutTweet.docId
+      });
+      localStorage.setItem("status", status);
+
       if(condition1 && condition2){
         navigate(`${pathName}` , {state:{
             previous:location.pathname,
-            previousState:{                         
-              tweetObj:tweet,
-              isOwner:condition,
-              answer:false,
-              ownerProfile:profile,
-              value :"status",
-              userId:condition? ownerProfile.userId : aboutProfile.userId,
-              docId:condition? tweetobj.docId: aboutTweet.docId},
-            value:"status",
-            userUid:(location.state!==null&& location.state.userUid !==undefined) ? location.state.userUid :undefined ,
-            userId:(location.state!==null&&  location.state.userId !==undefined )? location.state.userId :undefined ,
-
+            value:"status"
           }
           })
       }
@@ -334,7 +346,7 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
 
   return(
     <div >
-      {(tweetobj !==undefined && !loading)?
+      {(!loading&& tweetobj!==undefined)?
       <>
         <div className={tweetClassName} 
         id={location.pathname !==undefined && 
