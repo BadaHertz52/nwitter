@@ -124,10 +124,10 @@ const Notification = ({userobj}) => {
                     :
                     <>
                       {n.value ==="heart" &&'like your'}
-                      {(n.value === 'qt'|| n.value=== 'rt') && 'Retweet your'}
+                      {(n.value === 'qt'|| n.value=== 'rt') && 'retweet your'}
                       {n.value ==="answer" && "answer your"} 
                       &nbsp; 
-                      { n.aboutDocId ===""? 'tweet' : 'Retweet'}
+                      {n.tweet? "tweet" : "reTweet"}
                     </>
                     }
                   </div>
