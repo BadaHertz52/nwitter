@@ -19,7 +19,7 @@ import Notification from '../routes/Notification';
 import TweetFactory from '../routes/TweetFactory';
 import List from '../routes/List';
 import Side from '../routes/Side';
-import UserContextProvider from '../context/UserContext';
+import UserContextProvider, { UserContext } from '../context/UserContext';
 import TimeLine from '../routes/TimeLine';
 import Tweet from './Tweet';
 import LogOut from '../routes/LogOut';
@@ -36,6 +36,7 @@ const TwitterRouter =({isLoggedIn , userobj , IsMyProfile, setIsMyProfile }) => 
   const ContextRouter =()=>{
     const {profileDispatch} =useContext(ProfileContext);
     const {tweetDispatch}= useContext(TweetContext);
+    const  {userDispatch} =useContext(UserContext);
 
     const [tweet,setTweet]=useState(null);
     const [profile, setProfile] =useState(null);
@@ -81,18 +82,32 @@ const TwitterRouter =({isLoggedIn , userobj , IsMyProfile, setIsMyProfile }) => 
     },[]);
 
   useEffect(()=>{
-    if(localStorage.getItem('user')){
-      const user = JSON.parse(localStorage.getItem('user'));
-      setUserId(user.userId);
+    if(state!==null && state.value ==="userProfile"){
+      const profile =JSON.parse(localStorage.getItem('user'));
+      setUserId(profile.userId);
+      const updateUserProfile =async()=>{
+        const userUid =profile.uid;
+        const tweets =await getTweetsDocs(userUid).then(
+          result =>{
+            const docs =result.docs;
+            const array= docs.map(doc =>({ id:doc.id ,...doc.data()}))
+            return array
+          }); 
+        userDispatch({
+          type:'GET_USER_DATA',
+          userProfile:profile,
+          userTweets:tweets
+        })
+      };
+      updateUserProfile();
     }
-    if(localStorage.getItem('status')){
+    if(state!==null && state.value ==="status" && localStorage.getItem('status')){
       const status  = JSON.parse( localStorage.getItem('status'));
       setUserId(status.userId);
       setDocId(status.docId);
     }
 
-  },[location]);
-
+  },[state]);
 
     return (
       <>
@@ -103,7 +118,7 @@ const TwitterRouter =({isLoggedIn , userobj , IsMyProfile, setIsMyProfile }) => 
           (IsMyProfile ?
         <>
           <Routes>
-            {location.state!==null && location.state.previous !==null  &&
+            {state!==null && state.previous !==null  &&
               <>
                 <Route  
                 path="/tweet" 

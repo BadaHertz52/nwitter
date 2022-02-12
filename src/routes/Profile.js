@@ -6,20 +6,13 @@ import { ProfileContext } from '../context/ProfileContex';
 import Loading from '../components/Loading';
 import { useLocation } from 'react-router';
 import { UserContext } from '../context/UserContext';
-import { getTweetsDocs } from '../components/GetData';
+
 
 const Profile = ({userobj}) => {
   const location =useLocation();
   const state =location.state;
   const {myProfile, profileDispatch} =useContext(ProfileContext);
-  const [userProfile, setUserProfile]=useState({
-    uid:"",
-    following:[],
-    follower:[],
-    notifications:[]
-  });
-  const [userTweets, setUserTweets]=useState([]);
-  const {userDispatch}=useContext(UserContext);
+  const {userDispatch ,userProfile ,userTweets}=useContext(UserContext);
   const myFollowingList =myProfile!==undefined? myProfile.following:[];
   const [onFollow ,setOnFollow] = useState({following:false , text:"Follow"});
   const followBtn =document.getElementById('profile_followBtn');
@@ -75,28 +68,6 @@ const Profile = ({userobj}) => {
     }
 
   }
-
-  useEffect(()=>{ 
-      const updateUserProfile =async()=>{
-        const profile =JSON.parse(localStorage.getItem('user'));
-        const userUid =profile.uid;
-        const tweets =await getTweetsDocs(userUid).then(
-          result =>{
-            const docs =result.docs;
-            const array= docs.map(doc =>({ id:doc.id ,...doc.data()}))
-            return array
-          }); 
-        setUserProfile(profile);
-        setUserTweets(tweets);
-        userDispatch({
-          type:'GET_USER_DATA',
-          userProfile:profile,
-          userTweets:tweets
-        })
-      };
-      updateUserProfile();
-
-  },[]);
 
   useEffect(()=>{
     myFollowingList[0]!== undefined && changeFollowBtn();
