@@ -3,10 +3,9 @@ import {  useNavigate ,useLocation} from 'react-router-dom';
 
 export const goProfile =async(navigate,profile,location)=>{
   const {userId, uid}=profile; 
+  localStorage.setItem('user', JSON.stringify(profile) )
   navigate(`${userId}` ,{state:{
     previous:location.pathname,
-    userUid:uid,
-    userId:userId ,
     value:"userProfile", 
   }})
 };

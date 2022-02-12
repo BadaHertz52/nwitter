@@ -6,7 +6,7 @@ import { ProfileContext } from '../context/ProfileContex';
 import Loading from '../components/Loading';
 import { useLocation } from 'react-router';
 import { UserContext } from '../context/UserContext';
-import { getTweetsDocs, getProfileDoc } from '../components/GetData';
+import { getTweetsDocs } from '../components/GetData';
 
 const Profile = ({userobj}) => {
   const location =useLocation();
@@ -77,16 +77,15 @@ const Profile = ({userobj}) => {
   }
 
   useEffect(()=>{ 
-    if(state !==null){
       const updateUserProfile =async()=>{
-        const userUid =state.userUid;
+        const profile =JSON.parse(localStorage.getItem('user'));
+        const userUid =profile.uid;
         const tweets =await getTweetsDocs(userUid).then(
           result =>{
             const docs =result.docs;
             const array= docs.map(doc =>({ id:doc.id ,...doc.data()}))
             return array
           }); 
-        const profile = await getProfileDoc(userUid).get().then(doc=> doc.data());
         setUserProfile(profile);
         setUserTweets(tweets);
         userDispatch({
@@ -96,20 +95,11 @@ const Profile = ({userobj}) => {
         })
       };
       updateUserProfile();
-    }
-    if(sessionStorage.getItem('userProfile')){
-      const profile = JSON.parse(sessionStorage.getItem('userProfile')) ;
-      const tweets = JSON.parse(sessionStorage.getItem('userTweets')) ;
-      setUserProfile(profile);
-      setUserTweets(tweets);
-    }
+
   },[]);
 
   useEffect(()=>{
     myFollowingList[0]!== undefined && changeFollowBtn();
-
-    sessionStorage.setItem('userProfile', JSON.stringify(userProfile));
-    sessionStorage.setItem('userTweets', JSON.stringify(userTweets));
 
     if(followBtn !==null){
       userProfile!== undefined ?
