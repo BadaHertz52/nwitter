@@ -1103,7 +1103,7 @@ img, div, button, #nav, input {
   border-radius: 50%;
 }
 
-#nav_twitter {
+#nav_nwitter {
   display: none;
 }
 
@@ -1280,7 +1280,7 @@ img, div, button, #nav, input {
   #nav > div {
     padding: 0 20%;
   }
-  #nav_twitter {
+  #nav_nwitter {
     display: block;
   }
   #nav > div:first-child {
@@ -1306,7 +1306,7 @@ img, div, button, #nav, input {
   #nav #nav_myProfile svg {
     font-size: 1.7rem;
   }
-  #nav img, #nav_twitter {
+  #nav img, #nav_nwitter {
     width: 2.5rem;
     height: 2.5rem;
   }
@@ -3042,7 +3042,7 @@ input:focus {
   #search, #trend {
     margin-bottom: 1rem;
   }
-  #media {
+  #medias {
     margin-bottom: 1rem;
   }
   #side #search_result {
@@ -3115,27 +3115,27 @@ input:focus {
     width: 100%;
     padding: 5% 0;
   }
-  #media img {
+  #medias .media {
     width: 30%;
     aspect-ratio: 1/1;
   }
-  #media img:nth-child(1), #media img:nth-child(2), #media img:nth-child(3) {
+  #medias .media:nth-child(1), #medias .media:nth-child(2), #medias .media:nth-child(3) {
     margin-bottom: 0.75vw;
   }
-  #media img:nth-child(2), #media img:nth-child(5) {
+  #medias .media:nth-child(2), #medias .media:nth-child(5) {
     margin-left: 3%;
     margin-right: 3%;
   }
-  #media img:first-child {
+  #medias .media:first-child {
     border-top-left-radius: 10px;
   }
-  #media img:nth-child(3) {
+  #medias .media:nth-child(3) {
     border-top-right-radius: 10px;
   }
-  #media img:nth-child(4) {
+  #medias .media:nth-child(4) {
     border-bottom-left-radius: 10px;
   }
-  #media img:nth-child(6) {
+  #medias .media:nth-child(6) {
     border-bottom-right-radius: 10px;
   }
   #trend > div {
