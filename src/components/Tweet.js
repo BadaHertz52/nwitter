@@ -284,7 +284,7 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
           <img src={tweet.attachmentUrl}  alt="tweet_attachment"/>
         </div>
         }
-        {tweet.value==="qt" &&(
+        {tweet.value==="qt" &&
           <div className="tweet qt">
             <div className="tweet_content">
               <div className='tweet_header'>
@@ -295,7 +295,9 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
                   <span className='qn_time'>{aboutTime}</span>
                 </div>
               </div>
-              <div className="text" >{aboutTweet.text}</div>
+              <div className="text" >
+                {aboutTweet.text.replaceAll("<br/>", "\r\n")}
+              </div>
               { aboutTweet.attachmentUrl !== "" &&
               <div  className="attachment">
                 <img src={aboutTweet.attachmentUrl}  alt="tweet_attachment"/>
@@ -303,7 +305,7 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
               }
             </div>
           </div>
-            )}
+            }
           <div 
             className="tweet_fun fun"
           >
@@ -355,9 +357,9 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
               <div className="value_explain">
                 <AiOutlineRetweet/>
                 {ownerProfile.uid === userobj.uid  ?
-                '내가'
+                'I'
                 :
-                `${ownerProfile.userName}님이`} Retweeted
+                `${ownerProfile.userName}`} Retweeted
               </div>
             }
             {(tweetobj.value ==="heart" &&
@@ -369,7 +371,7 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
                 {ownerProfile.uid === userobj.uid  ?
                 '내가'
                 :
-                `${ownerProfile.userName}님이`} liked
+                `${ownerProfile.userName}`} liked
               </div>
             }
             {((tweetobj.value ==="rt" &&
@@ -380,9 +382,9 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
                 <AiOutlineRetweet/>
                 <AiOutlineHeart/>
                 {ownerProfile.uid === userobj.uid  ?
-                '내가'
+                'I'
                 :
-                `${ownerProfile.userName}님이`} ReTweeted and liked
+                `${ownerProfile.userName}`} ReTweeted and liked
               </div>
             }
             { tweetobj.value === "answer"  &&
