@@ -6,7 +6,7 @@ import { FaRegUser, FaUser } from "react-icons/fa";
 import { AiFillHome, AiOutlineHome } from 'react-icons/ai';
 
 import {ProfileContext} from '../context/ProfileContex';
-import {NweetContext} from '../context/NweetContex';
+import {TweetContext} from '../context/TweetContex';
 
 import DeleteUser from './DeleteUser';
 
@@ -14,20 +14,19 @@ const Navigation = ({userobj}) => {
   const location= useLocation();
   const navigate =useNavigate();
   const {myProfile}=useContext(ProfileContext);
-  const {myNweets}= useContext(NweetContext);
+  const {myTweets}= useContext(TweetContext);
   const inner =document.getElementById('inner');
   const [set, setSet] =useState(false);
   const [deleteError ,setDeleteError] =useState(false);
-
 
   const goMyProfile=()=>{
     navigate(`/${userobj.id}` ,{state:{value:"profile", previous:location.pathname}})
   };
 
-  const goNweetFactory=()=>{
-    const pathname =location.pathname=== '/'? 'nweet' : `${location.pathname}/nweet`;
+  const goTweetFactory=()=>{
+    const pathname =location.pathname=== '/'? 'tweet' : `${location.pathname}/tweet`;
     navigate( `${pathname}` , 
-    {state:{value:"nweet",
+    {state:{value:"tweet",
     pre_previous:location.state!==null?location.state.previous:"",
     previous:location.pathname , 
     previousState: (location.pathname.includes("status")|| location.pathname.includes("list"))?location.state.previousState : null }})
@@ -52,7 +51,7 @@ const Navigation = ({userobj}) => {
         }
     <nav id="nav">
       <div>
-        < Link to ="/" id="nav_nwitter">
+        < Link to ="/" id="nav_twitter">
           <BsTwitter/>
         </Link>
         <Link to ="/">
@@ -106,10 +105,10 @@ const Navigation = ({userobj}) => {
       </div>
       <div>
         <button id="nav_popUp"  
-        onClick={goNweetFactory} 
+        onClick={goTweetFactory} 
         >
           <BsPencil/>
-          <div id="do_nweet">Nweet</div>
+          <div id="do_tweet">tweet</div>
         </button>
       </div> 
       <div id="nav_profile">
@@ -129,7 +128,7 @@ const Navigation = ({userobj}) => {
                   Log out @{myProfile.userId}
                 </button>
                 <button   class="account" id="account_logOut" 
-                onClick={()=>{DeleteUser(myProfile, myNweets,setDeleteError );
+                onClick={()=>{DeleteUser(myProfile, myTweets,setDeleteError );
                 setSet(false)}}>
                   Delete @{myProfile.userId}
                 </button>

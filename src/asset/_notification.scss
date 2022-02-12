@@ -43,10 +43,10 @@
     .value{
       display: none;
     }
-    .nweet{
+    .tweet{
       padding-left: 0;
     }
-    .nweet_form{
+    .tweet_form{
       width: 100%;
       justify-content: stretch;
     }
@@ -54,7 +54,7 @@
       display: none;
     }
   }
-  .answer .nweet_content{
+  .answer .tweet_content{
     padding:0;
   }
   &_notification{
@@ -83,12 +83,12 @@
 }
 
 .rnIcon {
-  color:$rnBtn ;
+  color:$rtBtn ;
 }
 .heartIcon {
   color: $heartBtn;
 }
-.nweetIcon {
+.tweetIcon {
   color:$deep_blue;
   font-weight: bolder;
 }
@@ -112,7 +112,7 @@
   }
 }
 #notification {
-  .nweet {
+  .tweet {
     font-weight: initial;
     padding-left: 10px;
     .text {
@@ -120,15 +120,15 @@
       text-align: start;
     }
   }
-  .nweet_content {
+  .tweet_content {
     padding:0 10px;
   }
-  .nweet_header {
+  .tweet_header {
     &>div, button{
       font-size: 1.1rem;
     }
   } 
-  .nweetSide ,
+  .tweetSide ,
   .userProfile img{
     width: 2.5rem;
   }
@@ -145,7 +145,7 @@
     }
   }
   
-  #notification.nweet_header .nweet_time{
+  #notification.tweet_header .tweet_time{
     font-size: 11px;
   }
 

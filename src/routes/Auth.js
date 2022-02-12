@@ -1,5 +1,5 @@
 import AuthForm from '../components/AuthForm';
-import React, { useEffect } from 'react' ;
+import React  from 'react' ;
 import { useState } from 'react/cjs/react.development';
 import authSerVice , { friebaseInstance } from '../Fbase';
 import { RiTwitterLine } from 'react-icons/ri';
@@ -36,7 +36,7 @@ const Auth = ( ) => {
         <div id="auth_main">
           <div id="createAccount">
             <div>
-            Sign up for Nwitter today.
+            Sign up for Twitter today.
               <RiTwitterLine/>
             </div>
             <button onClick={()=>{setPopup(true) ; setNewAccount(true)}} >

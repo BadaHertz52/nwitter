@@ -1,15 +1,15 @@
 import React, { useContext, useState } from 'react';
 import { useEffect } from 'react/cjs/react.development';
 import grey from '../asset/img/grey.png'
-import { NweetContext } from '../context/NweetContex';
+import { TweetContext } from '../context/TweetContex';
 import { UserContext } from '../context/UserContext';
 const Media =({who})=>{
-  const {myNweets} =useContext(NweetContext);
-  const {userNweets} =useContext(UserContext);
+  const {myTweets} =useContext(TweetContext);
+  const {userTweets} =useContext(UserContext);
   const [medias, setMedias] =useState([]);
-  const getMedias =async(nweets)=>{
-    const filtedNweets =nweets.filter(nweet=> nweet.attachmentUrl !=="");
-    let array = filtedNweets.map(nweet => nweet.attachmentUrl);
+  const getMedias =async(tweets)=>{
+    const filtedtweets =tweets.filter(tweet=> tweet.attachmentUrl !=="");
+    let array = filtedtweets.map(tweet => tweet.attachmentUrl);
     if(array.length !==6){
       array.length >6 ? array =array.slice(0,6): addGrey();
       function addGrey (){
@@ -24,14 +24,15 @@ const Media =({who})=>{
   useEffect(()=>{
     switch (who) {
       case "currentUser":
-        getMedias(myNweets)
+        getMedias(myTweets)
         break;
       case "user":
-        getMedias(userNweets)
+        getMedias(userTweets);
+        break;
       default:
         break;
     }
-  },[myNweets ,userNweets]);
+  },[myTweets ,userTweets]);
 
     return (
       <div id="media">

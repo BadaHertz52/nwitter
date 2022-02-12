@@ -4,25 +4,25 @@ import { useLocation, useNavigate} from 'react-router';
 import { useContext, useEffect, useState } from 'react/cjs/react.development';
 import { goBack } from '../components/GetData';
 import Loading from '../components/Loading';
-import Nweet from '../components/Nweet';
-import { NweetContext } from '../context/NweetContex';
+import Tweet from '../components/Tweet';
+import { TweetContext } from '../context/TweetContex';
 
 const TimeLine =({userobj})=>{
   const location =useLocation();
   const state=location.state; 
   const navigate =useNavigate();
-  const {myNweets}=useContext(NweetContext);
-  const [nweet,setNweet]=useState({docId:"" ,about:null});
+  const {myTweets}=useContext(TweetContext);
+  const [tweet,setTweet]=useState({docId:"" ,about:null});
 
   useEffect(()=>{ 
       if(state.value.aboutDocId == null){
-        const targetNweet =myNweets.filter(n=> n.docId == state.docId)[0];
-      setNweet(targetNweet);
+        const targetTweet =myTweets.filter(n=> n.docId === state.docId)[0];
+      setTweet(targetTweet);
       }else{
-        setNweet(state.aboutDocId)
+        setTweet(state.aboutDocId)
       }
 
-  },[state, myNweets]);
+  },[state, myTweets]);
 
   return (
     <div id="timeLine">
@@ -35,23 +35,23 @@ const TimeLine =({userobj})=>{
         </button>
         <div> 
           <div id="timeLine_value">
-            {state.value=="heart" && "Liked"}
-            {state.value=="rn" && "Renweeted"}
-            {(state.value=="answer" ||
-              state.value=="nweets"  ||
-              state.value =="qn"
+            {state.value==="heart" && "Liked"}
+            {state.value==="rt" && "Retweeted"}
+            {(state.value==="answer" ||
+              state.value==="tweet"  ||
+              state.value ==="qt"
               )
-              && "Nweets"}
+              && "tweets"}
           </div>
           <div id="tiemLine_userId">
             {state.userName}
           </div>
         </div>
       </div>
-      <div id="timeLine_nweet">
-        {(nweet !==undefined && nweet.docId!=="") ?
-        <Nweet  
-          nweetObj={nweet} 
+      <div id="timeLine_tweet">
+        {(tweet !==undefined && tweet.docId!=="") ?
+        <Tweet  
+          tweetObj={tweet} 
           userobj={userobj} 
           isOwner={true} 
           answer={ false} />

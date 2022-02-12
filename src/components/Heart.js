@@ -1,31 +1,31 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
-import { NweetContext } from "../context/NweetContex";
-import { OffRnHeart, OnRnHeart } from "./GetData";
+import { TweetContext } from "../context/TweetContex";
+import { OffRtHeart, OnRtHeart } from "./GetData";
 
-  const Heart = ( {userobj ,original, nweetObj,  profile ,ownerProfile  })=> {
+  const Heart = ( {userobj ,original, tweetObj,  profile ,ownerProfile  })=> {
     const [heartBtn,setHeartBtn] =useState('fun heartBtn') ;
-    const {nweetDispatch , myNweets} =useContext(NweetContext);
+    const {tweetDispatch , myTweets} =useContext(TweetContext);
     const heartRef= useRef();
     useEffect(()=>{
-      const notifications =nweetObj.notifications;
+      const notifications =tweetObj.notifications;
       if(notifications[0]!==undefined){
-        const isIncludes =notifications.map(n=> n.user=== userobj.uid && n.value == "heart").includes(true);
+        const isIncludes =notifications.map(n=> n.user=== userobj.uid && n.value === "heart").includes(true);
         if(isIncludes){
           setHeartBtn('heartBtn on')   
         };
       }
-    },[nweetObj]) ;
+    },[tweetObj]) ;
 
 
     const onHeart =(event, heartRef)=>{
       event.preventDefault();
-      OnRnHeart(nweetObj,original, userobj, profile, ownerProfile, nweetDispatch, "heart" , myNweets); 
+      OnRtHeart(tweetObj,original, userobj, profile, ownerProfile, tweetDispatch, "heart" , myTweets); 
       heartRef.classList.add("on")
     };
     const offHeart =(event ,heartRef)=>{
       event.preventDefault();
-      OffRnHeart("heart" ,nweetObj,original,  userobj, profile,ownerProfile, nweetDispatch , myNweets);
+      OffRtHeart("heart" ,tweetObj,original,  userobj, profile,ownerProfile, tweetDispatch , myTweets);
     heartRef.classList.remove("on")
     }
 

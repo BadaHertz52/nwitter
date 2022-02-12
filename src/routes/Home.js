@@ -1,53 +1,53 @@
 import React, {  useContext, useEffect, useState } from 'react';
-import HomeNweets from '../components/HomeNweets';
+import HomeTweets from '../components/HomeTweets';
 import { Link } from 'react-router-dom';
 import { BiUser } from 'react-icons/bi';
-import NweetFactory from './NweetFactory';
-import { getNweetsDocs } from '../components/GetData';
-import { NweetContext } from '../context/NweetContex';
+import TweetFactory from './TweetFactory';
+import { getTweetsDocs } from '../components/GetData';
+import { TweetContext } from '../context/TweetContex';
 import { ProfileContext } from '../context/ProfileContex';
 
 
 const Home =  ({userobj}) => {
   const [popup, setPopup]=useState(false);
   const {myProfile} =useContext(ProfileContext);
-  const {nweetDispatch, allNweets ,myNweets}=useContext(NweetContext);
-  const [nweets, setNweets]=useState([]);
+  const {tweetDispatch, allTweets ,myTweets}=useContext(TweetContext);
+  const [tweets, setTweets]=useState([]);
   const [end, setEnd]=useState(false);
   let i=0;
-  const getAllNweets =async()=>{
-    setNweets([]);
+  const getAlltweets =async()=>{
+    setTweets([]);
     myProfile.following.forEach(async(user)=>
       { 
-        if( i===0 &&myNweets[0]!==undefined){
-        const filteringArry = myNweets.filter(nweet=> (nweet.notifications.map(n=> 
+        if( i===0 &&myTweets[0]!==undefined){
+        const filteringArry = myTweets.filter(tweet=> (tweet.notifications.map(n=> 
           myProfile.following.includes(n.user)).includes(true))===false);
-        const filteredNweets =filteringArry.filter(nweet=> nweet.about==null||nweet.value==="qn"|| nweet.value==="answer" ||!myProfile.following.includes(nweet.about.creatorId));
-          setNweets(filteredNweets);
-          nweetDispatch({
-            type:"UPDATE_ALL_NWEETS",
-            allNweets:filteredNweets
+        const filteredTweets =filteringArry.filter(tweet=> tweet.about==null||tweet.value==="qt"|| tweet.value==="answer" ||!myProfile.following.includes(tweet.about.creatorId));
+          setTweets(filteredTweets);
+          tweetDispatch({
+            type:"UPDATE_ALL_TWEETS",
+            allTweets:filteredTweets
           })
         };
-        const getDocs = await getNweetsDocs(user);
+        const getDocs = await getTweetsDocs(user);
         i++;
         if(!getDocs.empty){
           getDocs.docs.forEach(doc=> { 
             if(doc.data().notifications[0]===undefined){
-              nweets.push({id:doc.id,...doc.data()})
+              tweets.push({id:doc.id,...doc.data()})
             }else{
-              if(doc.data().notifications.filter(n=> n.user!==userobj.uid || (n.value !=="qn"&& n.value!=="answer"))[0]!==undefined){
-                nweets.push({id:doc.id,...doc.data()});
+              if(doc.data().notifications.filter(n=> n.user!==userobj.uid || (n.value !=="qt"&& n.value!=="answer"))[0]!==undefined){
+                tweets.push({id:doc.id,...doc.data()});
               }
             }});
         };
         if(i ===myProfile.following.length){
           setEnd(true);
-          const sortedNweets=nweets.sort(function(a,b){return b.docId-a.docId});
-          setNweets(sortedNweets)
-          nweetDispatch({
-                    type:"UPDATE_ALL_NWEETS",
-                    allNweets:sortedNweets
+          const sortedtweets=tweets.sort(function(a,b){return b.docId-a.docId});
+          setTweets(sortedtweets)
+          tweetDispatch({
+                    type:"UPDATE_ALL_TWEETS",
+                    allTweets:sortedtweets
                   })
             };
         }
@@ -55,14 +55,14 @@ const Home =  ({userobj}) => {
   }
   useEffect(()=>{
     if(myProfile !==undefined && myProfile.following[0]!==undefined){
-      !end && getAllNweets();
+      !end && getAlltweets();
     }else {
-      nweetDispatch({
-        type:"UPDATE_ALL_NWEETS",
-        allNweets:myNweets
+      tweetDispatch({
+        type:"UPDATE_ALL_TWEETS",
+        allTweets:myTweets
       })
     };
-  },[myProfile ,allNweets ]);
+  },[myProfile ,allTweets ]);
 
   const Popup =()=>{
     return (
@@ -113,8 +113,8 @@ const Home =  ({userobj}) => {
         <div>Home</div>
         {popup && <Popup />}
       </div>
-        <NweetFactory userobj={userobj}  />
-        <HomeNweets userobj={userobj} />  
+        <TweetFactory userobj={userobj}  />
+        <HomeTweets userobj={userobj} />  
     </div>
   );
 };

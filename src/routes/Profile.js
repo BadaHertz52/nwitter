@@ -6,7 +6,7 @@ import { ProfileContext } from '../context/ProfileContex';
 import Loading from '../components/Loading';
 import { useLocation } from 'react-router';
 import { UserContext } from '../context/UserContext';
-import { getNweetsDocs, getProfileDoc } from '../components/GetData';
+import { getTweetsDocs, getProfileDoc } from '../components/GetData';
 
 const Profile = ({userobj}) => {
   const location =useLocation();
@@ -18,7 +18,7 @@ const Profile = ({userobj}) => {
     follower:[],
     notifications:[]
   });
-  const [userNweets, setUserNweets]=useState([]);
+  const [userTweets, setUserTweets]=useState([]);
   const {userDispatch}=useContext(UserContext);
   const myFollowingList =myProfile!==undefined? myProfile.following:[];
   const [onFollow ,setOnFollow] = useState({following:false , text:"Follow"});
@@ -80,7 +80,7 @@ const Profile = ({userobj}) => {
     if(state !==null){
       const updateUserProfile =async()=>{
         const userUid =state.userUid;
-        const nweets =await getNweetsDocs(userUid).then(
+        const tweets =await getTweetsDocs(userUid).then(
           result =>{
             const docs =result.docs;
             const array= docs.map(doc =>({ id:doc.id ,...doc.data()}))
@@ -88,20 +88,20 @@ const Profile = ({userobj}) => {
           }); 
         const profile = await getProfileDoc(userUid).get().then(doc=> doc.data());
         setUserProfile(profile);
-        setUserNweets(nweets);
+        setUserTweets(tweets);
         userDispatch({
           type:'GET_USER_DATA',
           userProfile:profile,
-          userNweets:nweets
+          userTweets:tweets
         })
       };
       updateUserProfile();
     }
     if(sessionStorage.getItem('userProfile')){
       const profile = JSON.parse(sessionStorage.getItem('userProfile')) ;
-      const nweets = JSON.parse(sessionStorage.getItem('userNweets')) ;
+      const tweets = JSON.parse(sessionStorage.getItem('userTweets')) ;
       setUserProfile(profile);
-      setUserNweets(nweets);
+      setUserTweets(tweets);
     }
   },[]);
 
@@ -109,7 +109,7 @@ const Profile = ({userobj}) => {
     myFollowingList[0]!== undefined && changeFollowBtn();
 
     sessionStorage.setItem('userProfile', JSON.stringify(userProfile));
-    sessionStorage.setItem('userNweets', JSON.stringify(userNweets));
+    sessionStorage.setItem('userTweets', JSON.stringify(userTweets));
 
     if(followBtn !==null){
       userProfile!== undefined ?
@@ -127,13 +127,13 @@ const Profile = ({userobj}) => {
     :
     <>
       <section>
-        <ProfileTopForm isMine={false} profile={userProfile} nweets={userNweets} />
+        <ProfileTopForm isMine={false} profile={userProfile} tweets={userTweets} />
         <button id='profile_followBtn' onClick={follow} >
           {onFollow.text}
         </button>
       </section>
       <section >
-        <ProfileBottomForm  isMine={false} userobj={userobj} nweets={userNweets}/> 
+        <ProfileBottomForm  isMine={false} userobj={userobj} tweets={userTweets}/> 
       </section> 
     </>
     }

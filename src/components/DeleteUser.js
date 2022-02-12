@@ -1,9 +1,9 @@
 import React  from 'react';
 import authSerVice, { dbService, storageService} from '../Fbase';
-import { getNweetDoc, getNweetsDocs, getProfileDoc } from './GetData';
+import { getTweetDoc, getTweetsDocs, getProfileDoc } from './GetData';
 
 
-const DeleteUser =async(myProfile, myNweets, setDeleteError  )=> {
+const DeleteUser =async(myProfile, myTweets, setDeleteError  )=> {
     const currentUser =authSerVice.currentUser;
 
     //clean up following ,follower 
@@ -43,13 +43,13 @@ const DeleteUser =async(myProfile, myNweets, setDeleteError  )=> {
       })
     };
     
-    //clean up rn,heart,answer,qn
-      // 유저가 작성한 nweet에 대한 rn.heart,qn 삭제
+    //clean up rt,heart,answer,qt
+      // 유저가 작성한 tweet에 대한 rt.heart,qt 삭제
     const targets =myProfile.notifications.filter(n=> n.docId !== null);
 
     if(targets[0]!== undefined){
       targets.forEach(async(target)=>{
-        getNweetsDocs(target.user, target.aboutDocId).then(
+        getTweetsDocs(target.user, target.aboutDocId).then(
           result=> {
             const docs= result.docs;
             docs.forEach(doc=> doc.delete())
@@ -57,17 +57,17 @@ const DeleteUser =async(myProfile, myNweets, setDeleteError  )=> {
         );
       })
     }
-    // 유저가 rn.heart,qn,answer 한 것 에 대한 삭제
-    const targetNweets= myNweets.filter(nweet => nweet.about !== null);
+    // 유저가 rt.heart,qt,answer 한 것 에 대한 삭제
+    const targetTweets= myTweets.filter(tweet => tweet.about !== null);
     
-    if(targetNweets[0]!== undefined){
-      targetNweets.forEach(async(nweet)=>{
-        const targetUser = nweet.about.creatorId;
-        await getNweetDoc(targetUser, nweet.about.docId).then(doc=> {
-          const userNweet= doc.data();
-          const newNotifications= userNweet.notifications.filter(n=>n.user!== currentUser.uid);
-          dbService.collection(`nweets_${targetUser}`).doc(`${nweet.about.docId}`).set({notifications:newNotifications,
-          ...userNweet});
+    if(targetTweets[0]!== undefined){
+      targetTweets.forEach(async(tweet)=>{
+        const targetUser = tweet.about.creatorId;
+        await getTweetDoc(targetUser, tweet.about.docId).then(doc=> {
+          const userTweet= doc.data();
+          const newNotifications= userTweet.notifications.filter(n=>n.user!== currentUser.uid);
+          dbService.collection(`tweets_${targetUser}`).doc(`${tweet.about.docId}`).set({notifications:newNotifications,
+          ...userTweet});
         });
         await getProfileDoc(targetUser).get().then(async(doc)=> {
           const profile =doc.data();
@@ -81,19 +81,19 @@ const DeleteUser =async(myProfile, myNweets, setDeleteError  )=> {
       });
     };
     // // clean up collection 
-    const deleteNweets = async()=>{ 
-      await getNweetsDocs(currentUser.uid).then(result=>{
+    const deleteTweets = async()=>{ 
+      await getTweetsDocs(currentUser.uid).then(result=>{
       const docs =result.docs;
       docs.forEach(doc=> {
         const id=doc.id;
-        dbService.collection(`nweets_${currentUser.uid}`).doc(id).delete();
+        dbService.collection(`tweets_${currentUser.uid}`).doc(id).delete();
       }
       )
     });
     getProfileDoc(currentUser.uid).delete();
     }; 
 
-    deleteNweets();
+    deleteTweets();
 
     const storage= storageService.ref().child(`${currentUser.uid}`);
     storage.delete();

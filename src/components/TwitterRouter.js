@@ -1,13 +1,12 @@
 //css
 import '../asset/main.css';
 
-
 import React, { useState } from 'react';
 import { Route, Routes ,useLocation } from 'react-router-dom';
 import ProfileContextProvier, { ProfileContext } from '../context/ProfileContex';
-import NweetContextProvier, { NweetContext } from '../context/NweetContex';
+import TweetContextProvier, { TweetContext } from '../context/TweetContex';
 import { useContext, useEffect } from 'react/cjs/react.development';
-import { getNweetsDocs, getProfileDoc } from './GetData';
+import { getTweetsDocs, getProfileDoc } from './GetData';
 
 import Cropper from '../routes/Cropper';
 import Auth from '../routes/Auth';
@@ -17,17 +16,16 @@ import MyProfile from '../routes/MyProfile';
 import Profile from '../routes/Profile';
 import EditProfile from '../routes/EditProfile';
 import Notification from '../routes/Notification';
-import NweetFactory from '../routes/NweetFactory';
+import TweetFactory from '../routes/TweetFactory';
 import List from '../routes/List';
 import Side from '../routes/Side';
 import UserContextProvider from '../context/UserContext';
 import TimeLine from '../routes/TimeLine';
-import Nweet from './Nweet';
+import Tweet from './Tweet';
 import LogOut from '../routes/LogOut';
 import Loading from './Loading';
 
-
-const NwitterRouter =({isLoggedIn , userobj , IsMyProfile, setIsMyProfile }) => {
+const TwitterRouter =({isLoggedIn , userobj , IsMyProfile, setIsMyProfile }) => {
 
   const myProfilePath =`/${userobj.id}`;
   const [userId, setUserId]=useState("");
@@ -37,23 +35,23 @@ const NwitterRouter =({isLoggedIn , userobj , IsMyProfile, setIsMyProfile }) => 
 
   const ContextRouter =()=>{
     const {profileDispatch} =useContext(ProfileContext);
-    const {nweetDispatch}= useContext(NweetContext);
+    const {tweetDispatch}= useContext(TweetContext);
 
-    const [nweet,setNweet]=useState(null);
+    const [tweet,setTweet]=useState(null);
     const [profile, setProfile] =useState(null);
 
     const setContext =async()=>{
-      if(nweet ==null){
-        const getDocs =await getNweetsDocs(userobj.uid);
+      if(tweet ==null){
+        const getDocs =await getTweetsDocs(userobj.uid);
         if(getDocs.empty){
-          console.log("Can't find currentUser's nweet")
+          console.log("Can't find currentUser's tweet")
         }else{
-          const nweets =getDocs.docs.map(doc=>({id:doc.id, ...doc.data()})).reverse();
-          setNweet(nweets);
-          nweetDispatch({
-            type:"GET_NWEETS",
+          const tweets =getDocs.docs.map(doc=>({id:doc.id, ...doc.data()})).reverse();
+          setTweet(tweets);
+          tweetDispatch({
+            type:"GET_TWEETS",
             uid:userobj.uid,
-            myNweets:nweets
+            myTweets:tweets
           }); 
         };
 
@@ -97,7 +95,7 @@ const NwitterRouter =({isLoggedIn , userobj , IsMyProfile, setIsMyProfile }) => 
     return (
       <>
         {isLoggedIn ?
-          IsMyProfile == undefined ?
+          IsMyProfile === undefined ?
           <Loading/>
           :
           (IsMyProfile ?
@@ -106,11 +104,11 @@ const NwitterRouter =({isLoggedIn , userobj , IsMyProfile, setIsMyProfile }) => 
             {location.state!==null && location.state.previous !==null  &&
               <>
                 <Route  
-                path="/nweet" 
-                element={ <NweetFactory userobj={userobj}/>}/>
+                path="/tweet" 
+                element={ <TweetFactory userobj={userobj}/>}/>
                 <Route  
-                path={`${location.state.previous}/nweet`} 
-                element={ <NweetFactory userobj={userobj}/>}/>
+                path={`${location.state.previous}/tweet`} 
+                element={ <TweetFactory userobj={userobj}/>}/>
               <Route 
                 path="/crop" 
                 element={ <Cropper/>}/>
@@ -140,7 +138,7 @@ const NwitterRouter =({isLoggedIn , userobj , IsMyProfile, setIsMyProfile }) => 
                   />
                   <Route 
                     path={`${userId}/status/${docId}`}
-                    element={<Nweet userobj={userobj}/>}
+                    element={<Tweet userobj={userobj}/>}
                   />
                   <Route  
                     path={myProfilePath} 
@@ -167,7 +165,7 @@ const NwitterRouter =({isLoggedIn , userobj , IsMyProfile, setIsMyProfile }) => 
                       />
                       <Route 
                         path={`/${location.state.previous}/${userId}/status/${docId}`}
-                        element={<Nweet userobj={userobj}/>}
+                        element={<Tweet userobj={userobj}/>}
                       />
                       <Route 
                         exact path={`/${location.state.previous}/notification`}
@@ -216,12 +214,12 @@ const NwitterRouter =({isLoggedIn , userobj , IsMyProfile, setIsMyProfile }) => 
   return (
     <UserContextProvider>
       <ProfileContextProvier>
-        <NweetContextProvier>
+        <TweetContextProvier>
           <ContextRouter/>
-        </NweetContextProvier>
+        </TweetContextProvier>
       </ProfileContextProvier>
     </UserContextProvider>
   )
 };
 
-export default  React.memo(NwitterRouter) ;
+export default  React.memo(TwitterRouter) ;

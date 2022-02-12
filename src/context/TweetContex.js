@@ -2,9 +2,9 @@ import React, { createContext,useReducer } from 'react'
 
 import  { dbService, storageService } from '../Fbase';
 
-export const NweetContext = createContext(null);
+export const TweetContext = createContext(null);
 
-const NweetContextProvier =(props)=>{
+const TweetContextProvier =(props)=>{
 
   const initialState = {
     input:{
@@ -12,21 +12,21 @@ const NweetContextProvier =(props)=>{
       attachmentUrl:"",
     },
     uid:"",
-    myNweets:[],
-    allNweets:[]
+    myTweets:[],
+    allTweets:[]
   };
   const reducer =(state, action) =>{ 
     switch (action.type) {
-      case "GET_NWEETS":
+      case "GET_TWEETS":
         return {
           ...state,
           uid:action.uid,
-          myNweets:action.myNweets,
+          myTweets:action.myTweets,
         }
-      case "UPDATE_ALL_NWEETS":
+      case "UPDATE_ALL_TWEETS":
         return{
           ...state,
-          allNweets:action.allNweets
+          allTweets:action.allTweets
         }
       case "WRITE":
         return {
@@ -37,34 +37,34 @@ const NweetContextProvier =(props)=>{
           }
         }
       case "CREATE":
-        const newMyNweets= [action.nweet].concat(state.myNweets);
-        const newAllNweets=[action.nweet].concat(state.allNweets);
-        dbService.collection(`nweets_${action.uid}`).doc(`${action.docId}`).set(action.nweet);
+        const newMytweets= [action.tweet].concat(state.myTweets);
+        const newAlltweets=[action.tweet].concat(state.allTweets);
+        dbService.collection(`tweets_${action.uid}`).doc(`${action.docId}`).set(action.tweet);
         return {
           ...state,
-          myNweets:newMyNweets,
-          allNweets:newAllNweets
+          myTweets:newMytweets,
+          allTweets:newAlltweets
         }
       case "EDIT": 
-      dbService.collection(`nweets_${action.uid}`).doc(`${action.docId}`).set(action.nweet);
+      dbService.collection(`tweets_${action.uid}`).doc(`${action.docId}`).set(action.tweet);
         return {
           ...state,
-          myNweets:action.myNweets
+          myTweets:action.myTweets
         }
       case 'DELETE':
-        dbService.doc(`nweets_${action.uid}/${action.docId}`).delete();
+        dbService.doc(`tweets_${action.uid}/${action.docId}`).delete();
         action.attachmentUrl !=="" && storageService.refFromURL(action.attachmentUrl).delete();
         return {
           ...state,
-          myNweets: state.myNweets.filter(nweet => nweet.docId !== action.docId),
-          allNweets:state.allNweets.filter(nweet=> nweet.docId !== action.docId)
+          myTweets: state.myTweets.filter(tweet => tweet.docId !== action.docId),
+          allTweets:state.allTweets.filter(tweet=> tweet.docId !== action.docId)
         }
       case 'CLEAR_INPUT':
         return {
           ...state,
           input: initialState.input
         }
-      case "CLEAR_NWEETS":
+      case "CLEAR_TWEETS":
         return{
           state:initialState
         } 
@@ -74,12 +74,12 @@ const NweetContextProvier =(props)=>{
   }
   const [state,dispatch]= useReducer(reducer, initialState);
   return (
-    <NweetContext.Provider value={{
-    nweetInput:state.input , myNweets:state.myNweets, allNweets:state.allNweets , nweetDispatch:dispatch 
+    <TweetContext.Provider value={{
+    tweetInput:state.input , myTweets:state.myTweets, allTweets:state.allTweets , tweetDispatch:dispatch 
   }}>
     {props.children}
-    </NweetContext.Provider> 
+    </TweetContext.Provider> 
     )
 };
 
-export default NweetContextProvier
+export default TweetContextProvier

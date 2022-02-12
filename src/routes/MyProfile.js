@@ -1,24 +1,24 @@
 import React, { useContext } from 'react' ;
 import { ProfileTopForm, ProfileBottomForm } from '../components/ProfileForm'
-import { NweetContext } from '../context/NweetContex';
+import { TweetContext } from '../context/TweetContex';
 import { ProfileContext } from '../context/ProfileContex';
 import Loading from '../components/Loading';
 
 
 const MyProfile = ({ userobj} ) => {
-  const {myNweets} =useContext(NweetContext);
+  const {myTweets} =useContext(TweetContext);
   const {myProfile} =useContext(ProfileContext);
   return (
     <>
-    {(myNweets===undefined || myProfile===undefined)?
+    {(myTweets===undefined || myProfile===undefined)?
       <Loading/>
     :
       <>
         <section>
-          <ProfileTopForm  isMine={true} profile={myProfile} nweets={myNweets} />
+          <ProfileTopForm  isMine={true} profile={myProfile} tweets={myTweets} />
         </section>
         <section>
-          <ProfileBottomForm  isMine={true}  userobj={userobj} nweets={myNweets}/>
+          <ProfileBottomForm  isMine={true}  userobj={userobj} tweets={myTweets}/>
         </section>
       </>
     }

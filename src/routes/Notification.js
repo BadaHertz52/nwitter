@@ -2,9 +2,9 @@ import React, { useContext, useState } from 'react';
 import { AiOutlineRetweet, AiOutlineUser} from "react-icons/ai";
 import { AiOutlineHeart } from "react-icons/ai";
 import {VscBell} from 'react-icons/vsc';
-import Nweet from '../components/Nweet';
+import Tweet from '../components/Tweet';
 import {ProfileContext} from '../context/ProfileContex';
-import { NweetContext } from '../context/NweetContex';
+import { TweetContext } from '../context/TweetContex';
 import { getProfileDoc} from '../components/GetData';
 import { useEffect } from 'react/cjs/react.development';
 import {  useLocation, useNavigate } from 'react-router';
@@ -14,7 +14,7 @@ import { goProfile } from '../components/UserProfile';
 
 const Notification = ({userobj}) => {
   const {myProfile} =useContext(ProfileContext);
-  const {myNweets} =useContext(NweetContext);
+  const {myTweets} =useContext(TweetContext);
   const {userDispatch}=useContext(UserContext);
   const [notifications, setNotifications]=useState
   ([]);
@@ -35,35 +35,35 @@ const Notification = ({userobj}) => {
     :
     navigate("timeLine" , {state:{
       previous:location.pathname,
-      docId:n.nweet.docId , 
+      docId:n.tweet.docId , 
       value:n.value, 
       userId:n.user.userId, 
       userName:n.user.userName,
       userUid:n.user.uid ,
-      aboutDocId:n.aboutNweet==""? null: n.aboutNweet}})
+      aboutDocId:n.aboutTweet===""? null: n.aboutTweet}})
   };
 
   useEffect(()=>{
     const getData=async()=>{
       const array = await Promise.all( myProfile.notifications.map( (n) =>{
         const result = getProfileDoc(n.user).get().then(async(doc) =>{
-          const nweet =n.docId == null ? null :  myNweets.filter(nt=> nt.docId == n.docId)[0];
-          const notificaton ={value:n.value ,nweet:nweet, user:doc.data(), aboutNweet:n.aboutDocId};
+          const tweet =n.docId == null ? null :  myTweets.filter(nt=> nt.docId === n.docId)[0];
+          const notificaton ={value:n.value ,tweet:tweet, user:doc.data(), aboutTweet:n.aboutDocId};
           return notificaton
         });
         return result 
       })).then(result => result);
-      const array_withNweets= await Promise.all(array.map(a=>{
-        if(a.aboutNweet!==""){
-          const result= dbService.collection(`nweets_${a.user.uid}`)
-          .doc(`${a.aboutNweet}`)
+      const array_withTweets= await Promise.all(array.map(a=>{
+        if(a.aboutTweet!==""){
+          const result= dbService.collection(`tweets_${a.user.uid}`)
+          .doc(`${a.aboutTweet}`)
           .get()
           .then(
-          doc=> ({...a, aboutNweet:doc.data()}));
+          doc=> ({...a, aboutTweet:doc.data()}));
           return result
         }else{return a}
           })).then(result=>result);
-      setNotifications(array_withNweets);
+      setNotifications(array_withTweets);
     }
     myProfile.notifications[0]!==undefined && getData();
   },[myProfile])
@@ -90,7 +90,7 @@ const Notification = ({userobj}) => {
       id="notification_notification"
       onClick={()=>go(n)}>
           <div className='notification_left'>
-            { (n.value === 'qn'|| n.value ==='rn') &&
+            { (n.value === 'qt'|| n.value ==='rt') &&
               <AiOutlineRetweet className='rnIcon'/>
             }
             {n.value === 'heart'&&
@@ -99,8 +99,8 @@ const Notification = ({userobj}) => {
             {n.value === 'following'&&
                 <AiOutlineUser className='followIcon'/>
               }
-            {n.value === 'nweet'&&
-                <VscBell className='nweetIcon'/>
+            {n.value === 'tweet'&&
+                <VscBell className='tweetIcon'/>
               }
           </div>
           
@@ -108,10 +108,10 @@ const Notification = ({userobj}) => {
             <img className="profile_photo" src={n.user.photoUrl} alt="usrProfilePhoto"/>
             <div className='notification_inform'>
               <>
-                { n.value == 'nweet'?
-                  (n.value === 'nweet') && 
+                { n.value === 'tweet'?
+                  (n.value === 'tweet') && 
                   <div>
-                  New Nweet Notifications for 
+                  New tweet Notifications for 
                   &nbsp;
                   <span style={{fontWeight :'bold'}}>{n.user.userName}</span>
                   </div>
@@ -124,10 +124,10 @@ const Notification = ({userobj}) => {
                     :
                     <>
                       {n.value ==="heart" &&'like your'}
-                      {(n.value === 'qn'|| n.value=== 'rn') && 'ReNweet your'}
+                      {(n.value === 'qt'|| n.value=== 'rt') && 'Retweet your'}
                       {n.value ==="answer" && "answer your"} 
                       &nbsp; 
-                      { n.aboutDocId ===""? 'nweet' : 'ReNweet'}
+                      { n.aboutDocId ===""? 'tweet' : 'Retweet'}
                     </>
                     }
                   </div>
@@ -139,13 +139,13 @@ const Notification = ({userobj}) => {
       </div>)
       :( 
         <div  class="mention" onClick={()=>go(n)}>
-          <Nweet isOwner={false} userobj={userobj} nweetObj={n.aboutNweet} answer={true}/>
+          <Tweet isOwner={false} userobj={userobj} tweetObj={n.aboutTweet} answer={true}/>
         </div>
       )))
     :
     ( notifications.filter(n=>n.value === 'answer').map(n=>
       <div class="mention"onClick={()=>go(n)}>
-        <Nweet isOwner={false} userobj={userobj} nweetObj={n.aboutNweet} answer={true}/>
+        <Tweet isOwner={false} userobj={userobj} tweetObj={n.aboutTweet} answer={true}/>
       </div>
     ))}
     </div>

@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { BsTwitter } from 'react-icons/bs';
 import { useNavigate } from 'react-router';
-import { NweetContext } from '../context/NweetContex';
+import { TweetContext } from '../context/TweetContex';
 import { ProfileContext } from '../context/ProfileContex';
 import { UserContext } from '../context/UserContext';
 import authSerVice from '../Fbase';
 
 
 const LogOut =()=>{
-  const {nweetDispatch} =useContext(NweetContext);
+  const {tweetDispatch} =useContext(TweetContext);
   const {profileDispatch} =useContext(ProfileContext);
   const {userDispatch}=useContext(UserContext);
   const navigate =useNavigate();
@@ -17,8 +17,8 @@ const LogOut =()=>{
     userDispatch({
       type:"CLEAR_USER"
     });
-    nweetDispatch({
-      type:"CLEAR_NWEETS"
+    tweetDispatch({
+      type:"CLEAR_TWEETS"
     });
     profileDispatch({
       type:"CLEAR_MY_PROFILE"
@@ -35,7 +35,7 @@ const LogOut =()=>{
       </div>
       <div id="logOut_alert">
         <div>
-          Log out of Nwitter?
+          Log out of Twitter?
         </div>
         <div>
           You can always log back in at any time.

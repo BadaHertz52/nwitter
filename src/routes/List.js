@@ -1,4 +1,4 @@
-import React, {  useRef, useState } from "react";
+import React, { useState } from "react";
 import { FiArrowLeft } from "react-icons/fi";
 import { useLocation, useNavigate } from "react-router";
 import { useContext, useEffect } from "react/cjs/react.development";
@@ -26,16 +26,16 @@ const List =({userobj})=>{
   
   const goProfile =async(user)=>{
     const getDocs = await dbService
-      .collection(`nweets_${user.uid}`)
+      .collection(`tweets_${user.uid}`)
       .get()
       .then();
-      const nweets = getDocs.docs.map(doc => ({
+      const tweets = getDocs.docs.map(doc => ({
         id: doc.id ,
         ...doc.data()}))  ;
     userDispatch({
       type:"GET_USER_DATA",
       userProfile :user,
-      userNweets:nweets
+      userTweets:tweets
     });
       navigate(`/${user.userId}` ,{state:{
         pre_previous:state.previous,

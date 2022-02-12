@@ -1,24 +1,24 @@
 import { dbService } from "../Fbase";
 import { goProfile } from "./UserProfile";
 
-export const getNweetDoc=(uid, docId) =>dbService.collection(`nweets_${uid}`).doc(`${docId}`)
+export const getTweetDoc=(uid, docId) =>dbService.collection(`tweets_${uid}`).doc(`${docId}`)
 .get();
-export const getNweetsDocs=(uid)=> dbService.collection(`nweets_${uid}`).get() ;
-//nweet
-export const getNweets =(id,setFun)=> {
+export const getTweetsDocs=(uid)=> dbService.collection(`tweets_${uid}`).get() ;
+//tweet
+export const getTweets =(id,setFun)=> {
   dbService
-  .collection(`nweets_${id}`)
+  .collection(`tweets_${id}`)
   .onSnapshot(querysnpshot =>{
       const array = querysnpshot.docs.map(doc=> ({...doc.data()})) ;
       setFun(array.reverse());
   } );    
   
 }
-export const getNweet =(uid,docId,setFun)=>{
-  getNweetDoc(uid,docId).then(doc=>{if(doc.exists){
+export const getTweet =(uid,docId,setFun)=>{
+  getTweetDoc(uid,docId).then(doc=>{if(doc.exists){
     setFun({...doc.data()}) ;
   }else{
-    console.log("Can't find the nweet")
+    console.log("Can't find the tweet")
   }}).catch(error=> console.log(error))
 };
 
@@ -36,51 +36,51 @@ export const getProfile = async(id ,setProfile)=>{
     }
   });
 };
-//타깃이 되는 nweets의 ntification을 추가 
-export  const updateNweetNotifications=async(nweet, profile ,value, userobj , aboutDocId)=>{
+//타깃이 되는 tweets의 ntification을 추가 
+export  const updateTweetNotifications=async(tweet, profile ,value, userobj , aboutDocId)=>{
   const newNotification= [{value:value , user:userobj.uid ,aboutDocId:aboutDocId}];
-  const newNotifications =newNotification.concat(nweet.notifications);
-  const newNweet = 
+  const newNotifications =newNotification.concat(tweet.notifications);
+  const newTweet = 
   {
-    ...nweet,
+    ...tweet,
     notifications:newNotifications 
   };
-  await dbService.collection(`nweets_${profile.uid}`)
-  .doc(`${nweet.docId}`)
-  .set(newNweet);
+  await dbService.collection(`tweets_${profile.uid}`)
+  .doc(`${tweet.docId}`)
+  .set(newTweet);
 };
 //당사자의 profile notification update
 export const updateProfileNotification = async(user,id ,notifications)=>{
   const newNotification =notifications!==undefined?[user].concat(notifications): []; 
   await getProfileDoc(id).set({notifications: newNotification },{merge:true})
 } 
-export const sendNotification=async(value,userobj, nweetObj, profile, aboutDocId)=>{
+export const sendNotification=async(value,userobj, tweetObj, profile, aboutDocId)=>{
   const user = {
     value:value,
-    docId:  nweetObj.docId,
+    docId:  tweetObj.docId,
     aboutDocId:aboutDocId,
     user :userobj.uid
   };
 
   updateProfileNotification(user,profile.uid , profile.notifications);
 } ;
-export const updateMyNweetsByMe=(myNweets,value,userobj,docId, nweetDispatch,nweet_docId)=>{
-  myNweets.forEach(nweet=> {if(nweet.docId === nweet_docId){
-    const INDEX = myNweets.indexOf(nweet);
-    myNweets[INDEX] ={
-      ...nweet,
-      notifications:[{value:value , user:userobj.uid, aboutDocId:docId}].concat(nweet.notifications)
+export const updateMytweetsByMe=(myTweets,value,userobj,docId, tweetDispatch,tweet_docId)=>{
+  myTweets.forEach(tweet=> {if(tweet.docId === tweet_docId){
+    const INDEX = myTweets.indexOf(tweet);
+    myTweets[INDEX] ={
+      ...tweet,
+      notifications:[{value:value , user:userobj.uid, aboutDocId:docId}].concat(tweet.notifications)
     };
-    nweetDispatch({
+    tweetDispatch({
         type:"EDIT",
         uid:userobj.uid,
-        docId:myNweets[INDEX].docId,
-        myNweets: myNweets,
-        nweet:myNweets[INDEX]
+        docId:myTweets[INDEX].docId,
+        myTweets: myTweets,
+        tweet:myTweets[INDEX]
       })
   }})
 };
-export const OnRnHeart=(nweetObj,original, userobj, profile,ownerProfile, nweetDispatch, value , myNweets)=>{
+export const OnRtHeart=(tweetObj,original, userobj, profile,ownerProfile, tweetDispatch, value , myTweets)=>{
   const docId= JSON.stringify(Date.now());
   const now = new Date();
   const year =now.getFullYear();
@@ -89,7 +89,7 @@ export const OnRnHeart=(nweetObj,original, userobj, profile,ownerProfile, nweetD
   const hour = now.getHours();
   const minutes = now.getMinutes();
 
-  const newNweet = {
+  const newTweet = {
     docId: docId,
     text: "",
     value:value,
@@ -98,45 +98,45 @@ export const OnRnHeart=(nweetObj,original, userobj, profile,ownerProfile, nweetD
     ],
     creatorId: userobj.uid,
     attachmentUrl :"",
-    about:{docId:nweetObj.docId , creatorId:nweetObj.creatorId },
+    about:{docId:tweetObj.docId , creatorId:tweetObj.creatorId },
     notifications:[]
   };
 
-  if(nweetObj.creatorId=== userobj.uid){
-    updateMyNweetsByMe(myNweets,value,userobj,docId, nweetDispatch,nweetObj.docId)
+  if(tweetObj.creatorId=== userobj.uid){
+    updateMytweetsByMe(myTweets,value,userobj,docId, tweetDispatch,tweetObj.docId)
   }else{
-    (original.value!=="rn" &&
+    (original.value!=="rt" &&
     original.value!=="heart") &&
-    nweetDispatch({
+    tweetDispatch({
       type:"CREATE",
       docId:docId,
       uid:userobj.uid,
-      nweet:newNweet
+      tweet:newTweet
     });
-    sendNotification(value,userobj, nweetObj, profile, docId);
-    updateNweetNotifications(nweetObj,profile, value,userobj,docId );
+    sendNotification(value,userobj, tweetObj, profile, docId);
+    updateTweetNotifications(tweetObj,profile, value,userobj,docId );
   };
-      // rn, heart된 nweet인 경우 rn, heart한 사용자에게 알림 보내기
-  if(original.value === "rn"|| 
+      // rt, heart된 tweet인 경우 rt, heart한 사용자에게 알림 보내기
+  if(original.value === "rt"|| 
   original.value==="heart"){
-    if(original.creatorId == userobj.uid){
-      updateMyNweetsByMe(myNweets,value,userobj,docId, nweetDispatch,original.docId); 
+    if(original.creatorId === userobj.uid){
+      updateMytweetsByMe(myTweets,value,userobj,docId, tweetDispatch,original.docId); 
     }else{
       sendNotification(value, userobj,original,ownerProfile,docId);
-      updateNweetNotifications(original, ownerProfile,value, userobj,docId);
+      updateTweetNotifications(original, ownerProfile,value, userobj,docId);
     }
   }
 };
-export   const deleteNweetNotification =(nweet, target_myNweet ,userobj, value)=>{  
-  const newNotifications =nweet.notifications.filter (n => 
-    (n.aboutDocId !== target_myNweet.docId|| n.user !== userobj.uid || n.value !== value));
-  const newNweet={...nweet, notifications:newNotifications};
-  dbService.collection(`nweets_${nweet.creatorId}`).doc(`${nweet.docId}`).set(newNweet)};
+export   const deleteTweetNotification =(tweet, target_myTweet ,userobj, value)=>{  
+  const newNotifications =tweet.notifications.filter (n => 
+    (n.aboutDocId !== target_myTweet.docId|| n.user !== userobj.uid || n.value !== value));
+  const newtweet={...tweet, notifications:newNotifications};
+  dbService.collection(`tweets_${tweet.creatorId}`).doc(`${tweet.docId}`).set(newtweet)};
   //프로필 알림 삭제
-export const deleteProfileNotification =(userProfile, nweet ,target_myNweet, userobj,value)=>{
+export const deleteProfileNotification =(userProfile, tweet ,target_myTweet, userobj,value)=>{
   const newNotifications =userProfile.notifications.filter(n=> 
-    (n.docId!== nweet.docId||
-    n.aboutDocId!==target_myNweet.docId ||
+    (n.docId!== tweet.docId||
+    n.aboutDocId!==target_myTweet.docId ||
     n.user !== userobj.uid||
     n.value !== value));
   
@@ -144,51 +144,51 @@ export const deleteProfileNotification =(userProfile, nweet ,target_myNweet, use
     notifications:newNotifications
   },{merge:true})
 };
-export const OffRnHeart =(value ,nweetObj, original, userobj, profile,ownerProfile, nweetDispatch ,myNweets )=>{
-  //nweet 알림 
+export const OffRtHeart =(value ,tweetObj, original, userobj, profile,ownerProfile, tweetDispatch ,myTweets )=>{
+  //tweet 알림 
    // currentUser  
-  const modifyMyNweetNotifications=(nweet_docId)=>{
-    myNweets.forEach(nweet=> {if(nweet.docId === nweet_docId){
-      const INDEX = myNweets.indexOf(nweet);
-      myNweets[INDEX] ={
-        ...nweet,
-        notifications:nweet.notifications.filter(n=>( n.user !==userobj.uid || n.value!== value))
+  const modifyMytweetNotifications=(tweet_docId)=>{
+    myTweets.forEach(tweet=> {if(tweet.docId === tweet_docId){
+      const INDEX = myTweets.indexOf(tweet);
+      myTweets[INDEX] ={
+        ...tweet,
+        notifications:tweet.notifications.filter(n=>( n.user !==userobj.uid || n.value!== value))
       };
-      nweetDispatch({
+      tweetDispatch({
           type:"EDIT",
-          myNweets: myNweets,
+          myTweets: myTweets,
           uid:userobj.uid,
-          docId:myNweets[INDEX].docId,
-          nweet:myNweets[INDEX]
+          docId:myTweets[INDEX].docId,
+          tweet:myTweets[INDEX]
         })
     }})
   } 
   // other user 
-// rn, heart 대상 nweet이 내 것이였을 경우 nweetContext의 myNweets의 해당 nweet의 notification 변경 
-  if(nweetObj.creatorId ===userobj.uid){
-    modifyMyNweetNotifications(nweetObj.docId);
+// rt, heart 대상 tweet이 내 것이였을 경우 TweetContext의 myTweets의 해당 tweet의 notification 변경 
+  if(tweetObj.creatorId ===userobj.uid){
+    modifyMytweetNotifications(tweetObj.docId);
   }else{
-      const targetAboutDocId= nweetObj.value=="nweet" && nweetObj.notifications.filter(n=>(n.user=== userobj.uid && n.value===value))[0].aboutDocId;
+      const targetAboutDocId= tweetObj.value==="tweet" && tweetObj.notifications.filter(n=>(n.user=== userobj.uid && n.value===value))[0].aboutDocId;
 
-      const targetMyNweet = nweetObj.value==="nweet"? 
-        myNweets.filter(nweet=> targetAboutDocId === nweet.docId )[0]
-        :myNweets.filter(nweet=> nweet.about !==null).filter(nweet=>( nweet.about.creatorId=== nweetObj.creatorId && nweet.about.docId=== nweetObj.docId))[0];
+      const targetMytweet = tweetObj.value==="tweet"? 
+        myTweets.filter(tweet=> targetAboutDocId === tweet.docId )[0]
+        :myTweets.filter(tweet=> tweet.about !==null).filter(tweet=>( tweet.about.creatorId=== tweetObj.creatorId && tweet.about.docId=== tweetObj.docId))[0];
 
-    nweetDispatch({
+    tweetDispatch({
       type:"DELETE",
       uid:userobj.uid,
-      docId:targetMyNweet.docId,
+      docId:targetMytweet.docId,
       attachmentUrl:""
     });
-    // 타켓 nweets 작성자
-    deleteNweetNotification(nweetObj ,targetMyNweet,userobj,value);
-    deleteProfileNotification(profile,nweetObj ,targetMyNweet,userobj,value );
+    // 타켓 tweets 작성자
+    deleteTweetNotification(tweetObj ,targetMytweet,userobj,value);
+    deleteProfileNotification(profile,tweetObj ,targetMytweet,userobj,value );
     };
-    // rn, heart된 nweet인 경우 rn, heart한 사용자에게 알림 지우기
-    if(original.value==="rn"|| original.value==="heart"){
-      const targetMyNweet =myNweets.filter(nweet=>( nweet.about.creatorId=== original.creatorId && nweet.about.docId=== original.docId))[0];
-      deleteNweetNotification(original,targetMyNweet ,userobj,value );
-      deleteProfileNotification(ownerProfile, original ,targetMyNweet,userobj,value )
+    // rt, heart된 tweet인 경우 rt, heart한 사용자에게 알림 지우기
+    if(original.value==="rt"|| original.value==="heart"){
+      const targetMytweet =myTweets.filter(tweet=>( tweet.about.creatorId=== original.creatorId && tweet.about.docId=== original.docId))[0];
+      deleteTweetNotification(original,targetMytweet ,userobj,value );
+      deleteProfileNotification(ownerProfile, original ,targetMytweet,userobj,value )
       }
 } ;
 

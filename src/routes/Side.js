@@ -7,7 +7,7 @@ import {BiSearch } from "react-icons/bi";
 import { dbService } from '../Fbase';
 import UserProfile from '../components/UserProfile';
 import { UserContext } from '../context/UserContext';
-import { getNweetsDocs } from '../components/GetData';
+import { getTweetsDocs } from '../components/GetData';
 import { ProfileContext } from '../context/ProfileContex';
 
 const Side =({userobj})=>{
@@ -30,12 +30,12 @@ const Side =({userobj})=>{
       })
   };
   const goProfile=async()=>{
-    const getDocs=await getNweetsDocs(result.uid);
-    const nweets =getDocs.docs.map(doc=> ({id:doc.id,...doc.data()}));
+    const getDocs=await getTweetsDocs(result.uid);
+    const tweets =getDocs.docs.map(doc=> ({id:doc.id,...doc.data()}));
     userDispatch({
       type:"GET_USER_DATA",
       userProfile :result,
-      userNweets:nweets
+      userTweets:tweets
     });
     navigate(`/${result.userId}` ,{state:{
       previous:location.pathname,
@@ -85,8 +85,8 @@ const Side =({userobj})=>{
         </div>
         <div>
           <ul>
-            <li>Try write nweet</li>
-            <li>Try push Rn and Heart</li>
+            <li>Try write tweet</li>
+            <li>Try push Rt and Heart</li>
             <li>Try follow or unfollow user</li>
             <li>Try click the photo to see the profile</li>
             <li>you can see notifications</li>

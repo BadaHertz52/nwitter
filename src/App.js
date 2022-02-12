@@ -1,8 +1,7 @@
 import React, { useEffect,useState } from 'react';
-import NwitterRouter from './components/NwitterRouter';
+import TwitterRouter from './components/TwitterRouter';
 import authSerVice from './Fbase';
 import { getProfileDoc } from './components/GetData';
-import EditProfile from './routes/EditProfile';
 
 function App() {
   // 초기 화면
@@ -80,7 +79,7 @@ function App() {
   )
   return (
     <>
-      <NwitterRouter isLoggedIn = {isLoggedIn} userobj={userobj} IsMyProfile={IsMyProfile} setIsMyProfile={setIsMyProfile} /> 
+      <TwitterRouter isLoggedIn = {isLoggedIn} userobj={userobj} IsMyProfile={IsMyProfile} setIsMyProfile={setIsMyProfile} /> 
       {/* <footer>
       Photo by <a href="https://unsplash.com/@jeremybezanger?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jeremy Bezanger</a> on <a href="https://unsplash.com/s/photos/twitter?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
   

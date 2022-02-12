@@ -1,34 +1,34 @@
 import React, {  useContext, useEffect, useRef, useState } from 'react';
-import UserProfile, { goProfile } from './UserProfile';
+import UserProfile from './UserProfile';
 import {  AiOutlineHeart, AiOutlineRetweet } from "react-icons/ai";
 import {FiArrowLeft, FiMessageCircle} from 'react-icons/fi';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Heart from './Heart';
-import Rn from './Rn';
-import {  deleteNweetNotification, deleteProfileNotification, getNweet, getNweetDoc, getProfile, getProfileDoc, goBack} from './GetData';
-import  { NweetContext } from '../context/NweetContex';
+import Rt from './Rt';
+import {  deleteTweetNotification, deleteProfileNotification, getTweet, getTweetDoc, getProfile, getProfileDoc, goBack} from './GetData';
+import  { TweetContext } from '../context/TweetContex';
 import {ProfileContext} from '../context/ProfileContex';
 import {BiDotsHorizontalRounded } from 'react-icons/bi';
 import Loading from './Loading';
 import { storageService } from '../Fbase';
 
 
-const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
+const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
   const navigate =useNavigate();
   const location =useLocation();
   const state =location.state !==null && location.state.previousState !==null ? location.state.previousState :location.state ;
-  const nweetobj = nweetObj!==undefined? nweetObj :   state.nweetObj;
+  const tweetobj = tweetObj!==undefined? tweetObj :   state.tweetObj;
   const is_owner = isOwner !==undefined? isOwner :state.isOwner;
   const is_answer = answer !==undefined? answer : state.answer;
   const {myProfile} =useContext(ProfileContext);
-  const {nweetDispatch} =useContext(NweetContext);
+  const {tweetDispatch} =useContext(TweetContext);
   const profileForm ={
     userId:"" ,
     userName:"",
     uid:"",
     photoUrl:""
   };
-  const nweetForm ={
+  const tweetForm ={
     docId:"",
     text:"",
     attachmentUrl:"",
@@ -40,40 +40,40 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
   }
   const [aboutProfile, setAboutProfile] =useState(profileForm);
   const [ownerProfile, setOwnerProfile] =useState(profileForm);
-  const [aboutNweet, setAboutNweet]= useState(nweetForm); 
-  const [answerNweets, setAnswerNweets]=useState([{
-    nweet:nweetForm, 
+  const [aboutTweet, setAbouttweet]= useState(tweetForm); 
+  const [answerTweets, setAnswerTweets]=useState([{
+    tweet:tweetForm, 
     profile:profileForm}]);
   const [statusAnswer ,setStatusAnswer]=useState(false);
-  const [nweetClassName ,setNCName]=useState("nweet");
+  const [tweetClassName ,setTCName]=useState("tweet");
   const answerForm =useRef();
-  const rn_heart =(nweetobj!==undefined&& 
-    nweetobj.notifications!==undefined&& 
-    nweetobj.notifications[0]!==undefined) ?
-  nweetobj.notifications.filter(n=> (n.user ===userobj.uid)&&(n.value==="heart"|| n.value==="rn"))[0] :undefined;
+  const rt_heart =(tweetobj!==undefined&& 
+    tweetobj.notifications!==undefined&& 
+    tweetobj.notifications[0]!==undefined) ?
+  tweetobj.notifications.filter(n=> (n.user ===userobj.uid)&&(n.value==="heart"|| n.value==="rt"))[0] :undefined;
   const [loading,setLoading]=useState(false);
 
-  const getAnswerNweets=async(nweet)=>{
-    const answerNotifications = nweet.notifications.filter(n=> n.value=="answer");
+  const getAnswerTweets=async(tweet)=>{
+    const answerNotifications = tweet.notifications.filter(n=> n.value==="answer");
     const array = await Promise.all(answerNotifications.map( async(answer) =>{
       const answerProfile =await getProfileDoc(answer.user).get().then(doc=>doc.data());
-        const answerNweet = await getNweetDoc(answer.user, answer.aboutDocId).then(doc=> doc.data());
-        return {nweet:answerNweet , profile:answerProfile}
+        const answerTweet = await getTweetDoc(answer.user, answer.aboutDocId).then(doc=> doc.data());
+        return {tweet:answerTweet , profile:answerProfile}
       })).then(result => result);
-      setAnswerNweets(array);
+      setAnswerTweets(array);
       setStatusAnswer(true);
   }
   //fun
 
   const chagneClassName =()=>{
-  if(nweetobj.value === "answer"){
-    setNCName("nweet answer");
+  if(tweetobj.value === "answer"){
+    setTCName("tweet answer");
   }
 };
   const onAnswer=()=>{
-    navigate(`nweet`, {state:{
+    navigate(`tweet`, {state:{
     previous:location.pathname,
-    nweetObj:nweetobj.value ==="nweet"? nweetobj: aboutNweet, 
+    tweetObj:tweetobj.value ==="tweet"? tweetobj: aboutTweet, 
     value:"answer",
     profile:{uid:ownerProfile.uid, notifications:ownerProfile.notifications}, 
     isOwner:false,
@@ -83,8 +83,8 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
 
   };
     const onBack=()=>{
-      location.pathname.includes("nweet")&&
-      goBack(location, "/nweet",navigate);
+      location.pathname.includes("tweet")&&
+      goBack(location, "/tweet",navigate);
 
       location.pathname.includes("status")&&
       goBack(location, `/${location.state.previousState.userId}/status`,navigate);
@@ -95,22 +95,22 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
 
     if( location.pathname.includes("status")||
     location.pathname.includes("timeLine")){
-      nweetobj.value==="answer"? getAnswerNweets(aboutNweet) :getAnswerNweets(nweetobj)
+      tweetobj.value==="answer"? getAnswerTweets(aboutTweet) :getAnswerTweets(tweetobj)
       }
-  },[location ,nweetobj,aboutNweet]);
+  },[location ,tweetobj,aboutTweet]);
 
   useEffect(()=>{
-  nweetClassName !=="nweet answer" && chagneClassName();
+  tweetClassName !=="tweet answer" && chagneClassName();
   if(myProfile.userName !==""){
     if(ownerProfile.userId ===""){
       location.pathname.includes("status")?
       setOwnerProfile(state.ownerProfile):
-      getProfile(nweetobj.creatorId ,setOwnerProfile);
+      getProfile(tweetobj.creatorId ,setOwnerProfile);
       };
     if(aboutProfile.userId ===""){
-      if( nweetobj.about !== null ){
-        getProfile(nweetobj.about.creatorId ,setAboutProfile);
-        getNweet(nweetobj.about.creatorId, nweetobj.about.docId, setAboutNweet);
+      if( tweetobj.about !== null ){
+        getProfile(tweetobj.about.creatorId ,setAboutProfile);
+        getTweet(tweetobj.about.creatorId, tweetobj.about.docId, setAbouttweet);
       }
     };
   }else {
@@ -118,8 +118,8 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
     };
   },[myProfile ,aboutProfile]);
   useEffect(()=>{
-    if(nweetobj.about!==null){
-      (ownerProfile.photoUrl!=="" &&aboutProfile.photoUrl!=="" && aboutNweet.docId!=="")
+    if(tweetobj.about!==null){
+      (ownerProfile.photoUrl!=="" &&aboutProfile.photoUrl!=="" && aboutTweet.docId!=="")
         ?
         setLoading(false)
         :
@@ -131,9 +131,9 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
         :
         setLoading(true);
       };
-  },[ownerProfile,aboutProfile,aboutNweet]);
+  },[ownerProfile,aboutProfile,aboutTweet]);
   
-  const NweetForm =({what ,IsAnswer, profile})=>{
+  const TweetForm =({what ,IsAnswer, profile})=>{
     const now = new Date();
     const year = now.getFullYear();
     const date = now.getDate();
@@ -141,7 +141,7 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
     const [time ,setTime] =useState("");
     const [aboutTime ,setAboutTime]=useState("");
     const textId =what!==undefined? what.docId:"";
-    const nweet =what!==undefined? {
+    const tweet =what!==undefined? {
       id:what.id,
       docId:what.docId,
       text :what.text,
@@ -167,23 +167,23 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
 
     const onDeleteClick = (event) =>{
       event.preventDefault();
-      const ok = window.confirm("Are you sure you want to delete this nweet?");
-      nweetDispatch({
+      const ok = window.confirm("Are you sure you want to delete this tweet?");
+      tweetDispatch({
         type:"DELETE",
         uid:userobj.uid,
-        docId: nweet.docId ,
-        attachmentUrl:nweet.attachmentUrl
+        docId: tweet.docId ,
+        attachmentUrl:tweet.attachmentUrl
       });
-      const storage= storageService.ref().child(`${userobj.uid}/${nweet.docId}`);
+      const storage= storageService.ref().child(`${userobj.uid}/${tweet.docId}`);
       storage.delete();
-      switch (nweet.value) {
-        case "qn":
-          deleteNweetNotification(aboutNweet,nweet,userobj,nweetobj.value);
-          deleteProfileNotification(aboutProfile,aboutNweet,nweet,userobj,nweetobj.value )
+      switch (tweet.value) {
+        case "qt":
+          deleteTweetNotification(aboutTweet,tweet,userobj,tweetobj.value);
+          deleteProfileNotification(aboutProfile,aboutTweet,tweet,userobj,tweetobj.value )
           break;
         case "answer":
-          deleteNweetNotification(nweetobj,nweet,userobj,nweetobj.value);
-          deleteProfileNotification(ownerProfile,nweetobj,nweet,userobj,nweet.value )
+          deleteTweetNotification(tweetobj,tweet,userobj,tweetobj.value);
+          deleteProfileNotification(ownerProfile,tweetobj,tweet,userobj,tweet.value )
           break;
         default:
           break;
@@ -193,21 +193,21 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
 
     const goState =(event)=>{
       const target =event.target;
-      const condition = nweet.creatorId===ownerProfile.uid;
+      const condition = tweet.creatorId===ownerProfile.uid;
       const condition1 =!target.classList.contains("fun");
       const condition2 = !target.parentNode.classList.contains("fun");
-      const pathName = `${profile.userId}/status/${nweet.docId}`;
+      const pathName = `${profile.userId}/status/${tweet.docId}`;
       if(condition1 && condition2){
         navigate(`${pathName}` , {state:{
             previous:location.pathname,
             previousState:{                         
-              nweetObj:nweet,
+              tweetObj:tweet,
               isOwner:condition,
               answer:false,
               ownerProfile:profile,
               value :"status",
               userId:condition? ownerProfile.userId : aboutProfile.userId,
-              docId:condition? nweetobj.docId: aboutNweet.docId},
+              docId:condition? tweetobj.docId: aboutTweet.docId},
             value:"status",
             userUid:(location.state!==null&& location.state.userUid !==undefined) ? location.state.userUid :undefined ,
             userId:(location.state!==null&&  location.state.userId !==undefined )? location.state.userId :undefined ,
@@ -219,26 +219,26 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
 
     useEffect(()=>{
       (time !==""&&
-      nweet.createdAt[0]== year &&
-      nweet.createdAt[1]==month &&
-      nweet.createdAt[2] == date )?
-      setTime(`${nweet.createdAt[3]}h`)
-      : setTime(`${monthArry[nweet.createdAt[1]]} ${nweet.createdAt[2]},${nweet.createdAt[0]}`)
-    },[nweet]);
+      tweet.createdAt[0]=== year &&
+      tweet.createdAt[1]===month &&
+      tweet.createdAt[2] === date )?
+      setTime(`${tweet.createdAt[3]}h`)
+      : setTime(`${monthArry[tweet.createdAt[1]]} ${tweet.createdAt[2]},${tweet.createdAt[0]}`)
+    },[tweet]);
 
     useEffect(()=>{
       (aboutTime !== ""&& 
-      aboutNweet.docId !==""&&
-      aboutNweet.createdAt[0]== year &&
-      aboutNweet.createdAt[1]==month &&
-      aboutNweet.createdAt[2] == date )?
-      setAboutTime(`${aboutNweet.createdAt[3]}h`)
-      : setAboutTime(`${monthArry[aboutNweet.createdAt[1]]} ${aboutNweet.createdAt[2]},${aboutNweet.createdAt[0]}`)
-    },[aboutNweet]);
+      aboutTweet.docId !==""&&
+      aboutTweet.createdAt[0]=== year &&
+      aboutTweet.createdAt[1]===month &&
+      aboutTweet.createdAt[2] === date )?
+      setAboutTime(`${aboutTweet.createdAt[3]}h`)
+      : setAboutTime(`${monthArry[aboutTweet.createdAt[1]]} ${aboutTweet.createdAt[2]},${aboutTweet.createdAt[0]}`)
+    },[aboutTweet]);
 
     const target =document.getElementById(`${textId}`);
-    if(target !==null && target.innerHTML !== nweet.text){
-      target.innerHTML =nweet.text
+    if(target !==null && target.innerHTML !== tweet.text){
+      target.innerHTML =tweet.text
     };
   ;
   return (
@@ -246,12 +246,12 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
   className={!location.pathname.includes("status")&&"statusBtn"}
   >
       <div
-      className='nweet_form'
+      className='tweet_form'
       id={key}
       ref={answerForm} 
       onClick={goState} 
       >
-      <div className='nweetSide'>
+      <div className='tweetSide'>
         <UserProfile profile={profile}/>
         {  IsAnswer &&   !statusAnswer &&
           <div className='answerLine'  >
@@ -259,35 +259,35 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
         }
         
       </div>
-        {/*nweet_content*/}
-      <div className="nweet_content">
-        <div className='nweet_header'>
+        {/*tweet_content*/}
+      <div className="tweet_content">
+        <div className='tweet_header'>
           <div>
             <span>{profile.userName}</span>
             <span>@{profile.userId}</span>
-            <span className='nweet_time'>
+            <span className='tweet_time'>
               {time}
             </span>
           </div>
           { is_owner && 
-          <button className='fun' onClick={onDeleteClick} name={nweet.docId}>
+          <button className='fun' onClick={onDeleteClick} name={tweet.docId}>
             <BiDotsHorizontalRounded/>
           </button>
           }
         </div>
         <div className="text" 
         id={textId} >
-          {nweet.text}
+          {tweet.text}
         </div>
-        { nweet.attachmentUrl !=="" &&
+        { tweet.attachmentUrl !=="" &&
         <div  className="attachment">
-          <img src={nweet.attachmentUrl}  alt="nweet_attachment"/>
+          <img src={tweet.attachmentUrl}  alt="tweet_attachment"/>
         </div>
         }
-        {nweet.value==="qn" &&(
-          <div className="nweet qn">
-            <div className="nweet_content">
-              <div className='nweet_header'>
+        {tweet.value==="qt" &&(
+          <div className="tweet qt">
+            <div className="tweet_content">
+              <div className='tweet_header'>
                 <UserProfile profile={aboutProfile} />
                 <div>
                   <span>{aboutProfile.userName}</span>
@@ -295,26 +295,26 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
                   <span className='qn_time'>{aboutTime}</span>
                 </div>
               </div>
-              <div className="text" >{aboutNweet.text}</div>
-              { aboutNweet.attachmentUrl !== "" &&
+              <div className="text" >{aboutTweet.text}</div>
+              { aboutTweet.attachmentUrl !== "" &&
               <div  className="attachment">
-                <img src={aboutNweet.attachmentUrl}  alt="nweet_attachment"/>
+                <img src={aboutTweet.attachmentUrl}  alt="tweet_attachment"/>
               </div>
               }
             </div>
           </div>
             )}
           <div 
-            className="nweet_fun fun"
+            className="tweet_fun fun"
           >
             <button className="fun answer" onClick={onAnswer}> 
                 <FiMessageCircle/>
             </button>
             {profile!==undefined && what!==undefined &&
             <>
-              <Rn nweetObj={what} original={nweetobj} userobj={userobj} profile={profile} ownerProfile={ownerProfile}
+              <Rt tweetObj={what} original={tweetobj} userobj={userobj} profile={profile} ownerProfile={ownerProfile}
               />
-              <Heart nweetObj={what} original={nweetobj} userobj={userobj} profile={profile} ownerProfile={ownerProfile}/>
+              <Heart tweetObj={what} original={tweetobj} userobj={userobj} profile={profile} ownerProfile={ownerProfile}/>
             </>}
               
           </div>
@@ -332,9 +332,9 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
 
   return(
     <div >
-      {(nweetobj !==undefined && !loading)?
+      {(tweetobj !==undefined && !loading)?
       <>
-        <div className={nweetClassName} 
+        <div className={tweetClassName} 
         id={location.pathname !==undefined && 
             location.pathname.includes("status")&& "status" }
         >
@@ -344,24 +344,24 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
                 <FiArrowLeft/>
               </button>
               <div>
-                Nweet
+                tweet
               </div>
             </div>
           }
           <div className="value">
-            {(nweetobj.value ==="rn" &&
-              rn_heart==undefined) 
+            {(tweetobj.value ==="rt" &&
+              rt_heart===undefined) 
             &&
               <div className="value_explain">
                 <AiOutlineRetweet/>
                 {ownerProfile.uid === userobj.uid  ?
                 '내가'
                 :
-                `${ownerProfile.userName}님이`} Renweeted
+                `${ownerProfile.userName}님이`} Retweeted
               </div>
             }
-            {(nweetobj.value ==="heart" &&
-              rn_heart==undefined)
+            {(tweetobj.value ==="heart" &&
+              rt_heart===undefined)
               
               &&
               <div className="value_explain">
@@ -372,54 +372,54 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
                 `${ownerProfile.userName}님이`} liked
               </div>
             }
-            {((nweetobj.value ==="rn" &&
-              rn_heart!==undefined)||
-              (nweetobj.value ==="heart" &&
-              nweetobj.notifications.filter(n=> (n.user ===userobj.uid)&&(n.value==="rn"))[0]!==undefined)) &&
+            {((tweetobj.value ==="rt" &&
+              rt_heart!==undefined)||
+              (tweetobj.value ==="heart" &&
+              tweetobj.notifications.filter(n=> (n.user ===userobj.uid)&&(n.value==="rt"))[0]!==undefined)) &&
               <div className="value_explain">
                 <AiOutlineRetweet/>
                 <AiOutlineHeart/>
                 {ownerProfile.uid === userobj.uid  ?
                 '내가'
                 :
-                `${ownerProfile.userName}님이`} Renweeted and liked
+                `${ownerProfile.userName}님이`} ReTweeted and liked
               </div>
             }
-            { nweetobj.value === "answer"  &&
+            { tweetobj.value === "answer"  &&
             <>
-              <NweetForm what={aboutNweet} IsAnswer={true}  profile={aboutProfile} />
+              <TweetForm what={aboutTweet} IsAnswer={true}  profile={aboutProfile} />
             </>
             }
           </div>
           {(
-          nweetobj.value === "qn" ||
-          nweetobj.value ==="nweet" )&&
-          <NweetForm 
-            what={nweetobj} 
+          tweetobj.value === "qt" ||
+          tweetobj.value ==="tweet" )&&
+          <TweetForm 
+            what={tweetobj} 
             IsAnswer={is_answer} 
             profile={ownerProfile}  /> 
           }
-          {(nweetobj.value==="rn" ||
-            nweetobj.value === "heart"
+          {(tweetobj.value==="rt" ||
+            tweetobj.value === "heart"
             )&&
-          <NweetForm 
-            what={aboutNweet}  
+          <TweetForm 
+            what={aboutTweet}  
             IsAnswer={false} 
             profile={aboutProfile}
           />
           }
-          {nweetobj.value ==="answer" &&  !statusAnswer &&
-            <NweetForm 
-              what={nweetobj} 
+          {tweetobj.value ==="answer" &&  !statusAnswer &&
+            <TweetForm 
+              what={tweetobj} 
               IsAnswer={false} 
               profile={ownerProfile}/>
           }
         </div>
       {statusAnswer&& 
-        <div class="nweet statusAnswers" >
-          {answerNweets.map(
+        <div class="tweet statusAnswers" >
+          {answerTweets.map(
             answer => 
-            <NweetForm what={answer.nweet} IsAnswer={false} profile={answer.profile}  />
+            <TweetForm what={answer.tweet} IsAnswer={false} profile={answer.profile}  />
           )}
         </div>}
       </>
@@ -429,4 +429,4 @@ const Nweet =({key, nweetObj , userobj ,isOwner ,answer}) =>{
     </div>
   )
 };
-export default React.memo( Nweet ) 
+export default React.memo( Tweet ) 

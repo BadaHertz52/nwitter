@@ -14,14 +14,14 @@ const UserContextProvider=(props)=>{
       following:[],
       notifications:[]
     },
-    userNweets:[],
+    userTweets:[],
   };
   const reducer =(state,action)=>{
     switch (action.type) {
       case "GET_USER_DATA":
         return {
           userProfile:action.userProfile,
-          userNweets:action.userNweets
+          userTweets:action.userTweets
         }
       case "UPDATE_USER_DATA":
         return {
@@ -44,7 +44,7 @@ const UserContextProvider=(props)=>{
   return (  
     state!==undefined &&
     <UserContext.Provider value={{userProfile:state.userProfile ,
-    userNweets:state.userNweets ,
+    userTweets:state.userTweets ,
     userDispatch:dispatch}}>
       {props.children}
     </UserContext.Provider>

@@ -33,7 +33,7 @@
     font-weight: bold;
   }
 }
-.nweets_calling{
+.tweets_calling{
   padding : {
     top:15vh;
     left: 15vw;
@@ -42,7 +42,7 @@
   width: 100%;
 }
 
-  #nweets_recommand_follow {
+  #tweets_recommand_follow {
     margin-top: 4vh;
     border :1px solid rgb(54,54,54);
     border-radius: 10px;
@@ -56,7 +56,7 @@
   }
 
 @media screen and (max-width:280px) {
-  .nweets_calling {
+  .tweets_calling {
     width: 100%;
     padding-left: 20%;
   }

@@ -4,7 +4,6 @@ import { dbService } from '../Fbase';
 import { useEffect, useState } from 'react/cjs/react.development';
 import { ProfileContext } from '../context/ProfileContex';
 import { getProfileDoc } from './GetData';
-import { UserContext } from '../context/UserContext';
 import { useLocation, useNavigate } from 'react-router';
 
 const Recommend =({userobj})=>{
@@ -12,7 +11,6 @@ const Recommend =({userobj})=>{
   const [users, setUsers] =useState([]);
   const {myProfile} =useContext(ProfileContext);
   const {following} =myProfile.following;
-  const {userDispatch}=useContext(UserContext);
   const navigate =useNavigate();
   const location =useLocation();
   const getUsers =async()=>{

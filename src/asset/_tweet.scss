@@ -1,10 +1,10 @@
 @import './common';
 
-.nweets , .nweets_nweet  {
+.tweets , .tweets_tweet  {
   width: 100%;
   height: 80vh;
 }
-.nweet {
+.tweet {
   border-bottom: 1px solid #bebebe31;
   width: 100%;
   box-sizing: border-box;
@@ -19,12 +19,12 @@
     }
 }
 
-.nweet_content .nweet_fun,
-.nweetSide .userProfile {
+.tweet_content .tweet_fun,
+.tweetSide .userProfile {
   transition-duration: 0.2s;
 }
-.nweet_form,
-.nweetFactory_box.answer {
+.tweet_form,
+.tweetFactory_box.answer {
   padding : {
     left: 1rem;
     top: 1rem
@@ -36,13 +36,13 @@
   justify-content: stretch;
 }
 
-.nweet_content{
+.tweet_content{
   margin: 0 5%;
   height: 100%;
   width: 75%;
 }
 
-.nweet_header {
+.tweet_header {
   display: flex; 
   flex-direction: row;
   justify-content: space-between;
@@ -55,18 +55,18 @@
   }
 }
 
-.nweet_header > div ,
-.nweet_header button,
-.nweet .qn .nweet_header> div:nth-child(2) ,
-.nweet .text{
+.tweet_header > div ,
+.tweet_header button,
+.tweet .qt .tweet_header> div:nth-child(2) ,
+.tweet .text{
   font-size: 15px;
 }
-.nweet_header .nweet_time ,
-.nweet .qn .qn_time {
+.tweet_header .tweet_time ,
+.tweet .qt .qn_time {
   color: gray;
   text-align: center;
 }
-.nweet_header span {  
+.tweet_header span {  
   overflow: hidden;
   text-overflow: ellipsis; 
   margin-left:5px;
@@ -79,7 +79,7 @@
 }
 }
 
-.nweet .userProfile{
+.tweet .userProfile{
   width: 3.2rem;
   button{
     width: 100%;
@@ -101,11 +101,11 @@
 }
 
 
-.nweet .text ,.nweet .attachment{
+.tweet .text ,.tweet .attachment{
   margin: 1rem 10% 1rem 2%;
 }
 
-.nweet .attachment{
+.tweet .attachment{
   height: inherit;
   img{
     max-width: 100%;
@@ -114,7 +114,7 @@
   }
 }
 
-.nweet_header button{
+.tweet_header button{
   margin: 0 ;
   background-color: initial ;
   &:hover{
@@ -123,28 +123,28 @@
   }
 }
 
-.rnBtn , 
+.rtBtn , 
 .heartBtn {
   background-color: rgba(0, 0,0,0)
 }
 
-.nweet .qn {
+.tweet .qt {
   border :1px solid rgba(94, 93, 93, 0.658);
   border-radius: 10px;
   margin: 5% 0;
   padding: 0;
-  .nweet_form {
+  .tweet_form {
     padding-left: 5%;
     padding-top: 5%;
     display: flex;
     flex-direction: column;
   }
-  .nweet_header div:last-child div{
+  .tweet_header div:last-child div{
     white-space: nowrap;
     overflow :hidden;
     text-overflow: ellipsis;
   }
-  .nweet_content {
+  .tweet_content {
     width: 100%;
     box-sizing: border-box;
     padding: 10px;
@@ -164,7 +164,7 @@
       aspect-ratio: 1/1;
     }
   }
-  .nweet_header {
+  .tweet_header {
     flex-direction: row;
     justify-content: stretch;
     & > div:last-child {
@@ -192,13 +192,13 @@
       margin:0 5%; 
     }
   }
-  .nweet_fun {
+  .tweet_fun {
     display: none;
   }
 }
 
 /*answer*/
-.nweet.answer {
+.tweet.answer {
   display: flex;
   flex-direction:column ;
   &:hover{
@@ -251,24 +251,24 @@
   }
 }
 
-#nweetFactory_qn .nweet {
+#tweetFactory_qn .tweet {
   margin: 0;
 }
-#nweetFactory_qn .nweet_fun{
+#tweetFactory_qn .tweet_fun{
   display: none;
 }
-#nweetFactory_qn .nweetSide,
-#nweetFactory_qn .userProfile img{
+#tweetFactory_qn .tweetSide,
+#tweetFactory_qn .userProfile img{
   width: 3rem;
 }
-#nweetFactory_qn .nweet_header > div,
-#nweetFactory_qn .nweet_header button, 
-#nweetFactory_qn .nweet .qn .nweet_header> div:nth-child(2), 
-#nweetFactory_qn .nweet .text{
+#tweetFactory_qn .tweet_header > div,
+#tweetFactory_qn .tweet_header button, 
+#tweetFactory_qn .tweet .qt .tweet_header> div:nth-child(2), 
+#tweetFactory_qn .tweet .text{
   font-size: 15px;
 }
 
-.noNweet {
+.notweet {
   position: absolute;
   top:5rem;
   left:25%;
@@ -310,19 +310,19 @@
 }
 
 @media screen and (min-width:768px) {
-  .nweet_form,
-  .nweetFactory_box.answer{
+  .tweet_form,
+  .tweetFactory_box.answer{
       padding-left: 2rem;
       padding-top:2rem
   }
 
-  .nweet_header > div, 
-  .nweet_header button, 
-  .nweet .qn .nweet_header> div:nth-child(2), 
-  .nweet .text{
+  .tweet_header > div, 
+  .tweet_header button, 
+  .tweet .qt .tweet_header> div:nth-child(2), 
+  .tweet .text{
       font-size: 1rem;
     }
-  .nweet {
+  .tweet {
     .userProfile{
       width: 3.5rem;
     }
@@ -340,8 +340,8 @@
   &_furn {
     width:70%
   }
-  .qn{
-    .nweet_content >div {
+  .qt{
+    .tweet_content >div {
       width: 90%;
     }
     .userProfile{
@@ -351,7 +351,7 @@
         width: 100%;
       }
     }
-    .nweet_header  {
+    .tweet_header  {
       width: 90%;
     }
     .text {
@@ -370,28 +370,28 @@
 
 @media screen and (min-width:1024px) {
 
-  .nweet_content{
+  .tweet_content{
     width: 87%;
   }
-  .nweet_header{
+  .tweet_header{
     width:88%
   }
 
-  .nweet .attachment img{
+  .tweet .attachment img{
     max-width: 90%;
     margin-left:5%;
   }
-  .nweet_fun{
+  .tweet_fun{
     margin-bottom: 2vh;
   }
   .answer a ,
-  .rnBtn , 
+  .rtBtn , 
   .heartBtn{
     margin-top: 0;
   }
-  .nweet .qn {
+  .tweet .qt {
     margin-left: 5%;
-    .nweet_content {
+    .tweet_content {
       padding: 5% ;
       margin-left:0 ;
     }
@@ -405,7 +405,7 @@
   }
 }
 @media screen and (min-width:1440px) {
-  .nweet .qn{
+  .tweet .qt{
     width: 80%;
   }
 }

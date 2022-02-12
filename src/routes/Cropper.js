@@ -5,13 +5,13 @@ import React from 'react';
 import {BiArrowBack} from "react-icons/bi";
 
 import { useLocation, useNavigate } from 'react-router';
-import { NweetContext } from '../context/NweetContex';
+import { TweetContext } from '../context/TweetContex';
 import { ProfileContext } from '../context/ProfileContex';
 
 const Cropper =()=> {
   const location =useLocation();
   const navigate =useNavigate();
-  const {nweetDispatch} =useContext(NweetContext);
+  const {tweetDispatch} =useContext(TweetContext);
   const {profileDispatch} =useContext(ProfileContext);
   const [initialCrop, setInitialCrop]=useState({
     unit:"%",
@@ -38,7 +38,7 @@ const Cropper =()=> {
     navigate( `${backPathName}` , {state:
       {what:what ,
       value:value ,
-      previous: pathname.includes('nweet')? 
+      previous: pathname.includes('tweet')? 
       location.state.pre_previous :
       location.state.previous
     }})
@@ -120,7 +120,7 @@ const Cropper =()=> {
         })
         break;
       case "attachment":
-        nweetDispatch({
+        tweetDispatch({
           type:"WRITE",
           name:"attachmentUrl",
           value :cropResult

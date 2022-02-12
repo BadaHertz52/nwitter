@@ -1,14 +1,12 @@
-import React from 'react';
+import React,{ useEffect, useState } from 'react';
 import { useNavigate , useLocation} from 'react-router-dom';
-import { useEffect, useState } from 'react/cjs/react.development';
-import Nweet from './Nweet';
+import Tweet from './Tweet';
 import { FiArrowLeft } from "react-icons/fi";
-
-import { getNweetsDocs, goBack } from './GetData';
+import { getTweetsDocs, goBack } from './GetData';
 import Loading from './Loading';
 
 
-export const ProfileTopForm = ({ isMine ,nweets,profile} )=>{
+export const ProfileTopForm = ({ isMine ,tweets,profile} )=>{
   const location =useLocation();
   const navigate= useNavigate();
 
@@ -36,7 +34,7 @@ export const ProfileTopForm = ({ isMine ,nweets,profile} )=>{
         </button>
         <div>
           <div>{profile.userName}</div>
-          <div>{nweets.length} Nweets</div>
+          <div>{tweets.length} tweets</div>
         </div>
       </div>
       <div id="profileForm_profile">
@@ -86,75 +84,75 @@ export const ProfileTopForm = ({ isMine ,nweets,profile} )=>{
   )
 }
 
-export const ProfileBottomForm = ({isMine, userobj , nweets})=>{
+export const ProfileBottomForm = ({isMine, userobj , tweets})=>{
 
-  const filterNweets = nweets.filter(nweet => nweet.value=== "nweet"|| nweet.value === "qn");
-  const  filterNandA = nweets.filter (nweet=> nweet.value !== 'heart');
-  const filterHeartedThings= nweets.filter(nweet=> nweet.value === "heart");
-  const filterMediaes =nweets.filter(nweet=> nweet.attachmentUrl !== "");
-  const [isNweet, setIsNweet]=useState(true);
-  const [contents, setcontents]=useState([]);
+  const filterTweets = tweets.filter(tweet => tweet.value=== "tweet"|| tweet.value === "qt");
+  const  filterTweetAndAnswer = tweets.filter (tweet=> tweet.value !== 'heart');
+  const filterHeartedThings= tweets.filter(tweet=> tweet.value === "heart");
+  const filterMediaes =tweets.filter(tweet=> tweet.attachmentUrl !== "");
+  const [isTweet, setIstweet]=useState(true);
+  const [contents, setContents]=useState([]);
   const buttons =document.querySelectorAll('#pb_buttons button');
   const values =document.querySelectorAll('.value');
-  const nweetBtn = document.getElementById('pb_btn_nweet');
+  const tweetBtn = document.getElementById('pb_btn_tweet');
   const changeStyle =(event)=>{
-    const target = event ? event.target :nweetBtn;
+    const target = event ? event.target :tweetBtn;
     buttons.forEach(button =>button.classList.remove('check'));
     target && (target.classList.add('check'));
   }
-  const showNweet =(event)=>{
-    setcontents(filterNweets);
+  const showtweet =(event)=>{
+    setContents(filterTweets);
     changeStyle(event);
     values.forEach(value=> value.style.display="block");
   };
   const showNandA =(event)=>{
-    setcontents(filterNandA);
+    setContents(filterTweetAndAnswer);
     changeStyle(event);
     values.forEach(value=> value.style.display="block");
   };
   const showMedias=(event)=>{
-    setcontents(filterMediaes);
+    setContents(filterMediaes);
     changeStyle(event);
     values.forEach(value=> value.style.display="block");
   };
   const showHeartedThings =(event)=>{
-    setcontents(filterHeartedThings);
+    setContents(filterHeartedThings);
     changeStyle(event);
     values.forEach(value=> value.style.display="none");
   }
-  const findNweets =async()=>{
-    await getNweetsDocs(userobj.uid).then(result=> {
-      setIsNweet(!result.empty)});
+  const findtweets =async()=>{
+    await getTweetsDocs(userobj.uid).then(result=> {
+      setIstweet(!result.empty)});
   };
   useEffect(()=>{
-    nweets[0]!==undefined? showNweet(): findNweets();
-  },[nweets])
+    tweets[0]!==undefined? showtweet(): findtweets();
+  },[tweets])
 
   return (
     <section id="profileBottomForm" >
       <div id='pb_buttons'>
-        <button id="pb_btn_nweet" onClick={showNweet}>
-          Nweets
+        <button id="pb_btn_tweet" onClick={showtweet}>
+          tweets
         </button>
-        <button onClick={showNandA} >Nweets &#38; replies</button>
+        <button onClick={showNandA} >tweets &#38; replies</button>
         <button onClick={showMedias}>Media</button>
         <button onClick={showHeartedThings} >Likes</button>
       </div>
       <div id="contents">
-      {nweets[0] === undefined ?
-        (isNweet ?
+      {tweets[0] === undefined ?
+        (isTweet ?
           <Loading/>
           :
-          <div class="noNweet" >
-          There's no nweet
+          <div class="notweet" >
+          There's no tweet
           <br/>
-          Write new nweet
+          Write new tweet
           </div>
         )
       :
-      contents.map(content => <Nweet 
-          key={`nweets_${content.docId}`}
-          nweetObj ={content}  
+      contents.map(content => <Tweet 
+          key={`tweets_${content.docId}`}
+          tweetObj ={content}  
           isOwner={content.creatorId === userobj.userId}
           userobj={userobj} 
           answer={false} />  )

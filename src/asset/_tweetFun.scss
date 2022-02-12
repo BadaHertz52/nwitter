@@ -1,4 +1,4 @@
-.nweet_fun {
+.tweet_fun {
   width: 79%;
   height: 10%;
   display: flex;
@@ -29,7 +29,7 @@
 }
 
 
-.rnBtn {
+.rtBtn {
   position: relative;
   &:hover{
   font-weight: bold;
@@ -57,7 +57,7 @@
 }
 
 
-.rn_popup {
+.rt_popup {
   background-color: rgb(255, 255, 255);
   width: 10rem;
   z-index: 2;

@@ -1,6 +1,6 @@
 @import './common';
 
-.nweetFactory{
+.tweetFactory{
   height: auto;
   textarea::-webkit-scrollbar {
     width: 0;
@@ -60,7 +60,7 @@
 
 }
 
-#home .nweetFactory{
+#home .tweetFactory{
   display: none;
   &_inner{
     width: 100%;
@@ -68,13 +68,13 @@
   }
 }
 
-.nweetFactory_box{
+.tweetFactory_box{
   display: flex;
   flex-direction: row;
 }
 
 
-#nweetfactory_attachment {
+#tweetfactory_attachment {
   margin: 0 15% 1rem 15%;
   margin-bottom: 1rem;
   width: 60%;
@@ -100,9 +100,9 @@
 
  
 /*popup*/
-.nweetFactory_popup {
+.tweetFactory_popup {
   z-index: 3;
-  .nweetFactory_inner{
+  .tweetFactory_inner{
     margin: 1rem;
     &>div{
       width: 100%;
@@ -110,11 +110,11 @@
   }
 }
 
-#nweetBtn{
+#tweetBtn{
   display: none;
 }
 
-.nweetFactory.popup,
+.tweetFactory.popup,
 .cropper.factory {
   position: absolute;
   top:0;
@@ -127,7 +127,7 @@
 .cropper.factory{
   z-index: 5;
 }
-.nweetFactory_header {
+.tweetFactory_header {
   display: flex;
   padding: 0;
   justify-content: space-between;
@@ -143,8 +143,8 @@
   }
 }
 
-.nweetFactory.popup {
-  #nweetBtn{
+.tweetFactory.popup {
+  #tweetBtn{
   display: block;
   font: {
     size:1rem;
@@ -173,7 +173,7 @@
     width: 90%;
   }
 
-  #close_nav_nweetFactory{
+  #close_nav_tweetFactory{
     background-color: initial;
     font : {
       size: 2rem;
@@ -187,14 +187,14 @@
       color: black
     }
   }
-  .nweetSide,
-  .nweetFactory_box .userProfile{
+  .tweetSide,
+  .tweetFactory_box .userProfile{
     width: 3rem;
   }
-  .nweetSide .userProfile {
+  .tweetSide .userProfile {
     width: 100%;
   }
-  .nweet_content{
+  .tweet_content{
     padding : {
       right:0;
       left:5px
@@ -205,7 +205,7 @@
     width: 3rem;
     aspect-ratio: 1/1;
   }
-  .nweet {
+  .tweet {
     border:none;
     box-sizing: border-box;
     margin: 0;
@@ -223,24 +223,24 @@
 } 
 
 
-/*answer, qn*/
-#nweetFactory_nweet .nweetFactory form .btn{
+/*answer, qt*/
+#tweetFactory_tweet .tweetFactory form .btn{
   display: none;
 }
 
 
 
 @media screen and (max-width:355px) {
-  .nweetFactory textarea{
+  .tweetFactory textarea{
     font-size: 1rem
   }
 }
 @media screen and (min-width:500px) { 
-  .nweetFactory form{
+  .tweetFactory form{
     padding-left: 1rem;
   }
   /*home*/
-  #home .nweetFactory{
+  #home .tweetFactory{
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -258,48 +258,48 @@
   }
 }
 @media screen and (min-width:570px) {
-  .nweetFactory_inner {
+  .tweetFactory_inner {
     margin: 0 5%;
   }
 }
 @media screen and (min-width:720px) {
-  .nweetFactory.popup {
-    .nweetFactory_box{
+  .tweetFactory.popup {
+    .tweetFactory_box{
       margin :0
     }
-    .nweetFactory_header {
+    .tweetFactory_header {
       margin:0;
       margin-bottom: 1rem;
       width: 100%;
     }
-    .nweetSide,
+    .tweetSide,
     .userProfile{
     width: 3rem;
   }
   .userProfile img ,
-  .nweet .userProfile img{
+  .tweet .userProfile img{
     width: 3rem;
   }
-  .nweet_header > div, 
-  .nweet_header button, 
-  .nweet .qn .nweet_header> div:nth-child(2), 
-  .nweet .text{
+  .tweet_header > div, 
+  .tweet_header button, 
+  .tweet .qt .tweet_header> div:nth-child(2), 
+  .tweet .text{
     font-size: 1rem;
   }
-  .nweet .attachment {
+  .tweet .attachment {
     margin-bottom: 10px;
     img{
       display: none;
     }
   }
-  .nweetFactory {
+  .tweetFactory {
     margin: 0;
     padding:0;
     width: 100%;
     height: 90%;
     box-sizing: border-box; 
   }
-  .nweet .userProfile{
+  .tweet .userProfile{
     width: 100%
   }
   .userProfile button 
@@ -309,19 +309,19 @@
   form{
     padding-left: 5px;
   }
-  #nweetfactory_attachment {
+  #tweetfactory_attachment {
     margin-left: 5%;
     width:80% ;
   }
   form>div:last-child{
     margin-top: 10px;
   }
-  .nweet ,
-  .nweetFactory {
+  .tweet ,
+  .tweetFactory {
     margin:0 ;
     padding: 0;
   }
-  .nweet .nweet_content{
+  .tweet .tweet_content{
     padding-right: 0;
   }
   .answerLine {
@@ -329,13 +329,13 @@
   }
   }
 
-  .nweetFactory.popup,
+  .tweetFactory.popup,
   .cropper.factory {
     overflow-y: hidden;
     background-color: $popupBgColor
   }
 
-  .nweetFactory.popup .nweetFactory_inner ,
+  .tweetFactory.popup .tweetFactory_inner ,
   .cropper.factory #cropper_inner{
     background-color: #fff;
     position: absolute;
@@ -352,7 +352,7 @@
 }
 
 @media  screen and (min-width:1024px) {
-  #home .nweetFactory {
+  #home .tweetFactory {
     textarea ,
     form>div:last-child{
       width: 95%;
@@ -368,8 +368,8 @@
     }
   }
 
-  .nweetFactory.popup 
-  .nweetFactory_inner,
+  .tweetFactory.popup 
+  .tweetFactory_inner,
   .cropper.factory #cropper_inner{
     left: 25%;
     width: 45%;
@@ -377,8 +377,8 @@
 }
 
 @media screen and (min-width:1200px){
-  .nweetFactory.popup 
-  .nweetFactory_inner,
+  .tweetFactory.popup 
+  .tweetFactory_inner,
   .cropper.factory #cropper_inner{
     left: 30%;
     width: 40%;
@@ -386,16 +386,16 @@
 }
 
 @media screen and (min-width:1400px) {
-  .nweetFactory.popup 
-  .nweetFactory_inner,
+  .tweetFactory.popup 
+  .tweetFactory_inner,
   .cropper #cropper_inner {
     width: 35% ;
     left: 32.5%;
 }
 }
 @media screen and (min-width:1880px) {
-  .nweetFactory.popup 
-  .nweetFactory_inner,
+  .tweetFactory.popup 
+  .tweetFactory_inner,
   .cropper #cropper_inner {
     width: 600px ;
     left: calc(50% - 300px);

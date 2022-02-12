@@ -1,20 +1,20 @@
 import React, { useState, useContext , useEffect} from 'react';
-import { Link , useLocation, useNavigate} from 'react-router-dom';
+import { useLocation, useNavigate} from 'react-router-dom';
 import {HiOutlinePhotograph} from "react-icons/hi";
 import { storageService } from '../Fbase';
-import {NweetContext} from '../context/NweetContex';
+import {TweetContext} from '../context/TweetContex';
 import {ProfileContext} from '../context/ProfileContex';
-import Nweet from '../components/Nweet';
+import Tweet from '../components/Tweet';
 import { BiArrowBack, BiX } from 'react-icons/bi';
-import {  sendNotification, updateMyNweetsByMe, updateNweetNotifications ,getProfileDoc } from '../components/GetData';
+import {  sendNotification, updateMytweetsByMe, updateTweetNotifications ,getProfileDoc } from '../components/GetData';
 
-const NweetFactory = ({userobj ,setPopup }) => {
+const TweetFactory = ({userobj ,setPopup }) => {
 
-  const [nweetFactory, setNweetFactory]=useState("nweetFactory");
+  const [tweetFactory, setTweetFactory]=useState("tweetFactory");
   const location= useLocation();
   const state=location.state;
   const navigate =useNavigate();
-  const {nweetInput, nweetDispatch ,myNweets} =useContext(NweetContext);
+  const {tweetInput, tweetDispatch ,myTweets} =useContext(TweetContext);
   const {myProfile}=useContext(ProfileContext);
   const [attachment ,setAttachment] = useState("");
   const now = new Date();
@@ -25,17 +25,17 @@ const NweetFactory = ({userobj ,setPopup }) => {
   const minutes = now.getMinutes();
 
   const onClose=()=>{
-    nweetDispatch(
+    tweetDispatch(
       {type:'CLEAR_INPUT'}
     );
     const pathname=location.pathname;
-    const start =pathname.indexOf('/nweet');
+    const start =pathname.indexOf('/tweet');
     const back =pathname.slice(0,start);
 
-    location.pathname ==="/nweet"?
+    location.pathname ==="/tweet"?
     navigate("/" ,{state:{previous:location.pathname}})
     :
-    location.pathname.includes("nweet")&&
+    location.pathname.includes("tweet")&&
     navigate(back ,
       {state:{
         previous:location.pathname.includes("list")? location.state.pre_previous: location.pathname , 
@@ -51,16 +51,16 @@ const NweetFactory = ({userobj ,setPopup }) => {
     const docId= JSON.stringify(Date.now());
     let url ="" ;
 
-    if(attachment !== "" && nweetInput!==undefined){
+    if(attachment !== "" && tweetInput!==undefined){
     const attachmentRef =storageService.ref().child(`${userobj.uid}/${docId}`);
     const response = await attachmentRef.putString(attachment, "data_url");
     url=await response.ref.getDownloadURL();
     }
-    const newNweet ={
-      value:location.state ==null || location.state.value ==undefined ?
-      "nweet" : 
+    const newtweet ={
+      value:location.state ==null || location.state.value ===undefined ?
+      "tweet" : 
       location.state.value  ,
-      text:nweetInput.text.replace(/(\r\n|\n)/g, '<br/>'),
+      text:tweetInput.text.replace(/(\r\n|\n)/g, '<br/>'),
       attachmentUrl:url,
       creatorId: userobj.uid,
       docId:docId,
@@ -69,16 +69,16 @@ const NweetFactory = ({userobj ,setPopup }) => {
       ],
       about: location.state ==null || location.state.value == undefined? 
       null : 
-      {creatorId:location.state.nweetObj.creatorId ,
-      docId:location.state.nweetObj.docId
+      {creatorId:location.state.tweetObj.creatorId ,
+      docId:location.state.tweetObj.docId
       },
       notifications:[],
     };
-    nweetDispatch({
+    tweetDispatch({
       type:"CREATE",
       docId:docId,
       uid:userobj.uid,
-      nweet :newNweet
+      tweet :newtweet
     });
 
     setAttachment("");
@@ -94,29 +94,29 @@ const NweetFactory = ({userobj ,setPopup }) => {
           .then(async(doc)=>{
             if(doc.exists){ 
               const profile=doc.data();
-              sendNotification("nweet",userobj, newNweet, profile, "")
+              sendNotification("tweet",userobj, newtweet, profile, "")
             }
             else{console.log("Can't find user's profile")}})
-          .catch(error=> console.log(error,"in NweetFactory"));
+          .catch(error=> console.log(error,"in TweetFactory"));
         })
     };
     if(location.state !==null && 
       location.state.value !== undefined && 
       (location.state.value ==="qu" ||
       location.state.value ==="answer" ||
-      location.state.value ==="nweet" 
+      location.state.value ==="tweet" 
       )){
          //알림 가기, 알림 업데이트 
       const profile =location.state.profile ;
-      const nweetObj =location.state.nweetObj;
+      const tweetObj =location.state.tweetObj;
       const value =location.state.value;
-      // 작성자의 nweet에 대한 알림
-    if( nweetObj.creatorId !== userobj.uid ){
-      updateNweetNotifications(nweetObj,profile ,value,userobj ,docId) 
+      // 작성자의 tweet에 대한 알림
+    if( tweetObj.creatorId !== userobj.uid ){
+      updateTweetNotifications(tweetObj,profile ,value,userobj ,docId) 
       //작성자 profile에 대한 알림 
-      sendNotification(value, userobj, nweetObj, profile, docId);
+      sendNotification(value, userobj, tweetObj, profile, docId);
     }else{
-      updateMyNweetsByMe(myNweets,value,userobj,docId,nweetDispatch,nweetObj.docId)
+      updateMytweetsByMe(myTweets,value,userobj,docId,tweetDispatch,tweetObj.docId)
     }
     }
       onClose()
@@ -131,7 +131,7 @@ const NweetFactory = ({userobj ,setPopup }) => {
     const target =event.target;
     const {name, value}= event.target;
     target.addEventListener("keyup", adjustingHeight(target));
-    nweetDispatch({
+    tweetDispatch({
       type:"WRITE",
       name,
       value
@@ -147,7 +147,7 @@ const NweetFactory = ({userobj ,setPopup }) => {
   reader.onloadend = (finishedEvent) =>{
     const { currentTarget : {result}} = finishedEvent;
     setAttachment (result);
-    nweetDispatch({
+    tweetDispatch({
       type:"WRITE",
       name:"attachmentUrl",
       value :result
@@ -173,39 +173,39 @@ const NweetFactory = ({userobj ,setPopup }) => {
 
     if(state !==null){
       if(state.what !== undefined){
-        state.what =="attachment"&&
-        setAttachment(nweetInput.attachmentUrl)
+        state.what ==="attachment"&&
+        setAttachment(tweetInput.attachmentUrl)
       };
       if(state.value !== undefined){
         const value =state.value;
-        (value==="answer" || value ==="qn" || value==="nweet") &&
-        setNweetFactory("nweetFactory popup");
+        (value==="answer" || value ==="qt" || value==="tweet") &&
+        setTweetFactory("tweetFactory popup");
       }
     }
   },[state]) ;
 
   return (
-    <div className={nweetFactory}>
-      <div class='nweetFactory_inner'>
-        {nweetFactory =="nweetFactory popup" &&
-          <div class="nweetFactory_header">
+    <div className={tweetFactory}>
+      <div class='tweetFactory_inner'>
+        {tweetFactory ==="tweetFactory popup" &&
+          <div class="tweetFactory_header">
             <button  onClick={onClose}>
-              {location.state !==null && (location.state.value=="nweet" ?
+              {location.state !==null && (location.state.value==="tweet" ?
               <BiX/> :
               <BiArrowBack/>
               )
               }
             </button> 
-            <button onClick={onSubmit} id="nweetBtn" >
-            Nweet
+            <button onClick={onSubmit} id="tweetBtn" >
+            Tweet
             </button>
           </div>
         }
 
         { location.state !== null && (location.state.value === "answer" &&
-        <div id="answerNweet">
-          <Nweet
-            nweetObj={location.state.nweetObj} 
+        <div id="answertweet">
+          <Tweet
+            tweetObj={location.state.tweetObj} 
             userobj={userobj} 
             isOwner ={location.state.isOwner} 
             answer={true} 
@@ -213,7 +213,7 @@ const NweetFactory = ({userobj ,setPopup }) => {
         </div>
         )}
         <div className={(location.state !== null && location.state.value === "answer") 
-        ? "nweetFactory_box answer" : "nweetFactory_box"}>
+        ? "tweetFactory_box answer" : "tweetFactory_box"}>
           <div className="userProfile">
                   <img 
                     className="profile_photo" 
@@ -224,7 +224,7 @@ const NweetFactory = ({userobj ,setPopup }) => {
           </div>
           <form onSubmit={onSubmit}>
             <textarea
-            value={nweetInput!==undefined&&nweetInput.text}
+            value={tweetInput!==undefined&&tweetInput.text}
             name='text'
             onChange={onChange}
             type="text"
@@ -233,16 +233,16 @@ const NweetFactory = ({userobj ,setPopup }) => {
             />
             
             {attachment !== ""&& (
-              <div id="nweetfactory_attachment">
-                <img src={attachment}  alt="nweet attachment"/>
+              <div id="tweetfactory_attachment">
+                <img src={attachment}  alt="tweet attachment"/>
                 <button onClick={onClearAttachment}>x</button>
                 <button onClick={OnEditAttachment}>Edit</button>
               </div>
             )}
-            {location.state !==null && location.state.value=="qn"&&
-              <div id="nweetFactory_qn">
-                <Nweet 
-                  nweetObj={location.state.nweetObj}  
+            {location.state !==null && location.state.value==="qt"&&
+              <div id="tweetFactory_qn">
+                <Tweet 
+                  tweetObj={location.state.tweetObj}  
                   userobj={userobj} 
                   isOwner ={location.state.isOwner} 
                   answer={false}
@@ -250,19 +250,19 @@ const NweetFactory = ({userobj ,setPopup }) => {
               </div>
             }
             <div>
-              <label for="nweet_fileBtn">
+              <label for="tweet_fileBtn">
                 <HiOutlinePhotograph />
               </label>
               <input 
                 type="file" 
                 accept="image/*" 
-                id="nweet_fileBtn" 
+                id="tweet_fileBtn" 
                 style={{display:"none"}} 
                 onChange={onFileChange} 
               />
               <input 
                 type="submit" 
-                value="Nweet"  
+                value="tweet"  
                 className='btn'
               />
             </div>
@@ -273,4 +273,4 @@ const NweetFactory = ({userobj ,setPopup }) => {
   )
 }
 
-export default React.memo( NweetFactory );
+export default React.memo( TweetFactory );

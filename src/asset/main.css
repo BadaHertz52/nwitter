@@ -812,21 +812,21 @@ img, div, button, #nav, input {
   font-weight: bold;
 }
 
-.nweets_calling {
+.tweets_calling {
   padding-top: 15vh;
   padding-left: 15vw;
   text-align: center;
   width: 100%;
 }
 
-#nweets_recommand_follow {
+#tweets_recommand_follow {
   margin-top: 4vh;
   border: 1px solid #363636;
   border-radius: 10px;
   padding: 4vw;
 }
 
-#nweets_recommand_follow p {
+#tweets_recommand_follow p {
   margin: 0;
   margin-bottom: 2vh;
   text-align: center;
@@ -834,7 +834,7 @@ img, div, button, #nav, input {
 }
 
 @media screen and (max-width: 280px) {
-  .nweets_calling {
+  .tweets_calling {
     width: 100%;
     padding-left: 20%;
   }
@@ -864,7 +864,7 @@ img, div, button, #nav, input {
   left: 50%;
 }
 
-.nweet .value .container {
+.tweet .value .container {
   margin: 100px;
 }
 
@@ -1043,11 +1043,11 @@ img, div, button, #nav, input {
   background-color: #ebebeb;
 }
 
-#nav #nav_nwitter:hover {
+#nav #nav_twitter:hover {
   background-color: #d7f3fd;
 }
 
-#nav #nav_nwitter svg {
+#nav #nav_twitter svg {
   color: #1d9bf0;
 }
 
@@ -1103,7 +1103,7 @@ img, div, button, #nav, input {
   border-radius: 50%;
 }
 
-#nav_nwitter {
+#nav_twitter {
   display: none;
 }
 
@@ -1148,9 +1148,9 @@ img, div, button, #nav, input {
 
 #nav #account {
   position: absolute;
-  bottom: 4rem;
-  left: 0;
-  width: 250px;
+  bottom: 6rem;
+  left: 10px;
+  width: 200px;
   background-color: #ffff;
   -webkit-box-shadow: rgba(0, 0, 0, 0.329) 0px 5px 15px;
           box-shadow: rgba(0, 0, 0, 0.329) 0px 5px 15px;
@@ -1203,7 +1203,7 @@ img, div, button, #nav, input {
 }
 
 #nav #account #account_btn button {
-  padding: 1.5rem;
+  padding: 10px 20%;
   color: initial;
   font-size: 1rem;
   border-radius: 0;
@@ -1215,7 +1215,7 @@ img, div, button, #nav, input {
   text-align: left;
 }
 
-#do_nweet {
+#do_tweet {
   display: none;
   -webkit-transition-duration: 0.5s;
           transition-duration: 0.5s;
@@ -1280,7 +1280,7 @@ img, div, button, #nav, input {
   #nav > div {
     padding: 0 20%;
   }
-  #nav_nwitter {
+  #nav_twitter {
     display: block;
   }
   #nav > div:first-child {
@@ -1306,7 +1306,7 @@ img, div, button, #nav, input {
   #nav #nav_myProfile svg {
     font-size: 1.7rem;
   }
-  #nav img, #nav_nwitter {
+  #nav img, #nav_twitter {
     width: 2.5rem;
     height: 2.5rem;
   }
@@ -1365,7 +1365,7 @@ img, div, button, #nav, input {
     width: 2.8rem;
     height: 2.8rem;
   }
-  #nav #nav_nwitter {
+  #nav #nav_twitter {
     padding: 5px;
   }
   #nav #nav_popUp {
@@ -1379,13 +1379,16 @@ img, div, button, #nav, input {
     width: 30%;
     left: 35%;
   }
+  #nav #account {
+    width: 230px;
+  }
 }
 
 @media screen and (min-width: 1300px) {
   #nav {
     width: 20%;
   }
-  #do_nweet {
+  #do_tweet {
     display: block;
     font-size: 1.2rem;
     padding: 3% 0;
@@ -1430,7 +1433,7 @@ img, div, button, #nav, input {
     width: 3rem;
     height: 3rem;
   }
-  #nav #nav_nwitter {
+  #nav #nav_twitter {
     margin-left: 14px;
     padding: 10px;
     width: -webkit-fit-content;
@@ -1531,11 +1534,11 @@ img, div, button, #nav, input {
   display: none;
 }
 
-#notification .mention .nweet {
+#notification .mention .tweet {
   padding-left: 0;
 }
 
-#notification .mention .nweet_form {
+#notification .mention .tweet_form {
   width: 100%;
   -webkit-box-pack: stretch;
       -ms-flex-pack: stretch;
@@ -1546,7 +1549,7 @@ img, div, button, #nav, input {
   display: none;
 }
 
-#notification .answer .nweet_content {
+#notification .answer .tweet_content {
   padding: 0;
 }
 
@@ -1588,7 +1591,7 @@ img, div, button, #nav, input {
   color: #f33838;
 }
 
-.nweetIcon {
+.tweetIcon {
   color: #008cff;
   font-weight: bolder;
 }
@@ -1620,25 +1623,25 @@ img, div, button, #nav, input {
   color: #585656;
 }
 
-#notification .nweet {
+#notification .tweet {
   font-weight: initial;
   padding-left: 10px;
 }
 
-#notification .nweet .text {
+#notification .tweet .text {
   font-size: 1.2rem;
   text-align: start;
 }
 
-#notification .nweet_content {
+#notification .tweet_content {
   padding: 0 10px;
 }
 
-#notification .nweet_header > div, #notification .nweet_header button {
+#notification .tweet_header > div, #notification .tweet_header button {
   font-size: 1.1rem;
 }
 
-#notification .nweetSide,
+#notification .tweetSide,
 #notification .userProfile img {
   width: 2.5rem;
 }
@@ -1651,17 +1654,17 @@ img, div, button, #nav, input {
     font-size: 1.5rem;
     margin-right: 10px;
   }
-  #notification.nweet_header .nweet_time {
+  #notification.tweet_header .tweet_time {
     font-size: 11px;
   }
 }
 
-.nweets, .nweets_nweet {
+.tweets, .tweets_tweet {
   width: 100%;
   height: 80vh;
 }
 
-.nweet {
+.tweet {
   border-bottom: 1px solid #bebebe31;
   width: 100%;
   -webkit-box-sizing: border-box;
@@ -1678,14 +1681,14 @@ img, div, button, #nav, input {
   color: initial;
 }
 
-.nweet_content .nweet_fun,
-.nweetSide .userProfile {
+.tweet_content .tweet_fun,
+.tweetSide .userProfile {
   -webkit-transition-duration: 0.2s;
           transition-duration: 0.2s;
 }
 
-.nweet_form,
-.nweetFactory_box.answer {
+.tweet_form,
+.tweetFactory_box.answer {
   padding-left: 1rem;
   padding-top: 1rem;
   width: 100%;
@@ -1702,13 +1705,13 @@ img, div, button, #nav, input {
           justify-content: stretch;
 }
 
-.nweet_content {
+.tweet_content {
   margin: 0 5%;
   height: 100%;
   width: 75%;
 }
 
-.nweet_header {
+.tweet_header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1723,107 +1726,107 @@ img, div, button, #nav, input {
   margin-right: 1rem;
 }
 
-.nweet_header > div {
+.tweet_header > div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.nweet_header > div,
-.nweet_header button,
-.nweet .qn .nweet_header > div:nth-child(2),
-.nweet .text {
+.tweet_header > div,
+.tweet_header button,
+.tweet .qt .tweet_header > div:nth-child(2),
+.tweet .text {
   font-size: 15px;
 }
 
-.nweet_header .nweet_time,
-.nweet .qn .qn_time {
+.tweet_header .tweet_time,
+.tweet .qt .qn_time {
   color: gray;
   text-align: center;
 }
 
-.nweet_header span {
+.tweet_header span {
   overflow: hidden;
   text-overflow: ellipsis;
   margin-left: 5px;
 }
 
-.nweet_header span:first-child {
+.tweet_header span:first-child {
   font-weight: bold;
 }
 
-.nweet_header span > div > div > div {
+.tweet_header span > div > div > div {
   color: grey;
   margin-left: 3vw;
 }
 
-.nweet .userProfile {
+.tweet .userProfile {
   width: 3.2rem;
 }
 
-.nweet .userProfile button {
+.tweet .userProfile button {
   width: 100%;
   margin: 0;
   padding: 0;
   background-color: initial;
 }
 
-.nweet .userProfile button:hover {
+.tweet .userProfile button:hover {
   background-color: initial;
 }
 
-.nweet .userProfile button:hover:hover {
+.tweet .userProfile button:hover:hover {
   background-color: initial;
   color: initial;
 }
 
-.nweet .userProfile img {
+.tweet .userProfile img {
   width: 100%;
   aspect-ratio: 1/1;
 }
 
-.nweet .userProfile span {
+.tweet .userProfile span {
   text-align: center;
   margin-left: 2vw;
 }
 
-.nweet .text, .nweet .attachment {
+.tweet .text, .tweet .attachment {
   margin: 1rem 10% 1rem 2%;
 }
 
-.nweet .attachment {
+.tweet .attachment {
   height: inherit;
 }
 
-.nweet .attachment img {
+.tweet .attachment img {
   max-width: 100%;
   height: auto;
   border-radius: 10px;
 }
 
-.nweet_header button {
+.tweet_header button {
   margin: 0;
   background-color: initial;
 }
 
-.nweet_header button:hover {
+.tweet_header button:hover {
   background-color: #d5eafd;
   color: #008cff;
 }
 
-.rnBtn,
+.rtBtn,
 .heartBtn {
   background-color: rgba(0, 0, 0, 0);
 }
 
-.nweet .qn {
+.tweet .qt {
   border: 1px solid rgba(94, 93, 93, 0.658);
   border-radius: 10px;
   margin: 5% 0;
   padding: 0;
 }
 
-.nweet .qn .nweet_form {
+.tweet .qt .tweet_form {
   padding-left: 5%;
   padding-top: 5%;
   display: -webkit-box;
@@ -1835,13 +1838,13 @@ img, div, button, #nav, input {
           flex-direction: column;
 }
 
-.nweet .qn .nweet_header div:last-child div {
+.tweet .qt .tweet_header div:last-child div {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.nweet .qn .nweet_content {
+.tweet .qt .tweet_content {
   width: 100%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -1849,23 +1852,23 @@ img, div, button, #nav, input {
   margin: 0;
 }
 
-.nweet .qn .nweet_content > div {
+.tweet .qt .tweet_content > div {
   width: 100%;
 }
 
-.nweet .qn .userProfile {
+.tweet .qt .userProfile {
   width: 2rem;
   height: 2rem;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.nweet .qn .userProfile img {
+.tweet .qt .userProfile img {
   width: 100%;
   aspect-ratio: 1/1;
 }
 
-.nweet .qn .nweet_header {
+.tweet .qt .tweet_header {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
@@ -1875,7 +1878,7 @@ img, div, button, #nav, input {
           justify-content: stretch;
 }
 
-.nweet .qn .nweet_header > div:last-child {
+.tweet .qt .tweet_header > div:last-child {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1884,7 +1887,7 @@ img, div, button, #nav, input {
           justify-content: space-between;
 }
 
-.nweet .qn .text {
+.tweet .qt .text {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   word-wrap: break-word;
@@ -1897,22 +1900,22 @@ img, div, button, #nav, input {
   max-height: 3.2rem;
 }
 
-.nweet .qn .attachment {
+.tweet .qt .attachment {
   margin: 0;
   margin-bottom: 10px;
 }
 
-.nweet .qn .attachment img {
+.tweet .qt .attachment img {
   max-width: 90%;
   margin: 0 5%;
 }
 
-.nweet .qn .nweet_fun {
+.tweet .qt .tweet_fun {
   display: none;
 }
 
 /*answer*/
-.nweet.answer {
+.tweet.answer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1922,16 +1925,16 @@ img, div, button, #nav, input {
           flex-direction: column;
 }
 
-.nweet.answer:hover {
+.tweet.answer:hover {
   background-color: initial;
 }
 
-.nweet.answer:hover:hover {
+.tweet.answer:hover:hover {
   background-color: initial;
   color: initial;
 }
 
-.nweet.answer .value {
+.tweet.answer .value {
   height: inherit;
 }
 
@@ -1990,27 +1993,27 @@ img, div, button, #nav, input {
   margin-right: 1rem;
 }
 
-#nweetFactory_qn .nweet {
+#tweetFactory_qn .tweet {
   margin: 0;
 }
 
-#nweetFactory_qn .nweet_fun {
+#tweetFactory_qn .tweet_fun {
   display: none;
 }
 
-#nweetFactory_qn .nweetSide,
-#nweetFactory_qn .userProfile img {
+#tweetFactory_qn .tweetSide,
+#tweetFactory_qn .userProfile img {
   width: 3rem;
 }
 
-#nweetFactory_qn .nweet_header > div,
-#nweetFactory_qn .nweet_header button,
-#nweetFactory_qn .nweet .qn .nweet_header > div:nth-child(2),
-#nweetFactory_qn .nweet .text {
+#tweetFactory_qn .tweet_header > div,
+#tweetFactory_qn .tweet_header button,
+#tweetFactory_qn .tweet .qt .tweet_header > div:nth-child(2),
+#tweetFactory_qn .tweet .text {
   font-size: 15px;
 }
 
-.noNweet {
+.notweet {
   position: absolute;
   top: 5rem;
   left: 25%;
@@ -2051,108 +2054,108 @@ img, div, button, #nav, input {
 }
 
 @media screen and (min-width: 768px) {
-  .nweet_form,
-  .nweetFactory_box.answer {
+  .tweet_form,
+  .tweetFactory_box.answer {
     padding-left: 2rem;
     padding-top: 2rem;
   }
-  .nweet_header > div,
-  .nweet_header button,
-  .nweet .qn .nweet_header > div:nth-child(2),
-  .nweet .text {
+  .tweet_header > div,
+  .tweet_header button,
+  .tweet .qt .tweet_header > div:nth-child(2),
+  .tweet .text {
     font-size: 1rem;
   }
-  .nweet .userProfile {
+  .tweet .userProfile {
     width: 3.5rem;
   }
-  .nweet_content {
+  .tweet_content {
     padding: 0;
     padding-left: 10px;
   }
-  .nweet .text,
-  .nweet .attachment {
+  .tweet .text,
+  .tweet .attachment {
     margin-left: 2%;
   }
-  .nweet .attachment {
+  .tweet .attachment {
     margin-right: 30%;
   }
-  .nweet_furn {
+  .tweet_furn {
     width: 70%;
   }
-  .nweet .qn .nweet_content > div {
+  .tweet .qt .tweet_content > div {
     width: 90%;
   }
-  .nweet .qn .userProfile {
+  .tweet .qt .userProfile {
     width: 2.5rem;
     height: 2.5rem;
   }
-  .nweet .qn .userProfile img {
+  .tweet .qt .userProfile img {
     width: 100%;
   }
-  .nweet .qn .nweet_header {
+  .tweet .qt .tweet_header {
     width: 90%;
   }
-  .nweet .qn .text {
+  .tweet .qt .text {
     width: 90%;
     margin-top: 2vw;
     margin-left: 0;
     margin-right: 0;
   }
-  .nweet .qn .attachment img {
+  .tweet .qt .attachment img {
     max-width: 100%;
   }
 }
 
 @media screen and (min-width: 1024px) {
-  .nweet_content {
+  .tweet_content {
     width: 87%;
   }
-  .nweet_header {
+  .tweet_header {
     width: 88%;
   }
-  .nweet .attachment img {
+  .tweet .attachment img {
     max-width: 90%;
     margin-left: 5%;
   }
-  .nweet_fun {
+  .tweet_fun {
     margin-bottom: 2vh;
   }
   .answer a,
-  .rnBtn,
+  .rtBtn,
   .heartBtn {
     margin-top: 0;
   }
-  .nweet .qn {
+  .tweet .qt {
     margin-left: 5%;
   }
-  .nweet .qn .nweet_content {
+  .tweet .qt .tweet_content {
     padding: 5%;
     margin-left: 0;
   }
-  .nweet .qn .attachment img {
+  .tweet .qt .attachment img {
     max-width: initial;
     width: 100%;
   }
-  .nweet .qn .text {
+  .tweet .qt .text {
     margin-top: 0;
   }
 }
 
 @media screen and (min-width: 1440px) {
-  .nweet .qn {
+  .tweet .qt {
     width: 80%;
   }
 }
 
-.nweetFactory {
+.tweetFactory {
   height: auto;
 }
 
-.nweetFactory textarea::-webkit-scrollbar {
+.tweetFactory textarea::-webkit-scrollbar {
   width: 0;
 }
 
-.nweetFactory input {
+.tweetFactory input {
   border: none;
   font-size: 1.1rem;
   font-weight: 500;
@@ -2162,14 +2165,14 @@ img, div, button, #nav, input {
   padding: 0 10px;
 }
 
-.nweetFactory form {
+.tweetFactory form {
   margin-left: 10px;
   width: 100%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
 
-.nweetFactory form > div:last-child {
+.tweetFactory form > div:last-child {
   width: 90%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2179,21 +2182,21 @@ img, div, button, #nav, input {
           justify-content: space-between;
 }
 
-.nweetFactory form label {
+.tweetFactory form label {
   border-radius: 50%;
   text-align: center;
   padding: 6px 10px;
 }
 
-.nweetFactory form label:hover {
+.tweetFactory form label:hover {
   background-color: #d5eafd;
 }
 
-.nweetFactory form label svg {
+.tweetFactory form label svg {
   color: #288be7;
 }
 
-.nweetFactory textarea {
+.tweetFactory textarea {
   font-size: 1.2rem;
   color: #575757;
   border: none;
@@ -2205,24 +2208,24 @@ img, div, button, #nav, input {
   line-height: 30px;
 }
 
-.nweetFactory textarea:hover {
+.tweetFactory textarea:hover {
   color: black;
 }
 
-.nweetFactory svg {
+.tweetFactory svg {
   font-size: 1.5rem;
 }
 
-#home .nweetFactory {
+#home .tweetFactory {
   display: none;
 }
 
-#home .nweetFactory_inner {
+#home .tweetFactory_inner {
   width: 100%;
   margin: 0;
 }
 
-.nweetFactory_box {
+.tweetFactory_box {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2232,52 +2235,52 @@ img, div, button, #nav, input {
           flex-direction: row;
 }
 
-#nweetfactory_attachment {
+#tweetfactory_attachment {
   margin: 0 15% 1rem 15%;
   margin-bottom: 1rem;
   width: 60%;
   position: relative;
 }
 
-#nweetfactory_attachment img {
+#tweetfactory_attachment img {
   max-width: 100%;
   height: auto;
 }
 
-#nweetfactory_attachment button {
+#tweetfactory_attachment button {
   position: absolute;
   background-color: rgba(53, 53, 53, 0.699);
   color: #fff;
 }
 
-#nweetfactory_attachment button:nth-child(2) {
+#tweetfactory_attachment button:nth-child(2) {
   top: 2%;
   left: 2%;
 }
 
-#nweetfactory_attachment button:nth-child(3) {
+#tweetfactory_attachment button:nth-child(3) {
   bottom: 5%;
   right: 5%;
 }
 
 /*popup*/
-.nweetFactory_popup {
+.tweetFactory_popup {
   z-index: 3;
 }
 
-.nweetFactory_popup .nweetFactory_inner {
+.tweetFactory_popup .tweetFactory_inner {
   margin: 1rem;
 }
 
-.nweetFactory_popup .nweetFactory_inner > div {
+.tweetFactory_popup .tweetFactory_inner > div {
   width: 100%;
 }
 
-#nweetBtn {
+#tweetBtn {
   display: none;
 }
 
-.nweetFactory.popup,
+.tweetFactory.popup,
 .cropper.factory {
   position: absolute;
   top: 0;
@@ -2292,7 +2295,7 @@ img, div, button, #nav, input {
   z-index: 5;
 }
 
-.nweetFactory_header {
+.tweetFactory_header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2304,18 +2307,18 @@ img, div, button, #nav, input {
           box-sizing: border-box;
 }
 
-.nweetFactory_header button {
+.tweetFactory_header button {
   background-color: initial;
   padding: 5px 10px;
   font-size: 1.2rem;
 }
 
-.nweetFactory_header button:first-child:hover {
+.tweetFactory_header button:first-child:hover {
   color: black;
   background-color: #ebebeb;
 }
 
-.nweetFactory.popup #nweetBtn {
+.tweetFactory.popup #tweetBtn {
   display: block;
   font-size: 1rem;
   font-weight: 550;
@@ -2326,25 +2329,25 @@ img, div, button, #nav, input {
   background-color: #d0e3f5;
 }
 
-.nweetFactory.popup #nweetBtn:hover {
+.tweetFactory.popup #tweetBtn:hover {
   background-color: #1d9bf0;
   color: whitesmoke;
 }
 
-.nweetFactory.popup input {
+.tweetFactory.popup input {
   display: none;
 }
 
-.nweetFactory.popup textarea {
+.tweetFactory.popup textarea {
   width: 100%;
   margin-left: 1rem;
 }
 
-.nweetFactory.popup .answer textarea {
+.tweetFactory.popup .answer textarea {
   width: 90%;
 }
 
-.nweetFactory.popup #close_nav_nweetFactory {
+.tweetFactory.popup #close_nav_tweetFactory {
   background-color: initial;
   font-size: 2rem;
   font-weight: bold;
@@ -2353,68 +2356,68 @@ img, div, button, #nav, input {
   padding-bottom: 5px;
 }
 
-.nweetFactory.popup #close_nav_nweetFactory:hover {
+.tweetFactory.popup #close_nav_tweetFactory:hover {
   background-color: #ebebeb;
   color: black;
 }
 
-.nweetFactory.popup .nweetSide,
-.nweetFactory.popup .nweetFactory_box .userProfile {
+.tweetFactory.popup .tweetSide,
+.tweetFactory.popup .tweetFactory_box .userProfile {
   width: 3rem;
 }
 
-.nweetFactory.popup .nweetSide .userProfile {
+.tweetFactory.popup .tweetSide .userProfile {
   width: 100%;
 }
 
-.nweetFactory.popup .nweet_content {
+.tweetFactory.popup .tweet_content {
   padding-right: 0;
   padding-left: 5px;
   width: 85%;
 }
 
-.nweetFactory.popup .userProfile img {
+.tweetFactory.popup .userProfile img {
   width: 3rem;
   aspect-ratio: 1/1;
 }
 
-.nweetFactory.popup .nweet {
+.tweetFactory.popup .tweet {
   border: none;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   margin: 0;
 }
 
-.nweetFactory.popup form {
+.tweetFactory.popup form {
   margin: 0;
   padding: 0;
 }
 
-.nweetFactory.popup form .btn {
+.tweetFactory.popup form .btn {
   display: none;
 }
 
-.nweetFactory.popup .answerLine {
+.tweetFactory.popup .answerLine {
   margin-left: 50%;
 }
 
-/*answer, qn*/
-#nweetFactory_nweet .nweetFactory form .btn {
+/*answer, qt*/
+#tweetFactory_tweet .tweetFactory form .btn {
   display: none;
 }
 
 @media screen and (max-width: 355px) {
-  .nweetFactory textarea {
+  .tweetFactory textarea {
     font-size: 1rem;
   }
 }
 
 @media screen and (min-width: 500px) {
-  .nweetFactory form {
+  .tweetFactory form {
     padding-left: 1rem;
   }
   /*home*/
-  #home .nweetFactory {
+  #home .tweetFactory {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -2429,51 +2432,51 @@ img, div, button, #nav, input {
             box-sizing: border-box;
     border-bottom: 1px solid rgba(190, 190, 190, 0.192);
   }
-  #home .nweetFactory .userProfile {
+  #home .tweetFactory .userProfile {
     width: 3.2rem;
   }
-  #home .nweetFactory .profile_photo {
+  #home .tweetFactory .profile_photo {
     width: 3.2rem;
     aspect-ratio: 1/1;
   }
 }
 
 @media screen and (min-width: 570px) {
-  .nweetFactory_inner {
+  .tweetFactory_inner {
     margin: 0 5%;
   }
 }
 
 @media screen and (min-width: 720px) {
-  .nweetFactory.popup .nweetFactory_box {
+  .tweetFactory.popup .tweetFactory_box {
     margin: 0;
   }
-  .nweetFactory.popup .nweetFactory_header {
+  .tweetFactory.popup .tweetFactory_header {
     margin: 0;
     margin-bottom: 1rem;
     width: 100%;
   }
-  .nweetFactory.popup .nweetSide,
-  .nweetFactory.popup .userProfile {
+  .tweetFactory.popup .tweetSide,
+  .tweetFactory.popup .userProfile {
     width: 3rem;
   }
-  .nweetFactory.popup .userProfile img,
-  .nweetFactory.popup .nweet .userProfile img {
+  .tweetFactory.popup .userProfile img,
+  .tweetFactory.popup .tweet .userProfile img {
     width: 3rem;
   }
-  .nweetFactory.popup .nweet_header > div,
-  .nweetFactory.popup .nweet_header button,
-  .nweetFactory.popup .nweet .qn .nweet_header > div:nth-child(2),
-  .nweetFactory.popup .nweet .text {
+  .tweetFactory.popup .tweet_header > div,
+  .tweetFactory.popup .tweet_header button,
+  .tweetFactory.popup .tweet .qt .tweet_header > div:nth-child(2),
+  .tweetFactory.popup .tweet .text {
     font-size: 1rem;
   }
-  .nweetFactory.popup .nweet .attachment {
+  .tweetFactory.popup .tweet .attachment {
     margin-bottom: 10px;
   }
-  .nweetFactory.popup .nweet .attachment img {
+  .tweetFactory.popup .tweet .attachment img {
     display: none;
   }
-  .nweetFactory.popup .nweetFactory {
+  .tweetFactory.popup .tweetFactory {
     margin: 0;
     padding: 0;
     width: 100%;
@@ -2481,39 +2484,39 @@ img, div, button, #nav, input {
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
   }
-  .nweetFactory.popup .nweet .userProfile {
+  .tweetFactory.popup .tweet .userProfile {
     width: 100%;
   }
-  .nweetFactory.popup .userProfile button {
+  .tweetFactory.popup .userProfile button {
     padding: 0;
   }
-  .nweetFactory.popup form {
+  .tweetFactory.popup form {
     padding-left: 5px;
   }
-  .nweetFactory.popup #nweetfactory_attachment {
+  .tweetFactory.popup #tweetfactory_attachment {
     margin-left: 5%;
     width: 80%;
   }
-  .nweetFactory.popup form > div:last-child {
+  .tweetFactory.popup form > div:last-child {
     margin-top: 10px;
   }
-  .nweetFactory.popup .nweet,
-  .nweetFactory.popup .nweetFactory {
+  .tweetFactory.popup .tweet,
+  .tweetFactory.popup .tweetFactory {
     margin: 0;
     padding: 0;
   }
-  .nweetFactory.popup .nweet .nweet_content {
+  .tweetFactory.popup .tweet .tweet_content {
     padding-right: 0;
   }
-  .nweetFactory.popup .answerLine {
+  .tweetFactory.popup .answerLine {
     margin-left: 1.5rem;
   }
-  .nweetFactory.popup,
+  .tweetFactory.popup,
   .cropper.factory {
     overflow-y: hidden;
     background-color: rgba(0, 0, 0, 0.4);
   }
-  .nweetFactory.popup .nweetFactory_inner,
+  .tweetFactory.popup .tweetFactory_inner,
   .cropper.factory #cropper_inner {
     background-color: #fff;
     position: absolute;
@@ -2533,21 +2536,21 @@ img, div, button, #nav, input {
 }
 
 @media screen and (min-width: 1024px) {
-  #home .nweetFactory textarea,
-  #home .nweetFactory form > div:last-child {
+  #home .tweetFactory textarea,
+  #home .tweetFactory form > div:last-child {
     width: 95%;
   }
-  #home .nweetFactory svg {
+  #home .tweetFactory svg {
     font-size: 1.6rem;
   }
-  #home .nweetFactory input {
+  #home .tweetFactory input {
     font-size: 1.2rem;
   }
-  #home .nweetFactory textarea {
+  #home .tweetFactory textarea {
     font-size: 1.2rem;
   }
-  .nweetFactory.popup
-.nweetFactory_inner,
+  .tweetFactory.popup
+.tweetFactory_inner,
   .cropper.factory #cropper_inner {
     left: 25%;
     width: 45%;
@@ -2555,8 +2558,8 @@ img, div, button, #nav, input {
 }
 
 @media screen and (min-width: 1200px) {
-  .nweetFactory.popup
-.nweetFactory_inner,
+  .tweetFactory.popup
+.tweetFactory_inner,
   .cropper.factory #cropper_inner {
     left: 30%;
     width: 40%;
@@ -2564,8 +2567,8 @@ img, div, button, #nav, input {
 }
 
 @media screen and (min-width: 1400px) {
-  .nweetFactory.popup
-.nweetFactory_inner,
+  .tweetFactory.popup
+.tweetFactory_inner,
   .cropper #cropper_inner {
     width: 35%;
     left: 32.5%;
@@ -2573,15 +2576,15 @@ img, div, button, #nav, input {
 }
 
 @media screen and (min-width: 1880px) {
-  .nweetFactory.popup
-.nweetFactory_inner,
+  .tweetFactory.popup
+.tweetFactory_inner,
   .cropper #cropper_inner {
     width: 600px;
     left: calc(50% - 300px);
   }
 }
 
-.nweet_fun {
+.tweet_fun {
   width: 79%;
   height: 10%;
   display: -webkit-box;
@@ -2593,7 +2596,7 @@ img, div, button, #nav, input {
   margin-bottom: 2vw;
 }
 
-.nweet_fun button {
+.tweet_fun button {
   font-size: 1.2rem;
   padding: 10px 13px;
   color: black;
@@ -2601,33 +2604,33 @@ img, div, button, #nav, input {
   background-color: initial;
 }
 
-.nweet_fun button,
-.nweet_fun > a {
+.tweet_fun button,
+.tweet_fun > a {
   padding: 10px 13px;
   border-radius: 50%;
   margin-top: 0;
 }
 
-.nweet_fun_rtAndLikeFun {
+.tweet_fun_rtAndLikeFun {
   position: relative;
 }
 
-.nweet_fun a:hover {
+.tweet_fun a:hover {
   font-weight: bold;
   color: #009cf7;
   background-color: #e1f2fc;
 }
 
-.rnBtn {
+.rtBtn {
   position: relative;
 }
 
-.rnBtn:hover {
+.rtBtn:hover {
   font-weight: bold;
   background-color: #e7fce7;
 }
 
-.rnBtn.on, .rnBtn:hover {
+.rtBtn.on, .rtBtn:hover {
   color: #00bb54;
 }
 
@@ -2645,7 +2648,7 @@ img, div, button, #nav, input {
   color: #fc121e;
 }
 
-.rn_popup {
+.rt_popup {
   background-color: white;
   width: 10rem;
   z-index: 2;
@@ -2657,7 +2660,7 @@ img, div, button, #nav, input {
   box-shadow: 0px 0px 5px 0.005px #797979;
 }
 
-.rn_popup button {
+.rt_popup button {
   background-color: initial;
   font-size: 1rem;
   width: 100%;
@@ -2665,7 +2668,7 @@ img, div, button, #nav, input {
   border-radius: 10px;
 }
 
-.rn_popup button:hover, .rn_popup button a:hover {
+.rt_popup button:hover, .rt_popup button a:hover {
   color: initial;
   background-color: white;
   font-weight: initial;
@@ -2934,7 +2937,7 @@ button:hover, .btn:hover {
   color: whitesmoke;
 }
 
-.nweetFactory textarea:focus,
+.tweetFactory textarea:focus,
 input:focus {
   outline: none;
 }
@@ -3045,10 +3048,12 @@ input:focus {
   #side #search_result {
     position: absolute;
     width: 86%;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
     top: 4rem;
     left: 7.5%;
     z-index: 1;
-    height: 100px;
     border-radius: 10px;
     background-color: #ffff;
     -webkit-box-shadow: 4px -1px 33px -9px rgba(0, 0, 0, 0.3);
@@ -3065,13 +3070,18 @@ input:focus {
             box-sizing: border-box;
   }
   #side #search_result .userProfile {
-    width: 5rem;
-    margin-right: 1rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    margin: 0  1rem;
   }
   #side #search_result .userProfile img {
     width: 100%;
+    height: 100%;
   }
   #side #search_result .userProfile button {
+    width: 100%;
+    height: 100%;
+    padding: 0;
     background-color: initial;
     margin-top: 0;
   }
@@ -3079,12 +3089,17 @@ input:focus {
     background-color: initial;
     color: initial;
   }
+  #search_result_userInform {
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+  }
   #search_result_userInform > div {
     font-size: 1rem;
   }
   #search_result_userInform > div:first-child {
     font-weight: bolder;
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin: 5px 0;
   }
   #no_result {

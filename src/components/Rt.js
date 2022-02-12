@@ -1,23 +1,23 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { AiOutlineRetweet} from "react-icons/ai";
 import {  useNavigate ,useLocation} from "react-router-dom";
-import { NweetContext } from "../context/NweetContex";
-import { OffRnHeart, OnRnHeart } from "./GetData";
+import { TweetContext } from "../context/TweetContex";
+import { OffRtHeart, OnRtHeart } from "./GetData";
 import { BsPencil } from "react-icons/bs";
-import { useRef } from "react/cjs/react.development";
-  const Rn = ( {userobj  ,nweetObj, original ,profile, ownerProfile})=> {
+
+  const Rt = ( {userobj  ,tweetObj, original ,profile, ownerProfile})=> {
     const navigate=useNavigate();
     const location=useLocation();
     const state=location.state;
-    const rnRef =useRef();
+    const rtRef =useRef();
     const [popup, setPopup]= useState(false);
-    const [rnBtn, setRnBtn] =useState(("fun rnBtn"));
-    const {nweetDispatch , myNweets} =useContext(NweetContext);
+    const [rtBtn, setRtBtn] =useState(("fun rtBtn"));
+    const {tweetDispatch , myTweets} =useContext(TweetContext);
     const inner =document.getElementById('inner');
 
     const closePopup =(e)=>{
       const target =e.target;
-      if(e &&!target.classList.contains('rn')){
+      if(e &&!target.classList.contains('rt')){
         target.addEventListener('click', setPopup(false));
       };
     };
@@ -25,37 +25,37 @@ import { useRef } from "react/cjs/react.development";
 
     const clickFun =async(event)=> {
       
-      const onRn=()=>{
+      const onRt=()=>{
         event.preventDefault();
-        rnRef.current.classList.add("on");
-        OnRnHeart(nweetObj, original, userobj, profile,ownerProfile, nweetDispatch, "rn"  , myNweets)
+        rtRef.current.classList.add("on");
+        OnRtHeart(tweetObj, original, userobj, profile,ownerProfile, tweetDispatch, "rt"  , myTweets)
         
       }
-      const offRn=()=>{
+      const offRt=()=>{
         event.preventDefault();
-        rnRef.current.classList.remove("on")
-        OffRnHeart("rn" ,nweetObj,original,  userobj, profile, ownerProfile, nweetDispatch , myNweets) 
+        rtRef.current.classList.remove("on")
+        OffRtHeart("rt" ,tweetObj,original,  userobj, profile, ownerProfile, tweetDispatch , myTweets) 
       };
-    rnRef.current.classList.contains("on")? offRn() : onRn()
+    rtRef.current.classList.contains("on")? offRt() : onRt()
     }; 
     const onQute=()=>{
-      navigate("nweet",{state:{
+      navigate("tweet",{state:{
         previous:location.pathname,
-          nweetObj:nweetObj,
+          tweetObj:tweetObj,
           profile:{uid:profile.uid, notifications:profile.notifications}, 
           isOwner:false ,
-          value : "qn",
+          value : "qt",
           userUid: state.userUid !==undefined ? state.userUid : undefined,
           userId: state.userId !==undefined ? state.userId : undefined,
         }
         })
     };
     useEffect(()=>{
-      const notifications =nweetObj.notifications;
+      const notifications =tweetObj.notifications;
       if(notifications[0]!==undefined){
-        const isIncludes = notifications.map(n=> n.user=== userobj.uid && (n.value === "rn"|| n.value==="qn" )).includes(true);
+        const isIncludes = notifications.map(n=> n.user=== userobj.uid && (n.value === "rt"|| n.value==="qt" )).includes(true);
         if(isIncludes){
-            setRnBtn('rnBtn on')
+            setRtBtn('rtBtn on')
           }
       }
 ;
@@ -63,29 +63,29 @@ import { useRef } from "react/cjs/react.development";
         
     
   return(
-    <div className="rn fun">
+    <div className="rt fun">
       <button 
-        className={rnBtn} 
-        name="rn" 
-        ref={rnRef}
+        className={rtBtn} 
+        name="rt" 
+        ref={rtRef}
         onClick={()=>setPopup(true)}>
         <AiOutlineRetweet/>
       </button>
               {popup &&
-          <div className="rn_popup fun">
-            <button className="rn fun" 
+          <div className="rt_popup fun">
+            <button className="rt fun" 
             onClick={clickFun}
             >
             <AiOutlineRetweet /> 
             &nbsp;
-              {rnBtn === "rnBtn" ?"ReNweet" : "UndoRenweet" } 
+              {rtBtn === "rtBtn" ?"Retweet" : "UndoRetweet" } 
             </button>
-            <button className="rn fun" 
+            <button className="rt fun" 
             onClick={onQute}
             >
               <BsPencil/>
               &nbsp;
-              Quote Nweet
+              Quote tweet
             </button>  
           </div>
         }
@@ -93,4 +93,4 @@ import { useRef } from "react/cjs/react.development";
   )
 }
 
-export default Rn;
+export default Rt;
