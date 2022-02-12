@@ -94,15 +94,16 @@ const TweetFactory = ({userobj ,setPopup }) => {
           .then(async(doc)=>{
             if(doc.exists){ 
               const profile=doc.data();
-              sendNotification("tweet",userobj, newtweet, profile, "")
+              sendNotification("tweet",userobj, "", profile,newtweet)
             }
             else{console.log("Can't find user's profile")}})
           .catch(error=> console.log(error,"in TweetFactory"));
         })
     };
+    
     if(location.state !==null && 
       location.state.value !== undefined && 
-      (location.state.value ==="qu" ||
+      (location.state.value ==="qt" ||
       location.state.value ==="answer" ||
       location.state.value ==="tweet" 
       )){
