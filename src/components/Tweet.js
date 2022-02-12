@@ -318,7 +318,7 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
             </>}
               
           </div>
-          {IsAnswer &&  !statusAnswer &&
+          {IsAnswer &&  !statusAnswer && aboutProfile.userId!== "" &&
             <div className='answer_who'>
               @{aboutProfile.userId}
               에 대한 답글
