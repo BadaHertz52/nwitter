@@ -5,7 +5,7 @@ import {VscBell} from 'react-icons/vsc';
 import Tweet from '../components/Tweet';
 import {ProfileContext} from '../context/ProfileContex';
 import { TweetContext } from '../context/TweetContex';
-import { getProfileDoc} from '../components/GetData';
+import { getProfileDoc, getTweetDoc} from '../components/GetData';
 import { useEffect } from 'react/cjs/react.development';
 import {  useLocation, useNavigate } from 'react-router';
 import { dbService } from '../Fbase';
@@ -29,18 +29,19 @@ const Notification = ({userobj}) => {
     what.classList.add('check');
   };
 
-  const go =(n)=>{
-    n.value === "following"?
+  const goTimeLine =(n)=>{
+
+    n.value === "following"? 
     goProfile(navigate,n.user,location)
     :
     navigate("timeLine" , {state:{
       previous:location.pathname,
-      docId:n.tweet.docId , 
+      docId:n.value==="tweet"? n.aboutTweet.docId: n.tweet.docId , 
       value:n.value, 
       userId:n.user.userId, 
       userName:n.user.userName,
       userUid:n.user.uid ,
-      aboutDocId:n.aboutTweet===""? null: n.aboutTweet}})
+      aboutDocId:(n.value!=="tweet"&&n.aboutTweet==="")? null: n.aboutTweet}})
   };
 
   useEffect(()=>{
@@ -83,68 +84,71 @@ const Notification = ({userobj}) => {
       <div> 
       {showAll ?
       notifications.map
-        ( (n) => 
-        ( 
+        ( (n) => ( 
         n.value !== 'answer' ? (
       <div 
       id="notification_notification"
-      onClick={()=>go(n)}>
-          <div className='notification_left'>
-            { (n.value === 'qt'|| n.value ==='rt') &&
-              <AiOutlineRetweet className='rnIcon'/>
+      onClick={()=>goTimeLine(n)}>
+        <div className='notification_left'>
+          { (n.value === 'qt'|| n.value ==='rt') &&
+            <AiOutlineRetweet className='rnIcon'/>
+          }
+          {n.value === 'heart'&&
+              <AiOutlineHeart className='heartIcon'/>
             }
-            {n.value === 'heart'&&
-                <AiOutlineHeart className='heartIcon'/>
-              }
-            {n.value === 'following'&&
-                <AiOutlineUser className='followIcon'/>
-              }
-            {n.value === 'tweet'&&
-                <VscBell className='tweetIcon'/>
-              }
-          </div>
-          
-            <div className='notification_right'>
-            <img className="profile_photo" src={n.user.photoUrl} alt="usrProfilePhoto"/>
-            <div className='notification_inform'>
-              <>
-                { n.value === 'tweet'?
-                  (n.value === 'tweet') && 
-                  <div>
+          {n.value === 'following'&&
+              <AiOutlineUser className='followIcon'/>
+            }
+          {n.value === 'tweet'&&
+              <VscBell className='tweetIcon'/>
+            }
+        </div>
+        
+        <div className='notification_right'>
+          <img className="profile_photo" src={n.user.photoUrl} alt="usrProfilePhoto"/>
+          <div className='notification_inform'  >
+            <>
+              { n.value === 'tweet'?
+                <div>
                   New tweet Notifications for 
                   &nbsp;
-                  <span style={{fontWeight :'bold'}}>{n.user.userName}</span>
-                  </div>
-                :
-                (
-                  <div>
-                    <span style={{fontWeight :'bold'}}>{n.user.userName}</span> &nbsp; 
-                    {n.value==="following" ?
-                      'follow you'
-                    :
-                    <>
-                      {n.value ==="heart" &&'like your'}
-                      {(n.value === 'qt'|| n.value=== 'rt') && 'retweet your'}
-                      {n.value ==="answer" && "answer your"} 
-                      &nbsp; 
-                      {n.tweet? "tweet" : "reTweet"}
-                    </>
-                    }
-                  </div>
-                )
-                }
-              </>
-            </div>
+                  <span style={{fontWeight :'bold'}}>
+                    {n.user.userName}
+                  </span>
+                </div>
+              :
+              (
+                <div>
+                  <span style={{fontWeight :'bold'}}>
+                    {n.user.userName}
+                  </span> 
+                  &nbsp; 
+                  {n.value==="following" ?
+                    'follow you'
+                  :
+                  < >
+                    {n.value ==="heart" &&'like your'}
+                    {(n.value === 'qt'|| n.value=== 'rt') && 'retweet your'}
+                    {n.value ==="answer" && "answer your"} 
+                    &nbsp; 
+                    {n.tweet? "tweet" : "reTweet"}
+                  </>
+                  }
+                </div>
+              )
+              }
+            </>
+          </div>
         </div>
       </div>)
       :( 
-        <div  class="mention" onClick={()=>go(n)}>
+        <div  class="mention" onClick={()=>goTimeLine(n)}>
           <Tweet isOwner={false} userobj={userobj} tweetObj={n.aboutTweet} answer={true}/>
         </div>
       )))
     :
     ( notifications.filter(n=>n.value === 'answer').map(n=>
-      <div class="mention"onClick={()=>go(n)}>
+      <div class="mention"onClick={()=>goTimeLine(n)}>
         <Tweet isOwner={false} userobj={userobj} tweetObj={n.aboutTweet} answer={true}/>
       </div>
     ))}

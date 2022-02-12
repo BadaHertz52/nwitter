@@ -15,11 +15,11 @@ const TimeLine =({userobj})=>{
   const [tweet,setTweet]=useState({docId:"" ,about:null});
 
   useEffect(()=>{ 
-      if(state.value.aboutDocId == null){
+      if(state.aboutDocId == null){
         const targetTweet =myTweets.filter(n=> n.docId === state.docId)[0];
       setTweet(targetTweet);
       }else{
-        setTweet(state.aboutDocId)
+      setTweet(state.aboutDocId);
       }
 
   },[state, myTweets]);
