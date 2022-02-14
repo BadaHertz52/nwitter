@@ -1,15 +1,23 @@
-import React,{ useEffect, useState } from 'react';
+import React,{ useContext, useEffect, useState } from 'react';
 import { useNavigate , useLocation} from 'react-router-dom';
 import Tweet from './Tweet';
 import { FiArrowLeft } from "react-icons/fi";
 import { getTweetsDocs, goBack } from './GetData';
 import Loading from './Loading';
+import { ProfileContext } from '../context/ProfileContex';
+import { UserContext } from '../context/UserContext';
+import { TweetContext } from '../context/TweetContex';
 
 
-export const ProfileTopForm = ({ isMine ,tweets,profile} )=>{
+export const ProfileTopForm = ({ isMine} )=>{
+  const {myProfile }=useContext(ProfileContext);
+  const {myTweets}=useContext(TweetContext);
+  const {userProfile ,userTweets}=useContext(UserContext);
+
   const location =useLocation();
   const navigate= useNavigate();
-
+  const profile = isMine? myProfile : userProfile ;
+  const tweets =isMine? myTweets:userTweets;
   const goList=(what)=>{
     navigate(`${location.pathname}/list/${what}` ,{
       state:{
@@ -84,8 +92,11 @@ export const ProfileTopForm = ({ isMine ,tweets,profile} )=>{
   )
 }
 
-export const ProfileBottomForm = ({isMine, userobj , tweets})=>{
+export const ProfileBottomForm = ({isMine, userobj })=>{
+  const {myTweets}=useContext(TweetContext);
+  const {userTweets}=useContext(UserContext);
 
+  const tweets =isMine? myTweets:userTweets;
   const filterTweets = tweets.filter(tweet => tweet.value=== "tweet"|| tweet.value === "qt");
   const  filterTweetAndAnswer = tweets.filter (tweet=> tweet.value !== 'heart');
   const filterHeartedThings= tweets.filter(tweet=> tweet.value === "heart");

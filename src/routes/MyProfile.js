@@ -15,10 +15,10 @@ const MyProfile = ({ userobj} ) => {
     :
       <>
         <section>
-          <ProfileTopForm  isMine={true} profile={myProfile} tweets={myTweets} />
+          <ProfileTopForm  isMine={true}  />
         </section>
         <section>
-          <ProfileBottomForm  isMine={true}  userobj={userobj} tweets={myTweets}/>
+          <ProfileBottomForm  isMine={true}  userobj={userobj}/>
         </section>
       </>
     }
