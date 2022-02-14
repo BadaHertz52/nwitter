@@ -7,7 +7,7 @@ import { UserContext } from '../context/UserContext';
 import authSerVice from '../Fbase';
 
 
-const LogOut =()=>{
+const LogOut =({setIsLoggedIn})=>{
   const {tweetDispatch} =useContext(TweetContext);
   const {profileDispatch} =useContext(ProfileContext);
   const {userDispatch}=useContext(UserContext);
@@ -22,8 +22,9 @@ const LogOut =()=>{
     });
     profileDispatch({
       type:"CLEAR_MY_PROFILE"
-    })
-    navigate('/')
+    });
+    setIsLoggedIn(false);
+    navigate('/auth');
     authSerVice.signOut();
   };
 

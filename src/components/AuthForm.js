@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import {BiArrowBack} from "react-icons/bi";
 import authSerVice from '../Fbase' ;
 import {RiErrorWarningLine} from 'react-icons/ri'
+import { useNavigate } from 'react-router';
+
 const AuthForm = ({newAcount, setPopup})=> {
   const [email ,setEmail ] = useState(""); 
   const [password ,setPassword ] = useState("");
   const [error, setError] = useState("") ;
+  const navigate =useNavigate();
+
   const onChange = (event) => {
     const {target :{name ,value}} =event ;
     name === "email" ? setEmail(value) : setPassword(value) ;
@@ -20,12 +24,16 @@ const AuthForm = ({newAcount, setPopup})=> {
         //log in 
         await authSerVice.signInWithEmailAndPassword(email, password);
       }
-      setPopup(false)
+      setPopup(false);
+      navigate('/home');
     }catch(e){
       const start = e.message.indexOf("Firebase:");
       const end =e.message.indexOf("(")
       setError(e.message.substring(start+10 ,end));
     }
+
+      
+    
   } ;
 
   return (

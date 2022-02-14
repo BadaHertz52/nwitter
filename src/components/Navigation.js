@@ -1,5 +1,6 @@
-import React, {useState , useContext } from 'react';
-import { Link, useNavigate ,useLocation} from 'react-router-dom';
+import React, {useState , useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import { Link, useLocation} from 'react-router-dom';
 
 import { BsBell, BsBellFill, BsPencil, BsTwitter } from "react-icons/bs";
 import { FaRegUser, FaUser } from "react-icons/fa";
@@ -9,6 +10,7 @@ import {ProfileContext} from '../context/ProfileContex';
 import {TweetContext} from '../context/TweetContex';
 
 import DeleteUser from './DeleteUser';
+import { profileForm } from './GetData';
 
 const Navigation = ({userobj}) => {
   const location= useLocation();
@@ -18,18 +20,21 @@ const Navigation = ({userobj}) => {
   const inner =document.getElementById('inner');
   const [set, setSet] =useState(false);
   const [deleteError ,setDeleteError] =useState(false);
+  const [profile, setProfile]=useState(profileForm);
 
   const goMyProfile=()=>{
     navigate(`/${userobj.id}` ,{state:{value:"profile", previous:location.pathname}})
   };
 
   const goTweetFactory=()=>{
-    const pathname =location.pathname=== '/'? 'tweet' : `${location.pathname}/tweet`;
+    const pathname =`${location.pathname}/tweet`;
+
     navigate( `${pathname}` , 
-    {state:{value:"tweet",
+    {state:{
+    value:"tweet",
     pre_previous:location.state!==null?location.state.previous:"",
     previous:location.pathname , 
-    previousState: (location.pathname.includes("status")|| location.pathname.includes("list"))?location.state.previousState : null }})
+    previousState: ( location.pathname.includes("list"))?location.state.previousState : null }})
   };
   
     set && inner !== null && inner.addEventListener('click', (event)=>{
@@ -37,9 +42,12 @@ const Navigation = ({userobj}) => {
       !target.className.includes('account')&&setSet(false)
     });
 
+  useEffect(()=>{
+    myProfile!==undefined && setProfile(myProfile); 
+  },[myProfile])
   return(
     <>
-    {deleteError &&
+    {deleteError && 
       <div id="deleteError">
         <div>
           Please log out and try again.
@@ -51,11 +59,11 @@ const Navigation = ({userobj}) => {
         }
     <nav id="nav">
       <div>
-        < Link to ="/" id="nav_twitter">
+        < Link to ="/home" id="nav_twitter">
           <BsTwitter/>
         </Link>
-        <Link to ="/">
-          {location.pathname=="/"? 
+        <Link to ="/home">
+          {location.pathname=="/home"? 
           <>
             <AiFillHome/>
             <div className="nav_label on">Home</div> 
@@ -68,7 +76,7 @@ const Navigation = ({userobj}) => {
           }
         </Link>
         <Link to="/notification" userobj={userobj} >
-          {location.pathname==`/notification` ?
+          {location.pathname===`/notification` ?
           <>
             <BsBellFill/> 
             <div className="nav_label on"> Notifications </div>
@@ -115,22 +123,22 @@ const Navigation = ({userobj}) => {
       {set &&
             <div  class="account" id="account">
               <div  class="account"  id="account_user">
-                <img className="profile_photo dark_target acccount" src ={myProfile.photoUrl} alt="myProfile" ></img>
+                <img className="profile_photo dark_target acccount" src ={profile.photoUrl} alt="myProfile" ></img>
                 <div className="nav_label account">
-                  <div  class="account">{myProfile.userName}</div>
-                  <div  class="account">@{myProfile.userId}</div>
+                  <div  class="account">{profile.userName}</div>
+                  <div  class="account">@{profile.userId}</div>
                 </div>
               </div>
               <div  class="account" id="account_btn"> 
                 <button   class="account" id="account_logOut" 
                 onClick={()=>
                   navigate('/logout')}>
-                  Log out @{myProfile.userId}
+                  Log out @{profile.userId}
                 </button>
                 <button   class="account" id="account_logOut" 
-                onClick={()=>{DeleteUser(myProfile, myTweets,setDeleteError );
+                onClick={()=>{DeleteUser(profile, myTweets,setDeleteError );
                 setSet(false)}}>
-                  Delete @{myProfile.userId}
+                  Delete @{profile.userId}
                 </button>
               </div>
             </div>
@@ -138,10 +146,10 @@ const Navigation = ({userobj}) => {
         <button 
         onClick={()=>setSet(!set)}
         >
-          <img className="profile_photo dark_target" src ={myProfile.photoUrl} alt="myProfile" ></img>
+          <img className="profile_photo dark_target" src ={profile.photoUrl} alt="myProfile" ></img>
           <div className="nav_label">
-            <div>{myProfile.userName}</div>
-            <div>@{myProfile.userId}</div>
+            <div>{profile.userName}</div>
+            <div>@{profile.userId}</div>
           </div>
         </button>
 

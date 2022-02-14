@@ -79,7 +79,8 @@ function App() {
   )
   return (
     <>
-      <TwitterRouter isLoggedIn = {isLoggedIn} userobj={userobj} IsMyProfile={IsMyProfile} setIsMyProfile={setIsMyProfile} /> 
+      <TwitterRouter isLoggedIn = {isLoggedIn} setIsLoggedIn={setIsLoggedIn}
+      userobj={userobj} IsMyProfile={IsMyProfile} setIsMyProfile={setIsMyProfile} /> 
       {/* <footer>
       Photo by <a href="https://unsplash.com/@jeremybezanger?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jeremy Bezanger</a> on <a href="https://unsplash.com/s/photos/twitter?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
   
