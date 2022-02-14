@@ -1,5 +1,21 @@
 import { dbService } from "../Fbase";
-import { goProfile } from "./UserProfile";
+
+export  const profileForm ={
+  userId:"" ,
+  userName:"",
+  uid:"",
+  photoUrl:""
+};
+export const tweetForm ={
+  docId:"",
+  text:"",
+  attachmentUrl:"",
+  value:"",
+  createdAt:"",
+  creatorId:"",
+  about:null ,
+  notifications:[]
+}
 
 export const getTweetDoc=(uid, docId) =>dbService.collection(`tweets_${uid}`).doc(`${docId}`)
 .get();
@@ -199,7 +215,7 @@ export  const goBack=(location, what ,navigate)=>{
   const start =pathname.indexOf(what);
   const back=pathname.slice(0,start);
   if(back===""){
-    navigate('/')
+    navigate('/home')
   }else{
     state!==null && state.userUid!==undefined?
     navigate(back ,{state:{
@@ -209,5 +225,5 @@ export  const goBack=(location, what ,navigate)=>{
       value:"userProfile", 
     }})
     :navigate(back )
-};
+}
 };

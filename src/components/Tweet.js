@@ -5,7 +5,7 @@ import {FiArrowLeft, FiMessageCircle} from 'react-icons/fi';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Heart from './Heart';
 import Rt from './Rt';
-import {  deleteTweetNotification, deleteProfileNotification, getTweet, getTweetDoc, getProfile, getProfileDoc, goBack} from './GetData';
+import {  deleteTweetNotification, deleteProfileNotification, getTweet, getTweetDoc, getProfile, getProfileDoc, goBack, profileForm, tweetForm} from './GetData';
 import  { TweetContext } from '../context/TweetContex';
 import {ProfileContext} from '../context/ProfileContex';
 import {BiDotsHorizontalRounded } from 'react-icons/bi';
@@ -24,22 +24,6 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
   const {myProfile} =useContext(ProfileContext);
   const {tweetDispatch} =useContext(TweetContext);
 
-  const profileForm ={
-    userId:"" ,
-    userName:"",
-    uid:"",
-    photoUrl:""
-  };
-  const tweetForm ={
-    docId:"",
-    text:"",
-    attachmentUrl:"",
-    value:"",
-    createdAt:"",
-    creatorId:"",
-    about:null ,
-    notifications:[]
-  }
   const [aboutProfile, setAboutProfile] =useState(profileForm);
   const [ownerProfile, setOwnerProfile] =useState(profileForm);
   const [aboutTweet, setAbouttweet]= useState(tweetForm); 
@@ -73,18 +57,22 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
   }
 };
   const onAnswer=()=>{
+    localStorage.setItem("tweet", JSON.stringify({
+      tweetObj:tweetobj.value ==="tweet"? tweetobj: aboutTweet, 
+      profile:{
+        uid:ownerProfile.uid, 
+        notifications:ownerProfile.notifications} 
+      ,isOwner:false}
+      ));
+
     navigate(`tweet`, {state:{
     previous:location.pathname,
-    tweetObj:tweetobj.value ==="tweet"? tweetobj: aboutTweet, 
-    value:"answer",
-    profile:{uid:ownerProfile.uid, notifications:ownerProfile.notifications}, 
-    isOwner:false,
-    userId:ownerProfile.udrId,
-    userUid:ownerProfile.uid
+    value:"answer"
   }});
 
   };
     const onBack=()=>{
+      localStorage.removeItem('status')
       location.pathname.includes("tweet")&&
       goBack(location, "/tweet",navigate);
 
@@ -107,7 +95,6 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
 
   useEffect(()=>{
     if(tweetobj!==undefined){
-      console.log("tweetobj",tweetobj)
       tweetobj.value==="answer"? getAnswerTweets(aboutTweet) :getAnswerTweets(tweetobj)
     }
   },[tweetobj])
