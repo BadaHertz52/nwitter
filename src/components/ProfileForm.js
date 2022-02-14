@@ -57,11 +57,6 @@ export const ProfileTopForm = ({ isMine , userobj} )=>{
         userFollower:userProfile.follower.concat(userobj.uid),
         following: myFollowingList.concat(userProfile.uid)
       });
-      
-      // userDispatch({
-      //   type:"UPDATE_USERS_DATA",
-      //   newFollower:[userobj.uid].concat(userProfile.follower)
-      // });
 
       setOnFollow({
         following: true , text : "Following"
@@ -82,10 +77,6 @@ export const ProfileTopForm = ({ isMine , userobj} )=>{
       setOnFollow({
         following: false , text : "Follow"
       });
-      // userDispatch({
-      //   type:"UPDATE_USERS_DATA",
-      //   newFollower:userProfile.follower.filter(f=> f!==userobj.uid)
-      // });
 
       setProfile({...userProfile, follower:userProfile.follower.filter(f=> f!==userobj.uid)});
     }
