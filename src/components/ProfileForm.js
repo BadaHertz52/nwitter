@@ -95,6 +95,7 @@ export const ProfileBottomForm = ({isMine, userobj , tweets})=>{
   const buttons =document.querySelectorAll('#pb_buttons button');
   const values =document.querySelectorAll('.value');
   const tweetBtn = document.getElementById('pb_btn_tweet');
+  
   const changeStyle =(event)=>{
     const target = event ? event.target :tweetBtn;
     buttons.forEach(button =>button.classList.remove('check'));
@@ -153,7 +154,7 @@ export const ProfileBottomForm = ({isMine, userobj , tweets})=>{
       contents.map(content => <Tweet 
           key={`tweets_${content.docId}`}
           tweetObj ={content}  
-          isOwner={content.creatorId === userobj.userId}
+          isOwner={isMine}
           userobj={userobj} 
           answer={false} />  )
       }
