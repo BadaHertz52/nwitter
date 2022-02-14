@@ -1,17 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react' ;
+import React, { useContext } from 'react' ;
 
 import { ProfileBottomForm, ProfileTopForm } from '../components/ProfileForm';
-import { ProfileContext } from '../context/ProfileContex';
 import Loading from '../components/Loading';
 import { UserContext } from '../context/UserContext';
 
 
 const Profile = ({userobj}) => {
-  const {userProfile }=useContext(UserContext);
+  const {userProfile , userTweets}=useContext(UserContext);
 
   return (
     <>
-    {(userProfile===undefined)?
+    {(userProfile.uid ===""|| userTweets === undefined)?
       <Loading/>
     :
     <>

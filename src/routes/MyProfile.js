@@ -10,7 +10,7 @@ const MyProfile = ({ userobj} ) => {
   const {myProfile} =useContext(ProfileContext);
   return (
     <>
-    {(myTweets===undefined || myProfile===undefined)?
+    {(myTweets.uid ==="" || myProfile===undefined)?
       <Loading/>
     :
       <>
