@@ -8,7 +8,6 @@ import { BsPencil } from "react-icons/bs";
   const Rt = ( {userobj  ,tweetObj, original ,profile, ownerProfile})=> {
     const navigate=useNavigate();
     const location=useLocation();
-    const state=location.state;
     const rtRef =useRef();
     const [popup, setPopup]= useState(false);
     const [rtBtn, setRtBtn] =useState(("fun rtBtn"));
@@ -39,12 +38,11 @@ import { BsPencil } from "react-icons/bs";
     rtRef.current.classList.contains("on")? offRt() : onRt()
     }; 
     const onQute=()=>{
+      localStorage.setItem("tweet", JSON.stringify({tweetObj:tweetObj, profile:{id:profile.uid, notifications:profile.notifications} ,isOwner:false}));
+      
       navigate("tweet",{state:{
         previous:location.pathname,
-          tweetObj:tweetObj,
-          profile:{uid:profile.uid, notifications:profile.notifications}, 
-          isOwner:false ,
-          value : "qt",
+        value:"qt"
         }
         })
     };

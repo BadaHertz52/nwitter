@@ -6,7 +6,7 @@ import {TweetContext} from '../context/TweetContex';
 import {ProfileContext} from '../context/ProfileContex';
 import Tweet from '../components/Tweet';
 import { BiArrowBack, BiX } from 'react-icons/bi';
-import {  sendNotification, updateMytweetsByMe, updateTweetNotifications ,getProfileDoc } from '../components/GetData';
+import {  sendNotification, updateMytweetsByMe, updateTweetNotifications ,getProfileDoc, tweetForm, profileForm } from '../components/GetData';
 
 const TweetFactory = ({userobj ,setPopup }) => {
 
@@ -17,6 +17,11 @@ const TweetFactory = ({userobj ,setPopup }) => {
   const {tweetInput, tweetDispatch ,myTweets} =useContext(TweetContext);
   const {myProfile}=useContext(ProfileContext);
   const [attachment ,setAttachment] = useState("");
+  const [storageObj,setStorageObj]=useState({
+    tweetObj:tweetForm, 
+    profile:profileForm, 
+    isOwner:false});
+
   const now = new Date();
   const year = now.getFullYear();
   const month =now.getMonth()+1;
@@ -28,23 +33,22 @@ const TweetFactory = ({userobj ,setPopup }) => {
     tweetDispatch(
       {type:'CLEAR_INPUT'}
     );
+
+    localStorage.removeItem('tweet');
+
     const pathname=location.pathname;
     const start =pathname.indexOf('/tweet');
     const back =pathname.slice(0,start);
-
-    location.pathname ==="/tweet"?
-    navigate("/" ,{state:{previous:location.pathname}})
-    :
+    
     location.pathname.includes("tweet")&&
     navigate(back ,
       {state:{
-        previous:location.pathname.includes("list")? location.state.pre_previous: location.pathname , 
-        pre_previous:location.state.pre_previous,
-        previousState: (location.pathname.includes("status")|| location.pathname.includes("list"))? location.state.previousState : null,
+        previous:location.pathname.includes("list")? state.pre_previous: location.pathname , 
+        pre_previous:state.pre_previous,
+        previousState: ( location.pathname.includes("list"))? state.previousState : null,
         value :location.pathname.includes("status")? "status": null,
-        userUid: state.userUid !==undefined ? state.userUid : undefined,
-        userId: state.userId !==undefined ? state.userId : undefined,
       }});
+    
   };
   const onSubmit = async(event) => {
     event.preventDefault();
@@ -57,9 +61,9 @@ const TweetFactory = ({userobj ,setPopup }) => {
     url=await response.ref.getDownloadURL();
     }
     const newtweet ={
-      value:location.state ==null || location.state.value ===undefined ?
+      value:storageObj.profile.uid===""?
       "tweet" : 
-      location.state.value  ,
+      state.value  ,
       text:tweetInput.text.replace(/(\r\n|\n)/g, '<br/>'),
       attachmentUrl:url,
       creatorId: userobj.uid,
@@ -67,10 +71,10 @@ const TweetFactory = ({userobj ,setPopup }) => {
       createdAt:[
         year,month, date ,hour,minutes
       ],
-      about: location.state ==null || location.state.value == undefined? 
+      about: storageObj.profile.uid===""? 
       null : 
-      {creatorId:location.state.tweetObj.creatorId ,
-      docId:location.state.tweetObj.docId
+      {creatorId:storageObj.tweetObj.creatorId ,
+      docId:storageObj.tweetObj.docId
       },
       notifications:[],
     };
@@ -82,7 +86,6 @@ const TweetFactory = ({userobj ,setPopup }) => {
     });
 
     setAttachment("");
-    
     setPopup !== undefined && setPopup(false)
     // 알림
     
@@ -101,16 +104,15 @@ const TweetFactory = ({userobj ,setPopup }) => {
         })
     };
     
-    if(location.state !==null && 
-      location.state.value !== undefined && 
-      (location.state.value ==="qt" ||
-      location.state.value ==="answer" ||
-      location.state.value ==="tweet" 
+    if(state !==null && 
+      state.value !== undefined && 
+      (state.value ==="qt" ||
+      state.value ==="answer" 
       )){
          //알림 가기, 알림 업데이트 
-      const profile =location.state.profile ;
-      const tweetObj =location.state.tweetObj;
-      const value =location.state.value;
+      const profile =storageObj.profile ;
+      const tweetObj =storageObj.tweetObj;
+      const value =state.value;
       // 작성자의 tweet에 대한 알림
     if( tweetObj.creatorId !== userobj.uid ){
       updateTweetNotifications(tweetObj,profile ,value,userobj ,docId) 
@@ -164,11 +166,11 @@ const TweetFactory = ({userobj ,setPopup }) => {
   const OnEditAttachment =(event)=>{
     event.preventDefault();
     navigate('crop', {state:{
-      pre_previous:location.state!==null? location.state.previous : "",
+      pre_previous:state!==null? state.previous : "",
       previous:location.pathname,
       what:"attachment",
       src:attachment,
-      value:location.state!==null? location.state.value:null}})
+      value:state!==null? state.value:null}})
   };
   useEffect(()=>{
 
@@ -179,8 +181,12 @@ const TweetFactory = ({userobj ,setPopup }) => {
       };
       if(state.value !== undefined){
         const value =state.value;
-        (value==="answer" || value ==="qt" || value==="tweet") &&
-        setTweetFactory("tweetFactory popup");
+        if(value==="answer" || value ==="qt" || value==="tweet"){
+          setTweetFactory("tweetFactory popup");
+        };
+        if(value==="answer" || value==="qt"){
+          setStorageObj( JSON.parse( localStorage.getItem('tweet')));
+        }
       }
     }
   },[state]) ;
@@ -191,7 +197,7 @@ const TweetFactory = ({userobj ,setPopup }) => {
         {tweetFactory ==="tweetFactory popup" &&
           <div class="tweetFactory_header">
             <button  onClick={onClose}>
-              {location.state !==null && (location.state.value==="tweet" ?
+              {state !==null && (state.value==="tweet" ?
               <BiX/> :
               <BiArrowBack/>
               )
@@ -203,25 +209,28 @@ const TweetFactory = ({userobj ,setPopup }) => {
           </div>
         }
 
-        { location.state !== null && (location.state.value === "answer" &&
+        { state !== null && (state.value === "answer" &&
         <div id="answertweet">
-          <Tweet
-            tweetObj={location.state.tweetObj} 
-            userobj={userobj} 
-            isOwner ={location.state.isOwner} 
-            answer={true} 
-          />
+          {storageObj.profile.uid!=="" &&
+              <Tweet
+              tweetObj={storageObj.tweetObj} 
+              userobj={userobj} 
+              isOwner ={storageObj.isOwner} 
+              answer={true} 
+            />
+          }
         </div>
         )}
-        <div className={(location.state !== null && location.state.value === "answer") 
-        ? "tweetFactory_box answer" : "tweetFactory_box"}>
+        <div className=
+        {(state !== null && state.value === "answer") 
+        ? "tweetFactory_box answer" 
+        : "tweetFactory_box"}>
           <div className="userProfile">
-                  <img 
-                    className="profile_photo" 
-                    src={userobj.photoURL}
-                    alt="profile"
-                  />
-                
+            <img 
+              className="profile_photo" 
+              src={userobj.photoURL}
+              alt="profile"
+            />
           </div>
           <form onSubmit={onSubmit}>
             <textarea
@@ -240,14 +249,17 @@ const TweetFactory = ({userobj ,setPopup }) => {
                 <button onClick={OnEditAttachment}>Edit</button>
               </div>
             )}
-            {location.state !==null && location.state.value==="qt"&&
+            {state !==null && state.value==="qt"&&
               <div id="tweetFactory_qn">
-                <Tweet 
-                  tweetObj={location.state.tweetObj}  
+                {storageObj.profile.uid!==""&&
+                  <Tweet 
+                  tweetObj={storageObj.tweetObj}  
                   userobj={userobj} 
-                  isOwner ={location.state.isOwner} 
+                  isOwner ={storageObj.isOwner} 
                   answer={false}
                 />
+                }
+                
               </div>
             }
             <div>
