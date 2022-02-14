@@ -9,15 +9,16 @@ import { UserContext } from '../context/UserContext';
 import { TweetContext } from '../context/TweetContex';
 
 
-export const ProfileTopForm = ({ isMine} )=>{
-  const {myProfile }=useContext(ProfileContext);
+export const ProfileTopForm = ({ isMine , userobj} )=>{
+  const {myProfile, profileDispatch }=useContext(ProfileContext);
   const {myTweets}=useContext(TweetContext);
-  const {userProfile ,userTweets}=useContext(UserContext);
+  const {userProfile ,userTweets ,userDispatch}=useContext(UserContext);
 
   const location =useLocation();
   const navigate= useNavigate();
-  const profile = isMine? myProfile : userProfile ;
+  const [profile,setProfile]=useState(isMine? myProfile : userProfile);
   const tweets =isMine? myTweets:userTweets;
+
   const goList=(what)=>{
     navigate(`${location.pathname}/list/${what}` ,{
       state:{
@@ -30,6 +31,76 @@ export const ProfileTopForm = ({ isMine} )=>{
     const inner =document.getElementById('inner');
     inner.style.zIndex='-1' ;
     } ;
+
+    const myFollowingList =myProfile!==undefined? myProfile.following:[];
+  const [onFollow ,setOnFollow] = useState({following:false , text:"Follow"});
+  const followBtn =document.getElementById('profile_followBtn');
+
+  const changeFollowBtn = ()=>{
+    myFollowingList.includes(userProfile.uid) ? 
+    setOnFollow({
+      following: true , text : "Following"
+    }) :
+    setOnFollow({
+      following: false , text : "Follow"
+    });
+  }
+
+  const follow = (event)=> {
+    event.preventDefault();
+    if(!onFollow.following ){
+      //follow 
+      profileDispatch({
+        type:"FOLLOWING",
+        id:userProfile.uid,
+        userNotifications:userProfile.notifications,
+        userFollower:userProfile.follower.concat(userobj.uid),
+        following: myFollowingList.concat(userProfile.uid)
+      });
+      
+      // userDispatch({
+      //   type:"UPDATE_USERS_DATA",
+      //   newFollower:[userobj.uid].concat(userProfile.follower)
+      // });
+
+      setOnFollow({
+        following: true , text : "Following"
+      }) ;
+      setProfile({...userProfile, follower:[userobj.uid].concat(userProfile.follower)});
+    }else {
+      //unFollow
+      profileDispatch({
+        type:"UNFOLLOWING",
+        id:userProfile.uid,
+        userNotifications: userProfile.notifications.filter(n=> 
+          n.value !=="following" || 
+          n.user !== userobj.uid || 
+          n.docId !== null),
+        userFollower :userProfile.follower.filter(f=> f !== userobj.uid),
+        following: myFollowingList.filter( f=> f!== userProfile.uid)
+      });
+      setOnFollow({
+        following: false , text : "Follow"
+      });
+      // userDispatch({
+      //   type:"UPDATE_USERS_DATA",
+      //   newFollower:userProfile.follower.filter(f=> f!==userobj.uid)
+      // });
+
+      setProfile({...userProfile, follower:userProfile.follower.filter(f=> f!==userobj.uid)});
+    }
+
+  }
+
+  useEffect(()=>{
+    myFollowingList[0]!== undefined && changeFollowBtn();
+    if(followBtn !==null){
+      userProfile!== undefined ?
+    followBtn.style.disable=false:
+    followBtn.style.disable=true;
+    }
+    
+  },[userProfile])
 
   return(
     <section id="profileTopForm">
@@ -54,13 +125,17 @@ export const ProfileTopForm = ({ isMine} )=>{
             <div>@{profile.userId}</div>
             <div>{profile.introduce}</div>
           </div>
-            { isMine &&
+            { isMine ?
               <div id="logOutAndEdit">
                 <button onClick={()=>{navigate('/logout')}}> Log Out </button>
                 <button onClick={goEdit} >
                   Edit Profile
                 </button>
               </div>
+              :
+              <button id='profile_followBtn' onClick= {follow} >
+              {onFollow.text}
+            </button>
               }
         </div>
       </div>

@@ -22,19 +22,11 @@ const UserContextProvider=(props)=>{
         return {
           userProfile:action.userProfile,
           userTweets:action.userTweets
-        }
-      case "UPDATE_USER_DATA":
-        return {
-          ...state,
-          userProfile:{
-            ...state.userProfile,
-            follower: action.newFollower
-          }
-        }
+        };
       case "CLEAR_USER":
         return{
           state :initialState
-        }
+        };
       default:
         break;
     }
