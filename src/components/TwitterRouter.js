@@ -30,7 +30,7 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
   const myProfilePath =`/${userobj.id}`;
   const [userId, setUserId]=useState("");
   const [docId, setDocId]=useState("");
-  const [firstLogIn, setFirstLogIn]=useState(isLoggedIn);
+
   const location = useLocation();
   const state =location.state; 
   const navigate =useNavigate();
@@ -105,7 +105,7 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
           }); 
         userDispatch({
           type:'GET_USER_DATA',
-          userProfile:profile,
+          userProfile:userProfile,
           userTweets:tweets
         })
       };

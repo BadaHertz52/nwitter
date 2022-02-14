@@ -1,24 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react' ;
 
 import { ProfileBottomForm, ProfileTopForm } from '../components/ProfileForm';
-
+import {profileForm} from '../components/GetData';
 import { ProfileContext } from '../context/ProfileContex';
 import Loading from '../components/Loading';
-import { useLocation } from 'react-router';
 import { UserContext } from '../context/UserContext';
 
 
 const Profile = ({userobj}) => {
-  const location =useLocation();
-  const state =location.state;
   const {myProfile, profileDispatch} =useContext(ProfileContext);
   const {userDispatch ,userProfile ,userTweets}=useContext(UserContext);
+  const [profile, setProfile]=useState(profileForm);
   const myFollowingList =myProfile!==undefined? myProfile.following:[];
   const [onFollow ,setOnFollow] = useState({following:false , text:"Follow"});
   const followBtn =document.getElementById('profile_followBtn');
 
   const changeFollowBtn = ()=>{
-    myFollowingList.includes(userProfile.uid) ? 
+    myFollowingList.includes(profile.uid) ? 
     setOnFollow({
       following: true , text : "Following"
     }) :
@@ -27,20 +25,21 @@ const Profile = ({userobj}) => {
     });
   }
 
-  const follow = ()=> {
+  const follow = (event)=> {
+    event.preventDefault();
     if(!onFollow.following ){
       //follow 
       profileDispatch({
         type:"FOLLOWING",
-        id:userProfile.uid,
-        userNotifications:userProfile.notifications,
-        userFollower:userProfile.follower.concat(userobj.uid),
-        following: myFollowingList.concat(userProfile.uid)
+        id:profile.uid,
+        userNotifications:profile.notifications,
+        userFollower:profile.follower.concat(userobj.uid),
+        following: myFollowingList.concat(profile.uid)
       });
       
       userDispatch({
         type:"UPDATE_USERS_DATA",
-        newFollower:[userobj.uid].concat(userProfile.follower)
+        newFollower:[userobj.uid].concat(profile.follower)
       });
 
       setOnFollow({
@@ -50,20 +49,20 @@ const Profile = ({userobj}) => {
       //unFollow
       profileDispatch({
         type:"UNFOLLOWING",
-        id:userProfile.uid,
-        userNotifications: userProfile.notifications.filter(n=> 
+        id:profile.uid,
+        userNotifications: profile.notifications.filter(n=> 
           n.value !=="following" || 
           n.user !== userobj.uid || 
           n.docId !== null),
-        userFollower :userProfile.follower.filter(f=> f !== userobj.uid),
-        following: myFollowingList.filter( f=> f!== userProfile.uid)
+        userFollower :profile.follower.filter(f=> f !== userobj.uid),
+        following: myFollowingList.filter( f=> f!== profile.uid)
       });
       setOnFollow({
         following: false , text : "Follow"
       });
       userDispatch({
         type:"UPDATE_USERS_DATA",
-        newFollower:userProfile.follower.filter(f=> f!==userobj.uid)
+        newFollower:profile.follower.filter(f=> f!==userobj.uid)
       })
     }
 
@@ -71,7 +70,7 @@ const Profile = ({userobj}) => {
 
   useEffect(()=>{
     myFollowingList[0]!== undefined && changeFollowBtn();
-
+    userProfile !==null && setProfile(userProfile);
     if(followBtn !==null){
       userProfile!== undefined ?
     followBtn.style.disable=false:
@@ -83,12 +82,12 @@ const Profile = ({userobj}) => {
 
   return (
     <>
-    {(state!== null && state.userProfile !==undefined)?
+    {(profile.uid==="")?
       <Loading/>
     :
     <>
       <section>
-        <ProfileTopForm isMine={false} profile={userProfile} tweets={userTweets} />
+        <ProfileTopForm isMine={false} profile={profile} tweets={userTweets} />
         <button id='profile_followBtn' onClick={follow} >
           {onFollow.text}
         </button>
