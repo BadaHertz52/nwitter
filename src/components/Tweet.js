@@ -20,21 +20,21 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
   const [tweetobj,setTweetObj]=useState(tweetObj);
   const [is_owner, setIsOwner]=useState(isOwner);
   const [is_answer ,setIsAnswer]=useState(answer);
-  
+
   const {myProfile} =useContext(ProfileContext);
   const {tweetDispatch} =useContext(TweetContext);
 
   const [aboutProfile, setAboutProfile] =useState(profileForm);
   const [ownerProfile, setOwnerProfile] =useState(profileForm);
-  const [aboutTweet, setAbouttweet]= useState(tweetForm); 
+  const [aboutTweet, setAbouttweet]= useState(tweetForm);
   const [answerTweets, setAnswerTweets]=useState([{
-    tweet:tweetForm, 
+    tweet:tweetForm,
     profile:profileForm}]);
   const [statusAnswer ,setStatusAnswer]=useState(false);
   const [tweetClassName ,setTCName]=useState("tweet");
   const answerForm =useRef();
-  const rt_heart =(tweetobj!==undefined&& 
-    tweetobj.notifications!==undefined&& 
+  const rt_heart =(tweetobj!==undefined&&
+    tweetobj.notifications!==undefined&&
     tweetobj.notifications[0]!==undefined) ?
   tweetobj.notifications.filter(n=> (n.user ===userobj.uid)&&(n.value==="heart"|| n.value==="rt"))[0] :undefined;
   const [loading,setLoading]=useState(false);
@@ -47,7 +47,8 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
         return {tweet:answerTweet , profile:answerProfile}
       })).then(result => result);
       setAnswerTweets(array);
-      setStatusAnswer(true);
+      const state =location.state;
+      state!==null && state.value==="status" && setStatusAnswer(true);
   }
   //fun
 
@@ -58,10 +59,10 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
 };
   const onAnswer=()=>{
     localStorage.setItem("tweet", JSON.stringify({
-      tweetObj:tweetobj.value ==="tweet"? tweetobj: aboutTweet, 
+      tweetObj:tweetobj.value ==="tweet"? tweetobj: aboutTweet,
       profile:{
-        uid:ownerProfile.uid, 
-        notifications:ownerProfile.notifications} 
+        uid:ownerProfile.uid,
+        notifications:ownerProfile.notifications}
       ,isOwner:false}
       ));
 
@@ -80,7 +81,7 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
       goBack(location, `/${ownerProfile.userId}/status`,navigate);
     };
 
-  
+
   useEffect(()=>{
     if( location.pathname.includes("status")){
       if(localStorage.getItem("status")){
@@ -131,7 +132,7 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
         setLoading(true);
       };
   },[tweetobj,ownerProfile,aboutProfile,aboutTweet]);
-  
+
   const TweetForm =({what ,IsAnswer, profile})=>{
     const now = new Date();
     const year = now.getFullYear();
@@ -139,7 +140,8 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
     const month =now.getMonth()+1;
     const [time ,setTime] =useState("");
     const [aboutTime ,setAboutTime]=useState("");
-    const textId =what!==undefined? what.docId:"";
+    const targetText =useRef();
+
     const tweet =what!==undefined? {
       id:what.id,
       docId:what.docId,
@@ -226,7 +228,7 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
     },[tweet]);
 
     useEffect(()=>{
-      (aboutTime !== ""&& 
+      (aboutTime !== ""&&
       aboutTweet.docId !==""&&
       aboutTweet.createdAt[0]=== year &&
       aboutTweet.createdAt[1]===month &&
@@ -235,28 +237,30 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
       : setAboutTime(`${monthArry[aboutTweet.createdAt[1]]} ${aboutTweet.createdAt[2]},${aboutTweet.createdAt[0]}`)
     },[aboutTweet]);
 
-    const target =document.getElementById(`${textId}`);
-    if(target !==null && target.innerHTML !== tweet.text){
-      target.innerHTML =tweet.text
-    };
-  ;
+    
+    if(targetText !==null ){
+      const target = targetText.current;
+      if(target!==undefined){
+        target.innerHTML=tweet.text;
+    }};
+  
   return (
-  <div 
+  <div
   className={!location.pathname.includes("status")&&"statusBtn"}
   >
       <div
       className='tweet_form'
       id={key}
-      ref={answerForm} 
-      onClick={goState} 
+      ref={answerForm}
+      onClick={goState}
       >
       <div className='tweetSide'>
         <UserProfile profile={profile}/>
         {  IsAnswer &&   !statusAnswer &&
           <div className='answerLine'  >
-          </div> 
+          </div>
         }
-        
+
       </div>
         {/*tweet_content*/}
       <div className="tweet_content">
@@ -268,14 +272,13 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
               {time}
             </span>
           </div>
-          { is_owner && 
+          { is_owner &&
           <button className='fun' onClick={onDeleteClick} name={tweet.docId}>
             <BiDotsHorizontalRounded/>
           </button>
           }
         </div>
-        <div className="text" 
-        id={textId} >
+        <div className="text" ref={targetText}>
           {tweet.text}
         </div>
         { tweet.attachmentUrl !=="" &&
@@ -294,7 +297,7 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
                   <span className='qn_time'>{aboutTime}</span>
                 </div>
               </div>
-              <div className="text" >
+              <div className="text">
                 {aboutTweet.text.replaceAll("<br/>", "\r\n")}
               </div>
               { aboutTweet.attachmentUrl !== "" &&
@@ -305,10 +308,10 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
             </div>
           </div>
             }
-          <div 
+          <div
             className="tweet_fun fun"
           >
-            <button className="fun answer" onClick={onAnswer}> 
+            <button className="fun answer" onClick={onAnswer}>
                 <FiMessageCircle/>
             </button>
             {profile!==undefined && what!==undefined &&
@@ -317,7 +320,7 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
               />
               <Heart tweetObj={what} original={tweetobj} userobj={userobj} profile={profile} ownerProfile={ownerProfile}/>
             </>}
-              
+
           </div>
           {IsAnswer &&  !statusAnswer && aboutProfile.userId!== "" &&
             <div className='answer_who'>
@@ -335,8 +338,8 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
     <div >
       {(!loading&& tweetobj!==undefined)?
       <>
-        <div className={tweetClassName} 
-        id={location.pathname !==undefined && 
+        <div className={tweetClassName}
+        id={location.pathname !==undefined &&
             location.pathname.includes("status")&& "status" }
         >
           {location.pathname.includes("status") &&
@@ -351,7 +354,7 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
           }
           <div className="value">
             {(tweetobj.value ==="rt" &&
-              rt_heart===undefined) 
+              rt_heart===undefined)
             &&
               <div className="value_explain">
                 <AiOutlineRetweet/>
@@ -363,7 +366,7 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
             }
             {(tweetobj.value ==="heart" &&
               rt_heart===undefined)
-              
+
               &&
               <div className="value_explain">
                 <AiOutlineHeart/>
@@ -395,31 +398,31 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
           {(
           tweetobj.value === "qt" ||
           tweetobj.value ==="tweet" )&&
-          <TweetForm 
-            what={tweetobj} 
-            IsAnswer={is_answer} 
-            profile={ownerProfile}  /> 
+          <TweetForm
+            what={tweetobj}
+            IsAnswer={is_answer}
+            profile={ownerProfile}  />
           }
           {(tweetobj.value==="rt" ||
             tweetobj.value === "heart"
             )&&
-          <TweetForm 
-            what={aboutTweet}  
-            IsAnswer={false} 
+          <TweetForm
+            what={aboutTweet}
+            IsAnswer={false}
             profile={aboutProfile}
           />
           }
           {tweetobj.value ==="answer" &&  !statusAnswer &&
-            <TweetForm 
-              what={tweetobj} 
-              IsAnswer={false} 
+            <TweetForm
+              what={tweetobj}
+              IsAnswer={false}
               profile={ownerProfile}/>
           }
         </div>
-      {statusAnswer&& 
+      {statusAnswer&&
         <div class="tweet statusAnswers" >
           {answerTweets.map(
-            answer => 
+            answer =>
             <TweetForm what={answer.tweet} IsAnswer={false} profile={answer.profile}  />
           )}
         </div>}
@@ -430,4 +433,4 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
     </div>
   )
 };
-export default React.memo( Tweet ) 
+export default React.memo( Tweet )
