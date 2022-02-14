@@ -12,11 +12,13 @@ import { TweetContext } from '../context/TweetContex';
 export const ProfileTopForm = ({ isMine , userobj} )=>{
   const {myProfile, profileDispatch }=useContext(ProfileContext);
   const {myTweets}=useContext(TweetContext);
-  const {userProfile ,userTweets ,userDispatch}=useContext(UserContext);
+  const {userProfile ,userTweets}=useContext(UserContext);
 
   const location =useLocation();
   const navigate= useNavigate();
+  
   const [profile,setProfile]=useState(isMine? myProfile : userProfile);
+
   const tweets =isMine? myTweets:userTweets;
 
   const goList=(what)=>{
@@ -163,7 +165,10 @@ export const ProfileBottomForm = ({isMine, userobj })=>{
   const {userTweets}=useContext(UserContext);
 
   const tweets =isMine? myTweets:userTweets;
-  const filterTweets = tweets.filter(tweet => tweet.value=== "tweet"|| tweet.value === "qt");
+  const filterTweets = tweets.filter(tweet => 
+    tweet.value=== "tweet"|| 
+    tweet.value === "qt" || 
+    tweet.value === "rt" );
   const  filterTweetAndAnswer = tweets.filter (tweet=> tweet.value !== 'heart');
   const filterHeartedThings= tweets.filter(tweet=> tweet.value === "heart");
   const filterMediaes =tweets.filter(tweet=> tweet.attachmentUrl !== "");
