@@ -25,7 +25,7 @@ export const ProfileTopForm = ({ isMine , userobj} )=>{
     navigate(`${location.pathname}/list/${what}` ,{
       state:{
         previous:location.pathname,
-        previousState:{isMine:isMine}
+        isMine:isMine
       }})
   };
   const goEdit =()=> {
@@ -39,7 +39,7 @@ export const ProfileTopForm = ({ isMine , userobj} )=>{
   const followBtn =document.getElementById('profile_followBtn');
 
   const changeFollowBtn = ()=>{
-    myFollowingList.includes(userProfile.uid) ? 
+    myFollowingList.includes(profile.uid) ? 
     setOnFollow({
       following: true , text : "Following"
     }) :
@@ -54,33 +54,33 @@ export const ProfileTopForm = ({ isMine , userobj} )=>{
       //follow 
       profileDispatch({
         type:"FOLLOWING",
-        id:userProfile.uid,
-        userNotifications:userProfile.notifications,
-        userFollower:userProfile.follower.concat(userobj.uid),
-        following: myFollowingList.concat(userProfile.uid)
+        id:profile.uid,
+        userNotifications:profile.notifications,
+        userFollower:profile.follower.concat(userobj.uid),
+        following: myFollowingList.concat(profile.uid)
       });
 
       setOnFollow({
         following: true , text : "Following"
       }) ;
-      setProfile({...userProfile, follower:[userobj.uid].concat(userProfile.follower)});
+      setProfile({...profile, follower:[userobj.uid].concat(profile.follower)});
     }else {
       //unFollow
       profileDispatch({
         type:"UNFOLLOWING",
-        id:userProfile.uid,
-        userNotifications: userProfile.notifications.filter(n=> 
+        id:profile.uid,
+        userNotifications: profile.notifications.filter(n=> 
           n.value !=="following" || 
           n.user !== userobj.uid || 
           n.docId !== null),
-        userFollower :userProfile.follower.filter(f=> f !== userobj.uid),
-        following: myFollowingList.filter( f=> f!== userProfile.uid)
+        userFollower :profile.follower.filter(f=> f !== userobj.uid),
+        following: myFollowingList.filter( f=> f!== profile.uid)
       });
       setOnFollow({
         following: false , text : "Follow"
       });
 
-      setProfile({...userProfile, follower:userProfile.follower.filter(f=> f!==userobj.uid)});
+      setProfile({...profile, follower:profile.follower.filter(f=> f!==userobj.uid)});
     }
 
   }
@@ -96,67 +96,76 @@ export const ProfileTopForm = ({ isMine , userobj} )=>{
   },[userProfile])
 
   return(
-    <section id="profileTopForm">
-      <div id="profileTopForm_header">
-        <button 
-        id="profile_goHomeBtn" 
-        className='back'
-        onClick={()=>goBack(location, `/${profile.userId}`, navigate)}>
-          <FiArrowLeft/>
-        </button>
-        <div>
-          <div>{profile.userName}</div>
-          <div>{tweets.length} tweets</div>
-        </div>
-      </div>
-      <div id="profileForm_profile">
-        <img src={profile.headerUrl} alt="profileHeader" />
-        <div>
-          <img src={profile.photoUrl}  alt="profile"/>
-          <div id="profileForm_userInformation">
-            <div>{profile.userName}</div>
-            <div>@{profile.userId}</div>
-            <div>{profile.introduce}</div>
-          </div>
-            { isMine ?
-              <div id="logOutAndEdit">
-                <button onClick={()=>{navigate('/logout')}}> Log Out </button>
-                <button onClick={goEdit} >
-                  Edit Profile
-                </button>
-              </div>
-              :
-              <button id='profile_followBtn' onClick= {follow} >
-              {onFollow.text}
+    <>
+    {profile.photoUrl !=="" ?
+        <section id="profileTopForm">
+          <div id="profileTopForm_header">
+            <button 
+            id="profile_goHomeBtn" 
+            className='back'
+            onClick={()=>goBack(location, `/${profile.userId}`, navigate)}>
+              <FiArrowLeft/>
             </button>
-              }
-        </div>
-      </div>
-      <div className="profile_follow">
-        <button onClick={()=>goList("following")}>
-        {profile.following && (
-          <div>
-            <span className='number'>
-              {profile.following[0] === undefined ? 0 :profile.following.length }
-            </span>
-            &nbsp;
-            Following
-          </div>
-        )}
-        </button>
-        <button  onClick={()=>goList("follower")}>
-          { profile.follower && (
             <div>
-              <span className='number'>
-                {profile.follower[0] === undefined ? 0 :profile.follower.length}
+              <div>{profile.userName}</div>
+              <div>{tweets.length} tweets</div>
+            </div>
+          </div>
+          <div id="profileForm_profile">
+            <img src={profile.headerUrl} alt="profileHeader" />
+            <div>
+              <img src={profile.photoUrl}  alt="profile"/>
+              <div id="profileForm_userInformation">
+                <div>{profile.userName}</div>
+                <div>@{profile.userId}</div>
+                <div>{profile.introduce}</div>
+              </div>
+                { isMine ?
+                  <div id="logOutAndEdit">
+                    <button onClick={()=>{navigate('/logout')}}> Log Out </button>
+                    <button onClick={goEdit} >
+                      Edit Profile
+                    </button>
+                  </div>
+                  :
+                  <button id='profile_followBtn' onClick= {follow} >
+                  {onFollow.text}
+                </button>
+                  }
+            </div>
+          </div>
+          <div className="profile_follow">
+            <button onClick={()=>goList("following")}>
+            {profile.following && (
+              <div>
+                <span className='number'>
+                  {profile.following[0] === undefined ? 0 :profile.following.length }
                 </span>
                 &nbsp;
-                Followers
-            </div>
-          )}
-        </button>
-      </div>
-    </section>
+                Following
+              </div>
+            )}
+            </button>
+            <button  onClick={()=>goList("follower")}>
+              { profile.follower && (
+                <div>
+                  <span className='number'>
+                    {profile.follower[0] === undefined ? 0 :profile.follower.length}
+                    </span>
+                    &nbsp;
+                    Followers
+                </div>
+              )}
+            </button>
+          </div>
+      </section>
+
+      :
+      <Loading/>
+    }
+    </>
+
+
   )
 }
 
