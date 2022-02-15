@@ -83,13 +83,12 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
     if(location !==undefined){
       if(isLoggedIn){
       setContext();
-      location.pathname==="/" && navigate('/home')
+      (location.pathname==="/auth" || location.pathname==="/") && navigate('/home')
     }else{
-     // navigate('/auth');
       location.pathname==="/" && navigate('/auth');
     }
     }
-    },[isLoggedIn, IsMyProfile]);
+    },[isLoggedIn]);
 
   useEffect(()=>{
     if(state!==null && state.value ==="userProfile"){
