@@ -97,7 +97,7 @@ const TweetFactory = ({userobj ,setPopup }) => {
           .then(async(doc)=>{
             if(doc.exists){ 
               const profile=doc.data();
-              sendNotification("tweet",userobj, "", profile,newtweet)
+              sendNotification("tweet",userobj, "", profile,newtweet.docId)
             }
             else{console.log("Can't find user's profile")}})
           .catch(error=> console.log(error,"in TweetFactory"));
