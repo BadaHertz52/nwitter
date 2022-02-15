@@ -47,8 +47,7 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
         return {tweet:answerTweet , profile:answerProfile}
       })).then(result => result);
       setAnswerTweets(array);
-      const state =location.state;
-      state!==null && state.value==="status" && setStatusAnswer(true);
+      setStatusAnswer(true);
   }
   //fun
 
@@ -163,8 +162,8 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
       notifications:"",
       about:""
     } ;
-    const monthArry =["Jan", "Feb", "Mar", "Apr","May", "Jun", "Jul","Aug","sep","Oct","Nov","Dec"];
 
+    const monthArry =["Jan", "Feb", "Mar", "Apr","May", "Jun", "Jul","Aug","sep","Oct","Nov","Dec"];
 
     const onDeleteClick = (event) =>{
       event.preventDefault();
@@ -191,21 +190,21 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
       }
     };
 
-
     const goState =(event)=>{
       const target =event.target;
       const condition = tweet.creatorId===ownerProfile.uid;
       const condition1 =!target.classList.contains("fun");
       const condition2 = !target.parentNode.classList.contains("fun");
       const pathName = `${profile.userId}/status/${tweet.docId}`;
+
       const status = JSON.stringify({
         tweetObj:tweet,
-        isOwner:condition,
+        isOwner: tweet.creatorId=== userobj.uid,
         answer:false,
         ownerProfile:profile,
         value :"status",
         userId:condition? ownerProfile.userId : aboutProfile.userId,
-        docId:condition? tweetobj.docId: aboutTweet.docId
+        docId:tweet.docId
       });
       localStorage.setItem("status", status);
 
@@ -245,9 +244,9 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
     }};
   
   return (
-  <div
-  className={!location.pathname.includes("status")&&"statusBtn"}
-  >
+    <div
+    className={!location.pathname.includes("status")&&"statusBtn"}
+    >
       <div
       className='tweet_form'
       id={key}
@@ -371,7 +370,7 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
               <div className="value_explain">
                 <AiOutlineHeart/>
                 {ownerProfile.uid === userobj.uid  ?
-                '내가'
+                'I'
                 :
                 `${ownerProfile.userName}`} liked
               </div>
@@ -405,12 +404,22 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
           }
           {(tweetobj.value==="rt" ||
             tweetobj.value === "heart"
-            )&&
-          <TweetForm
-            what={aboutTweet}
-            IsAnswer={false}
-            profile={aboutProfile}
-          />
+            )&&(
+              aboutTweet.about !==null ?
+              <Tweet 
+              key={aboutTweet.docId} 
+              tweetObj={aboutTweet}  
+              userobj={userobj} 
+              isOwner ={aboutTweet.creatorId=== userobj.uid}
+              answer={false} 
+              />
+              :
+              <TweetForm
+              what={aboutTweet}
+              IsAnswer={false}
+              profile={aboutProfile}
+            />
+            ) 
           }
           {tweetobj.value ==="answer" &&  !statusAnswer &&
             <TweetForm
