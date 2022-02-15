@@ -372,7 +372,7 @@
         background-color: $hoverGrey;
       }
       img:hover{
-        border:none
+        border-color: transparent;
       }
     }
     .nav_label{
