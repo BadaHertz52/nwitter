@@ -76,7 +76,12 @@
     color:black;
   }
 }
-
+.notListUser {
+  text-align: center;
+  font-size: 1.2rem;
+  color:grey;
+  margin-top: 3rem;
+}
 
 .list_profile{
   display:flex ;
@@ -132,7 +137,7 @@
   height: 2rem;
   font-weight: 700;
   padding: 0 1rem;
-  z-index: 2;
+  z-index: 5;
 
   &.following {
     background-color: #ffff;
@@ -144,9 +149,10 @@
       border:1px solid rgb(231, 2, 40)
     }
   }
-  .unfollowing {
+  &.unfollowing {
     background-color: rgb(39, 39, 39);
     color: rgb(247, 247, 247);
+
   }
 }
 

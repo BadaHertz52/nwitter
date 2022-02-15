@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { FiArrowLeft } from "react-icons/fi";
 import { useLocation, useNavigate } from "react-router";
 import { useContext, useEffect } from "react/cjs/react.development";
 import { getProfileDoc } from "../components/GetData";
+import Loading from "../components/Loading";
 import { ProfileContext } from "../context/ProfileContex";
 import { UserContext } from "../context/UserContext";
-import { dbService } from "../Fbase";
 
 const List =({userobj})=>{
   const [showFollower, setShowFollower] =useState(true);
   const {myProfile, profileDispatch}=useContext(ProfileContext);
-  const {userProfile, userDispatch}=useContext(UserContext);
+  const {userProfile}=useContext(UserContext);
+
   const [profile, setProfile]=useState({userName:"", userId:"", follower:[], following:[]});
+
   const [followers,setFollowers]=useState([{photoUrl:"", userName:"", userId:"", uid:"" , introduce:""}]);
+
   const [followings, setFollowings]=useState([{photoUrl:"", userName:"", userId:"", uid:"" , introduce:""}]);
+
   const navigate =useNavigate();
   const location =useLocation();
   const pathname =location.pathname;
@@ -24,25 +28,6 @@ const List =({userobj})=>{
   const listFollower =document.getElementById('listFollower');
   const listFollowing =document.getElementById('listFollowing');
   
-  const goProfile =async(user)=>{
-    const getDocs = await dbService
-      .collection(`tweets_${user.uid}`)
-      .get()
-      .then();
-      const tweets = getDocs.docs.map(doc => ({
-        id: doc.id ,
-        ...doc.data()}))  ;
-    userDispatch({
-      type:"GET_USER_DATA",
-      userProfile :user,
-      userTweets:tweets
-    });
-      navigate(`/${user.userId}` ,{state:{
-        pre_previous:state.previous,
-        previous:location.pathname,
-        userId:user.userId 
-        ,value:"userProfile"}});
-  };
 
   const changeStyle =(what)=>{
     listBtns.forEach(btn=>btn.classList.remove('check'));
@@ -61,33 +46,34 @@ const List =({userobj})=>{
     changeStyle(listFollowing);
   };
   const goBack=()=>{
+    
     navigate(`/${back}`, {state:state})
   };
-  const goListFollower=()=>{navigate(`${back}/list/follower` , 
+  const goListFollower=()=>{
+    navigate(`${back}/list/follower` , 
   {state:state})};
 
   const goListFollowing =()=>{
     navigate(`${back}/list/following` , 
     {state:state})
   };
-  const getProfile =()=>{
-    const isMine =state.previousState.isMine;
-    switch (isMine) {
-      case true:
-        setProfile(myProfile);
-        break;
-      case false:
-        setProfile(userProfile);
-        break;
-      default:
-        break;
-    }
-  };
+
+
   useEffect(()=>{
-    if(state !== null){
-      getProfile();
-  
-  }},[state, userProfile]);
+    if(state !== null && state.isMine !== undefined){
+      const isMine =state.isMine;
+      isMine ? setProfile(myProfile): setProfile(userProfile);
+      localStorage.setItem("list", JSON.stringify(isMine? myProfile :userProfile));
+  } ;
+},[state, userProfile , myProfile]);
+
+  useEffect(()=>{
+      if(localStorage.getItem("list")){
+    const localProfile =JSON.parse(localStorage.getItem('user'));
+    setProfile(localProfile);
+  };
+  },[]);
+
   useEffect(()=>{
     location.pathname.includes("following") && pushFollowing();
     location.pathname.includes("follower") && pushFollower();
@@ -95,7 +81,7 @@ const List =({userobj})=>{
 
   const UserList =({user , followingMe})=>{
     const isFollowing = myProfile.following.includes(user.uid); 
-    
+
     const onOver =(event)=>{
       const target =event.target;
       target.classList.add("unFollow"
@@ -107,7 +93,8 @@ const List =({userobj})=>{
       target.classList.remove("unFollow"
           );
      target.innerText ="Following";
-      }
+      };
+
     const unFollow =()=>{
       profileDispatch({
         type:"UNFOLLOWING",
@@ -131,9 +118,23 @@ const List =({userobj})=>{
       });
     };
 
+    const goProfile =async(event)=>{
+      const target =event.target;
+      const condition1 =target.classList.contains("list_followBtn");
+      if(!condition1){
+        localStorage.setItem('user', JSON.stringify(user) );
+        navigate(`${user.userId}` ,{state:{
+          pre_previous:state.previous,
+          previous:location.pathname,
+          value:"userProfile"}});
+      };
+    };
 
     return(
-    <>
+    <button 
+      className="list_UserList"
+      onClick={goProfile}
+    >
       <div className="list_profile">
           <img 
           src={user.photoUrl}
@@ -158,6 +159,7 @@ const List =({userobj})=>{
               { isFollowing  ?
                 <button 
                 className="list_followBtn  following"
+
                 onClick={unFollow}
                 onMouseOver={onOver}
                 onMouseOut={onOut}
@@ -167,7 +169,8 @@ const List =({userobj})=>{
               :
                 <button 
                 className="list_followBtn  unfollowing"
-                onClick={onFollow}>
+                onClick={onFollow} 
+                >
                 Follow
                 </button>
                 }
@@ -176,13 +179,14 @@ const List =({userobj})=>{
             <div className="list_userIntroduce">{user.introduce}</div>
           </div>
       </div>
-    </>
+    </button>
     )
   };
 
   return (
     <>
-      {state !== undefined && (
+      {profile.userId!=="" ?
+
           <div id="list">
             <div id="list_header">
               <button className='back' onClick={goBack}>
@@ -209,28 +213,32 @@ const List =({userobj})=>{
           </div>
           <div id="list_list">
           {showFollower ? 
+            (followers[0]!==undefined?
             followers.map(f =>
-            <button 
-              className="list_UserList"
-              onClick={()=>goProfile(f)}
-            >
               <UserList user={f} followingMe={myProfile.follower.includes(f.uid)}/>
-            </button>
+            )
+            :
+            <div className="notListUser">
+              There is no user .
+            </div>
             )
           : 
+          (followings[0]!==undefined ?
             followings.map(f=>
-            <button 
-              className="list_UserList"
-              onClick={()=>goProfile(f)}
-            >
               <UserList user ={f} followingMe={myProfile.follower.includes(f.uid)}/>
-            </button>
+          )
+          :
+          <div className="notListUser">
+            There is no user
+          </div>
           )
           }
                   
           </div>
         </div>
-      )}
+        :
+        <Loading/>
+      }
     </>
   )
 }
