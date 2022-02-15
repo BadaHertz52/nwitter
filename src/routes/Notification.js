@@ -15,7 +15,6 @@ import { goProfile } from '../components/UserProfile';
 const Notification = ({userobj}) => {
   const {myProfile} =useContext(ProfileContext);
   const {myTweets} =useContext(TweetContext);
-  const {userDispatch}=useContext(UserContext);
   const [notifications, setNotifications]=useState
   ([]);
   const buttons =document.querySelectorAll('.notificationBtn');
@@ -48,7 +47,7 @@ const Notification = ({userobj}) => {
     const getData=async()=>{
       const array = await Promise.all( myProfile.notifications.map( (n) =>{
         const result = getProfileDoc(n.user).get().then(async(doc) =>{
-          const tweet =n.docId == null ? null :  myTweets.filter(nt=> nt.docId === n.docId)[0];
+          const tweet =n.docId === "" ? null :  myTweets.filter(nt=> nt.docId === n.docId)[0];
           const notificaton ={value:n.value ,tweet:tweet, user:doc.data(), aboutTweet:n.aboutDocId};
           return notificaton
         });
