@@ -56,21 +56,7 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
     setTCName("tweet answer");
   }
 };
-  const onAnswer=()=>{
-    localStorage.setItem("tweet", JSON.stringify({
-      tweetObj:tweetobj.value ==="tweet"? tweetobj: aboutTweet,
-      profile:{
-        uid:ownerProfile.uid,
-        notifications:ownerProfile.notifications}
-      ,isOwner:false}
-      ));
 
-    navigate(`tweet`, {state:{
-    previous:location.pathname,
-    value:"answer"
-  }});
-
-  };
     const onBack=()=>{
       localStorage.removeItem('status')
       location.pathname.includes("tweet")&&
@@ -151,17 +137,7 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
       value:what.value,
       notifications:what.notifications,
       about:what.about,
-    }:{
-      id:"",
-      docId:"",
-      text :"",
-      attachmentUrl:"",
-      createdAt:"",
-      creatorId:"",
-      value:"",
-      notifications:"",
-      about:""
-    } ;
+    }:tweetForm ;
 
     const monthArry =["Jan", "Feb", "Mar", "Apr","May", "Jun", "Jul","Aug","sep","Oct","Nov","Dec"];
 
@@ -190,6 +166,21 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
       }
     };
 
+    const onAnswer=()=>{
+      localStorage.setItem("tweet", JSON.stringify({
+        tweetObj:tweet,
+        profile:{
+          uid:profile.uid,
+          notifications:profile.notifications},
+        isOwner:false,
+      }
+        ));
+  
+      navigate(`tweet`, {state:{
+      previous:location.pathname,
+      value:"answer"
+    }});
+    };
     const goState =(event)=>{
       const target =event.target;
       const condition = tweet.creatorId===ownerProfile.uid;
@@ -259,7 +250,6 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
           <div className='answerLine'  >
           </div>
         }
-
       </div>
         {/*tweet_content*/}
       <div className="tweet_content">
@@ -285,7 +275,8 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
           <img src={tweet.attachmentUrl}  alt="tweet_attachment"/>
         </div>
         }
-        {tweet.value==="qt" &&
+        {tweet.value==="qt" && 
+        !location.pathname.includes('tweet') &&
           <div className="tweet qt">
             <div className="tweet_content">
               <div className='tweet_header'>
@@ -307,21 +298,25 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
             </div>
           </div>
             }
-          <div
+          {
+            !location.pathname.includes('tweet') &&
+            <div
             className="tweet_fun fun"
           >
             <button className="fun answer" onClick={onAnswer}>
                 <FiMessageCircle/>
             </button>
-            {profile!==undefined && what!==undefined &&
+            {profile!==undefined && what!==undefined && 
             <>
               <Rt tweetObj={what} original={tweetobj} userobj={userobj} profile={profile} ownerProfile={ownerProfile}
               />
               <Heart tweetObj={what} original={tweetobj} userobj={userobj} profile={profile} ownerProfile={ownerProfile}/>
             </>}
-
           </div>
-          {IsAnswer &&  !statusAnswer && aboutProfile.userId!== "" &&
+          }
+          {IsAnswer &&  
+          !statusAnswer && 
+          aboutProfile.userId!== "" &&
             <div className='answer_who'>
               @{aboutProfile.userId}
               에 대한 답글
@@ -336,108 +331,121 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
   return(
     <div >
       {(!loading&& tweetobj!==undefined)?
-      <>
-        <div className={tweetClassName}
-        id={location.pathname !==undefined &&
-            location.pathname.includes("status")&& "status" }
-        >
-          {location.pathname.includes("status") &&
-            <div id="status_header" >
-              <button className='back' onClick={onBack}>
-                <FiArrowLeft/>
-              </button>
-              <div>
-                tweet
-              </div>
-            </div>
-          }
-          <div className="value">
-            {(tweetobj.value ==="rt" &&
-              rt_heart===undefined)
-            &&
-              <div className="value_explain">
-                <AiOutlineRetweet/>
-                {ownerProfile.uid === userobj.uid  ?
-                'I'
-                :
-                `${ownerProfile.userName}`} Retweeted
+        (location.pathname.includes("tweet")?
+        <div className={tweetClassName}>
+          <TweetForm what={tweetObj} IsAnswer={is_answer} profile={ownerProfile}/>
+        </div>
+        :
+        //not tweetFactory 
+        <>
+          <div className={tweetClassName}
+          id={location.pathname !==undefined &&
+              location.pathname.includes("status")&& "status" }
+          >
+            {location.pathname.includes("status") &&
+              <div id="status_header" >
+                <button className='back' onClick={onBack}>
+                  <FiArrowLeft/>
+                </button>
+                <div>
+                  tweet
+                </div>
               </div>
             }
-            {(tweetobj.value ==="heart" &&
-              rt_heart===undefined)
-
+            <div className="value">
+              {(
+                tweetobj.value ==="rt" &&
+                rt_heart===undefined
+                )
               &&
-              <div className="value_explain">
-                <AiOutlineHeart/>
-                {ownerProfile.uid === userobj.uid  ?
-                'I'
-                :
-                `${ownerProfile.userName}`} liked
-              </div>
-            }
-            {((tweetobj.value ==="rt" &&
-              rt_heart!==undefined)||
-              (tweetobj.value ==="heart" &&
-              tweetobj.notifications.filter(n=> (n.user ===userobj.uid)&&(n.value==="rt"))[0]!==undefined)) &&
-              <div className="value_explain">
-                <AiOutlineRetweet/>
-                <AiOutlineHeart/>
-                {ownerProfile.uid === userobj.uid  ?
-                'I'
-                :
-                `${ownerProfile.userName}`} ReTweeted and liked
-              </div>
-            }
-            { tweetobj.value === "answer"  &&
-            <>
-              <TweetForm what={aboutTweet} IsAnswer={true}  profile={aboutProfile} />
-            </>
-            }
-          </div>
-          {(
-          tweetobj.value === "qt" ||
-          tweetobj.value ==="tweet" )&&
-          <TweetForm
-            what={tweetobj}
-            IsAnswer={is_answer}
-            profile={ownerProfile}  />
-          }
-          {(tweetobj.value==="rt" ||
-            tweetobj.value === "heart"
-            )&&(
-              (aboutTweet.about !==null && aboutTweet.value==="qt" )?
-              <Tweet 
-              key={aboutTweet.docId} 
-              tweetObj={aboutTweet}  
-              userobj={userobj} 
-              isOwner ={aboutTweet.creatorId=== userobj.uid}
-              answer={false} 
-              />
-              :
-              <TweetForm
-              what={aboutTweet}
-              IsAnswer={false}
-              profile={aboutProfile}
-            />
-            ) 
-          }
-          {tweetobj.value ==="answer" &&  !statusAnswer &&
+                <div className="value_explain">
+                  <AiOutlineRetweet/>
+                  {ownerProfile.uid === userobj.uid  ?
+                  'I'
+                  :
+                  `${ownerProfile.userName}`} Retweeted
+                </div>
+              }
+              {(
+                tweetobj.value ==="heart" &&
+                rt_heart===undefined
+                )
+                &&
+                <div className="value_explain">
+                  <AiOutlineHeart/>
+                  {ownerProfile.uid === userobj.uid  ?
+                  'I'
+                  :
+                  `${ownerProfile.userName}`} liked
+                </div>
+              }
+              {(
+                (tweetobj.value ==="rt" &&
+                rt_heart!==undefined)||
+                (tweetobj.value ==="heart" &&
+                tweetobj.notifications.filter(n=> 
+                  (n.user ===userobj.uid)&&(n.value==="rt"))[0]!==undefined)
+                ) 
+                &&
+                <div className="value_explain">
+                  <AiOutlineRetweet/>
+                  <AiOutlineHeart/>
+                  {ownerProfile.uid === userobj.uid  ?
+                  'I'
+                  :
+                  `${ownerProfile.userName}`} ReTweeted and liked
+                </div>
+              }
+              { tweetobj.value === "answer"  &&
+              <>
+                <TweetForm what={aboutTweet} IsAnswer={true}  profile={aboutProfile} />
+              </>
+              }
+            </div>
+            {(
+            tweetobj.value === "qt" ||
+            tweetobj.value ==="tweet" )&&
             <TweetForm
               what={tweetobj}
-              IsAnswer={false}
-              profile={ownerProfile}/>
-          }
-        </div>
-      {statusAnswer&&
-        <div class="tweet statusAnswers" >
-          {answerTweets.map(
-            answer =>
-            <TweetForm what={answer.tweet} IsAnswer={false} profile={answer.profile}  />
-          )}
-        </div>}
-      </>
+              IsAnswer={is_answer}
+              profile={ownerProfile}  />
+            }
+            {(tweetobj.value==="rt" ||
+              tweetobj.value === "heart"
+              )&&(
+                (aboutTweet.about !==null && aboutTweet.value==="qt" )?
+                <Tweet 
+                key={aboutTweet.docId} 
+                tweetObj={aboutTweet}  
+                userobj={userobj} 
+                isOwner ={aboutTweet.creatorId=== userobj.uid}
+                answer={false} 
+                />
+                :
+                <TweetForm
+                what={aboutTweet}
+                IsAnswer={false}
+                profile={aboutProfile}
+              />
+              ) 
+            }
+            {tweetobj.value ==="answer" &&  !statusAnswer &&
+              <TweetForm
+                what={tweetobj}
+                IsAnswer={false}
+                profile={ownerProfile}/>
+            }
+          </div>
+        {statusAnswer&&
+          <div class="tweet statusAnswers" >
+            {answerTweets.map(
+              answer =>
+              <TweetForm what={answer.tweet} IsAnswer={false} profile={answer.profile}  />
+            )}
+          </div>}
+        </>)
       :
-      <Loading/>
+        <Loading/>
       }
     </div>
   )
