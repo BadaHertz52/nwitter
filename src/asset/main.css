@@ -1829,8 +1829,9 @@ img, div, button, #nav, input {
 .tweet .qt {
   border: 1px solid rgba(94, 93, 93, 0.658);
   border-radius: 10px;
-  margin: 5% 0;
+  margin: 10px 0;
   padding: 0;
+  width: 90%;
 }
 
 .tweet .qt .tweet_form {
@@ -1855,7 +1856,7 @@ img, div, button, #nav, input {
   width: 100%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  padding: 10px;
+  padding: 5%;
   margin: 0;
 }
 
@@ -2073,7 +2074,7 @@ img, div, button, #nav, input {
     font-size: 1rem;
   }
   .tweet .userProfile {
-    width: 3.5rem;
+    width: 3rem;
   }
   .tweet_content {
     padding: 0;
@@ -2116,6 +2117,7 @@ img, div, button, #nav, input {
 @media screen and (min-width: 1024px) {
   .tweet_content {
     width: 87%;
+    padding-left: 0;
   }
   .tweet_header {
     width: 88%;
@@ -2132,11 +2134,8 @@ img, div, button, #nav, input {
   .heartBtn {
     margin-top: 0;
   }
-  .tweet .qt {
-    margin-left: 5%;
-  }
   .tweet .qt .tweet_content {
-    padding: 5%;
+    padding: 1rem;
     margin-left: 0;
   }
   .tweet .qt .attachment img {

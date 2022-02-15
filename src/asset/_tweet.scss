@@ -131,8 +131,9 @@
 .tweet .qt {
   border :1px solid rgba(94, 93, 93, 0.658);
   border-radius: 10px;
-  margin: 5% 0;
+  margin: 10px 0;
   padding: 0;
+  width: 90%;
   .tweet_form {
     padding-left: 5%;
     padding-top: 5%;
@@ -147,7 +148,7 @@
   .tweet_content {
     width: 100%;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 5%;
     margin:0;
     &>div{
       width: 100%;
@@ -324,7 +325,7 @@
     }
   .tweet {
     .userProfile{
-      width: 3.5rem;
+      width: 3rem;
     }
   &_content{
     padding: 0;
@@ -372,6 +373,7 @@
 
   .tweet_content{
     width: 87%;
+    padding-left: 0;
   }
   .tweet_header{
     width:88%
@@ -390,9 +392,8 @@
     margin-top: 0;
   }
   .tweet .qt {
-    margin-left: 5%;
     .tweet_content {
-      padding: 5% ;
+      padding: 1rem ;
       margin-left:0 ;
     }
     .attachment img{
