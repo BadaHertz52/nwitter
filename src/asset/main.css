@@ -656,6 +656,13 @@ img, div, button, #nav, input {
   color: black;
 }
 
+.notListUser {
+  text-align: center;
+  font-size: 1.2rem;
+  color: grey;
+  margin-top: 3rem;
+}
+
 .list_profile {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -728,7 +735,7 @@ img, div, button, #nav, input {
   height: 2rem;
   font-weight: 700;
   padding: 0 1rem;
-  z-index: 2;
+  z-index: 5;
 }
 
 #list .list_followBtn.following {
@@ -742,7 +749,7 @@ img, div, button, #nav, input {
   border: 1px solid #e70228;
 }
 
-#list .list_followBtn .unfollowing {
+#list .list_followBtn.unfollowing {
   background-color: #272727;
   color: #f7f7f7;
 }
@@ -1463,7 +1470,7 @@ img, div, button, #nav, input {
     background-color: #ebebeb;
   }
   #nav #nav_profile button img:hover {
-    border: none;
+    border-color: transparent;
   }
   #nav #nav_profile .nav_label {
     font-size: 1.1rem;
