@@ -110,7 +110,8 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
       };
       updateUserProfile();
     }
-    if(state!==null && state.value ==="status" && localStorage.getItem('status')){
+    if(state!==null && state.value ==="status" &&
+    localStorage.getItem('status')){
       const status  = JSON.parse( localStorage.getItem('status'));
       setUserId(status.userId);
       setDocId(status.docId);
@@ -162,7 +163,11 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
                       element={<TimeLine userobj={userobj} />}
                     />
                     <Route 
-                      path={`${userId}/status/${docId}`}
+                      path={`/${userId}/status/${docId}`}
+                      element={<Tweet userobj={userobj}/>}
+                    />
+                    <Route 
+                      path={`/home/${userId}/status/${docId}`}
                       element={<Tweet userobj={userobj}/>}
                     />
                     <Route  
