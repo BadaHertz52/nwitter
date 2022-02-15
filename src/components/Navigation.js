@@ -39,7 +39,7 @@ const Navigation = ({userobj}) => {
   
     set && inner !== null && inner.addEventListener('click', (event)=>{
       const target =event.target;
-      !target.className.contains('account')&&setSet(false)
+      !target.className.includes('account')&&setSet(false)
     });
 
   useEffect(()=>{
