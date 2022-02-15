@@ -183,6 +183,12 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
                     <Route 
                       path={`/${userId}/list/following`}
                       element={<List userobj={userobj}/>}/>
+                    <Route 
+                      path={`/${userobj.id}/list/follower`}
+                      element={<List userobj={userobj}/>}/>
+                    <Route 
+                      path={`/${userobj.id}/list/following`}
+                      element={<List userobj={userobj}/>}/>
                       {location.state !== null && location.state.previous !==null &&
                         <>
                         <Route 
