@@ -10,33 +10,32 @@ import { BsPencil } from "react-icons/bs";
     const location=useLocation();
     const rtRef =useRef();
     const [popup, setPopup]= useState(false);
-    const [rtBtn, setRtBtn] =useState(("fun rtBtn"));
+    const [rtBtn, setRtBtn] =useState(("fun rt rtBtn"));
     const {tweetDispatch , myTweets} =useContext(TweetContext);
     const inner =document.getElementById('inner');
 
     const closePopup =(e)=>{
       const target =e.target;
-      if(e &&!target.classList.contains('rt')){
+      const parent =target.parentNode;
+      if(!target.classList.contains('rt')|| !parent.classList.contains('rt')){
         target.addEventListener('click', setPopup(false));
       };
     };
     inner !== null && inner.addEventListener('click', closePopup);
 
-    const clickFun =async(event)=> {
-      
+    const clickFun =async()=> {
       const onRt=()=>{
-        event.preventDefault();
         rtRef.current.classList.add("on");
         OnRtHeart(tweetObj, original, userobj, profile,ownerProfile, tweetDispatch, "rt"  , myTweets)
-        
-      }
+      };
       const offRt=()=>{
-        event.preventDefault();
-        rtRef.current.classList.remove("on")
+        rtRef.current.classList.remove("on");
         OffRtHeart("rt" ,tweetObj,original,  userobj, profile, ownerProfile, tweetDispatch , myTweets) 
       };
-    rtRef.current.classList.contains("on")? offRt() : onRt()
+
+      rtRef.current.classList.contains("on")? offRt() : onRt()
     }; 
+
     const onQute=()=>{
       localStorage.setItem("tweet", JSON.stringify({tweetObj:tweetObj, profile:{id:profile.uid, notifications:profile.notifications} ,isOwner:false}));
       
@@ -51,7 +50,7 @@ import { BsPencil } from "react-icons/bs";
       if(notifications[0]!==undefined){
         const isIncludes = notifications.map(n=> n.user=== userobj.uid && (n.value === "rt"|| n.value==="qt" )).includes(true);
         if(isIncludes){
-            setRtBtn('rtBtn on')
+            setRtBtn('fun rt rtBtn on')
           }
       }
 ;
@@ -68,18 +67,18 @@ import { BsPencil } from "react-icons/bs";
         <AiOutlineRetweet/>
       </button>
               {popup &&
-          <div className="rt_popup fun">
+          <div className="rt rt_popup fun">
             <button className="rt fun" 
             onClick={clickFun}
             >
-            <AiOutlineRetweet /> 
+            <AiOutlineRetweet  /> 
             &nbsp;
-              {rtBtn === "rtBtn" ?"Retweet" : "UndoRetweet" } 
+              {!rtBtn.includes('on')?"Retweet" : "UndoRetweet" } 
             </button>
             <button className="rt fun" 
             onClick={onQute}
             >
-              <BsPencil/>
+              <BsPencil />
               &nbsp;
               Quote tweet
             </button>  
