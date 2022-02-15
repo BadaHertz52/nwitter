@@ -405,7 +405,7 @@ const Tweet =({key, tweetObj , userobj ,isOwner ,answer}) =>{
           {(tweetobj.value==="rt" ||
             tweetobj.value === "heart"
             )&&(
-              aboutTweet.about !==null ?
+              (aboutTweet.about !==null && aboutTweet.value==="qt" )?
               <Tweet 
               key={aboutTweet.docId} 
               tweetObj={aboutTweet}  
