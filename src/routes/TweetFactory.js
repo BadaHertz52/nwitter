@@ -7,6 +7,7 @@ import {ProfileContext} from '../context/ProfileContex';
 import Tweet from '../components/Tweet';
 import { BiArrowBack, BiX } from 'react-icons/bi';
 import {  sendNotification, updateMytweetsByMe, updateTweetNotifications ,getProfileDoc, tweetForm, profileForm } from '../components/GetData';
+import TweetForm from '../components/TweetForm';
 
 const TweetFactory = ({userobj ,setPopup }) => {
 
@@ -97,8 +98,8 @@ const TweetFactory = ({userobj ,setPopup }) => {
           .then(async(doc)=>{
             if(doc.exists){ 
               const profile=doc.data();
-              sendNotification("tweet",userobj, "", profile,newtweet.docId)
-            }
+              sendNotification( state.value,userobj, state.value==="tweet" ? "" : storageObj.docId, profile,newtweet.docId)
+            } 
             else{console.log("Can't find user's profile")}})
           .catch(error=> console.log(error,"in TweetFactory"));
         })
@@ -210,13 +211,13 @@ const TweetFactory = ({userobj ,setPopup }) => {
         }
 
         { state !== null && (state.value === "answer" &&
-        <div id="answertweet">
+        <div id="answerTweet">
           {storageObj.profile.uid!=="" &&
-              <Tweet
-              tweetObj={storageObj.tweetObj} 
-              userobj={userobj} 
-              isOwner ={storageObj.isOwner} 
-              answer={true} 
+              <TweetForm
+              tweet={storageObj.tweetObj} 
+              is_owner ={storageObj.isOwner} 
+              profile={storageObj.profile}
+              IsAnswer={true} 
             />
           }
         </div>

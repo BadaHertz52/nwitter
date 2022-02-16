@@ -11,6 +11,7 @@ import {  useLocation, useNavigate } from 'react-router';
 import { dbService } from '../Fbase';
 import { UserContext } from '../context/UserContext';
 import { goProfile } from '../components/UserProfile';
+import TweetForm from '../components/TweetForm';
 
 const Notification = ({userobj}) => {
   const {myProfile} =useContext(ProfileContext);
@@ -47,7 +48,10 @@ const Notification = ({userobj}) => {
     const getData=async()=>{
       const array = await Promise.all( myProfile.notifications.map( (n) =>{
         const result = getProfileDoc(n.user).get().then(async(doc) =>{
-          const tweet =n.docId === "" ? null :  myTweets.filter(nt=> nt.docId === n.docId)[0];
+          const tweet =(n.docId === "" || n.docId == null) ?
+                        null 
+                        :  
+                        myTweets.filter(nt=> nt.docId === n.docId)[0];
           const notificaton ={value:n.value ,tweet:tweet, user:doc.data(), aboutTweet:n.aboutDocId};
           return notificaton
         });
@@ -63,12 +67,14 @@ const Notification = ({userobj}) => {
           return result
         }else{return a}
           })).then(result=>result);
+          console.log(array_withTweets)
       setNotifications(array_withTweets);
     }
     myProfile.notifications[0]!==undefined && getData();
-  },[myProfile])
+  },[myProfile]);
+  
   return (
-    <section id="notification" className='header'>
+    <section id="notifications" className='header'>
       <div>Notification</div>
       <div id="notificationBtns">
         <button className='notificationBtn'id="wholeBtn" onClick={()=>{setShowAll(true); changeStyle(wholeBtn)}}>
@@ -86,7 +92,7 @@ const Notification = ({userobj}) => {
         ( (n) => ( 
         n.value !== 'answer' ? (
       <div 
-      id="notification_notification"
+      class="notification"
       onClick={()=>goTimeLine(n)}>
         <div className='notification_left'>
           { (n.value === 'qt'|| n.value ==='rt') &&
@@ -141,14 +147,15 @@ const Notification = ({userobj}) => {
         </div>
       </div>)
       :( 
-        <div  class="mention" onClick={()=>goTimeLine(n)}>
-          <Tweet isOwner={false} userobj={userobj} tweetObj={n.aboutTweet} answer={true}/>
+        <div  class="mention notification" onClick={()=>goTimeLine(n)}>
+
+          <TweetForm is_owner={false} tweet={n.aboutTweet} profile={n.user} IsAnswer={false}/>
         </div>
       )))
     :
     ( notifications.filter(n=>n.value === 'answer').map(n=>
-      <div class="mention"onClick={()=>goTimeLine(n)}>
-        <Tweet isOwner={false} userobj={userobj} tweetObj={n.aboutTweet} answer={true}/>
+      <div class="mention notification"onClick={()=>goTimeLine(n)}>
+        <TweetForm is_owner={false} tweet={n.aboutTweet} IsAnswer={false} profile={n.user}/>
       </div>
     ))}
     </div>
