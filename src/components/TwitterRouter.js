@@ -1,11 +1,10 @@
 //css
 import '../asset/main.css';
 
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Route, Routes ,useLocation , useNavigate} from 'react-router-dom';
 import ProfileContextProvier, { ProfileContext } from '../context/ProfileContex';
 import TweetContextProvier, { TweetContext } from '../context/TweetContex';
-import { useContext, useEffect } from 'react/cjs/react.development';
 import { getTweetsDocs, getProfileDoc } from './GetData';
 
 import Cropper from '../routes/Cropper';
