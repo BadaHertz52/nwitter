@@ -15,7 +15,7 @@ const Profile = ({userobj , home}) => {
     :
     <>
       <section>
-        <ProfileTopForm isMine={false} userobj={userobj}  home={home}/ />
+        <ProfileTopForm isMine={false} userobj={userobj}  home={home} />
       </section>
       <section >
         <ProfileBottomForm  isMine={false} userobj={userobj} /> 
