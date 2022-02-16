@@ -124,7 +124,7 @@ const List =({userobj})=>{
         navigate(`${user.userId}` ,{state:{
           pre_previous:state.previous,
           previous:location.pathname,
-          value:"userProfile"}});
+          value:"userProfile"}})
       };
     };
 

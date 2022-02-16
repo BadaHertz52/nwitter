@@ -4,7 +4,7 @@ import {  useNavigate ,useLocation} from 'react-router-dom';
 export const goProfile =async(navigate,profile,location)=>{
   const {userId}=profile; 
   localStorage.setItem('user', JSON.stringify(profile) )
-  navigate(`${userId}` ,{state:{
+  navigate(`/twitter/${userId}` ,{state:{
     previous:location.pathname,
     value:"userProfile", 
   }})

@@ -193,18 +193,18 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
                       {location.state !== null && location.state.previous !==null &&
                         <>
                         <Route 
-                          path={`/twitter/${location.state.previous}/timeLine`}
+                          path={`${location.state.previous}/timeLine`}
                           element={<TimeLine userobj={userobj} />}
                         />
                         <Route 
-                          path={`/twitter/${location.state.previous}/${userId}/status/${docId}`}
+                          path={`${location.state.previous}/${userId}/status/${docId}`}
                           element={<Tweet userobj={userobj}/>}
                         />
                         <Route 
-                          exact path={`/twitter/${location.state.previous}/notification`}
+                          exact path={`${location.state.previous}/notification`}
                           element={<Notification userobj={userobj}  />} />
                         <Route  
-                            path={`/twitter/${location.state.previous}/${userId}`} 
+                            path={`${location.state.previous}/${userId}`} 
                             element={<Profile userobj={userobj} 
                             />}/>
                         </>

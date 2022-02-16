@@ -29,7 +29,7 @@ export const ProfileTopForm = ({ isMine , userobj } )=>{
       }})
   };
   const goEdit =()=> {
-    navigate(`editProfile` ,{state:{previous:location.pathname}})
+    navigate(`${location.pathname}/editProfile` ,{state:{previous:location.pathname}})
     const inner =document.getElementById('inner');
     inner.style.zIndex='-1' ;
     } ;
@@ -103,7 +103,7 @@ export const ProfileTopForm = ({ isMine , userobj } )=>{
             <button 
             id="profile_goHomeBtn" 
             className='back'
-            onClick={()=>goBack(location, `/${profile.userId}`, navigate)}>
+            onClick={()=>goBack(location, `${profile.userId}`, navigate)}>
               <FiArrowLeft/>
             </button>
             <div>

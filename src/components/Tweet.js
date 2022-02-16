@@ -59,10 +59,10 @@ const Tweet =({key, tweetObj , userobj ,answer}) =>{
     const onBack=()=>{
       localStorage.removeItem('status')
       location.pathname.includes("tweet")&&
-      goBack(location, "/tweet",navigate);
+      goBack(location, "tweet",navigate);
 
       location.pathname.includes("status")&&
-      goBack(location, `/${ownerProfile.userId}/status`,navigate);
+      goBack(location, `${ownerProfile.userId}/status`,navigate);
     };
 
 

@@ -132,7 +132,7 @@ const Navigation = ({userobj}) => {
               <div  class="account" id="account_btn"> 
                 <button   class="account" id="account_logOut" 
                 onClick={()=>
-                  navigate(`/twitter//logout`)}>
+                  navigate(`/twitter/logout`)}>
                   Log out @{profile.userId}
                 </button>
                 <button   class="account" id="account_logOut" 
