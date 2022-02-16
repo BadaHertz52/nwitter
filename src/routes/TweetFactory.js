@@ -36,19 +36,27 @@ const TweetFactory = ({userobj ,setPopup }) => {
     );
 
     localStorage.removeItem('tweet');
-
     const pathname=location.pathname;
-    const start =pathname.indexOf('/tweet');
-    const back =pathname.slice(0,start);
-    
-    location.pathname.includes("tweet")&&
-    navigate(back ,
-      {state:{
-        previous:location.pathname.includes("list")? state.pre_previous: location.pathname , 
-        pre_previous:state.pre_previous,
-        previousState: ( location.pathname.includes("list"))? state.previousState : null,
-        value :location.pathname.includes("status")? "status": null,
-      }});
+    const back =state.previous;
+    if(back.includes("list")){
+      navigate(back ,
+        {state:{
+          isMine:state.isMine,
+          previous:state.previous,
+          userId: state.userId
+        }
+        });
+    }else if(back.includes("status")){
+      navigate(back ,
+        {state:state});
+    }else{
+      navigate(back ,
+        {state:{
+          previous:location.pathname , 
+          value : null,
+        }});
+    }
+  
     
   };
   const onSubmit = async(event) => {
@@ -166,7 +174,7 @@ const TweetFactory = ({userobj ,setPopup }) => {
 
   const OnEditAttachment =(event)=>{
     event.preventDefault();
-    navigate('crop', {state:{
+    navigate('/twitter/crop', {state:{
       pre_previous:state!==null? state.previous : "",
       previous:location.pathname,
       what:"attachment",
@@ -174,7 +182,6 @@ const TweetFactory = ({userobj ,setPopup }) => {
       value:state!==null? state.value:null}})
   };
   useEffect(()=>{
-
     if(state !==null){
       if(state.what !== undefined){
         state.what ==="attachment"&&

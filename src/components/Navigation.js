@@ -27,14 +27,21 @@ const Navigation = ({userobj}) => {
   };
 
   const goTweetFactory=()=>{
-    const pathname =`${location.pathname}/tweet`;
-
-    navigate( `${pathname}` , 
+    location.pathname.includes("list")?
+    navigate( `/twitter/tweet` , 
     {state:{
     value:"tweet",
-    pre_previous:location.state!==null?location.state.previous:"",
-    previous:location.pathname , 
-    previousState: ( location.pathname.includes("list"))?location.state.previousState : null }})
+    previous:location.pathname ,
+    isMine: location.state.isMine,
+    userId :location.state.userId
+  }
+  })
+    :
+    navigate( `/twitter/tweet` , 
+    {state:{
+    value:"tweet",
+    previous:location.pathname }
+  })
   };
   
     set && inner !== null && inner.addEventListener('click', (event)=>{

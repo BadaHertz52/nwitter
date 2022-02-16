@@ -22,14 +22,15 @@ export const ProfileTopForm = ({ isMine , userobj } )=>{
   const tweets =isMine? myTweets:userTweets;
 
   const goList=(what)=>{
-    navigate(`${location.pathname}/list/${what}` ,{
+    navigate(`/twitter/${profile.userId}/list/${what}` ,{
       state:{
         previous:location.pathname,
-        isMine:isMine
+        userId: profile.userId,
+        isMine:isMine,
       }})
   };
   const goEdit =()=> {
-    navigate(`${location.pathname}/editProfile` ,{state:{previous:location.pathname}})
+    navigate(`/twitter/editProfile` ,{state:{previous:location.pathname}})
     const inner =document.getElementById('inner');
     inner.style.zIndex='-1' ;
     } ;
@@ -103,7 +104,7 @@ export const ProfileTopForm = ({ isMine , userobj } )=>{
             <button 
             id="profile_goHomeBtn" 
             className='back'
-            onClick={()=>goBack(location, `${profile.userId}`, navigate)}>
+            onClick={()=>goBack(location, navigate)}>
               <FiArrowLeft/>
             </button>
             <div>
