@@ -1,13 +1,62 @@
 @import './common';
 
-#notification {
+#notifications {
   margin-left: 0;
   &>div:first-child{
     margin-left :1rem;
   }
+  .notification{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: initial;
+    border-radius: 0;
+    border-bottom:1px solid  $lineGrey;
+    padding : {
+      left: 1rem;
+      top:1rem;
+      bottom: 1rem;
+    }
+    margin-top: 0;
+    &:hover{
+      @include backBtnHover
+    }
+  }
+  .tweet_form {
+    font-weight: initial;
+    padding-left: 10px;
+    .text {
+      font-size: 1rem;
+      text-align: start;
+    }
+    width: 100%;
+    background-color: initial;
+    border-radius: 0;
+    margin-top: 0;
+    .value{
+      display: none;
+    }
+    .goStatusBtn {
+      display: none;
+    }
+    .tweet_content {
+      padding:0 10px;
+    }
+    .tweet_header {
+      &>div, button{
+        font-size: 1.1rem;
+      }
+    } 
+    .tweetSide ,
+    .userProfile img{
+      width: 2.3rem;
+    }
+  }
   
+
 }
-#notification 
+
+#notifications 
 #notificationBtns{
   width: 100%;
   display: flex;
@@ -17,7 +66,7 @@
   height: 4rem;
   text-align: center;
   background-color: initial;
-  border-bottom:1px solid rgba(190, 190, 190, 0.192);
+  border-bottom:1px solid $lineGrey;
   border-radius: 0;
   font-size: 1.2rem;
   &.check div{
@@ -29,56 +78,17 @@
 }
 }
 .notificationBtn:hover,
-#notification .mention:hover{
+#notifications .mention:hover{
   color: initial;
   background-color:rgb(235, 235, 235); 
 } 
 
-#notification {
-  .mention{
-    width: 100%;
-    background-color: initial;
-    border-radius: 0;
-    margin-top: 0;
-    .value{
-      display: none;
-    }
-    .tweet{
-      padding-left: 0;
-    }
-    .tweet_form{
-      width: 100%;
-      justify-content: stretch;
-    }
-    .goStatusBtn {
-      display: none;
-    }
-  }
-  .answer .tweet_content{
-    padding:0;
-  }
-  &_notification{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    background-color: initial;
-    border-radius: 0;
-    padding : {
-      left: 1rem;
-      top:1rem
-    }
-    margin-top: 0;
-    &:hover{
-      @include backBtnHover
-    }
-  }
-}
 
 .notification_left{
   width: 3rem;
   svg{
     margin-right: 1rem;
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 }
 
@@ -96,43 +106,20 @@
   display: flex;
   flex-direction: column;
   img{
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.3rem;
+    height: 2.3rem;
     margin-right:2rem;
   }
 }
 .notification_inform{
   font-size: 1rem;
   font-weight: initial;
-  margin-top: 1rem;
+  margin-top: 10px;
   div:last-child{
-    margin-top: 1rem;
+    margin-top: 10px;
     color: rgb(88, 86, 86);
   
   }
-}
-#notification {
-  .tweet {
-    font-weight: initial;
-    padding-left: 10px;
-    .text {
-      font-size: 1.2rem;
-      text-align: start;
-    }
-  }
-  .tweet_content {
-    padding:0 10px;
-  }
-  .tweet_header {
-    &>div, button{
-      font-size: 1.1rem;
-    }
-  } 
-  .tweetSide ,
-  .userProfile img{
-    width: 2.5rem;
-  }
-
 }
 
 
@@ -145,7 +132,7 @@
     }
   }
   
-  #notification.tweet_header .tweet_time{
+  #notifications.tweet_header .tweet_time{
     font-size: 11px;
   }
 
