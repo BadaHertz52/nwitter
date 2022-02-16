@@ -39,7 +39,7 @@ import { BsPencil } from "react-icons/bs";
     const onQute=()=>{
       localStorage.setItem("tweet", JSON.stringify({tweetObj:tweetObj, profile:{id:profile.uid, notifications:profile.notifications} ,isOwner:false}));
       
-      navigate("tweet",{state:{
+      navigate("/twitter/tweet",{state:{
         previous:location.pathname,
         value:"qt"
         }
