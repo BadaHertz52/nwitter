@@ -45,7 +45,9 @@ const List =({userobj})=>{
     changeStyle(listFollowing);
   };
   const goBack=()=>{
-    
+    location.pathname.includes('/twitter')?
+    navigate(`/twitter/${back}`, {state:state})
+    :
     navigate(`/${back}`, {state:state})
   };
   const goListFollower=()=>{

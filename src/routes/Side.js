@@ -37,6 +37,12 @@ const Side =({userobj})=>{
       userProfile :result,
       userTweets:tweets
     });
+    location.pathname.includes('/twitter/')?
+    navigate(`/twitter/${result.userId}` ,{state:{
+      previous:location.pathname,
+      userId:result.userId ,
+      value:"userProfile"}})
+    :
     navigate(`/${result.userId}` ,{state:{
       previous:location.pathname,
       userId:result.userId ,

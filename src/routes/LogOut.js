@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { BsTwitter } from 'react-icons/bs';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { TweetContext } from '../context/TweetContex';
 import { ProfileContext } from '../context/ProfileContex';
 import { UserContext } from '../context/UserContext';
@@ -12,7 +12,7 @@ const LogOut =({setIsLoggedIn})=>{
   const {profileDispatch} =useContext(ProfileContext);
   const {userDispatch}=useContext(UserContext);
   const navigate =useNavigate();
-
+  const location =useLocation();
   const onLogOut = () => {
     userDispatch({
       type:"CLEAR_USER"
@@ -24,6 +24,9 @@ const LogOut =({setIsLoggedIn})=>{
       type:"CLEAR_MY_PROFILE"
     });
     setIsLoggedIn(false);
+    location.pathname.includes('/twitter')?
+    navigate('/twitter/auth')
+    :
     navigate('/auth');
     authSerVice.signOut();
   };

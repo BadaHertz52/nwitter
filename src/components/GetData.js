@@ -217,6 +217,9 @@ export  const goBack=(location, what ,navigate)=>{
   const start =pathname.indexOf(what);
   const back=pathname.slice(0,start);
   if(back===""){
+    location.pathname.includes('/twitter/')? 
+    navigate('/twitter/home') 
+    :
     navigate('/home')
   }else{
     state!==null && state.userUid!==undefined?

@@ -33,20 +33,13 @@ const Cropper =()=> {
     const value =location.state.value;
     const start = pathname.indexOf("/crop");
     const backPathName =pathname.slice(0,start);
-
-    pathname!=="/crop" ?
+    
     navigate( `${backPathName}` , {state:
       {what:what ,
       value:value ,
       previous: pathname.includes('tweet')? 
       location.state.pre_previous :
       location.state.previous
-    }})
-    :
-    navigate( '/' , {state:
-      {what:what ,
-      value:value ,
-      previous:location.state.pre_previous 
     }})
   } ;
 

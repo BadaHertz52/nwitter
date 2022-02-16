@@ -132,6 +132,9 @@ const Navigation = ({userobj}) => {
               <div  class="account" id="account_btn"> 
                 <button   class="account" id="account_logOut" 
                 onClick={()=>
+                  location.pathname.includes("/twitter")?
+                  navigate('/twitter/logout')
+                  :
                   navigate('/logout')}>
                   Log out @{profile.userId}
                 </button>

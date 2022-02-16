@@ -25,15 +25,14 @@ import LogOut from '../routes/LogOut';
 import Loading from './Loading';
 
 const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMyProfile }) => {
-
-  const myProfilePath =`/${userobj.id}`;
+  const [home, setHome]=useState("/");
+  const [myProfilePath ,setMyProfilePath]=useState(`/${userobj.id}`);
   const [userId, setUserId]=useState("");
   const [docId, setDocId]=useState("");
 
   const location = useLocation();
   const state =location.state; 
   const navigate =useNavigate();
-
   const ContextRouter =()=>{
     const {profileDispatch} =useContext(ProfileContext);
     const {tweetDispatch}= useContext(TweetContext);
@@ -80,11 +79,17 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
 
   useEffect(()=>{
     if(location !==undefined){
+      console.log(location.pathname==="/twitter/" )
+      location.pathname==="/twitter/" 
+      && setHome('/twitter/') 
+      && setMyProfilePath(`/twitter/${userobj.id}`)
       if(isLoggedIn){
       setContext();
-      (location.pathname==="/auth" || location.pathname==="/") && navigate('/home')
+      (location.pathname.includes("/auth") || 
+      location.pathname==="/" || 
+      location.pathname==="/twitter/") && navigate('/home')
     }else{
-      location.pathname==="/" && navigate('/auth');
+      (location.pathname==="/" || location.pathname==='/twitter/') && navigate('/auth');
     }
     }
     },[isLoggedIn]);
@@ -137,15 +142,15 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
                 </>
               }
               <Route  
-                path="/tweet" 
+                path={`${home}tweet`} 
                 element={ <TweetFactory userobj={userobj}/>}/>
               <Route 
-                path="/crop" 
+                path={`${home}crop`} 
                 element={ <Cropper/>}/>
               <Route exact path={`/${userobj.id}/editProfile`} 
               element={<EditProfile userobj={userobj}  />}/>
               <Route
-                  exact path="/logout"
+                  exact  path={`${home}logout`} 
                   element={<LogOut setIsLoggedIn={setIsLoggedIn} />}
                 />
             </Routes>
@@ -155,18 +160,18 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
                 <div id="main">
                   <Routes>
                     <Route 
-                      exact path="/home" 
+                      exact path={`${home}home`} 
                       element={<Home  userobj={userobj}/>}/> 
                     <Route 
-                      exact path="/timeLine"
+                      exact  path={`${home}timeLine`}
                       element={<TimeLine userobj={userobj} />}
                     />
                     <Route 
-                      path={`/${userId}/status/${docId}`}
+                      path={`${home}${userId}/status/${docId}`}
                       element={<Tweet userobj={userobj}/>}
                     />
                     <Route 
-                      path={`/home/${userId}/status/${docId}`}
+                      path={`${home}home/${userId}/status/${docId}`}
                       element={<Tweet userobj={userobj}/>}
                     />
                     <Route  
@@ -174,39 +179,39 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
                       element={ 
                       <MyProfile userobj={userobj} />}/>
                     <Route 
-                      exact path="/notification" 
+                      exact path={`${home}notification`}
                       element={<Notification userobj={userobj}  />} />
                     <Route  
-                        path={`/${userId}`} 
+                        path={`${home}${userId}`} 
                         element={<Profile userobj={userobj} 
                         />}/>
                     <Route 
-                      path={`/${userId}/list/follower`}
+                      path={`${home}${userId}/list/follower`}
                       element={<List userobj={userobj}/>}/>
                     <Route 
-                      path={`/${userId}/list/following`}
+                      path={`${home}${userId}/list/following`}
                       element={<List userobj={userobj}/>}/>
                     <Route 
-                      path={`/${userobj.id}/list/follower`}
+                      path={`${home}${userobj.id}/list/follower`}
                       element={<List userobj={userobj}/>}/>
                     <Route 
-                      path={`/${userobj.id}/list/following`}
+                      path={`${home}${userobj.id}/list/following`}
                       element={<List userobj={userobj}/>}/>
                       {location.state !== null && location.state.previous !==null &&
                         <>
                         <Route 
-                          path={`/${location.state.previous}/timeLine`}
+                          path={`${home}${location.state.previous}/timeLine`}
                           element={<TimeLine userobj={userobj} />}
                         />
                         <Route 
-                          path={`/${location.state.previous}/${userId}/status/${docId}`}
+                          path={`${home}${location.state.previous}/${userId}/status/${docId}`}
                           element={<Tweet userobj={userobj}/>}
                         />
                         <Route 
-                          exact path={`/${location.state.previous}/notification`}
+                          exact path={`${home}${location.state.previous}/notification`}
                           element={<Notification userobj={userobj}  />} />
                         <Route  
-                            path={`/${location.state.previous}/${userId}`} 
+                            path={`${home}${location.state.previous}/${userId}`} 
                             element={<Profile userobj={userobj} 
                             />}/>
                         </>
@@ -225,11 +230,11 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
           <>
             <Routes>
               <Route
-                path='/editProfile'
+                path={`${home}editProfile`}
                 element={<EditProfile userobj={userobj} setIsMyProfile={setIsMyProfile} />}      
               />
               <Route 
-                path="/crop" 
+                path={`${home}crop`}
                 element={ <Cropper/>}/>
             </Routes>
           </>
@@ -238,7 +243,7 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
       :
       (isLoggedIn !==undefined ?
         <Routes>
-          <Route  exact path="/auth" element={ <Auth/>}/>
+          <Route  exact path={`${home}auth`} element={ <Auth/>}/>
         </Routes>
       :
         <Loading/>
