@@ -28,7 +28,7 @@ const TimeLine =({userobj})=>{
       <div id="timeLine_header">
         <button  
         className='back'
-        onClick={()=> goBack(location, "timeLine", navigate)}
+        onClick={()=> goBack(location, navigate)}
         >
             <FiArrowLeft/>
         </button>

@@ -32,7 +32,7 @@ const Notification = ({userobj}) => {
     n.value === "following"? 
     goProfile(navigate,n.user,location)
     :
-    navigate("timeLine" , {state:{
+    navigate("/twitter/timeLine" , {state:{
       previous:location.pathname,
       docId:n.value==="tweet"? n.aboutTweet.docId: n.tweet.docId , 
       value:n.value, 

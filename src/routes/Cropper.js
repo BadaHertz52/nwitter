@@ -30,16 +30,12 @@ const Cropper =()=> {
 
   const onBack=()=>{
     const pathname =location.pathname ;
-    const value =location.state.value;
-    const start = pathname.indexOf("/crop");
-    const backPathName =pathname.slice(0,start);
-    
-    navigate( `${backPathName}` , {state:
+    const state =location.state;
+    const value =state.value;
+    navigate( state.previous , {state:
       {what:what ,
       value:value ,
-      previous: pathname.includes('tweet')? 
-      location.state.pre_previous :
-      location.state.previous
+      previous: pathname
     }})
   } ;
 

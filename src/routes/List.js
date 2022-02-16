@@ -19,10 +19,8 @@ const List =({userobj})=>{
 
   const navigate =useNavigate();
   const location =useLocation();
-  const pathname =location.pathname;
   const state =location.state;
-  const start = pathname.indexOf('/list');
-  const back =pathname.slice(0,start);
+
   const listBtns =document.querySelectorAll('.listBtn');
   const listFollower =document.getElementById('listFollower');
   const listFollowing =document.getElementById('listFollowing');
@@ -45,32 +43,39 @@ const List =({userobj})=>{
     changeStyle(listFollowing);
   };
   const goBack=()=>{
-    navigate(`/twitter/${back}`, {state:state})
+    if(state!==null){
+      const {previous}=state;
+      navigate( {previous}, {state:state })
+    }
+   
   };
   const goListFollower=()=>{
-    navigate(`${back}/list/follower` , 
+    
+    navigate(`/twitter/${profile.userId}/list/follower` , 
   {state:state})};
 
   const goListFollowing =()=>{
-    navigate(`${back}/list/following` , 
+    navigate(`/twitter/${profile.userId}/list/following` , 
     {state:state})
   };
 
 
   useEffect(()=>{
+    console.log(location)
     if(state !== null && state.isMine !== undefined){
       const isMine =state.isMine;
+      console.log("list state", state)
       isMine ? setProfile(myProfile): setProfile(userProfile);
-      localStorage.setItem("list", JSON.stringify(isMine? myProfile :userProfile));
+      //localStorage.setItem("list", JSON.stringify(isMine? myProfile :userProfile));
   } ;
 },[state, userProfile , myProfile]);
 
-  useEffect(()=>{
-      if(localStorage.getItem("list")){
-    const localProfile =JSON.parse(localStorage.getItem('user'));
-    setProfile(localProfile);
-  };
-  },[]);
+  // useEffect(()=>{
+  //     if(localStorage.getItem("list")){
+  //   const localProfile =JSON.parse(localStorage.getItem('user'));
+  //   setProfile(localProfile);
+  // };
+  // },[]);
 
   useEffect(()=>{
     location.pathname.includes("following") && pushFollowing();
@@ -121,7 +126,7 @@ const List =({userobj})=>{
       const condition1 =target.classList.contains("list_followBtn");
       if(!condition1){
         localStorage.setItem('user', JSON.stringify(user) );
-        navigate(`${user.userId}` ,{state:{
+        navigate(`/twitter/${user.userId}` ,{state:{
           pre_previous:state.previous,
           previous:location.pathname,
           value:"userProfile"}})

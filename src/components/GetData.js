@@ -211,14 +211,9 @@ export const OffRtHeart =(value ,tweetObj, original, userobj, profile,ownerProfi
       }
 } ;
 
-export  const goBack=(location, what ,navigate)=>{
-  const pathname=location.pathname;
+export  const goBack=(location ,navigate)=>{
   const state =location.state;
-  const start =pathname.indexOf(what);
-  const back=pathname.slice(0,start);
-  if(back===""){
-    navigate('/tiwtter/home')
-  }else{
+  const back= state.previous;
     state!==null && state.userUid!==undefined?
     navigate(back ,{state:{
       previous:location.pathname,
@@ -226,6 +221,5 @@ export  const goBack=(location, what ,navigate)=>{
       userId:location.state.userId ,
       value:"userProfile", 
     }})
-    :navigate(back )
-}
+    :navigate(back );
 };

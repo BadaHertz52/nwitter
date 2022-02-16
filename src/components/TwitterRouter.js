@@ -124,23 +124,13 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
           (IsMyProfile ?
           <>
             <Routes>
-              {state!==null && state.previous !==null  &&
-                <>
-                  <Route  
-                  path={`${location.state.previous}/tweet`} 
-                  element={ <TweetFactory userobj={userobj}/>}/>
-                  <Route 
-                    path={`${location.state.previous}/crop`} 
-                    element={ <Cropper/>}/>
-                </>
-              }
               <Route  
                 path="/twitter/tweet" 
                 element={ <TweetFactory userobj={userobj}/>}/>
               <Route 
                 path="/twitter/crop" 
                 element={ <Cropper/>}/>
-              <Route exact path={`/twitter/${userobj.id}/editProfile`} 
+              <Route exact path={`/twitter/editProfile`} 
               element={<EditProfile userobj={userobj}  />}/>
               <Route
                   exact  path={`/twitter/logout`} 
@@ -190,27 +180,14 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
                     <Route 
                       path={`/twitter/${userobj.id}/list/following`}
                       element={<List userobj={userobj} />}/>
-                      {location.state !== null && location.state.previous !==null &&
-                        <>
-                        <Route 
-                          path={`${location.state.previous}/timeLine`}
+                      <Route 
+                          path={`/twitter/timeLine`}
                           element={<TimeLine userobj={userobj} />}
                         />
                         <Route 
-                          path={`${location.state.previous}/${userId}/status/${docId}`}
+                          path={`/twitter/${userId}/status/${docId}`}
                           element={<Tweet userobj={userobj}/>}
                         />
-                        <Route 
-                          exact path={`${location.state.previous}/notification`}
-                          element={<Notification userobj={userobj}  />} />
-                        <Route  
-                            path={`${location.state.previous}/${userId}`} 
-                            element={<Profile userobj={userobj} 
-                            />}/>
-                        </>
-
-                    }
-
                 </Routes>
                 </div>
                 <div id="side">

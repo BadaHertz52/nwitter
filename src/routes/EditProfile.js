@@ -26,7 +26,7 @@ const EditProfile = ( { userobj ,setIsMyProfile}) =>{
   const [loading, setLoading] =useState(false);
 
   const closeEdit =()=>{
-    goBack(location, "edit", navigate);
+    goBack(location, navigate);
     profileDispatch({
       type:'CLEAR_INPUT'
     })
@@ -58,7 +58,7 @@ const EditProfile = ( { userobj ,setIsMyProfile}) =>{
       switch (what) {
       case "header":
         setHeader(result);
-        navigate("crop", {state:{
+        navigate("/twitter/crop", {state:{
           previous:location.pathname,
       what:"header",
       src:result ,}})
@@ -66,7 +66,7 @@ const EditProfile = ( { userobj ,setIsMyProfile}) =>{
 
       case "photo":
         setProfilePhoto(result);
-    navigate("crop", {state:{
+    navigate("/twitter/crop", {state:{
       previous:location.pathname,
       what:"photo",
       src:result ,}});

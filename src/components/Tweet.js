@@ -59,10 +59,10 @@ const Tweet =({key, tweetObj , userobj ,answer}) =>{
     const onBack=()=>{
       localStorage.removeItem('status')
       location.pathname.includes("tweet")&&
-      goBack(location, "tweet",navigate);
+      goBack(location,navigate);
 
       location.pathname.includes("status")&&
-      goBack(location, `${ownerProfile.userId}/status`,navigate);
+      goBack(location,navigate);
     };
 
 
@@ -172,7 +172,7 @@ const Tweet =({key, tweetObj , userobj ,answer}) =>{
       }
         ));
   
-      navigate(`tweet`, {state:{
+      navigate(`/twitter/tweet`, {state:{
       previous:location.pathname,
       value:"answer"
     }});
@@ -182,7 +182,7 @@ const Tweet =({key, tweetObj , userobj ,answer}) =>{
       const condition = tweet.creatorId===ownerProfile.uid;
       const condition1 =!target.classList.contains("fun");
       const condition2 = !target.parentNode.classList.contains("fun");
-      const pathName = `${profile.userId}/status/${tweet.docId}`;
+      const pathName = `/twitter/${profile.userId}/status/${tweet.docId}`;
 
       const status = JSON.stringify({
         tweetObj:tweet,

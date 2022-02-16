@@ -24,7 +24,7 @@ const LogOut =({setIsLoggedIn})=>{
     });
     setIsLoggedIn(false);
 
-    navigate(`/twitter//auth`);
+    navigate(`/twitter/auth`);
     authSerVice.signOut();
   };
 
