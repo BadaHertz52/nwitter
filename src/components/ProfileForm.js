@@ -245,7 +245,6 @@ export const ProfileBottomForm = ({isMine, userobj })=>{
       contents.map(content => <Tweet 
           key={`tweets_${content.docId}`}
           tweetObj ={content}  
-          isOwner={isMine}
           userobj={userobj} 
           answer={false} />  )
       }

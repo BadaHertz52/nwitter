@@ -50,10 +50,9 @@ const TimeLine =({userobj})=>{
       </div>
       <div id="timeLine_tweet">
         {(tweet !==undefined && tweet.docId!=="") ?
-        <Tweet  
+        <Tweet
           tweetObj={tweet} 
           userobj={userobj} 
-          isOwner={true} 
           answer={ false} />
           :
           <Loading/>
