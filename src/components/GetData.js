@@ -34,6 +34,7 @@ export const getTweet =(uid,docId,setFun)=>{
   getTweetDoc(uid,docId).then(doc=>{if(doc.exists){
     setFun({...doc.data()}) ;
   }else{
+    setFun(tweetForm)
     console.log("Can't find the tweet")
   }}).catch(error=> console.log(error))
 };
@@ -48,6 +49,7 @@ export const getProfile = async(id ,setProfile)=>{
     if(doc.exists){
       setProfile(doc.data())
     }else {
+      setProfile(profileForm)
       console.log("Can't find the profile")
     }
   });
@@ -73,7 +75,7 @@ export const updateProfileNotification = async(user,id ,notifications)=>{
 export const sendNotification=async(value,userobj, tweetObj, profile, aboutDocId)=>{
   const user = {
     value:value,
-    docId: tweetObj===""? "" :tweetObj.docId, //상대방의 docId
+    docId: tweetObj===""? "" :tweetObj.docId, //알람을 받는 상대방의 docId
     aboutDocId:aboutDocId, //작성자의 docId
     user :userobj.uid,
     tweet:tweetObj.value!=="heart" && tweetObj.value!=="rt",
