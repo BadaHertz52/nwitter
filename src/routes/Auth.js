@@ -1,6 +1,5 @@
 import AuthForm from '../components/AuthForm';
-import React  from 'react' ;
-import { useState } from 'react/cjs/react.development';
+import React,{ useState }   from 'react' ;
 import authSerVice , { friebaseInstance } from '../Fbase';
 import { RiTwitterLine } from 'react-icons/ri';
 import auth_img from '../asset/img/auth_img.jpg';

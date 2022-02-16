@@ -1,7 +1,6 @@
-import React from 'react'
+import React,{ useContext, useEffect, useState } from 'react'
 import { FiArrowLeft } from 'react-icons/fi';
 import { useLocation, useNavigate} from 'react-router';
-import { useContext, useEffect, useState } from 'react/cjs/react.development';
 import { goBack } from '../components/GetData';
 import Loading from '../components/Loading';
 import Tweet from '../components/Tweet';

@@ -1,5 +1,4 @@
-import React, { useContext, useState } from 'react';
-import { useEffect } from 'react/cjs/react.development';
+import React, { useContext, useState , useEffect} from 'react';
 import grey from '../asset/img/grey.png'
 import { TweetContext } from '../context/TweetContex';
 import { UserContext } from '../context/UserContext';

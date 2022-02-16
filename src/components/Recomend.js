@@ -1,7 +1,6 @@
-import React, { useContext,  } from 'react';
+import React, { useContext, useEffect, useState  } from 'react';
 import UserProfile, { goProfile } from './UserProfile';
 import { dbService } from '../Fbase';
-import { useEffect, useState } from 'react/cjs/react.development';
 import { ProfileContext } from '../context/ProfileContex';
 import { getProfileDoc } from './GetData';
 import { useLocation, useNavigate } from 'react-router';

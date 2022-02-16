@@ -2,14 +2,12 @@ import React, { useContext, useState } from 'react';
 import { AiOutlineRetweet, AiOutlineUser} from "react-icons/ai";
 import { AiOutlineHeart } from "react-icons/ai";
 import {VscBell} from 'react-icons/vsc';
-import Tweet from '../components/Tweet';
 import {ProfileContext} from '../context/ProfileContex';
 import { TweetContext } from '../context/TweetContex';
-import { getProfileDoc, getTweetDoc} from '../components/GetData';
+import { getProfileDoc} from '../components/GetData';
 import { useEffect } from 'react/cjs/react.development';
 import {  useLocation, useNavigate } from 'react-router';
 import { dbService } from '../Fbase';
-import { UserContext } from '../context/UserContext';
 import { goProfile } from '../components/UserProfile';
 import TweetForm from '../components/TweetForm';
 

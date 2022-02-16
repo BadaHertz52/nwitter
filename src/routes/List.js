@@ -1,7 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, {  useState ,useContext, useEffect } from "react";
 import { FiArrowLeft } from "react-icons/fi";
 import { useLocation, useNavigate } from "react-router";
-import { useContext, useEffect } from "react/cjs/react.development";
 import { getProfileDoc } from "../components/GetData";
 import Loading from "../components/Loading";
 import { ProfileContext } from "../context/ProfileContex";
