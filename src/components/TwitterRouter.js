@@ -80,17 +80,23 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
   useEffect(()=>{
     if(location !==undefined){
       console.log(location.pathname==="/twitter/" )
-      location.pathname==="/twitter/" 
-      && setHome('/twitter/') 
-      && setMyProfilePath(`/twitter/${userobj.id}`)
+      if( location.pathname==="/twitter/" )
+      {
+        setHome('/twitter/') 
+        setMyProfilePath(`/twitter/${userobj.id}`);
+      }
+    
       if(isLoggedIn){
       setContext();
-      (location.pathname.includes("/auth") || 
-      location.pathname==="/" || 
-      location.pathname==="/twitter/") && navigate('/home')
-    }else{
-      (location.pathname==="/" || location.pathname==='/twitter/') && navigate('/auth');
-    }
+      if(location.pathname.includes("/auth") ||
+        location.pathname==="/" || 
+        location.pathname==="/twitter/"  ) {
+        location.pathname==="/twitter/" ? navigate('/twitter/home') :navigate('/home');
+      } 
+      }else{
+        location.pathname==="/twitter/" && navigate('/twitter/auth') 
+      location.pathname==="/"&& navigate('/auth')
+      }
     }
     },[isLoggedIn]);
 
