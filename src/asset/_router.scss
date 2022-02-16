@@ -102,7 +102,7 @@ input:focus{
     display: flex;
     flex-direction: column;
     overflow-y:scroll ;
-    border-left: 1px solid rgba(190, 190, 190, 0.192);
+    border-left: 1px solid $lineGrey;
     &::-webkit-scrollbar{
       display: none;
     }
