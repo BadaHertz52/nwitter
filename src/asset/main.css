@@ -1047,7 +1047,7 @@ img, div, button, #nav, input {
 }
 
 #nav #nav_myProfile:hover, #nav a:hover {
-  background-color: #ebebeb;
+  background-color: rgba(235, 235, 235, 0.753);
 }
 
 #nav #nav_twitter:hover {
@@ -1150,7 +1150,7 @@ img, div, button, #nav, input {
 }
 
 #nav #nav_profile button img:hover {
-  border: 10px solid #ebebeb;
+  border: 10px solid rgba(235, 235, 235, 0.753);
 }
 
 #nav #account {
@@ -1282,7 +1282,7 @@ img, div, button, #nav, input {
     left: 0;
     height: 100vh;
     width: 20%;
-    border-right: 1px solid rgba(190, 190, 190, 0.192);
+    border-right: 1px solid rgba(139, 139, 139, 0.096);
   }
   #nav > div {
     padding: 0 20%;
@@ -1467,7 +1467,7 @@ img, div, button, #nav, input {
     width: 95%;
   }
   #nav #nav_profile button:hover {
-    background-color: #ebebeb;
+    background-color: rgba(235, 235, 235, 0.753);
   }
   #nav #nav_profile button img:hover {
     border-color: transparent;
@@ -1489,15 +1489,73 @@ img, div, button, #nav, input {
   }
 }
 
-#notification {
+#notifications {
   margin-left: 0;
 }
 
-#notification > div:first-child {
+#notifications > div:first-child {
   margin-left: 1rem;
 }
 
-#notification
+#notifications .notification {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 100%;
+  background-color: initial;
+  border-radius: 0;
+  border-bottom: 1px solid rgba(139, 139, 139, 0.096);
+  padding-left: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-top: 0;
+}
+
+#notifications .notification:hover {
+  background-color: #ebebeb;
+  color: initial;
+}
+
+#notifications .tweet_form {
+  font-weight: initial;
+  padding-left: 10px;
+  width: 100%;
+  background-color: initial;
+  border-radius: 0;
+  margin-top: 0;
+}
+
+#notifications .tweet_form .text {
+  font-size: 1rem;
+  text-align: start;
+}
+
+#notifications .tweet_form .value {
+  display: none;
+}
+
+#notifications .tweet_form .goStatusBtn {
+  display: none;
+}
+
+#notifications .tweet_form .tweet_content {
+  padding: 0 10px;
+}
+
+#notifications .tweet_form .tweet_header > div, #notifications .tweet_form .tweet_header button {
+  font-size: 1.1rem;
+}
+
+#notifications .tweet_form .tweetSide,
+#notifications .tweet_form .userProfile img {
+  width: 2.3rem;
+}
+
+#notifications
 #notificationBtns {
   width: 100%;
   display: -webkit-box;
@@ -1510,7 +1568,7 @@ img, div, button, #nav, input {
   height: 4rem;
   text-align: center;
   background-color: initial;
-  border-bottom: 1px solid rgba(190, 190, 190, 0.192);
+  border-bottom: 1px solid rgba(139, 139, 139, 0.096);
   border-radius: 0;
   font-size: 1.2rem;
 }
@@ -1525,60 +1583,9 @@ img, div, button, #nav, input {
 }
 
 .notificationBtn:hover,
-#notification .mention:hover {
+#notifications .mention:hover {
   color: initial;
   background-color: #ebebeb;
-}
-
-#notification .mention {
-  width: 100%;
-  background-color: initial;
-  border-radius: 0;
-  margin-top: 0;
-}
-
-#notification .mention .value {
-  display: none;
-}
-
-#notification .mention .tweet {
-  padding-left: 0;
-}
-
-#notification .mention .tweet_form {
-  width: 100%;
-  -webkit-box-pack: stretch;
-      -ms-flex-pack: stretch;
-          justify-content: stretch;
-}
-
-#notification .mention .goStatusBtn {
-  display: none;
-}
-
-#notification .answer .tweet_content {
-  padding: 0;
-}
-
-#notification_notification {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  width: 100%;
-  background-color: initial;
-  border-radius: 0;
-  padding-left: 1rem;
-  padding-top: 1rem;
-  margin-top: 0;
-}
-
-#notification_notification:hover {
-  background-color: #ebebeb;
-  color: initial;
 }
 
 .notification_left {
@@ -1587,7 +1594,7 @@ img, div, button, #nav, input {
 
 .notification_left svg {
   margin-right: 1rem;
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 .rnIcon {
@@ -1614,43 +1621,20 @@ img, div, button, #nav, input {
 }
 
 .notification_right img {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.3rem;
+  height: 2.3rem;
   margin-right: 2rem;
 }
 
 .notification_inform {
   font-size: 1rem;
   font-weight: initial;
-  margin-top: 1rem;
+  margin-top: 10px;
 }
 
 .notification_inform div:last-child {
-  margin-top: 1rem;
+  margin-top: 10px;
   color: #585656;
-}
-
-#notification .tweet {
-  font-weight: initial;
-  padding-left: 10px;
-}
-
-#notification .tweet .text {
-  font-size: 1.2rem;
-  text-align: start;
-}
-
-#notification .tweet_content {
-  padding: 0 10px;
-}
-
-#notification .tweet_header > div, #notification .tweet_header button {
-  font-size: 1.1rem;
-}
-
-#notification .tweetSide,
-#notification .userProfile img {
-  width: 2.5rem;
 }
 
 @media screen and (max-width: 320px) {
@@ -1661,7 +1645,7 @@ img, div, button, #nav, input {
     font-size: 1.5rem;
     margin-right: 10px;
   }
-  #notification.tweet_header .tweet_time {
+  #notifications.tweet_header .tweet_time {
     font-size: 11px;
   }
 }
@@ -1678,6 +1662,12 @@ img, div, button, #nav, input {
           box-sizing: border-box;
 }
 
+.noTweet {
+  text-align: center;
+  margin: 2rem 0;
+  color: grey;
+}
+
 .statusBtn {
   -webkit-transition-duration: 0.5s;
           transition-duration: 0.5s;
@@ -1688,7 +1678,7 @@ img, div, button, #nav, input {
   color: initial;
 }
 
-.tweet_content .tweet_fun,
+.tweet_other .tweet_fun,
 .tweetSide .userProfile {
   -webkit-transition-duration: 0.2s;
           transition-duration: 0.2s;
@@ -1767,32 +1757,36 @@ img, div, button, #nav, input {
   margin-left: 3vw;
 }
 
-.tweet .userProfile {
+.tweet_other {
+  margin-left: calc( 4rem + 5%);
+}
+
+.tweetSide .userProfile {
   width: 3.2rem;
 }
 
-.tweet .userProfile button {
+.tweetSide .userProfile button {
   width: 100%;
   margin: 0;
   padding: 0;
   background-color: initial;
 }
 
-.tweet .userProfile button:hover {
+.tweetSide .userProfile button:hover {
   background-color: initial;
 }
 
-.tweet .userProfile button:hover:hover {
+.tweetSide .userProfile button:hover:hover {
   background-color: initial;
   color: initial;
 }
 
-.tweet .userProfile img {
+.tweetSide .userProfile img {
   width: 100%;
   aspect-ratio: 1/1;
 }
 
-.tweet .userProfile span {
+.tweetSide .userProfile span {
   text-align: center;
   margin-left: 2vw;
 }
@@ -1943,7 +1937,11 @@ img, div, button, #nav, input {
 }
 
 .tweet.answer .value {
-  height: inherit;
+  height: 100%;
+}
+
+.tweet.answer .value > div {
+  height: 100%;
 }
 
 .answer_who {
@@ -1986,8 +1984,12 @@ img, div, button, #nav, input {
           align-items: stretch;
   border-right: 1px solid #c5bdbd;
   width: 1px;
-  height: 90%;
+  height: 180%;
   margin-left: 50%;
+}
+
+.tweetFactory .answerLine {
+  height: 100%;
 }
 
 .value_explain {
@@ -2040,7 +2042,7 @@ img, div, button, #nav, input {
   display: flex;
   font-size: 1.5rem;
   font-weight: bold;
-  border-bottom: 1px solid rgba(190, 190, 190, 0.192);
+  border-bottom: 1px solid rgba(139, 139, 139, 0.096);
   padding-top: 5px;
   padding-bottom: 10px;
 }
@@ -2436,7 +2438,7 @@ img, div, button, #nav, input {
     padding-right: 0;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
-    border-bottom: 1px solid rgba(190, 190, 190, 0.192);
+    border-bottom: 1px solid rgba(139, 139, 139, 0.096);
   }
   #home .tweetFactory .userProfile {
     width: 3.2rem;
@@ -2827,7 +2829,7 @@ img, div, button, #nav, input {
 }
 
 #pb_buttons {
-  border-bottom: 1px solid rgba(190, 190, 190, 0.192);
+  border-bottom: 1px solid rgba(139, 139, 139, 0.096);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2996,7 +2998,7 @@ input:focus {
         -ms-flex-direction: column;
             flex-direction: column;
     overflow-y: scroll;
-    border-left: 1px solid rgba(190, 190, 190, 0.192);
+    border-left: 1px solid rgba(139, 139, 139, 0.096);
   }
   #side::-webkit-scrollbar {
     display: none;
