@@ -8,9 +8,12 @@
   border-bottom: 1px solid #bebebe31;
   width: 100%;
   box-sizing: border-box;
-
 }
-
+.noTweet{
+  text-align: center;
+  margin: 2rem 0;
+  color: grey
+}
 .statusBtn {
   transition-duration: 0.5s;
   &:hover{
@@ -19,7 +22,7 @@
     }
 }
 
-.tweet_content .tweet_fun,
+.tweet_other .tweet_fun,
 .tweetSide .userProfile {
   transition-duration: 0.2s;
 }
@@ -78,8 +81,11 @@
   margin-left: 3vw;
 }
 }
+.tweet_other {
+  margin-left: calc( 4rem + 5%);
+}
 
-.tweet .userProfile{
+.tweetSide .userProfile{
   width: 3.2rem;
   button{
     width: 100%;
@@ -206,7 +212,10 @@
     @include initialBtn
   }
   .value {
-    height: inherit;
+    height: 100%;
+    & > div {
+      height: 100%;
+    }
   }
 }
 
@@ -238,10 +247,12 @@
   align-items: stretch;
   border-right: 1px solid rgb(197, 189, 189);
   width: 1px;
-  height: 90%;
+  height:180%;
   margin-left: 50%;
 }
-
+.tweetFactory .answerLine{
+  height: 100%;
+}
 .value_explain{
   margin: 1rem;
   font-size: 0.8rem;
@@ -290,7 +301,7 @@
     size:1.5rem;
     weight:bold;
   };
-  border-bottom: 1px solid rgba(190, 190, 190, 0.192);
+  border-bottom: 1px solid $lineGrey;
   padding: {
     top:5px;
     bottom:10px
