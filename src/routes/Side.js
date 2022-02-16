@@ -38,7 +38,7 @@ const Side =({userobj , home})=>{
       userTweets:tweets
     });
 
-    navigate(`${home}${result.userId}` ,{state:{
+    navigate(`/twitter/${result.userId}` ,{state:{
       previous:location.pathname,
       userId:result.userId ,
       value:"userProfile"}})

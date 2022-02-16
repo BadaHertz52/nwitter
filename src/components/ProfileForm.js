@@ -9,7 +9,7 @@ import { UserContext } from '../context/UserContext';
 import { TweetContext } from '../context/TweetContex';
 
 
-export const ProfileTopForm = ({ isMine , userobj , home} )=>{
+export const ProfileTopForm = ({ isMine , userobj } )=>{
   const {myProfile, profileDispatch }=useContext(ProfileContext);
   const {myTweets}=useContext(TweetContext);
   const {userProfile ,userTweets}=useContext(UserContext);
@@ -122,7 +122,7 @@ export const ProfileTopForm = ({ isMine , userobj , home} )=>{
               </div>
                 { isMine ?
                   <div id="logOutAndEdit">
-                    <button onClick={()=>{navigate(`${home}logout`)}}> Log Out </button>
+                    <button onClick={()=>{navigate(`/twitter/logout`)}}> Log Out </button>
                     <button onClick={goEdit} >
                       Edit Profile
                     </button>

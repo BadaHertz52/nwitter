@@ -12,7 +12,7 @@ import {TweetContext} from '../context/TweetContex';
 import DeleteUser from './DeleteUser';
 import { profileForm } from './GetData';
 
-const Navigation = ({userobj ,home}) => {
+const Navigation = ({userobj}) => {
   const location= useLocation();
   const navigate =useNavigate();
   const {myProfile}=useContext(ProfileContext);
@@ -23,7 +23,7 @@ const Navigation = ({userobj ,home}) => {
   const [profile, setProfile]=useState(profileForm);
 
   const goMyProfile=()=>{
-    navigate(`${home}${userobj.id}` ,{state:{value:"profile", previous:location.pathname}})
+    navigate(`/twitter/${userobj.id}` ,{state:{value:"profile", previous:location.pathname}})
   };
 
   const goTweetFactory=()=>{
@@ -59,11 +59,11 @@ const Navigation = ({userobj ,home}) => {
         }
     <nav id="nav">
       <div>
-        < Link to ={`${home}home`} id="nav_twitter">
+        < Link to ={`/twitter/home`} id="nav_twitter">
           <BsTwitter/>
         </Link>
-        <Link to ={`${home}home`}>
-          {location.pathname===`${home}/home`? 
+        <Link to ={`/twitter/home`}>
+          {location.pathname===`/twitter/home`? 
           <>
             <AiFillHome/>
             <div className="nav_label on">Home</div> 
@@ -75,8 +75,8 @@ const Navigation = ({userobj ,home}) => {
           </>
           }
         </Link>
-        <Link to={`${home}notification`} userobj={userobj} >
-          {location.pathname===`${home}notification` ?
+        <Link to={`/twitter/notification`} userobj={userobj} >
+          {location.pathname===`/twitter/notification` ?
           <>
             <BsBellFill/> 
             <div className="nav_label on"> Notifications </div>
@@ -92,7 +92,7 @@ const Navigation = ({userobj ,home}) => {
         <button 
           id="nav_myProfile"
           onClick={goMyProfile}> 
-          {location.pathname ===`${home}${userobj.id}` ?
+          {location.pathname ===`/twitter/${userobj.id}` ?
           <>
             <FaUser/>
             <div 
@@ -132,7 +132,7 @@ const Navigation = ({userobj ,home}) => {
               <div  class="account" id="account_btn"> 
                 <button   class="account" id="account_logOut" 
                 onClick={()=>
-                  navigate(`${home}/logout`)}>
+                  navigate(`/twitter//logout`)}>
                   Log out @{profile.userId}
                 </button>
                 <button   class="account" id="account_logOut" 

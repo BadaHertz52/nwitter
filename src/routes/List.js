@@ -6,7 +6,7 @@ import Loading from "../components/Loading";
 import { ProfileContext } from "../context/ProfileContex";
 import { UserContext } from "../context/UserContext";
 
-const List =({userobj ,home})=>{
+const List =({userobj})=>{
   const [showFollower, setShowFollower] =useState(true);
   const {myProfile, profileDispatch}=useContext(ProfileContext);
   const {userProfile}=useContext(UserContext);
@@ -45,7 +45,7 @@ const List =({userobj ,home})=>{
     changeStyle(listFollowing);
   };
   const goBack=()=>{
-    navigate(`${home}${back}`, {state:state})
+    navigate(`/twitter/${back}`, {state:state})
   };
   const goListFollower=()=>{
     navigate(`${back}/list/follower` , 

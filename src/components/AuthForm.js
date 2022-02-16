@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import {BiArrowBack} from "react-icons/bi";
 import authSerVice from '../Fbase' ;
 import {RiErrorWarningLine} from 'react-icons/ri'
-import { useLocation, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 
-const AuthForm = ({newAcount, setPopup , home})=> {
+const AuthForm = ({newAcount, setPopup})=> {
   const [email ,setEmail ] = useState(""); 
   const [password ,setPassword ] = useState("");
   const [error, setError] = useState("") ;
@@ -24,7 +24,7 @@ const AuthForm = ({newAcount, setPopup , home})=> {
         await authSerVice.signInWithEmailAndPassword(email, password);
       }
       setPopup(false);
-      navigate(`${home}home`) 
+      navigate(`/twitter/home`) 
     }catch(e){
       const start = e.message.indexOf("Firebase:");
       const end =e.message.indexOf("(")

@@ -217,7 +217,7 @@ export  const goBack=(location, what ,navigate)=>{
   const start =pathname.indexOf(what);
   const back=pathname.slice(0,start);
   if(back===""){
-    navigate('/home')
+    navigate('/tiwtter/home')
   }else{
     state!==null && state.userUid!==undefined?
     navigate(back ,{state:{
