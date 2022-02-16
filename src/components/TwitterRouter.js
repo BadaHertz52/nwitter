@@ -25,8 +25,7 @@ import LogOut from '../routes/LogOut';
 import Loading from './Loading';
 
 const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMyProfile }) => {
-  const [home, setHome]=useState("/");
-  const [myProfilePath ,setMyProfilePath]=useState(`/${userobj.id}`);
+  const home ="/twitter/" ;
   const [userId, setUserId]=useState("");
   const [docId, setDocId]=useState("");
 
@@ -78,27 +77,16 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
 };
 
   useEffect(()=>{
-    if(location !==undefined){
-      console.log(location.pathname==="/twitter/" )
-      if( location.pathname==="/twitter/" )
-      {
-        setHome('/twitter/') 
-        setMyProfilePath(`/twitter/${userobj.id}`);
-      }
-    
-      if(isLoggedIn){
+    if(isLoggedIn){
       setContext();
-      if(location.pathname.includes("/auth") ||
-        location.pathname==="/" || 
-        location.pathname==="/twitter/"  ) {
-        location.pathname==="/twitter/" ? navigate('/twitter/home') :navigate('/home');
+      if(location.pathname.includes("auth") ||
+        location.pathname=== home  ) {
+        navigate(`${home}home`) 
       } 
       }else{
-        location.pathname==="/twitter/" && navigate('/twitter/auth') 
-      location.pathname==="/"&& navigate('/auth')
+        location.pathname=== home && navigate(`${home}auth`) 
       }
-    }
-    },[isLoggedIn]);
+  },[isLoggedIn]);
 
   useEffect(()=>{
     if(state!==null && state.value ==="userProfile"){
@@ -153,16 +141,16 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
               <Route 
                 path={`${home}crop`} 
                 element={ <Cropper/>}/>
-              <Route exact path={`/${userobj.id}/editProfile`} 
+              <Route exact path={`${home}${userobj.id}/editProfile`} 
               element={<EditProfile userobj={userobj}  />}/>
               <Route
                   exact  path={`${home}logout`} 
-                  element={<LogOut setIsLoggedIn={setIsLoggedIn} />}
+                  element={<LogOut setIsLoggedIn={setIsLoggedIn}  home={home} />}
                 />
             </Routes>
             <div id="inner">
               <>
-                <Navigation userobj={userobj} />
+                <Navigation userobj={userobj} home={home}/>
                 <div id="main">
                   <Routes>
                     <Route 
@@ -181,28 +169,28 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
                       element={<Tweet userobj={userobj}/>}
                     />
                     <Route  
-                      path={myProfilePath} 
+                      path={`${home}${userobj.id}`} 
                       element={ 
-                      <MyProfile userobj={userobj} />}/>
+                      <MyProfile userobj={userobj} home={home} />}/>
                     <Route 
                       exact path={`${home}notification`}
                       element={<Notification userobj={userobj}  />} />
                     <Route  
                         path={`${home}${userId}`} 
-                        element={<Profile userobj={userobj} 
+                        element={<Profile userobj={userobj} home={home} 
                         />}/>
                     <Route 
                       path={`${home}${userId}/list/follower`}
-                      element={<List userobj={userobj}/>}/>
+                      element={<List userobj={userobj} home={home}/>}/>
                     <Route 
                       path={`${home}${userId}/list/following`}
-                      element={<List userobj={userobj}/>}/>
+                      element={<List userobj={userobj}  home={home}/>}/>
                     <Route 
                       path={`${home}${userobj.id}/list/follower`}
-                      element={<List userobj={userobj}/>}/>
+                      element={<List userobj={userobj}  home={home}/>}/>
                     <Route 
                       path={`${home}${userobj.id}/list/following`}
-                      element={<List userobj={userobj}/>}/>
+                      element={<List userobj={userobj}  home={home}/>}/>
                       {location.state !== null && location.state.previous !==null &&
                         <>
                         <Route 
@@ -227,7 +215,7 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
                 </Routes>
                 </div>
                 <div id="side">
-                  <Side userobj={userobj} />
+                  <Side userobj={userobj}  home={home} />
                 </div>
               </>
             </div>
@@ -249,7 +237,7 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
       :
       (isLoggedIn !==undefined ?
         <Routes>
-          <Route  exact path={`${home}auth`} element={ <Auth/>}/>
+          <Route  exact path={`${home}auth`} element={ <Auth home={home}/>}/>
         </Routes>
       :
         <Loading/>

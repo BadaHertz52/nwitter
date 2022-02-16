@@ -6,7 +6,7 @@ import Loading from "../components/Loading";
 import { ProfileContext } from "../context/ProfileContex";
 import { UserContext } from "../context/UserContext";
 
-const List =({userobj})=>{
+const List =({userobj ,home})=>{
   const [showFollower, setShowFollower] =useState(true);
   const {myProfile, profileDispatch}=useContext(ProfileContext);
   const {userProfile}=useContext(UserContext);
@@ -45,10 +45,7 @@ const List =({userobj})=>{
     changeStyle(listFollowing);
   };
   const goBack=()=>{
-    location.pathname.includes('/twitter')?
-    navigate(`/twitter/${back}`, {state:state})
-    :
-    navigate(`/${back}`, {state:state})
+    navigate(`${home}${back}`, {state:state})
   };
   const goListFollower=()=>{
     navigate(`${back}/list/follower` , 

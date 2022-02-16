@@ -5,7 +5,7 @@ import Loading from '../components/Loading';
 import { UserContext } from '../context/UserContext';
 
 
-const Profile = ({userobj}) => {
+const Profile = ({userobj , home}) => {
   const {userProfile , userTweets}=useContext(UserContext);
 
   return (
@@ -15,7 +15,7 @@ const Profile = ({userobj}) => {
     :
     <>
       <section>
-        <ProfileTopForm isMine={false} userobj={userobj} />
+        <ProfileTopForm isMine={false} userobj={userobj}  home={home}/ />
       </section>
       <section >
         <ProfileBottomForm  isMine={false} userobj={userobj} /> 

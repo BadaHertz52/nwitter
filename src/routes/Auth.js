@@ -5,7 +5,7 @@ import { RiTwitterLine } from 'react-icons/ri';
 import auth_img from '../asset/img/auth_img.jpg';
 import auth_img_width from '../asset/img/auth_img_width.jpg';
 
-const Auth = ( ) => {
+const Auth = ( {home}) => {
   const [newAcount, setNewAccount] =useState();
   const [popup , setPopup]=useState(false);
 
@@ -56,7 +56,7 @@ const Auth = ( ) => {
           </div>
       </div>
       :
-      <AuthForm newAcount={newAcount} setPopup={setPopup}/>
+      <AuthForm newAcount={newAcount} setPopup={setPopup} home={home}/>
       }
     </section>
   )

@@ -10,7 +10,7 @@ import { UserContext } from '../context/UserContext';
 import { getTweetsDocs } from '../components/GetData';
 import { ProfileContext } from '../context/ProfileContex';
 
-const Side =({userobj})=>{
+const Side =({userobj , home})=>{
   const location =useLocation();
   const navigate=useNavigate();
   const {userDispatch}=useContext(UserContext);
@@ -37,13 +37,8 @@ const Side =({userobj})=>{
       userProfile :result,
       userTweets:tweets
     });
-    location.pathname.includes('/twitter/')?
-    navigate(`/twitter/${result.userId}` ,{state:{
-      previous:location.pathname,
-      userId:result.userId ,
-      value:"userProfile"}})
-    :
-    navigate(`/${result.userId}` ,{state:{
+
+    navigate(`${home}${result.userId}` ,{state:{
       previous:location.pathname,
       userId:result.userId ,
       value:"userProfile"}})
