@@ -1,6 +1,6 @@
 import React, {useState , useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { Link, useLocation} from 'react-router-dom';
+import { useLocation} from 'react-router-dom';
 
 import { BsBell, BsBellFill, BsPencil, BsTwitter } from "react-icons/bs";
 import { FaRegUser, FaUser } from "react-icons/fa";
@@ -65,11 +65,11 @@ const Navigation = ({userobj}) => {
       </div>
         }
     <nav id="nav">
-      <div>
-        < Link to ={`/twitter/home`} id="nav_twitter">
+      <div id="nav_menu">
+        < button onClick={()=> navigate(`/twitter/home`)} id="nav_home">
           <BsTwitter/>
-        </Link>
-        <Link to ={`/twitter/home`}>
+        </button>
+        <button onClick={()=> navigate(`/twitter/home`)}>
           {location.pathname===`/twitter/home`? 
           <>
             <AiFillHome/>
@@ -81,8 +81,8 @@ const Navigation = ({userobj}) => {
             <div className="nav_label">Home</div> 
           </>
           }
-        </Link>
-        <Link to={`/twitter/notification`} userobj={userobj} >
+        </button>
+        <button onClick={()=> navigate(`/twitter/notification`)} >
           {location.pathname===`/twitter/notification` ?
           <>
             <BsBellFill/> 
@@ -95,7 +95,7 @@ const Navigation = ({userobj}) => {
           </>
           }
           
-        </Link>
+        </button>
         <button 
           id="nav_myProfile"
           onClick={goMyProfile}> 
@@ -118,7 +118,7 @@ const Navigation = ({userobj}) => {
           }
         </button>
       </div>
-      <div>
+      <div id='nav_tweetFactory'>
         <button id="nav_popUp"  
         onClick={goTweetFactory} 
         >

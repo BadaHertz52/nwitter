@@ -791,19 +791,20 @@ img, div, button, #nav, input {
       -ms-flex-direction: row;
           flex-direction: row;
   width: 100%;
-  height: 6vh;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
   border: none;
   border-radius: 0;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem 2rem;
 }
 
 #smallMobile button {
   background-color: none;
-  width: 5vh;
-  height: 5vh;
+  border: 1px solid rgba(139, 139, 139, 0.096);
+  width: 3rem;
+  height: 3rem;
   padding: 0;
-  margin-left: 6vh;
   margin-top: 0;
 }
 
@@ -1038,23 +1039,26 @@ img, div, button, #nav, input {
 }
 
 #nav {
+  background-color: #ffff;
   position: absolute;
   width: 100%;
-  height: 5rem;
-  top: 90%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  bottom: 0;
   left: 0;
   z-index: 1;
 }
 
-#nav #nav_myProfile:hover, #nav a:hover {
-  background-color: rgba(235, 235, 235, 0.753);
+#nav #nav_home {
+  display: none;
 }
 
-#nav #nav_twitter:hover {
+#nav #nav_home:hover {
   background-color: #d7f3fd;
 }
 
-#nav #nav_twitter svg {
+#nav #nav_home svg {
   color: #1d9bf0;
 }
 
@@ -1064,8 +1068,8 @@ img, div, button, #nav, input {
   padding: 0;
 }
 
-#nav > div:first-child {
-  padding-top: 2%;
+#nav #nav_menu {
+  padding: 2% 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1079,54 +1083,46 @@ img, div, button, #nav, input {
           box-sizing: border-box;
 }
 
-#nav a {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-  padding: 10px;
-  position: relative;
-}
-
-#nav #nav_myProfile {
-  position: relative;
-  margin-left: 0.2rem;
-  width: 3.3rem;
-  padding: 10px;
+#nav #nav_menu button {
   background-color: initial;
   color: initial;
+  position: relative;
+  margin-top: 5px;
+  margin-left: 0.2rem;
+  width: 2rem;
+  aspect-ratio: 1/1;
+  padding: 6px;
+  border-radius: 50%;
 }
 
-#nav svg {
-  font-size: 2rem;
+#nav #nav_menu button:hover {
+  background-color: rgba(235, 235, 235, 0.753);
 }
 
-#nav img,
-#nav > div:first-child a {
+#nav #nav_menu button svg {
+  margin-top: 2px;
+  font-size: 1.5rem;
+}
+
+#nav img {
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
 }
 
-#nav_nwitter {
-  display: none;
-}
-
-#nav > div:nth-child(3) {
-  display: none;
-}
-
-#nav > div:nth-child(2) {
+#nav #nav_tweetFactory {
   position: absolute;
   top: -15vh;
   right: 10vw;
 }
 
-#nav > div:nth-child(2) svg {
+#nav #nav_tweetFactory svg {
   font-size: 1.5rem;
   padding: 10px 12px;
+}
+
+#nav #nav_profile {
+  display: none;
 }
 
 #nav #nav_profile button {
@@ -1284,13 +1280,12 @@ img, div, button, #nav, input {
     width: 20%;
     border-right: 1px solid rgba(139, 139, 139, 0.096);
   }
-  #nav > div {
+  #nav #nav_menu,
+  #nav #nav_tweetFactory,
+  #nav #nav_profile {
     padding: 0 20%;
   }
-  #nav_nwitter {
-    display: block;
-  }
-  #nav > div:first-child {
+  #nav #nav_menu {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -1302,18 +1297,17 @@ img, div, button, #nav, input {
         -ms-flex-pack: justify;
             justify-content: space-between;
   }
-  #nav a,
-  #nav #nav_myProfile {
+  #nav #nav_menu button {
+    width: 100%;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
     margin-top: 1.5rem;
-    margin-left: 0;
   }
-  #nav svg {
-    font-size: 2rem;
-  }
-  #nav #nav_myProfile svg {
+  #nav #nav_menu button svg {
     font-size: 1.7rem;
   }
-  #nav img, #nav_nwitter {
+  #nav img {
     width: 2.5rem;
     height: 2.5rem;
   }
@@ -1321,29 +1315,34 @@ img, div, button, #nav, input {
     width: 2.8rem;
     height: 2.8rem;
   }
-  #nav > div:nth-child(3) {
+  #nav #nav_profile {
     display: block;
     position: relative;
     margin-top: 2rem;
   }
-  #nav > div:nth-child(2) {
+  #nav #nav_tweetFactory {
     display: block;
     position: relative;
     top: initial;
     right: initial;
     margin-top: 2rem;
   }
+  #nav #nav_tweetFactory svg {
+    font-size: 1.5rem;
+  }
   #nav_popUp,
   #nav_profile img {
     margin-left: 6px;
   }
-  #nav > div:nth-child(2) svg {
-    font-size: 1.5rem;
-  }
 }
 
 @media screen and (min-width: 728px) {
-  #nav > div {
+  #nav_home {
+    display: block;
+  }
+  #nav_menu,
+  #nav_tweetFactory,
+  #nav_profile {
     margin-left: 10%;
   }
 }
@@ -1354,17 +1353,19 @@ img, div, button, #nav, input {
     padding-left: 3%;
     padding-right: 3%;
   }
-  #nav > div {
+  #nav #nav_menu,
+  #nav #nav_tweetFactory,
+  #nav #nav_profile {
     margin-left: 2rem;
     padding: 1rem 0;
   }
-  #nav > div:first-child {
+  #nav #nav_menu {
     font-size: 1.8rem;
   }
-  #nav > div:first-child #nav_myProfile, #nav > div:first-child a {
+  #nav #nav_menu button {
     border-radius: 9999px;
   }
-  #nav > div:nth-child(2) {
+  #nav #nav_tweetFactory {
     width: initial;
     margin-left: 2rem;
   }
@@ -1372,7 +1373,7 @@ img, div, button, #nav, input {
     width: 2.8rem;
     height: 2.8rem;
   }
-  #nav #nav_twitter {
+  #nav #nav_home {
     padding: 5px;
   }
   #nav #nav_popUp {
@@ -1406,54 +1407,32 @@ img, div, button, #nav, input {
   #nav_popUp svg {
     display: none;
   }
-  #nav > div:first-child a,
-  #nav #nav_myProfile {
+  #nav #nav_menu button {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     width: 80%;
+    text-align: center;
     padding-left: 14px;
-    height: auto;
+    height: 3rem;
   }
-  #nav svg {
+  #nav #nav_menu button svg {
     font-size: 1.8rem;
   }
-  #nav > div:nth-child(2) {
+  #nav #nav_tweetFactory {
     width: 80%;
     margin-top: 1rem;
   }
-  #nav > div:nth-child(2) button {
+  #nav #nav_tweetFactory button {
     padding: 4px 0;
   }
-  #nav > div:nth-child(2) button:hover {
+  #nav #nav_tweetFactory button:hover {
     padding: 6px 0;
     -webkit-transition: 0.3s;
     transition: 0.3s;
   }
-  #nav > div:nth-child(3) {
+  #nav #nav_profile {
     margin-top: 1rem;
-  }
-  #nav #nav_popUp {
-    width: 90%;
-  }
-  #nav img {
-    width: 3rem;
-    height: 3rem;
-  }
-  #nav #nav_twitter {
-    margin-left: 14px;
-    padding: 10px;
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-  }
-  .nav_label {
-    display: block;
-    margin-left: 5%;
-    font-size: 1.3rem;
-  }
-  .nav_label.on {
-    font-weight: bold;
   }
   #nav #nav_profile button {
     display: -webkit-box;
@@ -1479,6 +1458,53 @@ img, div, button, #nav, input {
   #nav #nav_profile .nav_label div:last-child {
     margin-top: 10px;
     font-size: 1rem;
+  }
+  #nav #nav_profile button {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    color: initial;
+    width: 95%;
+  }
+  #nav #nav_profile button:hover {
+    background-color: rgba(235, 235, 235, 0.753);
+  }
+  #nav #nav_profile button img:hover {
+    border-color: transparent;
+  }
+  #nav #nav_profile .nav_label {
+    font-size: 1.1rem;
+  }
+  #nav #nav_profile .nav_label div:last-child {
+    margin-top: 10px;
+    font-size: 1rem;
+  }
+  #nav #nav_popUp {
+    width: 90%;
+  }
+  #nav img {
+    width: 3rem;
+    height: 3rem;
+  }
+  #nav #nav_home {
+    margin-left: 14px;
+    padding: 10px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+  .nav_label {
+    display: block;
+    margin-left: 5%;
+    margin-top: 0.25rem;
+    font-size: 1.3rem;
+  }
+  .nav_label.on {
+    font-weight: bold;
   }
 }
 
