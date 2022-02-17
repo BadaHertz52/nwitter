@@ -79,11 +79,12 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
     if(isLoggedIn){
       setContext();
       if(location.pathname.includes("auth") ||
-        location.pathname==="/twitter/" ) {
+        location.pathname==="/twitter/" ||
+        location.pathname==="/") {
         navigate(`/twitter/home`) 
       } 
       }else{
-        location.pathname=== "/twitter/" && navigate(`/twitter/auth`) 
+        (location.pathname=== "/twitter/" || location.pathname==="/")  && navigate(`/twitter/auth`) 
       }
   },[isLoggedIn]);
 
