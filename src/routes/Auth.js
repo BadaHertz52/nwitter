@@ -25,11 +25,11 @@ const Auth = ( ) => {
         <img
           class="auth_img small" 
           src={auth_img} 
-          alt="nwitter img"/>
+          alt="twitter img"/>
         <img
           class="auth_img width" 
           src={auth_img_width} 
-          alt="nwitter img"/>
+          alt="twitter img"/>
       </div>
       {!popup ?
         <div id="auth_main">
