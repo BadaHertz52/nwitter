@@ -57,7 +57,11 @@
   svg {
     font-size: 1.5rem;
   }
-
+  .tweet_content {
+    .attachment{
+      display: none;
+    }
+  }
 }
 
 #home .tweetFactory{
