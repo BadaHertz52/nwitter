@@ -36,7 +36,6 @@ const TweetFactory = ({userobj ,setPopup }) => {
     );
 
     localStorage.removeItem('tweet');
-    const pathname=location.pathname;
     const back =state.previous;
     if(back.includes("list")){
       navigate(back ,
