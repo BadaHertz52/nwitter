@@ -99,7 +99,6 @@ const DeleteUser =async(myProfile, myTweets, setDeleteError  )=> {
     storage.delete();
 
     currentUser.delete().then(()=>{
-      console.log("delete user");
       setDeleteError(false)
     }
     ).catch(error=> {

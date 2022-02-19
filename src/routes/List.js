@@ -61,21 +61,11 @@ const List =({userobj})=>{
 
 
   useEffect(()=>{
-    console.log(location)
     if(state !== null && state.isMine !== undefined){
       const isMine =state.isMine;
-      console.log("list state", state)
       isMine ? setProfile(myProfile): setProfile(userProfile);
-      //localStorage.setItem("list", JSON.stringify(isMine? myProfile :userProfile));
   } ;
 },[state, userProfile , myProfile]);
-
-  // useEffect(()=>{
-  //     if(localStorage.getItem("list")){
-  //   const localProfile =JSON.parse(localStorage.getItem('user'));
-  //   setProfile(localProfile);
-  // };
-  // },[]);
 
   useEffect(()=>{
     location.pathname.includes("following") && pushFollowing();

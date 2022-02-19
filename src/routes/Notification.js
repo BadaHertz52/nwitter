@@ -42,7 +42,6 @@ const Notification = () => {
   };
 
   useEffect(()=>{
-    console.log("notification")
     const getData=async()=>{
       const array = await Promise.all( myProfile.notifications.map( (n) =>{
         const result = getProfileDoc(n.user).get().then(async(doc) =>{
@@ -65,7 +64,6 @@ const Notification = () => {
           return result
         }else{return a}
           })).then(result=>result);
-          console.log(array_withTweets)
       setNotifications(array_withTweets);
     }
     myProfile.notifications[0]!==undefined && getData();
