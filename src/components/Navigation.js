@@ -19,7 +19,6 @@ const Navigation = ({userobj}) => {
   const {myTweets}= useContext(TweetContext);
   const inner =document.getElementById('inner');
   const [set, setSet] =useState(false);
-  const [deleteError ,setDeleteError] =useState(false);
   const [profile, setProfile]=useState(profileForm);
 
   const goMyProfile=()=>{
@@ -52,18 +51,9 @@ const Navigation = ({userobj}) => {
   useEffect(()=>{
     myProfile!==undefined && setProfile(myProfile); 
   },[myProfile])
+
   return(
     <>
-    {deleteError && 
-      <div id="deleteError">
-        <div>
-          Please log out and try again.
-        </div>
-        <button onClick={()=>{setDeleteError(false)}}>
-          confirm
-        </button>
-      </div>
-        }
     <nav id="nav">
       <div id="nav_menu">
         < button onClick={()=> navigate(`/twitter/home`)} id="nav_home">
@@ -143,7 +133,7 @@ const Navigation = ({userobj}) => {
                   Log out @{profile.userId}
                 </button>
                 <button   class="account" id="account_logOut" 
-                onClick={()=>{DeleteUser(profile, myTweets,setDeleteError );
+                onClick={()=>{navigate('/twitter/delete');
                 setSet(false)}}>
                   Delete @{profile.userId}
                 </button>
