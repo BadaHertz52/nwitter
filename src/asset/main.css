@@ -2010,7 +2010,7 @@ img, div, button, #nav, input {
           align-items: stretch;
   border-right: 1px solid #c5bdbd;
   width: 1px;
-  height: 180%;
+  height: 110%;
   margin-left: 50%;
 }
 
@@ -2248,6 +2248,10 @@ img, div, button, #nav, input {
 
 .tweetFactory svg {
   font-size: 1.5rem;
+}
+
+.tweetFactory .tweet_content .attachment {
+  display: none;
 }
 
 #home .tweetFactory {
