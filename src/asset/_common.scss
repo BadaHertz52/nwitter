@@ -1,32 +1,5 @@
-@mixin initialBtn {
-  background-color: initial;
-  &:hover{
-    background-color: initial;
-    color: initial;
-  }
-}
-
-@mixin routHeader {
-  display: flex;
-  height: fit-content;
-  padding:10px 0
-}
-@mixin backBtnHover {
-  background-color: rgb(235,235, 235);
-  color: initial;
-}
-@mixin backBtn {
-  font-size: 1.5rem;
-  width: 2.5rem;
-  height: 2.5rem;
-  margin: {
-    right: 1rem ; 
-    left: 2rem
-  };
-  &:hover{
-    @include backBtnHover()
-  }
-}
+$white :rgb(245, 245, 245);
+$black:rgb(46, 46, 46);
 $deep_blue:rgb(0, 140, 255);
 $btnHoverBlue: rgb(29, 155, 240);
 $btnLightBlue:rgb(164, 211, 255);
@@ -38,4 +11,59 @@ $popupBgColor:rgba(0, 0, 0, 0.4);
 
 $hoverGrey : rgba(235, 235, 235, 0.753);
 
-$lineGrey: rgba(139, 139, 139, 0.096)
+$lineGrey: rgba(139, 139, 139, 0.096);
+
+.twitter_icon {
+  color: $btnHoverBlue;
+  text-align: center;
+  font-size: 1.5rem;
+}
+@mixin initialBtn {
+  background-color: initial;
+  &:hover{
+    background-color: initial;
+    color: initial;
+  }
+}
+@mixin blackBtn {
+  background-color: $black;
+  color: $white;
+  &:hover{
+    background-color: $white;
+    border: 1px solid $black;
+    color: $black;
+    font-weight: bold;
+  }
+};
+@mixin  whiteBtn {
+  background-color:$white;
+  color: $black;
+  border: 1px solid $black;
+  &:hover{
+    background-color: $black;
+    color:$white;
+  }
+}
+@mixin routHeader {
+  display: flex;
+  height: fit-content;
+  padding:10px 0 ;
+}
+
+@mixin backBtnHover {
+  background-color: rgb(235,235, 235);
+  color: initial;
+}
+
+@mixin backBtn {
+  font-size: 1.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: {
+    right: 1rem ; 
+    left: 2rem;
+  };
+  &:hover{
+    @include backBtnHover;
+  }
+}
