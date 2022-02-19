@@ -94,8 +94,7 @@ const List =({userobj})=>{
         id:user.uid,
         userNotifications: user.notifications.filter(n=> 
           n.value !=="following" || 
-          n.user !== userobj.uid || 
-          n.docId !== null),
+          n.user !== userobj.uid ),
         userFollower: user.follower.filter(f=> f !== userobj.uid),
         following: myProfile.following.filter( f=> f!== userProfile.uid)
       });
@@ -106,8 +105,8 @@ const List =({userobj})=>{
         type:"FOLLOWING",
         id:user.uid,
         userNotifications:user.notifications,
-        userFollower:user.follower.concat(userobj.uid),
-        following: myProfile.following.concat(userProfile.uid)
+        userFollower:[userobj.uid].concat(user.follower),
+        following: [user.uid].concat(myProfile.following)
       });
     };
 
