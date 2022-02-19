@@ -36,28 +36,31 @@ const TweetFactory = ({userobj ,setPopup }) => {
     );
 
     localStorage.removeItem('tweet');
-    const back =state.previous!==undefined? state.previous: location.pathname  ;
-    if(back.includes("list")){
-      navigate(back ,
-        {state:{
-          isMine:state.isMine,
-          previous:state.previous,
-          userId: state.userId
+    if(state!==null ){
+      if(state.previous !==undefined){
+        const back =state.previous;
+        if(back.includes("list")){
+          navigate(back ,
+          {state:{
+            isMine:state.isMine,
+            previous:state.previous,
+            userId: state.userId
+          }
+          });
+        }else if(back.includes("status")){
+        navigate(back ,
+          {state:state});
+        }else{
+          location.pathname !=="/twitter/home" &&
+          navigate( back ,
+            {state:{
+              previous:location.pathname , 
+              value : null,
+            }});
         }
-        });
-    }else if(back.includes("status")){
-      navigate(back ,
-        {state:state});
-    }else{
-      navigate(back ,
-        {state:{
-          previous:location.pathname , 
-          value : null,
-        }});
     }
-  
-    
   };
+};
   const onSubmit = async(event) => {
     event.preventDefault();
     const docId= JSON.stringify(Date.now());
@@ -130,7 +133,7 @@ const TweetFactory = ({userobj ,setPopup }) => {
       updateMytweetsByMe(myTweets,value,userobj,docId,tweetDispatch,tweetObj.docId)
     }
     }
-    state!==null &&onClose()
+    onClose();
     };
 
   const adjustingHeight=(target)=>{
@@ -240,14 +243,18 @@ const TweetFactory = ({userobj ,setPopup }) => {
             />
           </div>
           <form onSubmit={onSubmit}>
+            {tweetInput!==undefined
+            &&
             <textarea
-            value={tweetInput!==undefined&&  tweetInput.text !=="false" && tweetInput.text}
+            value={tweetInput.text !=="false" && tweetInput.text}
             name='text'
             onChange={onChange}
             type="text"
             placeholder="What's happening?"
             maxLength={120}
             />
+            }
+
             
             {attachment !== ""&& (
               <div id="tweetfactory_attachment">
