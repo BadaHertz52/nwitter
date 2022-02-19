@@ -1,17 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState ,useEffect } from 'react';
 import { AiOutlineRetweet, AiOutlineUser} from "react-icons/ai";
 import { AiOutlineHeart } from "react-icons/ai";
 import {VscBell} from 'react-icons/vsc';
 import {ProfileContext} from '../context/ProfileContex';
 import { TweetContext } from '../context/TweetContex';
 import { getProfileDoc} from '../components/GetData';
-import { useEffect } from 'react/cjs/react.development';
 import {  useLocation, useNavigate } from 'react-router';
 import { dbService } from '../Fbase';
 import { goProfile } from '../components/UserProfile';
 import TweetForm from '../components/TweetForm';
 
-const Notification = ({userobj}) => {
+const Notification = () => {
   const {myProfile} =useContext(ProfileContext);
   const {myTweets} =useContext(TweetContext);
   const [notifications, setNotifications]=useState
@@ -43,6 +42,7 @@ const Notification = ({userobj}) => {
   };
 
   useEffect(()=>{
+    console.log("notification")
     const getData=async()=>{
       const array = await Promise.all( myProfile.notifications.map( (n) =>{
         const result = getProfileDoc(n.user).get().then(async(doc) =>{
