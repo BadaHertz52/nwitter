@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/twitter/static/css/main.37b49d6f.css",
-    "main.js": "/twitter/static/js/main.82840556.js",
+    "main.css": "/twitter/static/css/main.622d7af1.css",
+    "main.js": "/twitter/static/js/main.3051d099.js",
     "static/js/787.ded06d66.chunk.js": "/twitter/static/js/787.ded06d66.chunk.js",
     "static/media/auth_img_width.jpg": "/twitter/static/media/auth_img_width.df0a51dcb5cc85858d14.jpg",
     "static/media/auth_img.jpg": "/twitter/static/media/auth_img.57be92258f6efeadba3e.jpg",
     "index.html": "/twitter/index.html",
-    "main.37b49d6f.css.map": "/twitter/static/css/main.37b49d6f.css.map",
-    "main.82840556.js.map": "/twitter/static/js/main.82840556.js.map",
+    "main.622d7af1.css.map": "/twitter/static/css/main.622d7af1.css.map",
+    "main.3051d099.js.map": "/twitter/static/js/main.3051d099.js.map",
     "787.ded06d66.chunk.js.map": "/twitter/static/js/787.ded06d66.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.37b49d6f.css",
-    "static/js/main.82840556.js"
+    "static/css/main.622d7af1.css",
+    "static/js/main.3051d099.js"
   ]
 }
