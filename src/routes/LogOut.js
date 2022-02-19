@@ -31,7 +31,7 @@ const LogOut =({setIsLoggedIn})=>{
   return (
     <section id="logOut">
       <div id='logOut_inner'>
-      <div id="logOut_icon">
+      <div className="twitter_icon">
         <BsTwitter/>
       </div>
       <div id="logOut_alert">
@@ -48,7 +48,7 @@ const LogOut =({setIsLoggedIn})=>{
         onClick={onLogOut}>
           Log out
         </button>
-        <button onClick={()=>{navigate(-1)}} >
+        <button onClick={()=>{navigate('/twitter/home')}} >
           Cancel
         </button>
       </div>
