@@ -36,7 +36,7 @@ const TweetFactory = ({userobj ,setPopup }) => {
     );
 
     localStorage.removeItem('tweet');
-    const back =state.previous;
+    const back =state.previous!==undefined? state.previous: location.pathname  ;
     if(back.includes("list")){
       navigate(back ,
         {state:{
@@ -130,7 +130,7 @@ const TweetFactory = ({userobj ,setPopup }) => {
       updateMytweetsByMe(myTweets,value,userobj,docId,tweetDispatch,tweetObj.docId)
     }
     }
-      onClose()
+    state!==null &&onClose()
     };
 
   const adjustingHeight=(target)=>{
