@@ -48,7 +48,7 @@ const Auth = ( ) => {
           </div>
           <div id="logIn">
             <div>
-            Did you already sign up for NWITTER?
+            Did you already sign up for Twitter?
             </div>
             <button onClick={()=>{setPopup(true); setNewAccount(false)}}>
               Log In
