@@ -23,6 +23,7 @@ import TimeLine from '../routes/TimeLine';
 import Tweet from './Tweet';
 import LogOut from '../routes/LogOut';
 import Loading from './Loading';
+import DeleteUser from './DeleteUser';
 
 const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMyProfile }) => {
   const [userId, setUserId]=useState("");
@@ -123,7 +124,8 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
           <Loading/>
           :
           (IsMyProfile ?
-          <>
+          
+          <div id="inner">
             <Routes>
               <Route  
                 path="/twitter/tweet" 
@@ -131,72 +133,74 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
               <Route 
                 path="/twitter/crop" 
                 element={ <Cropper/>}/>
-              <Route exact path={`/twitter/editProfile`} 
-              element={<EditProfile userobj={userobj}  />}/>
+              <Route 
+                path={`/twitter/editProfile`} 
+                element={<EditProfile userobj={userobj}  />}/>
               <Route
-                  exact  path={`/twitter/logout`} 
+                  path={`/twitter/logout`} 
                   element={<LogOut setIsLoggedIn={setIsLoggedIn}  />}
                 />
+              <Route 
+                path ={'/twitter/delete'}
+                element={<DeleteUser userobj={userobj} />}
+              />
             </Routes>
-            <div id="inner">
-              <>
-                <Navigation userobj={userobj} />
-                <div id="main">
-                  <Routes>
-                    <Route 
-                      exact path={`/twitter/home`} 
-                      element={<Home  userobj={userobj}/>}/> 
-                    <Route 
-                      exact  path={`/twitter/timeLine`}
+            <Navigation userobj={userobj}  />
+            <div id="main">
+              <Routes>
+                <Route 
+                  exact path={`/twitter/home`} 
+                  element={<Home  userobj={userobj}/>}/> 
+                <Route 
+                  exact  path={`/twitter/timeLine`}
+                  element={<TimeLine userobj={userobj} />}
+                />
+                <Route 
+                  path={`/twitter/${userId}/status/${docId}`}
+                  element={<Tweet userobj={userobj}/>}
+                />
+                <Route 
+                  path={`/twitter/home/${userId}/status/${docId}`}
+                  element={<Tweet userobj={userobj}/>}
+                />
+                <Route  
+                  path={`/twitter/${userobj.id}`} 
+                  element={ 
+                  <MyProfile userobj={userobj}  />}/>
+                <Route 
+                  exact path={`/twitter/notification`}
+                  element={<Notification userobj={userobj}  />} />
+                <Route  
+                    path={`/twitter/${userId}`} 
+                    element={<Profile userobj={userobj} 
+                    />}/>
+                <Route 
+                  path={`/twitter/${userId}/list/follower`}
+                  element={<List userobj={userobj} />}/>
+                <Route 
+                  path={`/twitter/${userId}/list/following`}
+                  element={<List userobj={userobj} />}/>
+                <Route 
+                  path={`/twitter/${userobj.id}/list/follower`}
+                  element={<List userobj={userobj} />}/>
+                <Route 
+                  path={`/twitter/${userobj.id}/list/following`}
+                  element={<List userobj={userobj} />}/>
+                  <Route 
+                      path={`/twitter/timeLine`}
                       element={<TimeLine userobj={userobj} />}
                     />
                     <Route 
                       path={`/twitter/${userId}/status/${docId}`}
                       element={<Tweet userobj={userobj}/>}
                     />
-                    <Route 
-                      path={`/twitter/home/${userId}/status/${docId}`}
-                      element={<Tweet userobj={userobj}/>}
-                    />
-                    <Route  
-                      path={`/twitter/${userobj.id}`} 
-                      element={ 
-                      <MyProfile userobj={userobj}  />}/>
-                    <Route 
-                      exact path={`/twitter/notification`}
-                      element={<Notification userobj={userobj}  />} />
-                    <Route  
-                        path={`/twitter/${userId}`} 
-                        element={<Profile userobj={userobj} 
-                        />}/>
-                    <Route 
-                      path={`/twitter/${userId}/list/follower`}
-                      element={<List userobj={userobj} />}/>
-                    <Route 
-                      path={`/twitter/${userId}/list/following`}
-                      element={<List userobj={userobj} />}/>
-                    <Route 
-                      path={`/twitter/${userobj.id}/list/follower`}
-                      element={<List userobj={userobj} />}/>
-                    <Route 
-                      path={`/twitter/${userobj.id}/list/following`}
-                      element={<List userobj={userobj} />}/>
-                      <Route 
-                          path={`/twitter/timeLine`}
-                          element={<TimeLine userobj={userobj} />}
-                        />
-                        <Route 
-                          path={`/twitter/${userId}/status/${docId}`}
-                          element={<Tweet userobj={userobj}/>}
-                        />
-                </Routes>
-                </div>
-                <div id="side">
-                  <Side userobj={userobj} />
-                </div>
-              </>
+            </Routes>
             </div>
-          </>
+            <div id="side">
+              <Side userobj={userobj} />
+            </div>
+          </div>
+          
           :
           <>
             <Routes>
