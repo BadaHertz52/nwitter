@@ -1,3 +1,9 @@
+.twitter_icon {
+  color: #1d9bf0;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
 #auth {
   position: absolute;
   top: 15%;
@@ -336,6 +342,121 @@
   }
 }
 
+.twitter_icon {
+  color: #1d9bf0;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+#deleteUser {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 3;
+}
+
+.delete_inner {
+  position: absolute;
+  top: 30%;
+  left: 25%;
+  width: 50%;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #ffff;
+}
+
+.delete_alret {
+  font-size: 1.2rem;
+  line-height: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.deleteBtns {
+  margin-bottom: 1rem;
+}
+
+.deleteBtns button {
+  background-color: whitesmoke;
+  color: #2e2e2e;
+  border: 1px solid #2e2e2e;
+  padding: 10px 1rem;
+  font-size: 1rem;
+  text-align: center;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.329) 0px 5px 5px;
+          box-shadow: rgba(0, 0, 0, 0.329) 0px 5px 5px;
+}
+
+.deleteBtns button:hover {
+  background-color: #2e2e2e;
+  color: whitesmoke;
+}
+
+#deleteBtn {
+  margin-left: 30%;
+  width: 40%;
+}
+
+#deleteErrorBtns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-left: 25%;
+  width: 50%;
+}
+
+#deleteErrorBtns button {
+  width: 100%;
+  padding: 8px 1rem;
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 728px) {
+  #deleteErrorBtns {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    width: 60%;
+    margin-left: 20%;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  #deleteErrorBtns button {
+    width: 40%;
+    margin: 0;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .delete_inner {
+    left: calc( 50% - 200px);
+    width: 400px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  #deleteError {
+    width: 25%;
+    left: 37.5%;
+  }
+}
+
+.twitter_icon {
+  color: #1d9bf0;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
 img, div, button, #nav, input {
   position: relative;
   z-index: inherit;
@@ -553,6 +674,12 @@ img, div, button, #nav, input {
     width: 30%;
     padding: 2%;
   }
+}
+
+.twitter_icon {
+  color: #1d9bf0;
+  text-align: center;
+  font-size: 1.5rem;
 }
 
 #list,
@@ -931,6 +1058,12 @@ img, div, button, #nav, input {
   background-color: #ffff;
 }
 
+.twitter_icon {
+  color: #1d9bf0;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
 #logOut {
   position: absolute;
   top: 0;
@@ -998,23 +1131,26 @@ img, div, button, #nav, input {
 }
 
 #logOut_Btn button:first-child {
-  background-color: black;
-  color: #ffff;
+  background-color: #2e2e2e;
+  color: whitesmoke;
 }
 
 #logOut_Btn button:first-child:hover {
-  background-color: #dfdfdf;
-  color: black;
+  background-color: whitesmoke;
+  border: 1px solid #2e2e2e;
+  color: #2e2e2e;
+  font-weight: bold;
 }
 
 #logOut_Btn button:last-child {
-  background-color: #ffff;
-  border: 1px solid black;
+  background-color: whitesmoke;
+  color: #2e2e2e;
+  border: 1px solid #2e2e2e;
 }
 
 #logOut_Btn button:last-child:hover {
-  background-color: #dfdfdf;
-  border: none;
+  background-color: #2e2e2e;
+  color: whitesmoke;
 }
 
 @media screen and (min-width: 900px) {
@@ -1036,6 +1172,12 @@ img, div, button, #nav, input {
     width: 600px;
     left: calc(50%-300px);
   }
+}
+
+.twitter_icon {
+  color: #1d9bf0;
+  text-align: center;
+  font-size: 1.5rem;
 }
 
 #nav {
@@ -1226,48 +1368,6 @@ img, div, button, #nav, input {
 
 .nav_label {
   display: none;
-}
-
-#deleteError {
-  position: absolute;
-  top: 30%;
-  left: 25%;
-  background-color: white;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.329) 0px 5px 15px;
-          box-shadow: rgba(0, 0, 0, 0.329) 0px 5px 15px;
-  border-radius: 10px;
-  z-index: 6;
-  width: 50%;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-  font-size: 1.2rem;
-  padding: 1rem;
-}
-
-#deleteError div {
-  text-align: center;
-  margin: 1rem 0;
-}
-
-#deleteError button {
-  background-color: initial;
-  width: 40%;
-  margin: 1rem 30%;
-  background-color: #3b3b3b;
-  color: #ffff;
-  font-size: 1.2rem;
-  padding: 10px 0;
-}
-
-#deleteError button:hover {
-  background-color: initial;
-  color: initial;
-}
-
-#deleteError button:hover {
-  background-color: #a4d3ff;
-  color: black;
 }
 
 @media screen and (min-width: 500px) {
@@ -1508,11 +1608,10 @@ img, div, button, #nav, input {
   }
 }
 
-@media screen and (min-width: 1440px) {
-  #deleteError {
-    width: 25%;
-    left: 37.5%;
-  }
+.twitter_icon {
+  color: #1d9bf0;
+  text-align: center;
+  font-size: 1.5rem;
 }
 
 #notifications {
@@ -1674,6 +1773,12 @@ img, div, button, #nav, input {
   #notifications.tweet_header .tweet_time {
     font-size: 11px;
   }
+}
+
+.twitter_icon {
+  color: #1d9bf0;
+  text-align: center;
+  font-size: 1.5rem;
 }
 
 .tweets, .tweets_tweet {
@@ -2179,6 +2284,12 @@ img, div, button, #nav, input {
   .tweet .qt {
     width: 80%;
   }
+}
+
+.twitter_icon {
+  color: #1d9bf0;
+  text-align: center;
+  font-size: 1.5rem;
 }
 
 .tweetFactory {
@@ -2712,6 +2823,12 @@ img, div, button, #nav, input {
   font-weight: initial;
 }
 
+.twitter_icon {
+  color: #1d9bf0;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
 #profileTopForm_header {
   width: 100%;
   display: -webkit-box;
@@ -2908,6 +3025,12 @@ img, div, button, #nav, input {
   #pb_buttons button:nth-child(4) {
     width: 35%;
   }
+}
+
+.twitter_icon {
+  color: #1d9bf0;
+  text-align: center;
+  font-size: 1.5rem;
 }
 
 #root {
@@ -3339,6 +3462,12 @@ input:focus {
 #timeLine_value {
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+.twitter_icon {
+  color: #1d9bf0;
+  text-align: center;
+  font-size: 1.5rem;
 }
 
 @font-face {
