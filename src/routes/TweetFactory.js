@@ -243,19 +243,16 @@ const TweetFactory = ({userobj ,setPopup }) => {
             />
           </div>
           <form onSubmit={onSubmit}>
-            {tweetInput!==undefined
-            &&
             <textarea
-            value={tweetInput.text !=="false" && tweetInput.text}
+            value={tweetInput!==undefined &&
+              (tweetInput.text !=="false" ? tweetInput.text : "What's happening?")}
             name='text'
             onChange={onChange}
             type="text"
             placeholder="What's happening?"
             maxLength={120}
             />
-            }
-
-            
+          
             {attachment !== ""&& (
               <div id="tweetfactory_attachment">
                 <img src={attachment}  alt="tweet attachment"/>
