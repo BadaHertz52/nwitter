@@ -7,15 +7,14 @@ import { UserContext } from '../context/UserContext';
 
 const Profile = ({userobj }) => {
   const {userProfile , userTweets}=useContext(UserContext);
-
   return (
     <>
-    {(userProfile.uid ===""|| userTweets === undefined)?
+    {(userProfile.photoUrl === undefined|| userTweets === undefined)?
       <Loading/>
     :
     <>
       <section>
-        <ProfileTopForm isMine={false} userobj={userobj} />
+        <ProfileTopForm who={userProfile} isMine={false} userobj={userobj} />
       </section>
       <section >
         <ProfileBottomForm  isMine={false} userobj={userobj} /> 

@@ -2,14 +2,14 @@ import React,{ useContext, useEffect, useState } from 'react';
 import { useNavigate , useLocation} from 'react-router-dom';
 import Tweet from './Tweet';
 import { FiArrowLeft } from "react-icons/fi";
-import { getTweetsDocs, goBack } from './GetData';
+import { getTweetsDocs, goBack, profileForm } from './GetData';
 import Loading from './Loading';
 import { ProfileContext } from '../context/ProfileContex';
 import { UserContext } from '../context/UserContext';
 import { TweetContext } from '../context/TweetContex';
 
 
-export const ProfileTopForm = ({ isMine , userobj } )=>{
+export const ProfileTopForm = ({who, isMine , userobj } )=>{
   const {myProfile, profileDispatch }=useContext(ProfileContext);
   const {myTweets}=useContext(TweetContext);
   const {userProfile ,userTweets}=useContext(UserContext);
@@ -17,7 +17,7 @@ export const ProfileTopForm = ({ isMine , userobj } )=>{
   const location =useLocation();
   const navigate= useNavigate();
   
-  const [profile,setProfile]=useState(isMine? myProfile : userProfile);
+  const [profile,setProfile]=useState(profileForm);
 
   const tweets =isMine? myTweets:userTweets;
 
@@ -85,7 +85,10 @@ export const ProfileTopForm = ({ isMine , userobj } )=>{
     }
 
   }
-
+  useEffect(()=>{
+    profile.userId==="" && setProfile(who);
+  },[]);
+  
   useEffect(()=>{
     myFollowingList[0]!== undefined && changeFollowBtn();
     if(followBtn !==null){
@@ -98,72 +101,67 @@ export const ProfileTopForm = ({ isMine , userobj } )=>{
 
   return(
     <>
-    {profile.photoUrl !=="" ?
-        <section id="profileTopForm">
-          <div id="profileTopForm_header">
-            <button 
-            id="profile_goHomeBtn" 
-            className='back'
-            onClick={()=>goBack(location, navigate)}>
-              <FiArrowLeft/>
-            </button>
-            <div>
+      <section id="profileTopForm">
+        <div id="profileTopForm_header">
+          <button 
+          id="profile_goHomeBtn" 
+          className='back'
+          onClick={()=>goBack(location, navigate)}>
+            <FiArrowLeft/>
+          </button>
+          <div>
+            <div>{profile.userName}</div>
+            <div>{tweets.length} tweets</div>
+          </div>
+        </div>
+        <div id="profileForm_profile">
+          <img src={profile.headerUrl} alt="profileHeader" />
+          <div>
+            <img src={profile.photoUrl}  alt="profile"/>
+            <div id="profileForm_userInformation">
               <div>{profile.userName}</div>
-              <div>{tweets.length} tweets</div>
+              <div>@{profile.userId}</div>
+              <div>{profile.introduce}</div>
             </div>
+              { isMine ?
+                <div id="logOutAndEdit">
+                  <button onClick={()=>{navigate(`/twitter/logout`)}}> Log Out </button>
+                  <button onClick={goEdit} >
+                    Edit Profile
+                  </button>
+                </div>
+                :
+                <button id='profile_followBtn' onClick= {follow} >
+                {onFollow.text}
+              </button>
+                }
           </div>
-          <div id="profileForm_profile">
-            <img src={profile.headerUrl} alt="profileHeader" />
+        </div>
+        <div className="profile_follow">
+          <button onClick={()=>goList("following")}>
+          {profile.following && (
             <div>
-              <img src={profile.photoUrl}  alt="profile"/>
-              <div id="profileForm_userInformation">
-                <div>{profile.userName}</div>
-                <div>@{profile.userId}</div>
-                <div>{profile.introduce}</div>
-              </div>
-                { isMine ?
-                  <div id="logOutAndEdit">
-                    <button onClick={()=>{navigate(`/twitter/logout`)}}> Log Out </button>
-                    <button onClick={goEdit} >
-                      Edit Profile
-                    </button>
-                  </div>
-                  :
-                  <button id='profile_followBtn' onClick= {follow} >
-                  {onFollow.text}
-                </button>
-                  }
+              <span className='number'>
+                {profile.following[0] === undefined ? 0 :profile.following.length }
+              </span>
+              &nbsp;
+              Following
             </div>
-          </div>
-          <div className="profile_follow">
-            <button onClick={()=>goList("following")}>
-            {profile.following && (
+          )}
+          </button>
+          <button  onClick={()=>goList("follower")}>
+            { profile.follower && (
               <div>
                 <span className='number'>
-                  {profile.following[0] === undefined ? 0 :profile.following.length }
-                </span>
-                &nbsp;
-                Following
+                  {profile.follower[0] === undefined ? 0 :profile.follower.length}
+                  </span>
+                  &nbsp;
+                  Followers
               </div>
             )}
-            </button>
-            <button  onClick={()=>goList("follower")}>
-              { profile.follower && (
-                <div>
-                  <span className='number'>
-                    {profile.follower[0] === undefined ? 0 :profile.follower.length}
-                    </span>
-                    &nbsp;
-                    Followers
-                </div>
-              )}
-            </button>
-          </div>
+          </button>
+        </div>
       </section>
-
-      :
-      <Loading/>
-    }
     </>
 
 
