@@ -45,4 +45,4 @@ import { OffRtHeart, OnRtHeart } from "./GetData";
   )
 };
 
-export default Heart;
+export default React.memo(Heart);

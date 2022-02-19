@@ -63,4 +63,4 @@ const getUsersProfile =async()=>{
 };
 
 
-export default Recommend;
+export default React.memo(Recommend);

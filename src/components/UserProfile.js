@@ -33,4 +33,4 @@ const UserProfile = ({profile}) => {
   )
 };
 
-export default UserProfile ;
+export default React.memo(UserProfile) ;

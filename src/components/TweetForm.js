@@ -68,4 +68,4 @@ return (
 )
 };
 
-export default TweetForm ;
+export default  React.memo(TweetForm) ;

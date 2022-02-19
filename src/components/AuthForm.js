@@ -59,4 +59,4 @@ const AuthForm = ({newAcount, setPopup})=> {
   )
   } ;
 
-export default AuthForm 
+export default React.memo(AuthForm) 

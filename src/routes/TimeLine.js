@@ -61,4 +61,4 @@ const TimeLine =({userobj})=>{
   )
 };
 
-export default TimeLine;
+export default  React.memo(TimeLine);

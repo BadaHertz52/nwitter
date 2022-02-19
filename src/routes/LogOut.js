@@ -58,4 +58,4 @@ const LogOut =({setIsLoggedIn})=>{
 };
 
 
-export  default LogOut
+export  default React.memo(LogOut);

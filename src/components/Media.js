@@ -43,4 +43,4 @@ const Media =({who})=>{
 };
 
 
-export default Media;
+export default React.memo(Media);

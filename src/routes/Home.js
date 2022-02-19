@@ -118,4 +118,4 @@ const Home =  ({userobj}) => {
     </div>
   );
 };
-export default Home;
+export default React.memo(Home);

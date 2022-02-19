@@ -157,4 +157,4 @@ const Notification = () => {
     </div>
     </section> 
 )}
-export default Notification ;
+export default React.memo(Notification) ;

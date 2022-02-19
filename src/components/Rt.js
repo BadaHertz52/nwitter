@@ -88,4 +88,4 @@ import { BsPencil } from "react-icons/bs";
   )
 }
 
-export default Rt;
+export default React.memo(Rt);

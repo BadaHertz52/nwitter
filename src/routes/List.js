@@ -79,13 +79,13 @@ const List =({userobj})=>{
       const target =event.target;
       target.classList.add("unFollow"
           );
-     target.innerText ="Unfollow";
+      target.innerText ="Unfollow";
       };
     const onOut =(event)=>{
       const target =event.target;
       target.classList.remove("unFollow"
           );
-     target.innerText ="Following";
+      target.innerText ="Following";
       };
 
     const unFollow =()=>{
@@ -235,4 +235,4 @@ const List =({userobj})=>{
   )
 }
 
-export default List ;
+export default React.memo(List) ;

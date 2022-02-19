@@ -107,4 +107,4 @@ const DeleteUser =async(myProfile, myTweets, setDeleteError  )=> {
   }
 
 
-export default DeleteUser;
+export default React.memo(DeleteUser);

@@ -103,4 +103,4 @@ const Side =({userobj , home})=>{
 };
 
 
-export default Side
+export default  React.memo(Side);
