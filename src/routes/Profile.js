@@ -9,7 +9,7 @@ const Profile = ({userobj }) => {
   const {userProfile , userTweets}=useContext(UserContext);
   return (
     <>
-    {(userProfile.photoUrl === undefined|| userTweets === undefined)?
+    {(userProfile === undefined|| userTweets === undefined)?
       <Loading/>
     :
     <>
