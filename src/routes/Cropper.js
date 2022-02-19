@@ -29,16 +29,16 @@ const Cropper =()=> {
   const [cropResult, setCropResult]=useState("");
 
   const onBack=()=>{
-    const pathname =location.pathname ;
     const state =location.state;
     const value =state.value;
     navigate( state.previous , {state:
       {what:what ,
       value:value ,
-      previous: pathname
+      previous: state.pre_previous
     }})
   } ;
 
+  
   const onImageLoaded=(img)=>{
     imageRef.current =img;
     return false

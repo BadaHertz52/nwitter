@@ -59,17 +59,19 @@ const EditProfile = ( { userobj ,setIsMyProfile}) =>{
       case "header":
         setHeader(result);
         navigate("/twitter/crop", {state:{
+          pre_previous:location.state.previous,
           previous:location.pathname,
-      what:"header",
-      src:result ,}})
+          what:"header",
+          src:result ,}})
         break;
 
       case "photo":
         setProfilePhoto(result);
-    navigate("/twitter/crop", {state:{
-      previous:location.pathname,
-      what:"photo",
-      src:result ,}});
+        navigate("/twitter/crop", {state:{
+        pre_previous:location.state.previous,
+        previous:location.pathname,
+        what:"photo",
+        src:result ,}});
       break;
       default:
       break;
@@ -137,13 +139,21 @@ const EditProfile = ( { userobj ,setIsMyProfile}) =>{
   useEffect(()=>{
     if(location.state !==null){
       const state= location.state;
-      if(state.what !== undefined){
+      if(state.what !== undefined && profileInput!==undefined){
         const what =state.what ; 
-        what ==="header" && setHeader(profileInput.headerUrl);
-        what ==="photo" && setProfilePhoto(profileInput.photoUrl);
+        switch (what) {
+          case "header":
+            profileInput.headerUrl!=="" && setHeader(profileInput.headerUrl)
+            break;
+          case "photo" :
+            profileInput.photoUrl !=="" && setProfilePhoto(profileInput.photoUrl)
+            break;
+          default:
+            break;
+        }
       }
     }
-  },[location.state]) ;
+  },[location.state , profileInput]) ;
 
   return (
     <section id="editProfile">
