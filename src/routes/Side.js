@@ -75,7 +75,7 @@ const Side =({userobj , home})=>{
       {location.state !==null &&
         state.value !==null &&
         (state.value === "profile" || state.value === "userProfile") &&
-          <Media who={location.pathname===`/${userobj.id}`? "currentUser" :"user"}/>
+          <Media who={location.pathname===`/twitter/${userobj.id}`? "currentUser" :"user"}/>
         }
       <div id="trend">
         <div>
@@ -103,4 +103,4 @@ const Side =({userobj , home})=>{
 };
 
 
-export default  React.memo(Side);
+export default  React.memo(Side)
