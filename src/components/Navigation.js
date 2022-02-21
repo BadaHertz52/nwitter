@@ -7,16 +7,12 @@ import { FaRegUser, FaUser } from "react-icons/fa";
 import { AiFillHome, AiOutlineHome } from 'react-icons/ai';
 
 import {ProfileContext} from '../context/ProfileContex';
-import {TweetContext} from '../context/TweetContex';
-
-import DeleteUser from './DeleteUser';
 import { profileForm } from './GetData';
 
 const Navigation = ({userobj}) => {
   const location= useLocation();
   const navigate =useNavigate();
   const {myProfile}=useContext(ProfileContext);
-  const {myTweets}= useContext(TweetContext);
   const inner =document.getElementById('inner');
   const [set, setSet] =useState(false);
   const [profile, setProfile]=useState(profileForm);
@@ -56,50 +52,52 @@ const Navigation = ({userobj}) => {
     <>
     <nav id="nav">
       <div id="nav_menu">
-        < button onClick={()=> navigate(`/twitter/home`)} id="nav_home">
+        < button onClick={()=> navigate(`/twitter/home`)} id="nav_home" title="home">
           <BsTwitter/>
         </button>
-        <button onClick={()=> navigate(`/twitter/home`)}>
+        <button onClick={()=> navigate(`/twitter/home`)} title="Home">
           {location.pathname===`/twitter/home`? 
           <>
-            <AiFillHome/>
-            <div className="nav_label on">Home</div> 
+            <AiFillHome title="Home"/>
+            <div className="nav_label on" >Home</div> 
           </>
           :
           <>
-            <AiOutlineHome/>
-            <div className="nav_label">Home</div> 
+            <AiOutlineHome title="Home"/>
+            <div className="nav_label" >Home</div> 
           </>
           }
         </button>
-        <button onClick={()=> navigate(`/twitter/notification`)} >
+        <button onClick={()=> navigate(`/twitter/notification`)}  title="Notification">
           {location.pathname===`/twitter/notification` ?
           <>
-            <BsBellFill/> 
+            <BsBellFill title="Profile"/> 
             <div className="nav_label on"> Notifications </div>
           </>
           :
           <>
             <BsBell/>
-            <div className="nav_label"> Notifications </div>
+            <div className="nav_label"  title="Notification"> Notifications </div>
           </>
           }
           
         </button>
         <button 
           id="nav_myProfile"
-          onClick={goMyProfile}> 
+          onClick={goMyProfile}
+          title="Profile"> 
           {location.pathname ===`/twitter/${userobj.id}` ?
           <>
-            <FaUser/>
+            <FaUser title="Profile"/>
             <div 
-            className="nav_label on"> 
+            className="nav_label on"
+            > 
               Profile 
             </div>
           </>
           :
           <>
-            <FaRegUser/>
+            <FaRegUser title="Profile"/>
             <div 
             className="nav_label"> 
               Profile 
@@ -111,12 +109,13 @@ const Navigation = ({userobj}) => {
       <div id='nav_tweetFactory'>
         <button id="nav_popUp"  
         onClick={goTweetFactory} 
+        titile="Tweet"
         >
-          <BsPencil/>
+          <BsPencil titile="Tweet"/>
           <div id="do_tweet">tweet</div>
         </button>
       </div> 
-      <div id="nav_profile">
+      <div id="nav_profile" title="Account">
       {set &&
             <div  class="account" id="account">
               <div  class="account"  id="account_user">
