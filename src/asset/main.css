@@ -1,5 +1,5 @@
 .twitter_icon {
-  color: #1d9bf0;
+  color: #7bcaff;
   text-align: center;
   font-size: 1.5rem;
 }
@@ -24,25 +24,13 @@
 }
 
 #auth svg {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   color: #008cff;
+  margin-left: calc(50% - 0.75rem);
+  margin-bottom: 10px;
 }
 
-#auth button, #auth input:last-child {
-  margin-top: 0.5rem;
-  font-size: 1.1rem;
-  padding: 5px;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
-          box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
-  border-radius: 45px;
-}
-
-#auth button:hover, #auth input:last-child:hover {
-  color: #ffff;
-  background-color: #1d9bf0;
-}
-
-#createAccount, #logIn {
+.auth_main_div {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -56,14 +44,18 @@
   text-align: center;
 }
 
-#createAccount button, #logIn button {
+.auth_main_div button {
   text-align: center;
   width: 100%;
-  font-size: 1rem;
   margin-top: 2rem;
+  font-size: 1.1rem;
+  padding: 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+          box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+  border-radius: 45px;
 }
 
-#createAccount > div, #logIn > div {
+.auth_main_div > div {
   font-size: 1.2rem;
   font-weight: 700;
   width: 100%;
@@ -77,6 +69,8 @@
 #createAccount button:hover {
   border: none;
   padding: 8px;
+  background-color: #7bcaff;
+  color: initial;
 }
 
 #logIn button {
@@ -85,6 +79,8 @@
 
 #logIn button:hover {
   padding: 8px;
+  background-color: #7bcaff;
+  color: initial;
 }
 
 #logIn > div {
@@ -92,7 +88,6 @@
 }
 
 #authForm {
-  margin-top: 20%;
   width: 100%;
   height: 100%;
 }
@@ -130,13 +125,33 @@
   font-size: 1rem;
 }
 
-#authForm form input:last-child {
+#authForm form #authForm_logIn {
   border: none;
 }
 
-#authForm form input:last-child:hover {
-  padding: 8px;
+#authForm form #authForm_logIn:hover {
   border: none;
+  background-color: #7bcaff;
+  color: initial;
+}
+
+#authForm_backBtn {
+  font-size: 1.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right: 1rem;
+  margin-left: 2rem;
+  background-color: #ffff;
+  margin: 0;
+}
+
+#authForm_backBtn svg {
+  margin: 0;
+}
+
+#authForm_backBtn:hover {
+  background-color: #ebebeb;
+  color: initial;
 }
 
 #authError {
@@ -144,7 +159,13 @@
   padding: 1rem 10px;
   font-size: 1rem;
   background-color: #f0f0f0;
+  border-radius: 10px;
   overflow-wrap: break-word;
+}
+
+#authError svg {
+  margin-bottom: 0;
+  color: #c02f2f;
 }
 
 @media screen and (min-width: 728px) {
@@ -203,7 +224,7 @@
     margin-left: 0;
     padding-left: 3%;
   }
-  #createAccount, #logIn {
+  .auth_main_div {
     width: 70%;
     padding: 0 17.5%;
   }
@@ -224,7 +245,7 @@
     width: 30%;
     padding-left: 10%;
   }
-  #createAccount, #logIn {
+  .auth_main_div {
     width: 60%;
     padding: 0 10%;
   }
@@ -234,7 +255,7 @@
   #auth_main {
     padding-top: 8%;
   }
-  #createAccount, #logIn {
+  .auth_main_div {
     text-align: center;
   }
 }
@@ -343,7 +364,7 @@
 }
 
 .twitter_icon {
-  color: #1d9bf0;
+  color: #7bcaff;
   text-align: center;
   font-size: 1.5rem;
 }
@@ -452,7 +473,7 @@
 }
 
 .twitter_icon {
-  color: #1d9bf0;
+  color: #7bcaff;
   text-align: center;
   font-size: 1.5rem;
 }
@@ -677,7 +698,69 @@ img, div, button, #nav, input {
 }
 
 .twitter_icon {
-  color: #1d9bf0;
+  color: #7bcaff;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+#footer {
+  text-align: left;
+}
+
+#footer button {
+  text-align: left;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  background-color: initial;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  color: #757575;
+  font-size: 14px;
+}
+
+#footer button:hover {
+  background-color: initial;
+  color: initial;
+}
+
+#footer button:hover {
+  color: #757575;
+  font-size: 14px;
+  border-bottom: 1px solid #757575;
+}
+
+.footer_div {
+  color: #757575;
+  font-size: 14px;
+}
+
+.footer_div a:link, .footer_div a:visited, .footer_div a:hover, .footer_div a:active {
+  color: #757575;
+  font-size: 14px;
+}
+
+.footer_div a:hover {
+  border-bottom: 1px solid #757575;
+}
+
+.footer_div:first-child {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#photoBy {
+  margin: 10px 1rem;
+}
+
+.auth_main_div #footer {
+  margin-top: 10rem;
+}
+
+.twitter_icon {
+  color: #7bcaff;
   text-align: center;
   font-size: 1.5rem;
 }
@@ -703,6 +786,11 @@ img, div, button, #nav, input {
   height: 2.5rem;
   margin-right: 1rem;
   margin-left: 2rem;
+  background-color: #ffff;
+}
+
+#list .back svg {
+  margin: 0;
 }
 
 #list .back:hover {
@@ -1059,7 +1147,7 @@ img, div, button, #nav, input {
 }
 
 .twitter_icon {
-  color: #1d9bf0;
+  color: #7bcaff;
   text-align: center;
   font-size: 1.5rem;
 }
@@ -1090,7 +1178,7 @@ img, div, button, #nav, input {
 }
 
 #logOut_icon {
-  color: #1d9bf0;
+  color: #7bcaff;
   font-size: 2.5rem;
   text-align: center;
 }
@@ -1175,7 +1263,7 @@ img, div, button, #nav, input {
 }
 
 .twitter_icon {
-  color: #1d9bf0;
+  color: #7bcaff;
   text-align: center;
   font-size: 1.5rem;
 }
@@ -1201,7 +1289,7 @@ img, div, button, #nav, input {
 }
 
 #nav #nav_home svg {
-  color: #1d9bf0;
+  color: #7bcaff;
 }
 
 #nav button {
@@ -1609,7 +1697,7 @@ img, div, button, #nav, input {
 }
 
 .twitter_icon {
-  color: #1d9bf0;
+  color: #7bcaff;
   text-align: center;
   font-size: 1.5rem;
 }
@@ -1776,7 +1864,7 @@ img, div, button, #nav, input {
 }
 
 .twitter_icon {
-  color: #1d9bf0;
+  color: #7bcaff;
   text-align: center;
   font-size: 1.5rem;
 }
@@ -2287,7 +2375,7 @@ img, div, button, #nav, input {
 }
 
 .twitter_icon {
-  color: #1d9bf0;
+  color: #7bcaff;
   text-align: center;
   font-size: 1.5rem;
 }
@@ -2479,7 +2567,7 @@ img, div, button, #nav, input {
 }
 
 .tweetFactory.popup #tweetBtn:hover {
-  background-color: #1d9bf0;
+  background-color: #7bcaff;
   color: whitesmoke;
 }
 
@@ -2824,7 +2912,7 @@ img, div, button, #nav, input {
 }
 
 .twitter_icon {
-  color: #1d9bf0;
+  color: #7bcaff;
   text-align: center;
   font-size: 1.5rem;
 }
@@ -3028,7 +3116,7 @@ img, div, button, #nav, input {
 }
 
 .twitter_icon {
-  color: #1d9bf0;
+  color: #7bcaff;
   text-align: center;
   font-size: 1.5rem;
 }
@@ -3094,7 +3182,7 @@ button,
 }
 
 button:hover, .btn:hover {
-  background-color: #1d9bf0;
+  background-color: #7bcaff;
   color: whitesmoke;
 }
 
@@ -3465,7 +3553,7 @@ input:focus {
 }
 
 .twitter_icon {
-  color: #1d9bf0;
+  color: #7bcaff;
   text-align: center;
   font-size: 1.5rem;
 }
