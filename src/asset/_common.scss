@@ -1,7 +1,7 @@
 $white :rgb(245, 245, 245);
 $black:rgb(46, 46, 46);
 $deep_blue:rgb(0, 140, 255);
-$btnHoverBlue: rgb(29, 155, 240);
+$btnHoverBlue: rgb(123, 202, 255);
 $btnLightBlue:rgb(164, 211, 255);
 
 $rtBtn :rgb(0, 187, 84);
@@ -63,6 +63,10 @@ $lineGrey: rgba(139, 139, 139, 0.096);
     right: 1rem ; 
     left: 2rem;
   };
+  svg{
+    margin: 0;
+  }
+  background-color: #ffff;
   &:hover{
     @include backBtnHover;
   }
