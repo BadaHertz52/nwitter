@@ -34,7 +34,7 @@ const Auth = ( ) => {
       </div>
       {!popup ?
         <div id="auth_main">
-          <div        className='auth_main_div' id="createAccount">
+          <div  className='twitter_icon auth_main_div' id="createAccount">
             <BsTwitter/>
             <div>
             Sign up for Twitter today.
