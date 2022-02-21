@@ -15,22 +15,16 @@
     box-sizing: content-box;
   }
   svg{
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     color:$deep_blue;
-  }
-  button, input:last-child{
-    margin-top: 0.5rem;
-    font-size: 1.1rem;
-    padding : 5px ;
-    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
-    border-radius:45px ;
-    &:hover{
-      color:#ffff;
-      background-color: $btnHoverBlue;
+    margin: {
+      left: calc(50% - 0.75rem);
+      bottom: 10px;
     }
   }
+
 }
-#createAccount ,#logIn {
+.auth_main_div {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -39,8 +33,11 @@
   button{
     text-align: center;
     width: 100%;
-    font-size: 1rem;
     margin-top: 2rem;
+    font-size: 1.1rem;
+    padding : 5px ;
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+    border-radius:45px ;
   }
   &>div{
     font-size: 1.2rem;
@@ -54,6 +51,8 @@
   &:hover{
     border:none;
     padding: 8px;
+    background-color: $btnHoverBlue;
+    color:initial
   }
 }
 #logIn {
@@ -61,6 +60,8 @@
     background-color:$btnLightBlue;
     &:hover{
       padding: 8px;
+      background-color: $btnHoverBlue;
+      color:initial
     }
   }
   &> div{
@@ -69,7 +70,6 @@
 }
 
 #authForm {
-  margin-top: 20%;
   width: 100%;
   height: 100%;
   svg{
@@ -93,22 +93,30 @@
     border: 1px solid rgb(36, 36, 36);
     font-size: 1rem;
     }
-    input:last-child{
+    #authForm_logIn{
       border: none;
       &:hover{
-        padding: 8px;
         border: none;
+        background-color: $btnHoverBlue;
+        color:initial
       }
     }
   }
-
 }
-
+#authForm_backBtn{
+  @include backBtn;
+  margin:0;
+}
 #authError {
+  svg{
+    margin-bottom: 0;
+    color:rgb(192, 47, 47)
+  }
   margin-top: 1rem;
   padding: 1rem 10px;
   font-size: 1rem;
   background-color: rgb(240, 240, 240);
+  border-radius: 10px;
   overflow-wrap: break-word;
 }
 
@@ -167,7 +175,7 @@
       padding-left: 3%;
     }
   }
-  #createAccount , #logIn{
+  .auth_main_div{
     width: 70%;
     padding: 0 17.5%
   }
@@ -192,7 +200,7 @@
       padding-left: 10%;
     }
   }
-  #createAccount , #logIn{
+  .auth_main_div{
     width: 60%;
     padding: 0 10%
   }
@@ -206,7 +214,7 @@
       padding-top: 8%;
     }
   }
-  #createAccount ,#logIn {
+  .auth_main_div {
     text-align: center;
   }
 

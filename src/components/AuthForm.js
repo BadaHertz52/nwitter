@@ -3,6 +3,7 @@ import {BiArrowBack} from "react-icons/bi";
 import authSerVice from '../Fbase' ;
 import {RiErrorWarningLine} from 'react-icons/ri'
 import { useNavigate } from 'react-router';
+import Footer from './Footer';
 
 const AuthForm = ({newAcount, setPopup})=> {
   const [email ,setEmail ] = useState(""); 
@@ -37,7 +38,9 @@ const AuthForm = ({newAcount, setPopup})=> {
 
   return (
     <section id="authForm">
-      <button onClick={
+      <button 
+      id="authForm_backBtn"
+      onClick={
         ()=>{setPopup(false)}
       }>
         <BiArrowBack/>
@@ -47,14 +50,18 @@ const AuthForm = ({newAcount, setPopup})=> {
         <input id="email" name="email" type="text" placeholder="Email@***.***" onChange={onChange}   />
         <label for="password">Password</label>
         <input id="password" name="password" type="password"  placeholder="Password"  onChange={onChange} />
-        <input type="submit" value={newAcount ?"Sign up " : "Log In"} className='btn'/>
+        <input id="authForm_logIn" type="submit" value={newAcount ?"Sign up " : "Log In"} className='btn'/>
         {error !=="" &&
           <div id="authError">
-            <RiErrorWarningLine/>{error}
+            <RiErrorWarningLine/>
+            <div>
+              {error}
+            </div>
           </div>
         }
         
       </form>
+      <Footer/>
     </section>
   )
   } ;

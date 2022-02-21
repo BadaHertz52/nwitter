@@ -1,9 +1,10 @@
 import AuthForm from '../components/AuthForm';
 import React,{ useState }   from 'react' ;
 import authSerVice , { friebaseInstance } from '../Fbase';
-import { RiTwitterLine } from 'react-icons/ri';
+import { BsTwitter } from "react-icons/bs";
 import auth_img from '../asset/img/auth_img.jpg';
 import auth_img_width from '../asset/img/auth_img_width.jpg';
+import Footer from '../components/Footer';
 
 const Auth = ( ) => {
   const [newAcount, setNewAccount] =useState();
@@ -33,10 +34,10 @@ const Auth = ( ) => {
       </div>
       {!popup ?
         <div id="auth_main">
-          <div id="createAccount">
+          <div        className='auth_main_div' id="createAccount">
+            <BsTwitter/>
             <div>
             Sign up for Twitter today.
-              <RiTwitterLine/>
             </div>
             <button onClick={()=>{setPopup(true) ; setNewAccount(true)}} >
             Subscribe to your email address
@@ -46,7 +47,7 @@ const Auth = ( ) => {
               Continue with Goggle
             </button>
           </div>
-          <div id="logIn">
+          <div   className='auth_main_div'  id="logIn">
             <div>
             Did you already sign up for Twitter?
             </div>
@@ -54,6 +55,10 @@ const Auth = ( ) => {
               Log In
             </button>
           </div>
+          <div className='auth_main_div'>
+            <Footer/>
+          </div>
+          
       </div>
       :
       <AuthForm newAcount={newAcount} setPopup={setPopup}/>

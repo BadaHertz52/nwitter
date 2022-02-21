@@ -9,8 +9,9 @@ import UserProfile from '../components/UserProfile';
 import { UserContext } from '../context/UserContext';
 import { getTweetsDocs } from '../components/GetData';
 import { ProfileContext } from '../context/ProfileContex';
+import Footer from '../components/Footer';
 
-const Side =({userobj , home})=>{
+const Side =({userobj})=>{
   const location =useLocation();
   const navigate=useNavigate();
   const {userDispatch}=useContext(UserContext);
@@ -98,6 +99,9 @@ const Side =({userobj , home})=>{
       {myProfile!==undefined && 
         <Recommend userobj={userobj}/>
       }
+      <div>
+        <Footer/> 
+      </div>
     </>
   )
 };
