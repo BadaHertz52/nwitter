@@ -1,7 +1,20 @@
 .twitter_icon {
-  color: #7bcaff;
+  color: #1d9bf0;
   text-align: center;
   font-size: 1.5rem;
+}
+
+.title {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.562);
+  color: #ffff;
+  font-size: 12px;
+  position: absolute;
+  bottom: -1.2rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 2px 5px;
 }
 
 #auth {
@@ -25,7 +38,6 @@
 
 #auth svg {
   font-size: 1.5rem;
-  color: #008cff;
   margin-left: calc(50% - 0.75rem);
   margin-bottom: 10px;
 }
@@ -69,7 +81,7 @@
 #createAccount button:hover {
   border: none;
   padding: 8px;
-  background-color: #7bcaff;
+  background-color: #1d9bf0;
   color: initial;
 }
 
@@ -79,7 +91,7 @@
 
 #logIn button:hover {
   padding: 8px;
-  background-color: #7bcaff;
+  background-color: #1d9bf0;
   color: initial;
 }
 
@@ -131,7 +143,7 @@
 
 #authForm form #authForm_logIn:hover {
   border: none;
-  background-color: #7bcaff;
+  background-color: #1d9bf0;
   color: initial;
 }
 
@@ -364,9 +376,22 @@
 }
 
 .twitter_icon {
-  color: #7bcaff;
+  color: #1d9bf0;
   text-align: center;
   font-size: 1.5rem;
+}
+
+.title {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.562);
+  color: #ffff;
+  font-size: 12px;
+  position: absolute;
+  bottom: -1.2rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 2px 5px;
 }
 
 #deleteUser {
@@ -398,7 +423,17 @@
 }
 
 .deleteBtns {
-  margin-bottom: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  margin-left: 25%;
+  width: 50%;
 }
 
 .deleteBtns button {
@@ -407,6 +442,9 @@
   border: 1px solid #2e2e2e;
   padding: 10px 1rem;
   font-size: 1rem;
+  width: 100%;
+  margin-bottom: 1rem;
+  margin-right: 5%;
   text-align: center;
   -webkit-box-shadow: rgba(0, 0, 0, 0.329) 0px 5px 5px;
           box-shadow: rgba(0, 0, 0, 0.329) 0px 5px 5px;
@@ -417,44 +455,17 @@
   color: whitesmoke;
 }
 
-#deleteBtn {
-  margin-left: 30%;
-  width: 40%;
-}
-
-#deleteErrorBtns {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  margin-left: 25%;
-  width: 50%;
-}
-
-#deleteErrorBtns button {
-  width: 100%;
-  padding: 8px 1rem;
-  margin-bottom: 10px;
-}
-
 @media screen and (min-width: 728px) {
-  #deleteErrorBtns {
+  .deleteBtns {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
             flex-direction: row;
-    width: 60%;
-    margin-left: 20%;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    margin-left: 10%;
+    width: 80%;
   }
-  #deleteErrorBtns button {
-    width: 40%;
-    margin: 0;
+  .deleteBtns button {
+    width: 30%;
   }
 }
 
@@ -465,17 +476,23 @@
   }
 }
 
-@media screen and (min-width: 1440px) {
-  #deleteError {
-    width: 25%;
-    left: 37.5%;
-  }
-}
-
 .twitter_icon {
-  color: #7bcaff;
+  color: #1d9bf0;
   text-align: center;
   font-size: 1.5rem;
+}
+
+.title {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.562);
+  color: #ffff;
+  font-size: 12px;
+  position: absolute;
+  bottom: -1.2rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 2px 5px;
 }
 
 img, div, button, #nav, input {
@@ -681,10 +698,10 @@ img, div, button, #nav, input {
   }
 }
 
-@media screen and (min-width: 1028px) {
+@media screen and (min-width: 1024px) {
   #editProfile form {
-    left: 30%;
-    width: 40%;
+    left: 35%;
+    width: 30%;
     padding: 3%;
   }
 }
@@ -698,9 +715,22 @@ img, div, button, #nav, input {
 }
 
 .twitter_icon {
-  color: #7bcaff;
+  color: #1d9bf0;
   text-align: center;
   font-size: 1.5rem;
+}
+
+.title {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.562);
+  color: #ffff;
+  font-size: 12px;
+  position: absolute;
+  bottom: -1.2rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 2px 5px;
 }
 
 #footer {
@@ -760,9 +790,22 @@ img, div, button, #nav, input {
 }
 
 .twitter_icon {
-  color: #7bcaff;
+  color: #1d9bf0;
   text-align: center;
   font-size: 1.5rem;
+}
+
+.title {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.562);
+  color: #ffff;
+  font-size: 12px;
+  position: absolute;
+  bottom: -1.2rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 2px 5px;
 }
 
 #list,
@@ -1147,9 +1190,22 @@ img, div, button, #nav, input {
 }
 
 .twitter_icon {
-  color: #7bcaff;
+  color: #1d9bf0;
   text-align: center;
   font-size: 1.5rem;
+}
+
+.title {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.562);
+  color: #ffff;
+  font-size: 12px;
+  position: absolute;
+  bottom: -1.2rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 2px 5px;
 }
 
 #logOut {
@@ -1178,7 +1234,7 @@ img, div, button, #nav, input {
 }
 
 #logOut_icon {
-  color: #7bcaff;
+  color: #1d9bf0;
   font-size: 2.5rem;
   text-align: center;
 }
@@ -1263,9 +1319,22 @@ img, div, button, #nav, input {
 }
 
 .twitter_icon {
-  color: #7bcaff;
+  color: #1d9bf0;
   text-align: center;
   font-size: 1.5rem;
+}
+
+.title {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.562);
+  color: #ffff;
+  font-size: 12px;
+  position: absolute;
+  bottom: -1.2rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 2px 5px;
 }
 
 #nav {
@@ -1286,10 +1355,6 @@ img, div, button, #nav, input {
 
 #nav #nav_home:hover {
   background-color: #d7f3fd;
-}
-
-#nav #nav_home svg {
-  color: #7bcaff;
 }
 
 #nav button {
@@ -1448,6 +1513,14 @@ img, div, button, #nav, input {
   text-align: left;
 }
 
+#nav_homeBtn:hover .title,
+#nav_notificationBtn:hover .title, #nav_myProfile:hover .title,
+#nav_accountBtn:hover .title,
+#nav_popUp:hover .title {
+  display: block;
+  left: 10%;
+}
+
 #do_tweet {
   display: none;
   -webkit-transition-duration: 0.5s;
@@ -1571,10 +1644,6 @@ img, div, button, #nav, input {
     margin-top: 0;
     margin-left: 0;
   }
-  #deleteError {
-    width: 30%;
-    left: 35%;
-  }
   #nav #account {
     width: 230px;
   }
@@ -1606,6 +1675,11 @@ img, div, button, #nav, input {
   }
   #nav #nav_menu button svg {
     font-size: 1.8rem;
+  }
+  #nav #nav_menu #nav_home {
+    width: calc(1.8rem + 28px);
+    height: calc(1.8rem + 28px);
+    padding: 14px;
   }
   #nav #nav_tweetFactory {
     width: 80%;
@@ -1639,14 +1713,6 @@ img, div, button, #nav, input {
   #nav #nav_profile button img:hover {
     border-color: transparent;
   }
-  #nav #nav_profile .nav_label {
-    font-size: 1.1rem;
-    margin-top: 10px;
-  }
-  #nav #nav_profile .nav_label div:last-child {
-    margin-top: 10px;
-    font-size: 1rem;
-  }
   #nav #nav_profile button {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1663,13 +1729,6 @@ img, div, button, #nav, input {
   }
   #nav #nav_profile button img:hover {
     border-color: transparent;
-  }
-  #nav #nav_profile .nav_label {
-    font-size: 1.1rem;
-  }
-  #nav #nav_profile .nav_label div:last-child {
-    margin-top: 10px;
-    font-size: 1rem;
   }
   #nav #nav_popUp {
     width: 90%;
@@ -1694,12 +1753,35 @@ img, div, button, #nav, input {
   .nav_label.on {
     font-weight: bold;
   }
+  .nav_label div:last-child {
+    margin-top: 10px;
+    font-size: 1rem;
+  }
+  #nav_homeBtn:hover .title,
+  #nav_notificationBtn:hover .title, #nav_myProfile:hover .title,
+  #nav_accountBtn:hover .title,
+  #nav_popUp:hover .title {
+    display: none;
+  }
 }
 
 .twitter_icon {
-  color: #7bcaff;
+  color: #1d9bf0;
   text-align: center;
   font-size: 1.5rem;
+}
+
+.title {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.562);
+  color: #ffff;
+  font-size: 12px;
+  position: absolute;
+  bottom: -1.2rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 2px 5px;
 }
 
 #notifications {
@@ -1864,9 +1946,22 @@ img, div, button, #nav, input {
 }
 
 .twitter_icon {
-  color: #7bcaff;
+  color: #1d9bf0;
   text-align: center;
   font-size: 1.5rem;
+}
+
+.title {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.562);
+  color: #ffff;
+  font-size: 12px;
+  position: absolute;
+  bottom: -1.2rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 2px 5px;
 }
 
 .tweets, .tweets_tweet {
@@ -2375,9 +2470,22 @@ img, div, button, #nav, input {
 }
 
 .twitter_icon {
-  color: #7bcaff;
+  color: #1d9bf0;
   text-align: center;
   font-size: 1.5rem;
+}
+
+.title {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.562);
+  color: #ffff;
+  font-size: 12px;
+  position: absolute;
+  bottom: -1.2rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 2px 5px;
 }
 
 .tweetFactory {
@@ -2429,6 +2537,11 @@ img, div, button, #nav, input {
   color: #288be7;
 }
 
+.tweetFactory form label:hover .title {
+  display: block;
+  left: 0;
+}
+
 .tweetFactory textarea {
   font-size: 1.2rem;
   color: #575757;
@@ -2460,6 +2573,10 @@ img, div, button, #nav, input {
 #home .tweetFactory_inner {
   width: 100%;
   margin: 0;
+}
+
+.tweetFactory_inner {
+  padding: 5%;
 }
 
 .tweetFactory_box {
@@ -2507,6 +2624,7 @@ img, div, button, #nav, input {
 
 .tweetFactory_popup .tweetFactory_inner {
   margin: 1rem;
+  padding: 0;
 }
 
 .tweetFactory_popup .tweetFactory_inner > div {
@@ -2537,6 +2655,7 @@ img, div, button, #nav, input {
   display: -ms-flexbox;
   display: flex;
   padding: 0;
+  margin-bottom: 1.3rem;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -2567,7 +2686,7 @@ img, div, button, #nav, input {
 }
 
 .tweetFactory.popup #tweetBtn:hover {
-  background-color: #7bcaff;
+  background-color: #1d9bf0;
   color: whitesmoke;
 }
 
@@ -2912,9 +3031,22 @@ img, div, button, #nav, input {
 }
 
 .twitter_icon {
-  color: #7bcaff;
+  color: #1d9bf0;
   text-align: center;
   font-size: 1.5rem;
+}
+
+.title {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.562);
+  color: #ffff;
+  font-size: 12px;
+  position: absolute;
+  bottom: -1.2rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 2px 5px;
 }
 
 #profileTopForm_header {
@@ -3116,9 +3248,22 @@ img, div, button, #nav, input {
 }
 
 .twitter_icon {
-  color: #7bcaff;
+  color: #1d9bf0;
   text-align: center;
   font-size: 1.5rem;
+}
+
+.title {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.562);
+  color: #ffff;
+  font-size: 12px;
+  position: absolute;
+  bottom: -1.2rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 2px 5px;
 }
 
 #root {
@@ -3182,7 +3327,7 @@ button,
 }
 
 button:hover, .btn:hover {
-  background-color: #7bcaff;
+  background-color: #1d9bf0;
   color: whitesmoke;
 }
 
@@ -3553,9 +3698,22 @@ input:focus {
 }
 
 .twitter_icon {
-  color: #7bcaff;
+  color: #1d9bf0;
   text-align: center;
   font-size: 1.5rem;
+}
+
+.title {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.562);
+  color: #ffff;
+  font-size: 12px;
+  position: absolute;
+  bottom: -1.2rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 2px 5px;
 }
 
 @font-face {
