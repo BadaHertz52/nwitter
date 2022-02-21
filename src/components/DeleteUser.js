@@ -128,13 +128,10 @@ const DeleteUser =({userobj} )=> {
       setLoading(false);});
     };
 
-    const onConfirm =()=>{
-      
-    }
     return (
       <section id="deleteUser">
       {deleteError ?(
-      <div className='delete_inner' id="deleteError">
+      <div className='delete_inner'>
         <div className="twitter_icon">
         <BsTwitter/>
         </div>
@@ -143,7 +140,7 @@ const DeleteUser =({userobj} )=> {
           <br/>
           Please log out and try again.
         </div>
-        <div className='deleteBtns' id="deleteErrorBtns">
+        <div className='deleteBtns'>
           <button onClick={()=>{navigate('/twitter/home')}}>
             Cancel
           </button>
@@ -167,6 +164,9 @@ const DeleteUser =({userobj} )=> {
               <div className='deleteBtns' >
                 <button  id="deleteBtn" onClick={onDelete}>
                   Delete
+                </button>
+                <button id="deleteCancle" onClick={()=>navigate(-1)}>
+                  Cancel
                 </button>
               </div>
             </>

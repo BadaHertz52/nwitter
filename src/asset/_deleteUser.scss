@@ -26,43 +26,36 @@
   text-align: center;
 }
 .deleteBtns{
-  margin-bottom:1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-left: 25%;
+  width: 50%;
+
   button {
     @include whiteBtn;
     padding: 10px 1rem;
     font-size: 1rem;
+    width: 100%;
+    margin: {
+      bottom: 1rem;
+      right:5%
+    };
     text-align: center;
     box-shadow:rgba(0, 0, 0, 0.329) 0px 5px 5px;
   }
 }
 
-#deleteBtn {
-  margin-left: 30%;
-  width: 40%;
-}
-#deleteErrorBtns {
-  display: flex;
-  flex-direction: column;
-  margin-left: 25%;
-  width: 50%;
-  button{
-    width: 100%;
-    padding:8px 1rem;
-    margin-bottom: 10px;
-  }
-}
-
 @media screen and (min-width:728px) {
-  #deleteErrorBtns{
+  .deleteBtns{
     flex-direction: row;
-    width: 60%;
-    margin-left: 20%;
-    justify-content: space-between;
-    button {
-      width: 40%;
-      margin: 0;
+    margin-left: 10%;
+    width:80%;
+    button{
+      width: 30%;
     }
   }
+
 }
 @media screen and (min-width:900px) {
   .delete_inner{
@@ -70,9 +63,4 @@
     width:400px;
   }
 }
-@media screen and (min-width:1440px) {
-  #deleteError{
-    width: 25%;
-    left: 37.5%;
-  }
-}
+
