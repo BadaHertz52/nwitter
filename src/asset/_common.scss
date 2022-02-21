@@ -1,7 +1,7 @@
 $white :rgb(245, 245, 245);
 $black:rgb(46, 46, 46);
 $deep_blue:rgb(0, 140, 255);
-$btnHoverBlue: rgb(123, 202, 255);
+$btnHoverBlue:rgb(29, 155, 240);
 $btnLightBlue:rgb(164, 211, 255);
 
 $rtBtn :rgb(0, 187, 84);
@@ -14,9 +14,20 @@ $hoverGrey : rgba(235, 235, 235, 0.753);
 $lineGrey: rgba(139, 139, 139, 0.096);
 
 .twitter_icon {
-  color: $btnHoverBlue;
+  color:$btnHoverBlue;
   text-align: center;
   font-size: 1.5rem;
+}
+.title {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.562);
+  color:#ffff;
+  font-size: 12px;
+  position: absolute;
+  bottom: -1.2rem;
+  width: fit-content;
+  padding: 2px 5px;
+
 }
 @mixin initialBtn {
   background-color: initial;

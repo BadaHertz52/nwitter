@@ -52,13 +52,15 @@ const Navigation = ({userobj}) => {
     <>
     <nav id="nav">
       <div id="nav_menu">
-        < button onClick={()=> navigate(`/twitter/home`)} id="nav_home" title="home">
-          <BsTwitter/>
+        < button onClick={()=> navigate(`/twitter/home`)} id="nav_home" >
+          <div className="twitter_icon">
+            <BsTwitter/>
+          </div>
         </button>
-        <button onClick={()=> navigate(`/twitter/home`)} title="Home">
+        <button  onClick={()=> navigate(`/twitter/home`)} id="nav_homeBtn">
           {location.pathname===`/twitter/home`? 
           <>
-            <AiFillHome title="Home"/>
+            <AiFillHome/>
             <div className="nav_label on" >Home</div> 
           </>
           :
@@ -67,11 +69,12 @@ const Navigation = ({userobj}) => {
             <div className="nav_label" >Home</div> 
           </>
           }
+          <div className=" title" >Home</div> 
         </button>
-        <button onClick={()=> navigate(`/twitter/notification`)}  title="Notification">
+        <button onClick={()=> navigate(`/twitter/notification`)}  id="nav_notificationBtn">
           {location.pathname===`/twitter/notification` ?
           <>
-            <BsBellFill title="Profile"/> 
+            <BsBellFill/> 
             <div className="nav_label on"> Notifications </div>
           </>
           :
@@ -80,42 +83,36 @@ const Navigation = ({userobj}) => {
             <div className="nav_label"  title="Notification"> Notifications </div>
           </>
           }
-          
+          <div className="title"> Notifications </div>
         </button>
         <button 
           id="nav_myProfile"
           onClick={goMyProfile}
-          title="Profile"> 
+          > 
           {location.pathname ===`/twitter/${userobj.id}` ?
           <>
-            <FaUser title="Profile"/>
-            <div 
-            className="nav_label on"
-            > 
-              Profile 
-            </div>
+            <FaUser/>
+            <div className="nav_label on"> Profile </div>
           </>
           :
           <>
             <FaRegUser title="Profile"/>
-            <div 
-            className="nav_label"> 
-              Profile 
-            </div>
+            <div className="nav_label"> Profile </div>
           </>
           }
+          <div className="title"> Profile </div>
         </button>
       </div>
       <div id='nav_tweetFactory'>
         <button id="nav_popUp"  
         onClick={goTweetFactory} 
-        titile="Tweet"
         >
-          <BsPencil titile="Tweet"/>
-          <div id="do_tweet">tweet</div>
+          <BsPencil />
+          <div className="title">Tweet</div>
+          <div id="do_tweet">Tweet</div>
         </button>
       </div> 
-      <div id="nav_profile" title="Account">
+      <div id="nav_profile">
       {set &&
             <div  class="account" id="account">
               <div  class="account"  id="account_user">
@@ -141,8 +138,10 @@ const Navigation = ({userobj}) => {
           }
         <button 
         onClick={()=>setSet(!set)}
+        id="nav_accountBtn"
         >
           <img className="profile_photo dark_target" src ={profile.photoUrl} alt="myProfile" ></img>
+          <div className='title'>Account</div>
           <div className="nav_label">
             <div>{profile.userName}</div>
             <div>@{profile.userId}</div>

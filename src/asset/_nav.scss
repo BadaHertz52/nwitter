@@ -14,9 +14,6 @@
     &:hover{
       background-color:rgb(215, 243, 253) ;
     }
-    svg{
-      color:$btnHoverBlue
-    }
   }
   button{
     color: #fff;
@@ -30,6 +27,7 @@
     flex-direction: row;
     justify-content: space-around;
     box-sizing: border-box;
+    
     button {
       background-color: initial;
       color:initial;
@@ -136,6 +134,14 @@
       }
     }
   }
+}
+
+#nav_homeBtn:hover .title,
+#nav_notificationBtn:hover .title,#nav_myProfile:hover .title,
+#nav_accountBtn:hover .title,
+#nav_popUp:hover .title{
+  display: block;
+  left: 10%;
 }
 
 
@@ -257,11 +263,6 @@
       left:0
     };
   }
-
-  #deleteError {
-    width: 30%;
-    left:35%
-  }
   #nav #account{
     width: 230px;
   }
@@ -294,6 +295,11 @@
       font-size: 1.8rem;
     }
   }
+  #nav_menu #nav_home{
+    width: calc(1.8rem + 28px);
+    height: calc(1.8rem + 28px);
+    padding:14px;
+  }
   #nav_tweetFactory {
     width: 80%;
     margin-top:1rem;
@@ -319,14 +325,7 @@
         border-color: transparent;
       }
     }
-    .nav_label{
-    font-size: 1.1rem;
-    margin-top: 10px;
-    div:last-child{
-    margin-top: 10px;
-    font-size: 1rem;
-    }
-  }
+
   button {
     display: flex;
     flex-direction: row;
@@ -339,13 +338,7 @@
       border-color: transparent;
     }
   }
-  .nav_label{
-  font-size: 1.1rem;
-  div:last-child{
-  margin-top: 10px;
-  font-size: 1rem;
-  }
-}
+
   }
   #nav_popUp{
     width: 90%;
@@ -368,6 +361,17 @@
     &.on{
       font-weight: bold;
     }
+    div:last-child{
+      margin-top: 10px;
+      font-size: 1rem;
+      }
   }
-  
+
+  #nav_homeBtn:hover .title,
+  #nav_notificationBtn:hover .title,#nav_myProfile:hover .title,
+  #nav_accountBtn:hover .title,
+  #nav_popUp:hover .title{
+    display:none;
+  }
+
 }
