@@ -4,14 +4,20 @@ export  const profileForm ={
   userId:"" ,
   userName:"",
   uid:"",
-  photoUrl:""
+  photoUrl:"",
+  introduce:"",
+  following:[],
+  follower:[],
+  notifications:[]
 };
 export const tweetForm ={
   docId:"",
   text:"",
   attachmentUrl:"",
   value:"",
-  createdAt:"",
+  createdAt:[
+    'year','month', 'date' ,'hour','minutes'
+    ],
   creatorId:"",
   about:null ,
   notifications:[]
