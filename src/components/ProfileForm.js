@@ -191,12 +191,12 @@ export const ProfileBottomForm = ({isMine, userobj })=>{
     buttons.forEach(button =>button.classList.remove('check'));
     target && (target.classList.add('check'));
   }
-  const showtweet =(event)=>{
+  const showTweet =(event)=>{
     setContents(filterTweets);
     changeStyle(event);
     values.forEach(value=> value.style.display="block");
   };
-  const showNandA =(event)=>{
+  const showTandA =(event)=>{
     setContents(filterTweetAndAnswer);
     changeStyle(event);
     values.forEach(value=> value.style.display="block");
@@ -211,21 +211,21 @@ export const ProfileBottomForm = ({isMine, userobj })=>{
     changeStyle(event);
     values.forEach(value=> value.style.display="none");
   }
-  const findtweets =async()=>{
+  const findTweets =async()=>{
     await getTweetsDocs(userobj.uid).then(result=> {
       setIstweet(!result.empty)});
   };
   useEffect(()=>{
-    tweets[0]!==undefined? showtweet(): findtweets();
+    tweets[0]!==undefined? showTweet(): findTweets();
   },[tweets])
 
   return (
     <section id="profileBottomForm" >
       <div id='pb_buttons'>
-        <button id="pb_btn_tweet" onClick={showtweet}>
+        <button id="pb_btn_tweet" onClick={showTweet}>
           tweets
         </button>
-        <button onClick={showNandA} >tweets &#38; replies</button>
+        <button onClick={showTandA} >tweets &#38; replies</button>
         <button onClick={showMedias}>Media</button>
         <button onClick={showHeartedThings} >Likes</button>
       </div>
