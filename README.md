@@ -7,22 +7,29 @@ _______________________________________________________
 ## Index
 * <a href="#builtWith">Built with</a>
   <br/>
+
 * <a href="#start">Getting Start</a>
   <br/>
+
 * <a href="#description">Description</a>
   <br/>
+
 * <a href="#explain">Explain</a>
   <br/>
+
   * <a href="#page">Page and Layout</a>
   <br/>
+  
   * <a href="#data"> Data </a>
   <br/>
+
   * <a href="#function"> Function</a>
   <br/>
+
 * <a href="#blog">Blog</a>
 _____________________________________________
 
-## <div id="decriptopn"> Description </div>
+## <div id="description"> Description </div>
 
 twitter를 클론 코딩한 프로젝트로 유저는 다음과 같은 기능을 사용할 수 있습니다.
 
@@ -95,26 +102,26 @@ ____________________________________________________
 ### <div id="page"> 1. Page and Layout</div>
   <br/>
 
-  |page|explaing|small-width |medium or large-width|
-  |-----|--------|-----------|----------------------|
-  |Auth|로그인.회원가입을 묻는 페이지|<img src="img/auth_small.png" alt="authSmall" height="100px" width="auto"/> | <img src="img/auth_full.png" alt="auttFull" height="100px" width="auto"/>|
-  |AuthForm|로그인한거나 이메일로 회원가입하는 페이지| <img src="img/authForm_small.png" alt="authFormSmall" height="100px" width="auto"/>|<img src="img/authForm_full.png" alt="authFormFull" height="100px" width="auto"/>|
-  |Home|홈|<img src="img/home_small.png" height="100px"  alt="home_small" width="auto"/>|<img src="img/home_full.png" alt="home_full" height="100px" width="auto"/>|
-  |Notification|유저에게 온 알림들을 확인할 수 있음|<img src="img/notification_small.png" alt="notification_small" height="100px" width="auto"/>|<img src="img/notification_full.png" alt="notification_full" height="100px" width="auto"/>|
-  |TimeLine|noticiation 페이지에서 tweet과 관련된 알림들을 선택 시에 해당 tweet을 보여줌 |<img src="img/timeline_small.png" alt="timeline_small" height="100px" width="auto"/>|<img src="img/timeline_full.png" alt="timeline_full" height="100px" width="auto"/>|
-  |Profile|유저의 프로필을 보여줌|<img src="img/profile_small.png"   alt="profile_small" height="100px" width="auto"/>|<img  src="img/profile_full.png" alt="profile_full" height="100px" width="auto"/>|
-  |list|유저의 following,follower list를 확인할 수 있음|<img src="img/list_small.png"  height="100px" width="auto" alt="list_small"/>|<img src="img/list_full.png"  height="100px" width="auto" alt="list_full"/>|
-  |editProfile|프로필 수정할 수 있음|<img src="img/editProfile_small.png"  height="100px" width="auto" alt="editProfile_small"/>|<img src="img/editProfile_full.png" height="100px" width="auto" alt="editProfile_full"/>|
-  |Tweet|tweet을 클릭 시 해당 트윗을 더 큰 화면에서 자세히 볼 수 있음|<img src="img/tweet_small.png"  alt="tweet_small" height="100px" width="auto"/>|<img   src="img/tweet_full.png"  alt="tweet_full" height="100px" width="auto"/>|
-  |TweetFactory|새로운 tweet을 작설할 수 있음|<img src="img/tweetFactory_small.png" alt="tweetFactory_small" height="100px" width="auto"/>|<img  src="img/tweetFactory_full.png" alt="tweetFactory_full" height="100px" width="auto"/>|
-  |logOut|로그아웃|<img src="img/logOut_small.png"  height="100px" width="auto" alt="logOut_small"/>|<img src="img/logOut_full.png"  height="100px" width="auto" alt="logOut_full"/>|
-  |Delete account|계정을 삭제할 수 있음|<img src="img/deleteUser_small.png"  height="100px" width="auto" alt="deleteUser_small"/>|<img src="img/deleteUser_full.png"  height="100px" width="auto" alt="deleteUser_full"/>|
+  |page|small-width |medium or large-width|
+  |-----|-----------|----------------------|
+  |Auth|<img src="img/auth_small.png" alt="authSmall" height="100px" width="auto"/> | <img src="img/auth_full.png" alt="auttFull" height="100px" width="auto"/>|
+  |AuthForm| <img src="img/authForm_small.png" alt="authFormSmall" height="100px" width="auto"/>|<img src="img/authForm_full.png" alt="authFormFull" height="100px" width="auto"/>|
+  |Home|<img src="img/home_small.png" height="100px"  alt="home_small" width="auto"/>|<img src="img/home_full.png" alt="home_full" height="100px" width="auto"/>|
+  |Notification|<img src="img/notification_small.png" alt="notification_small" height="100px" width="auto"/>|<img src="img/notification_full.png" alt="notification_full" height="100px" width="auto"/>|
+  |TimeLine|<img src="img/timeline_small.png" alt="timeline_small" height="100px" width="auto"/>|<img src="img/timeline_full.png" alt="timeline_full" height="100px" width="auto"/>|
+  |Profile|<img src="img/profile_small.png"   alt="profile_small" height="100px" width="auto"/>|<img  src="img/profile_full.png" alt="profile_full" height="100px" width="auto"/>|
+  |list|<img src="img/list_small.png"  height="100px" width="auto" alt="list_small"/>|<img src="img/list_full.png"  height="100px" width="auto" alt="list_full"/>|
+  |editProfile|<img src="img/editProfile_small.png"  height="100px" width="auto" alt="editProfile_small"/>|<img src="img/editProfile_full.png" height="100px" width="auto" alt="editProfile_full"/>|
+  |Tweet|<img src="img/tweet_small.png"  alt="tweet_small" height="100px" width="auto"/>|<img   src="img/tweet_full.png"  alt="tweet_full" height="100px" width="auto"/>|
+  |TweetFactory|<img src="img/tweetFactory_small.png" alt="tweetFactory_small" height="100px" width="auto"/>|<img  src="img/tweetFactory_full.png" alt="tweetFactory_full" height="100px" width="auto"/>|
+  |logOut|<img src="img/logOut_small.png"  height="100px" width="auto" alt="logOut_small"/>|<img src="img/logOut_full.png"  height="100px" width="auto" alt="logOut_full"/>|
+  |Delete account|<img src="img/deleteUser_small.png"  height="100px" width="auto" alt="deleteUser_small"/>|<img src="img/deleteUser_full.png"  height="100px" width="auto" alt="deleteUser_full"/>|
 
 
   |other|view|
   |---------|----|
   |account|<img  height="150px" width="auto" src="img/account.png"/>|
-  |quote tweet|<img src="img/quote.png"  height="100px" width="auto" alt="quote"/>|
+  |quote tweet|<img src="img/quote.png"  height="150px" width="auto" alt="quote"/>|
   |search|<img src="img/search.png"  height="150px" width="auto" alt="search"/>||
 
 
