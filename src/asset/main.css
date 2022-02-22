@@ -1297,6 +1297,26 @@ img, div, button, #nav, input {
   color: whitesmoke;
 }
 
+@media screen and (min-width: 768px) {
+  #logOut_alert div:first-child {
+    margin: 0;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  #logOut_Btn {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  #logOut_Btn button {
+    width: 45%;
+  }
+}
+
 @media screen and (min-width: 900px) {
   #logOut_inner {
     width: 40%;
