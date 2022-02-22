@@ -104,7 +104,7 @@ ____________________________________________________
 
   |page|small-width |medium or large-width|
   |-----|-----------|----------------------|
-  |Auth|<img src="img/auth_small.png" alt="authSmall" height="300px" width="auto"/> | <img src="img/auth_full.png" alt="auttFull" height="100px" width="auto"/>|
+  |Auth|<img src="img/auth_small.png" alt="authSmall" height="100px" width="auto"/> | <img src="img/auth_full.png" alt="auttFull" height="100px" width="auto"/>|
   |AuthForm| <img src="img/authForm_small.png" alt="authFormSmall" height="100px" width="auto"/>|<img src="img/authForm_full.png" alt="authFormFull" height="100px" width="auto"/>|
   |Home|<img src="img/home_small.png" height="100px"  alt="home_small" width="auto"/>|<img src="img/home_full.png" alt="home_full" height="100px" width="auto"/>|
   |Notification|<img src="img/notification_small.png" alt="notification_small" height="100px" width="auto"/>|<img src="img/notification_full.png" alt="notification_full" height="100px" width="auto"/>|
