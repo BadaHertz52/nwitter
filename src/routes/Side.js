@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import Media from '../components/Media';
 import Recommend from '../components/Recomend';
-import { useLocation, useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { IoSettingsOutline } from "react-icons/io5";
 import {BiSearch } from "react-icons/bi";
 import { dbService } from '../Fbase';

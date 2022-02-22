@@ -4,7 +4,7 @@ import '../../node_modules/react-image-crop/dist/ReactCrop.css';
 import React from 'react';
 import {BiArrowBack} from "react-icons/bi";
 
-import { useLocation, useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { TweetContext } from '../context/TweetContex';
 import { ProfileContext } from '../context/ProfileContex';
 

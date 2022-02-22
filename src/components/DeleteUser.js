@@ -1,6 +1,6 @@
 import React, { useContext, useState }  from 'react';
 import { BsTwitter } from 'react-icons/bs';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { ProfileContext } from '../context/ProfileContex';
 import { TweetContext } from '../context/TweetContex';
 import authSerVice, { dbService, storageService} from '../Fbase';

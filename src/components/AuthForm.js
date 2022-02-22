@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {BiArrowBack} from "react-icons/bi";
 import authSerVice from '../Fbase' ;
 import {RiErrorWarningLine} from 'react-icons/ri'
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 
 const AuthForm = ({newAcount, setPopup})=> {

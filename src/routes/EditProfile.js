@@ -7,7 +7,7 @@ import { HiArrowNarrowLeft } from 'react-icons/hi';
 import { ProfileContext } from '../context/ProfileContex';
 import { storageService } from '../Fbase';
 import { getProfileDoc, goBack } from '../components/GetData';
-import { useLocation, useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Loading from '../components/Loading';
 
 const EditProfile = ( { userobj ,setIsMyProfile}) =>{
@@ -18,11 +18,9 @@ const EditProfile = ( { userobj ,setIsMyProfile}) =>{
   const {myProfile, profileInput, profileDispatch} =useContext(ProfileContext);
   const {userName, introduce}=myProfile;
 
-  const [header ,setHeader] =useState(myProfile.headerUrl == "" ? basicHeader: myProfile.headerUrl);
+  const [header ,setHeader] =useState(myProfile.headerUrl === "" ? basicHeader: myProfile.headerUrl);
   const [photo, setProfilePhoto] =useState(
-    myProfile.photoUrl == "" ? basicPhoto : myProfile.photoUrl) ;
-
-  const [src, setSrc]=useState("");
+    myProfile.photoUrl === "" ? basicPhoto : myProfile.photoUrl) ;
   const [loading, setLoading] =useState(false);
 
   const closeEdit =()=>{
@@ -54,7 +52,6 @@ const EditProfile = ( { userobj ,setIsMyProfile}) =>{
     //파일 읽기 성공
     reader.onloadend = (finishedEvent) => {
       const {currentTarget:{result}} =finishedEvent;
-      setSrc(result);
       switch (what) {
       case "header":
         setHeader(result);

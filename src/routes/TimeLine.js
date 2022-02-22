@@ -1,6 +1,6 @@
 import React,{ useContext, useEffect, useState } from 'react'
 import { FiArrowLeft } from 'react-icons/fi';
-import { useLocation, useNavigate} from 'react-router';
+import { useLocation, useNavigate} from 'react-router-dom';
 import { goBack } from '../components/GetData';
 import Loading from '../components/Loading';
 import Tweet from '../components/Tweet';

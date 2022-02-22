@@ -1,6 +1,5 @@
 import React, {useState , useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router';
-import { useLocation} from 'react-router-dom';
+import { useNavigate ,useLocation} from 'react-router-dom';
 
 import { BsBell, BsBellFill, BsPencil, BsTwitter } from "react-icons/bs";
 import { FaRegUser, FaUser } from "react-icons/fa";

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { BsTwitter } from 'react-icons/bs';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { TweetContext } from '../context/TweetContex';
 import { ProfileContext } from '../context/ProfileContex';
 import { UserContext } from '../context/UserContext';

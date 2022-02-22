@@ -3,7 +3,7 @@ import UserProfile, { goProfile } from './UserProfile';
 import { dbService } from '../Fbase';
 import { ProfileContext } from '../context/ProfileContex';
 import { getProfileDoc } from './GetData';
-import { useLocation, useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Recommend =({userobj})=>{
   const [usersProfiles, setUsersProfile] =useState([]);
@@ -61,6 +61,5 @@ const getUsersProfile =async()=>{
   </>
   )
 };
-
 
 export default React.memo(Recommend);
