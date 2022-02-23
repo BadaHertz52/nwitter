@@ -222,12 +222,16 @@ const TweetFactory = ({userobj ,setPopup }) => {
         { state !== null && (state.value === "answer" &&
         <div id="answerTweet">
           {storageObj.profile.uid!=="" &&
+          <>
               <TweetForm
               tweet={storageObj.tweetObj} 
               is_owner ={storageObj.isOwner} 
               profile={storageObj.profile}
               IsAnswer={true} 
             />
+            <div className='answerLine'  >
+            </div>
+          </>
           }
         </div>
         )}
@@ -261,7 +265,7 @@ const TweetFactory = ({userobj ,setPopup }) => {
               </div>
             )}
             {state !==null && state.value==="qt"&&
-              <div id="tweetFactory_qn">
+              <div id="tweetFactory_qt">
                 {storageObj.profile.uid!==""&&
                   <Tweet 
                   tweetObj={storageObj.tweetObj}  

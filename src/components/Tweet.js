@@ -237,72 +237,69 @@ const Tweet =({key, tweetObj , userobj ,answer}) =>{
     </div>
     :
     <div
-    className={location.pathname.includes("status")&&"statusBtn"}
+    className={location.pathname.includes("status")?"statusBtn tweetBox": "tweetBox"}
+    id={key}
+    ref={answerForm}
+    onClick={goTweet}
     >
-      <div
-      className='tweetBox'
-      id={key}
-      ref={answerForm}
-      onClick={goTweet}
-      >
-        {/*tweet_content*/}
-        <TweetForm 
-          tweet={tweet} 
-          profile={profile} 
-          IsAnswer={IsAnswer} 
-          is_owner={tweet.creatorId===userobj.uid} 
-          onDeleteClick={onDeleteClick} />
-
-        <div className='tweet_other'>
-          {tweet.value==="qt" && 
-          !location.pathname.includes('tweet') &&
-            <div className="tweet qt">
-              <div className="tweet_content">
-                <div className='tweet_header'>
-                  <UserProfile profile={aboutProfile} />
-                  <div>
-                    <span>{aboutProfile.userName}</span>
-                    <span>@{aboutProfile.userId}</span>
-                    <span className='qn_time'>{aboutTime}</span>
-                  </div>
-                </div>
-                <div className="text">
-                  {aboutTweet.text.replaceAll("<br/>", "\r\n")}
-                </div>
-                { aboutTweet.attachmentUrl !== "" &&
-                <div  className="attachment">
-                  <img src={aboutTweet.attachmentUrl}  alt="tweet_attachment"/>
-                </div>
-                }
-              </div>
-            </div>
-          }
-          {
-            !location.pathname.includes('tweet') &&
-            <div
-            className="tweet_fun fun"
-          >
-            <button className="fun answer" onClick={onAnswer}>
-                <FiMessageCircle/>
-            </button>
-            {profile!==undefined && what!==undefined && 
-            <>
-              <Rt tweetObj={what} original={tweetobj} userobj={userobj} profile={profile} ownerProfile={ownerProfile}
-              />
-              <Heart tweetObj={what} original={tweetobj} userobj={userobj} profile={profile} ownerProfile={ownerProfile}/>
-            </>}
-          </div>
-          }
-          {IsAnswer &&  
-          !statusAnswer && 
-          aboutProfile.userId!== "" &&
-            <div className='answer_who'>
-              @{aboutProfile.userId}
-              에 대한 답글
-            </div>
-          }
+      {/*tweet_content*/}
+      <TweetForm 
+        tweet={tweet} 
+        profile={profile} 
+        is_owner={tweet.creatorId===userobj.uid} 
+        onDeleteClick={onDeleteClick} />
+      {  IsAnswer && 
+        <div className='answerLine'  >
         </div>
-
+      }
+      <div className='tweet_other'>
+        {tweet.value==="qt" && 
+        !location.pathname.includes('tweet') &&
+          <div className="tweet qt">
+            <div className="tweet_content">
+              <div className='tweet_header'>
+                <UserProfile profile={aboutProfile} />
+                <div>
+                  <span>{aboutProfile.userName}</span>
+                  <span>@{aboutProfile.userId}</span>
+                  <span className='qn_time'>{aboutTime}</span>
+                </div>
+              </div>
+              <div className="text">
+                {aboutTweet.text.replaceAll("<br/>", "\r\n")}
+              </div>
+              { aboutTweet.attachmentUrl !== "" &&
+              <div  className="attachment">
+                <img src={aboutTweet.attachmentUrl}  alt="tweet_attachment"/>
+              </div>
+              }
+            </div>
+          </div>
+        }
+        {
+          !location.pathname.includes('tweet') &&
+          <div
+          className="tweet_fun fun"
+        >
+          <button className="fun answer" onClick={onAnswer}>
+              <FiMessageCircle/>
+          </button>
+          {profile!==undefined && what!==undefined && 
+          <>
+            <Rt tweetObj={what} original={tweetobj} userobj={userobj} profile={profile} ownerProfile={ownerProfile}
+            />
+            <Heart tweetObj={what} original={tweetobj} userobj={userobj} profile={profile} ownerProfile={ownerProfile}/>
+          </>}
+        </div>
+        }
+        {IsAnswer &&  
+        !statusAnswer && 
+        aboutProfile.userId!== "" &&
+          <div className='answer_who'>
+            @{aboutProfile.userId}
+            에 대한 답글
+          </div>
+        }
       </div>
     </div>
     }
@@ -384,6 +381,7 @@ const Tweet =({key, tweetObj , userobj ,answer}) =>{
               )
               }
             </div>
+            <div className='tweetobj'>
             {(
             tweetobj.value === "qt" ||
             tweetobj.value ==="tweet" )&&
@@ -425,6 +423,7 @@ const Tweet =({key, tweetObj , userobj ,answer}) =>{
               <TweetBox what={answer.tweet} IsAnswer={false} profile={answer.profile}  />
             )}
           </div>}
+          </div>
         </>
       :
         <Loading/>

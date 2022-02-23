@@ -213,8 +213,13 @@
   }
   .value {
     height: 100%;
-    & > div {
+    .tweetBox {
       height: 100%;
+    }
+  }
+  .tweetobj{
+    .tweet_form{
+      padding-top:0
     }
   }
 }
@@ -241,18 +246,19 @@
 }
 
 .answerLine{
+  content:"";
+  position: absolute;
+  top:4.2rem; // tweet_form padding + userProfile width
+  left: 2.6rem; // tweet_fomr padding + userProfile width/2
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: stretch;
   border-right: 1px solid rgb(197, 189, 189);
   width: 1px;
-  height:160%;
-  margin-left: 50%;
+  height:calc(110% - 4rem);
 }
-.tweetFactory .answerLine{
-  height: 100%;
-}
+
 .value_explain{
   margin: 1rem;
   font-size: 0.8rem;
@@ -263,20 +269,20 @@
   }
 }
 
-#tweetFactory_qn .tweet {
+#tweetFactory_qt .tweet {
   margin: 0;
 }
-#tweetFactory_qn .tweet_fun{
+#tweetFactory_qt .tweet_fun{
   display: none;
 }
-#tweetFactory_qn .tweetSide,
-#tweetFactory_qn .userProfile img{
+#tweetFactory_qt .tweetSide,
+#tweetFactory_qt .userProfile img{
   width: 3rem;
 }
-#tweetFactory_qn .tweet_header > div,
-#tweetFactory_qn .tweet_header button, 
-#tweetFactory_qn .tweet .qt .tweet_header> div:nth-child(2), 
-#tweetFactory_qn .tweet .text{
+#tweetFactory_qt .tweet_header > div,
+#tweetFactory_qt .tweet_header button, 
+#tweetFactory_qt .tweet .qt .tweet_header> div:nth-child(2), 
+#tweetFactory_qt .tweet .text{
   font-size: 15px;
 }
 
@@ -325,9 +331,10 @@
   .tweet_form,
   .tweetFactory_box.answer{
       padding-left: 2rem;
-      padding-top:2rem
   }
-
+  .tweet_form{
+    padding-top:2rem
+  }
   .tweet_header > div, 
   .tweet_header button, 
   .tweet .qt .tweet_header> div:nth-child(2), 
@@ -377,6 +384,11 @@
       max-width: 100%;
     }
   }
+  }
+  .answerLine{
+    top:5rem;
+    left: 3.5rem;
+    height: calc(110% - 5rem);
   }
 }
 

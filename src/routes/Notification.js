@@ -145,7 +145,7 @@ const Notification = () => {
       :( 
         <div  class="mention notification" onClick={()=>goTimeLine(n)}>
 
-          <TweetForm is_owner={false} tweet={n.aboutTweet} profile={n.user} IsAnswer={false}/>
+          <TweetForm is_owner={false} tweet={n.aboutTweet} profile={n.user}/>
         </div>
       )))
     :

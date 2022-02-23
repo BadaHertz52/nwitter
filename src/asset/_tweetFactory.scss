@@ -230,9 +230,6 @@
       display: none;
     }
   }
-  .answerLine{
-    margin-left: 50%;
-  }
 } 
 
 
@@ -275,7 +272,7 @@
     margin: 0 5%;
   }
 }
-@media screen and (min-width:720px) {
+@media screen and (min-width:728px) {
   .tweetFactory.popup {
     .tweetFactory_box{
       margin :0
@@ -292,6 +289,11 @@
   .userProfile img ,
   .tweet .userProfile img{
     width: 3rem;
+  }
+  .answerLine{
+    top:5rem;
+    left: 3.5rem;
+    height: calc(110% - 5rem);
   }
   .tweet_header > div, 
   .tweet_header button, 
@@ -336,9 +338,6 @@
   }
   .tweet .tweet_content{
     padding-right: 0;
-  }
-  .answerLine {
-    margin-left: 1.5rem;
   }
   }
 

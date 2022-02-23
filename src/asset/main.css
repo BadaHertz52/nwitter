@@ -2274,8 +2274,12 @@ img, div, button, #nav, input {
   height: 100%;
 }
 
-.tweet.answer .value > div {
+.tweet.answer .value .tweetBox {
   height: 100%;
+}
+
+.tweet.answer .tweetobj .tweet_form {
+  padding-top: 0;
 }
 
 .answer_who {
@@ -2303,6 +2307,10 @@ img, div, button, #nav, input {
 }
 
 .answerLine {
+  content: "";
+  position: absolute;
+  top: 4.2rem;
+  left: 2.6rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2318,12 +2326,7 @@ img, div, button, #nav, input {
           align-items: stretch;
   border-right: 1px solid #c5bdbd;
   width: 1px;
-  height: 160%;
-  margin-left: 50%;
-}
-
-.tweetFactory .answerLine {
-  height: 100%;
+  height: calc(110% - 4rem);
 }
 
 .value_explain {
@@ -2337,23 +2340,23 @@ img, div, button, #nav, input {
   margin-right: 1rem;
 }
 
-#tweetFactory_qn .tweet {
+#tweetFactory_qt .tweet {
   margin: 0;
 }
 
-#tweetFactory_qn .tweet_fun {
+#tweetFactory_qt .tweet_fun {
   display: none;
 }
 
-#tweetFactory_qn .tweetSide,
-#tweetFactory_qn .userProfile img {
+#tweetFactory_qt .tweetSide,
+#tweetFactory_qt .userProfile img {
   width: 3rem;
 }
 
-#tweetFactory_qn .tweet_header > div,
-#tweetFactory_qn .tweet_header button,
-#tweetFactory_qn .tweet .qt .tweet_header > div:nth-child(2),
-#tweetFactory_qn .tweet .text {
+#tweetFactory_qt .tweet_header > div,
+#tweetFactory_qt .tweet_header button,
+#tweetFactory_qt .tweet .qt .tweet_header > div:nth-child(2),
+#tweetFactory_qt .tweet .text {
   font-size: 15px;
 }
 
@@ -2401,6 +2404,8 @@ img, div, button, #nav, input {
   .tweet_form,
   .tweetFactory_box.answer {
     padding-left: 2rem;
+  }
+  .tweet_form {
     padding-top: 2rem;
   }
   .tweet_header > div,
@@ -2447,6 +2452,11 @@ img, div, button, #nav, input {
   }
   .tweet .qt .attachment img {
     max-width: 100%;
+  }
+  .answerLine {
+    top: 5rem;
+    left: 3.5rem;
+    height: calc(110% - 5rem);
   }
 }
 
@@ -2773,10 +2783,6 @@ img, div, button, #nav, input {
   display: none;
 }
 
-.tweetFactory.popup .answerLine {
-  margin-left: 50%;
-}
-
 /*answer, qt*/
 #tweetFactory_tweet .tweetFactory form .btn {
   display: none;
@@ -2823,7 +2829,7 @@ img, div, button, #nav, input {
   }
 }
 
-@media screen and (min-width: 720px) {
+@media screen and (min-width: 728px) {
   .tweetFactory.popup .tweetFactory_box {
     margin: 0;
   }
@@ -2839,6 +2845,11 @@ img, div, button, #nav, input {
   .tweetFactory.popup .userProfile img,
   .tweetFactory.popup .tweet .userProfile img {
     width: 3rem;
+  }
+  .tweetFactory.popup .answerLine {
+    top: 5rem;
+    left: 3.5rem;
+    height: calc(110% - 5rem);
   }
   .tweetFactory.popup .tweet_header > div,
   .tweetFactory.popup .tweet_header button,
@@ -2883,9 +2894,6 @@ img, div, button, #nav, input {
   }
   .tweetFactory.popup .tweet .tweet_content {
     padding-right: 0;
-  }
-  .tweetFactory.popup .answerLine {
-    margin-left: 1.5rem;
   }
   .tweetFactory.popup,
   .cropper.factory {

@@ -3,7 +3,7 @@ import { BiDotsHorizontalRounded } from 'react-icons/bi';
 import UserProfile from './UserProfile';
 
 
-const TweetForm =({tweet, profile ,IsAnswer ,is_owner ,onDeleteClick})=>{
+const TweetForm =({tweet, profile  ,is_owner ,onDeleteClick})=>{
 
   const now = new Date();
   const year = now.getFullYear();
@@ -35,10 +35,6 @@ return (
   <div className=' tweet_form'>
     <div className='tweetSide'>
       <UserProfile profile={profile}/>
-      {  IsAnswer && 
-        <div className='answerLine'  >
-        </div>
-      }
     </div>
     <div className="tweet_content">
       <div className='tweet_header'>
