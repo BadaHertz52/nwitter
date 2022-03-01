@@ -158,7 +158,7 @@ const TweetFactory = ({userobj ,setPopup }) => {
   } = event ;
   const theFile =files[0];
   const reader = new FileReader();
-  reader.onload = (finishedEvent) =>{
+  reader.onloadend = (finishedEvent) =>{
     const { currentTarget : {result}} = finishedEvent;
     setAttachment (result);
     tweetDispatch({
