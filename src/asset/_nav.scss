@@ -1,0 +1,377 @@
+@import '../asset/common';
+
+
+#nav {
+  background-color: #ffff;
+  position: absolute;
+  width: 100%;
+  height: fit-content;
+  bottom:0;
+  left: 0;
+  z-index: 1;
+  #nav_home{
+    display: none;
+    &:hover{
+      background-color:rgb(215, 243, 253) ;
+    }
+  }
+  button{
+    color: #fff;
+    margin-top: 0;
+    padding:0;
+  }
+
+  #nav_menu{
+    padding: 2% 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    box-sizing: border-box;
+    
+    button {
+      background-color: initial;
+      color:initial;
+      position: relative;
+      margin-top: 5px;
+      margin-left: 0.2rem;
+      width: 2rem;
+      aspect-ratio: 1/1;
+      padding: 6px;
+      border-radius: 50%;
+      &:hover{
+        background-color: $hoverGrey;
+      }
+      svg{
+        margin-top: 2px;
+        font-size: 1.5rem;
+      }
+    }
+  } 
+
+  img {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+  }
+
+  #nav_tweetFactory {
+    position: absolute;
+    top: -15vh;
+    right: 10vw;
+    svg{
+      font-size: 1.5rem;
+      padding: 10px 12px;
+    }
+  }
+  #nav_profile{
+    display: none;
+    button{
+      @include initialBtn;
+      transition: 0.5s;
+      margin:0;
+      padding:0;
+      img {
+        box-sizing: content-box;
+        margin:0;
+        border:10px solid transparent;
+        &:hover{
+        border:10px solid $hoverGrey
+      }
+      }
+    }
+
+  }
+  #account{
+    position: absolute;
+    bottom:6rem;
+    left:10px;
+    width:200px;
+    background-color: #ffff;
+    box-shadow: rgba(0, 0, 0, 0.329) 0px 5px 15px;
+    border-radius: 10px;
+    z-index: 5;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 20%;
+      border:20px solid transparent;
+      border-top-color: #ffff;
+      border-bottom:0;
+      border-left: 0;
+      width: 0;
+      height: 0;
+      margin-left: -5px;
+      margin-bottom: -1.2rem;
+    }
+    &_user{
+      padding:1rem;
+      display: flex;
+      border-bottom: 0.5px solid rgb(221, 221, 221);
+      .nav_label{
+        display: flex;
+        flex-direction: column;
+        color: initial;
+        margin-left: 1.2rem;
+        font-size: 1rem;
+        div:first-child{
+          font-weight: bold;
+        }
+      }
+    }
+    #account_btn{
+      text-align: left;
+      button{
+        padding:10px 20%;
+        color:initial;
+        font-size: 1rem;
+        border-radius: 0;
+        &:hover{
+          background-color: rgb(235, 235, 235); 
+          width: 100%;
+          text-align: left;
+        }
+      }
+    }
+  }
+}
+
+#nav_homeBtn:hover .title,
+#nav_notificationBtn:hover .title,#nav_myProfile:hover .title,
+#nav_accountBtn:hover .title,
+#nav_popUp:hover .title{
+  display: block;
+  left: 10%;
+}
+
+
+#do_tweet {
+  display: none;
+  transition-duration: 0.5s;
+}
+
+.nav_label{
+  display: none;
+}
+
+@media screen and (min-width:500px) {
+  #nav {
+    position: sticky;
+    top:0;
+    left: 0;
+    height: 100vh;
+    width: 20%;
+    border-right: 1px solid $lineGrey;
+    #nav_menu,
+    #nav_tweetFactory,
+    #nav_profile{
+      padding: 0 20%;
+    }
+
+    #nav_menu {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      button{
+        width: 100%;
+        height: fit-content;
+        margin-top: 1.5rem;
+        svg{
+          font-size: 1.7rem;
+        }
+      }
+    }
+
+    img {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+    &_profile img{
+      width: 2.8rem;
+      height: 2.8rem;
+    }
+    #nav_profile {
+      display: block;
+      position: relative;
+      margin-top: 2rem;
+    }
+    #nav_tweetFactory{
+      display: block;
+      position: relative;
+      top:initial;
+      right: initial;
+      margin-top: 2rem;
+      svg{
+        font-size: 1.5rem;
+      }
+    }
+    &_popUp , 
+    &_profile img{
+      margin-left: 6px
+    }
+  }
+
+  
+}
+@media screen and (min-width:728px) {
+  #nav_home{
+    display: block;
+  }
+  #nav_menu,
+  #nav_tweetFactory,
+  #nav_profile {
+    margin-left: 10%;
+  }
+}
+@media screen and (min-width:1024px) {
+  #nav {
+    width: 8%;
+    padding-left: 3%;
+    padding-right: 3%;
+    #nav_menu,
+    #nav_tweetFactory,
+    #nav_profile {
+      margin-left: 2rem;
+      padding:1rem 0;
+    }
+    #nav_menu{
+      font-size: 1.8rem;
+      button{
+        border-radius: 9999px;
+      }
+    }
+    #nav_tweetFactory{
+      width: initial;
+      margin-left: 2rem;
+    }
+    img {
+      width: 2.8rem;
+      height: 2.8rem;
+    }
+    #nav_home {
+      padding:5px
+    }
+    #nav_popUp {
+      font-size: 10px;
+    }
+
+  }
+
+  #nav_profile{
+    margin:  {
+      top:0;
+      left:0
+    };
+  }
+  #nav #account{
+    width: 230px;
+  }
+}
+
+@media  screen and (min-width:1300px) {
+  #nav {
+    width:20%
+  }
+  #do_tweet {
+    display: block;
+    font-size: 1.2rem;
+    padding: 3% 0;
+    border-radius: 9999px;
+    box-shadow: rgba(0, 0, 0, 0.014) 0px 8px 28px;
+  }
+  
+  #nav_popUp svg{
+    display: none;
+  }
+
+  #nav{
+    #nav_menu button{
+    display: flex;
+    width: 80%;
+    text-align: center;
+    padding-left: 14px;
+    height: 3rem;
+    svg{
+      font-size: 1.8rem;
+    }
+  }
+  #nav_menu #nav_home{
+    width: calc(1.8rem + 28px);
+    height: calc(1.8rem + 28px);
+    padding:14px;
+  }
+  #nav_tweetFactory {
+    width: 80%;
+    margin-top:1rem;
+    button{
+      padding:4px 0 ;
+      &:hover{
+        padding:6px 0;
+        transition: 0.3s;
+      }
+    }
+  } 
+  #nav_profile{
+    margin-top:1rem;
+    button {
+      display: flex;
+      flex-direction: row;
+      color:initial;
+      width: 95%;
+      &:hover{
+        background-color: $hoverGrey;
+      }
+      img:hover{
+        border-color: transparent;
+      }
+    }
+
+  button {
+    display: flex;
+    flex-direction: row;
+    color:initial;
+    width: 95%;
+    &:hover{
+      background-color: $hoverGrey;
+    }
+    img:hover{
+      border-color: transparent;
+    }
+  }
+
+  }
+  #nav_popUp{
+    width: 90%;
+  }
+  img{
+    width: 3rem;
+    height: 3rem;
+  }
+  #nav_home{
+    margin-left: 14px;
+    padding:10px;
+    width: fit-content;
+  }
+  }
+  .nav_label{
+    display: block;
+    margin-left: 5%;
+    margin-top: 0.25rem;
+    font-size: 1.3rem;
+    &.on{
+      font-weight: bold;
+    }
+    div:last-child{
+      margin-top: 10px;
+      font-size: 1rem;
+      }
+  }
+
+  #nav_homeBtn:hover .title,
+  #nav_notificationBtn:hover .title,#nav_myProfile:hover .title,
+  #nav_accountBtn:hover .title,
+  #nav_popUp:hover .title{
+    display:none;
+  }
+
+}

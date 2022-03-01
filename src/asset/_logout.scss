@@ -1,0 +1,99 @@
+@import './common';
+
+#logOut{
+  position: absolute;
+  top:0;
+  left: 0;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  background-color:$popupBgColor ;
+  &_inner{
+    position: absolute;
+    top:25%;
+    left: 25%;
+    width: 50%;
+    height: fit-content;
+    padding:1.5rem 1rem; 
+    background-color: #ffff;
+    border-radius: 10px;
+    overflow:hidden;
+    overflow-wrap: break-word;
+  }
+  &_icon{
+    color:$btnHoverBlue;
+    font-size: 2.5rem;
+    text-align: center;
+  }
+  &_alert{
+    font-size: 1rem;
+    padding: 0 1rem;
+    div:first-child{
+      margin: 10px 0;
+      font : {
+        size:1.2rem;
+        weight: bold;
+      }
+    }
+  }
+  &_Btn{
+    margin-top:1.5rem;
+    padding: 0 15%;
+    display: flex;
+    flex-direction:column;
+    button {
+      padding:10px;
+      margin-bottom: 10px;
+      font-weight: bold;
+      box-shadow: rgba(184, 184, 184, 0.514) 0px 5px 0px;
+      &:hover{
+        color:initial
+      }
+    }
+    button:first-child{
+      @include blackBtn
+    }
+    button:last-child{
+      @include whiteBtn
+    }
+  }
+}
+@media screen and (min-width:768px) {
+  #logOut_alert div:first-child{
+    margin: 0;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  #logOut_Btn{
+    flex-direction: row;
+    justify-content: space-between;
+    button {
+      width: 45%;
+    }
+  }
+}
+@media screen and (min-width:900px) {
+  #logOut{
+    &_inner{
+      width:40%;
+      left:30%;
+    }
+  }
+}
+@media screen and (min-width:1020px) {
+  #logOut{
+    &_inner{
+      width:30%;
+      left:35%;
+    }
+  }
+}
+
+@media screen and (min-width:1600px) {
+  #logOut{
+    &_inner{
+      width:600px;
+      left:calc(50%-300px);
+    }
+  }
+}

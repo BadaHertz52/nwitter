@@ -1,0 +1,44 @@
+@import './auth';
+@import './cropper';
+@import './deleteUser';
+@import './editProfile';
+@import './footer';
+@import './list';
+@import './home';
+@import './loading';
+@import './logout';
+@import './nav';
+@import './notification';
+@import './tweet';
+@import './tweetFactory';
+@import './tweetFun';
+@import './profile';
+@import './router';
+@import './timeLine';
+@import './common';
+
+@font-face {
+  font-family: nanum-gothic-coding;
+  src: url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
+  font-weight: bold;
+}
+@font-face {
+  font-family: Be-vietnam-pro;
+  src: url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300&display=swap'); 
+  font-weight: 500;
+}
+
+img{
+  border-radius: 10px;
+}
+body, textarea{
+  font-family: nanum-gothic-coding,Be-vietnam-pro,system-ui ;
+}
+
+a:link ,a:visited , a:hover, a:active{
+  color: rgb(54, 54, 54);
+  text-decoration:none;
+}
+.profile_photo{
+  border-radius: 50%;
+}

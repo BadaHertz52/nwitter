@@ -1,0 +1,139 @@
+@import './common';
+
+#notifications {
+  margin-left: 0;
+  &>div:first-child{
+    margin-left :1rem;
+  }
+  .notification{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: initial;
+    border-radius: 0;
+    border-bottom:1px solid  $lineGrey;
+    padding : {
+      left: 1rem;
+      top:1rem;
+      bottom: 1rem;
+    }
+    margin-top: 0;
+    &:hover{
+      @include backBtnHover
+    }
+  }
+  .tweet_form {
+    font-weight: initial;
+    padding-left: 10px;
+    .text {
+      font-size: 1rem;
+      text-align: start;
+    }
+    width: 100%;
+    background-color: initial;
+    border-radius: 0;
+    margin-top: 0;
+    .value{
+      display: none;
+    }
+    .goStatusBtn {
+      display: none;
+    }
+    .tweet_content {
+      padding:0 10px;
+    }
+    .tweet_header {
+      &>div, button{
+        font-size: 1.1rem;
+      }
+    } 
+    .tweetSide ,
+    .userProfile img{
+      width: 2.3rem;
+    }
+  }
+  
+
+}
+
+#notifications 
+#notificationBtns{
+  width: 100%;
+  display: flex;
+}
+.notificationBtn{
+  width: 50%;
+  height: 4rem;
+  text-align: center;
+  background-color: initial;
+  border-bottom:1px solid $lineGrey;
+  border-radius: 0;
+  font-size: 1.2rem;
+  &.check div{
+    padding-top:1rem;
+    margin:0 30% ;
+    height: 100%;
+    box-sizing: border-box;
+    border-bottom:5px solid $deep_blue;
+}
+}
+.notificationBtn:hover,
+#notifications .mention:hover{
+  color: initial;
+  background-color:rgb(235, 235, 235); 
+} 
+
+
+.notification_left{
+  width: 3rem;
+  svg{
+    margin-right: 1rem;
+    font-size: 1.8rem;
+  }
+}
+
+.rnIcon {
+  color:$rtBtn ;
+}
+.heartIcon {
+  color: $heartBtn;
+}
+.tweetIcon {
+  color:$deep_blue;
+  font-weight: bolder;
+}
+.notification_right{
+  display: flex;
+  flex-direction: column;
+  img{
+    width: 2.3rem;
+    height: 2.3rem;
+    margin-right:2rem;
+  }
+}
+.notification_inform{
+  font-size: 1rem;
+  font-weight: initial;
+  margin-top: 10px;
+  div:last-child{
+    margin-top: 10px;
+    color: rgb(88, 86, 86);
+  
+  }
+}
+
+
+@media screen and (max-width:320px) {
+  .notification_left {
+    width: 2rem;
+    svg {
+      font-size:1.5rem;
+      margin-right:10px;
+    }
+  }
+  
+  #notifications.tweet_header .tweet_time{
+    font-size: 11px;
+  }
+
+}
