@@ -2,6 +2,8 @@
 <br/>
 
 [트위터(twitter)](https://twitter.com/home?lang=ko)를 react와 firebase를 사용하여 클론 코딩한 프로젝트입니다. 
+
+[프로젝트 페이지로 바로가기](https://badahertz52.github.io/twitter/)
 _______________________________________________________
 
 ## Index
