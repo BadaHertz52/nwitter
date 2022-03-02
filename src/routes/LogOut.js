@@ -23,7 +23,7 @@ const LogOut =({setIsLoggedIn})=>{
       type:"CLEAR_MY_PROFILE"
     });
     setIsLoggedIn(false);
-
+    localStorage.clear();
     navigate(`/twitter/auth`);
     authSerVice.signOut();
   };
