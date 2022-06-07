@@ -3,18 +3,16 @@ import { FiArrowLeft } from "react-icons/fi";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getProfileDoc } from "../components/GetData";
 import Loading from "../components/Loading";
+import UserProfile from "../components/UserProfile";
 import { ProfileContext } from "../context/ProfileContex";
 import { UserContext } from "../context/UserContext";
 
-const List =({userobj})=>{
+const List =({userobj ,userId})=>{
   const [showFollower, setShowFollower] =useState(true);
   const {myProfile, profileDispatch}=useContext(ProfileContext);
   const {userProfile}=useContext(UserContext);
-
   const [profile, setProfile]=useState({userName:"", userId:"", follower:[], following:[]});
-
   const [followers,setFollowers]=useState([{photoUrl:"", userName:"", userId:"", uid:"" , introduce:""}]);
-
   const [followings, setFollowings]=useState([{photoUrl:"", userName:"", userId:"", uid:"" , introduce:""}]);
 
   const navigate =useNavigate();
@@ -58,13 +56,14 @@ const List =({userobj})=>{
     navigate(`/twitter/${profile.userId}/list/following` , 
     {state:state})
   };
-
-
   useEffect(()=>{
-    if(state !== null && state.isMine !== undefined){
-      const isMine =state.isMine;
-      isMine ? setProfile(myProfile): setProfile(userProfile);
-  } ;
+    if(userobj.id === userId){
+      setProfile(myProfile);
+      }else{
+        if(userId === UserProfile.userId){
+          setProfile(userProfile);
+        }
+      } ;
 },[state, userProfile , myProfile]);
 
   useEffect(()=>{

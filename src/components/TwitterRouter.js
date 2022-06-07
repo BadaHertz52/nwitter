@@ -17,19 +17,22 @@ import EditProfile from '../routes/EditProfile';
 import Notification from '../routes/Notification';
 import TweetFactory from '../routes/TweetFactory';
 import List from '../routes/List';
-import Side from '../routes/Side';
+import Side, { changeUserContext } from '../routes/Side';
 import UserContextProvider, { UserContext } from '../context/UserContext';
 import TimeLine from '../routes/TimeLine';
 import Tweet from './Tweet';
 import LogOut from '../routes/LogOut';
 import Loading from './Loading';
 import DeleteUser from './DeleteUser';
+import { dbService } from '../Fbase';
 
 const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMyProfile }) => {
   const [userId, setUserId]=useState("");
   const [docId, setDocId]=useState("");
-
+  const [userProfile, setUserProfile]=useState(null);
+  const [userTweets, setUserTweets]=useState(null);
   const location = useLocation();
+  const hash =window.location.hash;
   const state =location.state; 
   const navigate =useNavigate();
   const ContextRouter =()=>{
@@ -90,6 +93,7 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
   },[isLoggedIn]);
 
   useEffect(()=>{
+    console.log("status", state);
     if(state!==null && state.value ==="userProfile"){
       const userProfile =JSON.parse(localStorage.getItem('user'));
       setUserId(userProfile.userId);
@@ -117,6 +121,43 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
     }
   },[state]);
 
+  useEffect(()=>{
+    const changeUser =(targetString)=>{
+      const lastSlash =targetString.lastIndexOf("/");
+      const lastPath =targetString.slice(lastSlash+1);
+      setUserId(lastPath);
+      dbService.collection(`users`).onSnapshot(shot=>
+        {shot.docs.forEach(doc=>
+          {if(`${doc.data().userId}`=== lastPath){
+            const result =doc.data();
+            (async()=>{
+              const getDocs=await getTweetsDocs(result.uid);
+              const tweets =getDocs.docs.map(doc=> ({id:doc.id,...doc.data()}));
+              userDispatch({
+                type:"GET_USER_DATA",
+                userProfile :result,
+                userTweets:tweets
+              });
+            })();
+          }
+          })
+        })
+    };
+    if(hash.includes("/list")){
+      const listIndex =hash.lastIndexOf("/list");
+      const firstFilltering =hash.slice(0,listIndex);
+      changeUser(firstFilltering);
+    }else if(hash.includes("/status")){
+      const listIndex =hash.lastIndexOf("/status");
+      const firstFilltering =hash.slice(0,listIndex);
+      changeUser(firstFilltering);
+      const docId =hash.slice(listIndex+8);
+      console.log("doc", docId);
+      setDocId(docId);
+    }else{
+      changeUser(hash);
+    };
+  },[hash])
     return (
       <>
         {isLoggedIn ?
@@ -135,7 +176,7 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
                 element={ <Cropper/>}/>
               <Route 
                 path={`/twitter/editProfile`} 
-                element={<EditProfile userobj={userobj}  />}/>
+                element={<EditProfile userobj={userobj}/>}/>
               <Route
                   path={`/twitter/logout`} 
                   element={<LogOut setIsLoggedIn={setIsLoggedIn}  />}
@@ -163,36 +204,51 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
                   path={`/twitter/home/${userId}/status/${docId}`}
                   element={<Tweet userobj={userobj}/>}
                 />
-                <Route  
-                  path={`/twitter/${userobj.id}`} 
-                  element={ 
-                  <MyProfile userobj={userobj}  />}/>
+                <Route 
+                  path={`/twitter/${userId}/status/${docId}`}
+                  element={<Tweet userobj={userobj}/>}
+                    />
                 <Route 
                   exact path={`/twitter/notification`}
                   element={<Notification userobj={userobj}  />} />
                 <Route  
                     path={`/twitter/${userId}`} 
-                    element={<Profile userobj={userobj} 
-                    />}/>
+                    element={
+                      userId === userobj.id ?
+                      <MyProfile userobj={userobj}/>
+                      :
+                    <Profile 
+                      userobj={userobj} 
+                      userId={userId}
+                    />}
+                    />
                 <Route 
                   path={`/twitter/${userId}/list/follower`}
-                  element={<List userobj={userobj} />}/>
+                  element={<List 
+                  userobj={userobj} 
+                  userId={userId}
+                  />}/>
                 <Route 
                   path={`/twitter/${userId}/list/following`}
-                  element={<List userobj={userobj} />}/>
+                  element={<List 
+                  userobj={userobj}
+                  userId={userId} 
+                  />}/>
                 <Route 
                   path={`/twitter/${userobj.id}/list/follower`}
-                  element={<List userobj={userobj} />}/>
+                  element={<List 
+                  userobj={userobj} 
+                  userId={userId}
+                  />}/>
                 <Route 
                   path={`/twitter/${userobj.id}/list/following`}
-                  element={<List userobj={userobj} />}/>
+                  element={<List 
+                  userobj={userobj} 
+                  userId={userId}
+                  />}/>
                   <Route 
                       path={`/twitter/timeLine`}
                       element={<TimeLine userobj={userobj} />}
-                    />
-                    <Route 
-                      path={`/twitter/${userId}/status/${docId}`}
-                      element={<Tweet userobj={userobj}/>}
                     />
             </Routes>
             </div>

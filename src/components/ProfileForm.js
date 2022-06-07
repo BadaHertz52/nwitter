@@ -26,7 +26,6 @@ export const ProfileTopForm = ({who, isMine , userobj } )=>{
       state:{
         previous:location.pathname,
         userId: profile.userId,
-        isMine:isMine,
       }})
   };
   const goEdit =()=> {
