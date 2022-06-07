@@ -29,8 +29,6 @@ import { dbService } from '../Fbase';
 const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMyProfile }) => {
   const [userId, setUserId]=useState("");
   const [docId, setDocId]=useState("");
-  const [userProfile, setUserProfile]=useState(null);
-  const [userTweets, setUserTweets]=useState(null);
   const location = useLocation();
   const hash =window.location.hash;
   const state =location.state; 
