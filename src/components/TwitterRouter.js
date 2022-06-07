@@ -17,7 +17,7 @@ import EditProfile from '../routes/EditProfile';
 import Notification from '../routes/Notification';
 import TweetFactory from '../routes/TweetFactory';
 import List from '../routes/List';
-import Side, { changeUserContext } from '../routes/Side';
+import Side from '../routes/Side';
 import UserContextProvider, { UserContext } from '../context/UserContext';
 import TimeLine from '../routes/TimeLine';
 import Tweet from './Tweet';
