@@ -16,7 +16,7 @@ _______________________________________________________
 * <a href="#description">Description</a>
   <br/>
 
-* <a href="#explain">Explain</a>
+* <a href="#explain">Project explanation</a>
   <br/>
 
   * <a href="#page">Page and Layout</a>
@@ -98,7 +98,7 @@ _____________________________________________________
  
 ____________________________________________________
 
-## <div id="explain"> Explain</div>
+## <div id="explain">Project explanation</div>
 <br/>
  
 ### <div id="page"> 1. Page and Layout</div>
