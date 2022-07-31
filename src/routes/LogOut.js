@@ -5,9 +5,11 @@ import { TweetContext } from '../context/TweetContex';
 import { ProfileContext } from '../context/ProfileContex';
 import { UserContext } from '../context/UserContext';
 import authSerVice from '../Fbase';
+import { changeTitle } from '../components/TwitterRouter';
 
 
 const LogOut =({setIsLoggedIn})=>{
+  changeTitle(null);
   const {tweetDispatch} =useContext(TweetContext);
   const {profileDispatch} =useContext(ProfileContext);
   const {userDispatch}=useContext(UserContext);

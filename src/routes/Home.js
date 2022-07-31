@@ -6,9 +6,11 @@ import TweetFactory from './TweetFactory';
 import { getTweetsDocs } from '../components/GetData';
 import { TweetContext } from '../context/TweetContex';
 import { ProfileContext } from '../context/ProfileContex';
+import { changeTitle } from '../components/TwitterRouter';
 
 
 const Home =  ({userobj}) => {
+  changeTitle("home");
   const [popup, setPopup]=useState(false);
   const {myProfile} =useContext(ProfileContext);
   const {tweetDispatch, allTweets ,myTweets}=useContext(TweetContext);

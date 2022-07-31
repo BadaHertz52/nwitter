@@ -3,6 +3,7 @@ import { FiArrowLeft } from "react-icons/fi";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getProfileDoc } from "../components/GetData";
 import Loading from "../components/Loading";
+import { changeTitle } from "../components/TwitterRouter";
 import UserProfile from "../components/UserProfile";
 import { ProfileContext } from "../context/ProfileContex";
 import { UserContext } from "../context/UserContext";
@@ -139,12 +140,14 @@ const List =({userobj ,userId})=>{
     setFollowers(users);
     setShowFollower(true);
     changeStyle(listFollower);
+    changeTitle(`People following ${profile.userName}(@${profile.userId})`);
   };
   const pushFollowing=async()=>{
     const users=await Promise.all( profile.following.map(user => getProfileDoc(user).get().then(doc=>doc.data())));
     setFollowings(users);
     setShowFollower(false);
     changeStyle(listFollowing);
+    changeTitle(`People followed by ${profile.userName}(@${profile.userId})`);
   };
   const goBack=()=>{
     if(state!==null){

@@ -25,6 +25,10 @@ import LogOut from '../routes/LogOut';
 import Loading from './Loading';
 import DeleteUser from './DeleteUser';
 import { dbService } from '../Fbase';
+export   const changeTitle=(title)=>{
+  const htmlTtitle = document.querySelector("title");
+  htmlTtitle.innerText = title===null? "Twitter": `${title}/Twitter`;
+};
 
 const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMyProfile }) => {
   const [userId, setUserId]=useState("");
@@ -91,7 +95,6 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
   },[isLoggedIn]);
 
   useEffect(()=>{
-    console.log("status", state);
     if(state!==null && state.value ==="userProfile"){
       const userProfile =JSON.parse(localStorage.getItem('user'));
       setUserId(userProfile.userId);
@@ -150,11 +153,12 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
       const firstFilltering =hash.slice(0,listIndex);
       changeUser(firstFilltering);
       const docId =hash.slice(listIndex+8);
-      console.log("doc", docId);
       setDocId(docId);
     }else{
       changeUser(hash);
     };
+    console.log("hash", hash);
+
   },[hash])
     return (
       <>

@@ -5,6 +5,7 @@ import { BsTwitter } from "react-icons/bs";
 import auth_img from '../asset/img/auth_img.jpg';
 import auth_img_width from '../asset/img/auth_img_width.jpg';
 import Footer from '../components/Footer';
+import { changeTitle } from '../components/TwitterRouter';
 
 const Auth = ( ) => {
   const [newAcount, setNewAccount] =useState();
@@ -19,7 +20,7 @@ const Auth = ( ) => {
     const data = await authSerVice.signInWithPopup(provider) ;
     console.log("popup //" , data) ;
   };
-
+  changeTitle("tiwtter login");
   return(
     <section id="auth">
       <div id="auth_left">

@@ -10,8 +10,8 @@ import  { TweetContext } from '../context/TweetContex';
 import {ProfileContext} from '../context/ProfileContex';
 import Loading from './Loading';
 import { storageService } from '../Fbase';
-import TweetForm from './TweetForm';
-
+import TweetForm from './TweetForm'
+import {changeTitle}from './TwitterRouter';
 
 const Tweet =({key, tweetObj , userobj ,answer}) =>{
   const navigate =useNavigate();
@@ -73,6 +73,9 @@ const Tweet =({key, tweetObj , userobj ,answer}) =>{
         setTweetObj(status.tweetObj);
         setIsAnswer(status.answer);
         setOwnerProfile(status.ownerProfile);
+        const userName =status.ownerProfile.userName;
+        const tweetText =status.tweetObj.text;
+        changeTitle(`${userName} on Twitter: ${tweetText}`);
       }
       }
   },[location]);
