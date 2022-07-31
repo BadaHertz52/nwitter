@@ -1183,6 +1183,8 @@ img, div, button, #nav, input {
 }
 
 #nav {
+  display: flex;
+  align-items: center;
   background-color: white;
   position: absolute;
   width: 100%;
@@ -1216,9 +1218,6 @@ img, div, button, #nav, input {
   color: initial;
   position: relative;
   margin-top: 5px;
-  margin-left: 0.2rem;
-  width: 2rem;
-  aspect-ratio: 1/1;
   padding: 6px;
   border-radius: 50%;
 }
@@ -1238,6 +1237,8 @@ img, div, button, #nav, input {
   position: absolute;
   top: -15vh;
   right: 10vw;
+  display: flex;
+  align-items: center;
 }
 #nav #nav_tweetFactory svg {
   font-size: 1.5rem;
@@ -1257,12 +1258,14 @@ img, div, button, #nav, input {
   color: initial;
 }
 #nav #nav_profile button img {
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
   box-sizing: content-box;
   margin: 0;
-  border: 10px solid transparent;
+  border: 2px solid transparent;
 }
 #nav #nav_profile button img:hover {
-  border: 10px solid rgba(235, 235, 235, 0.753);
+  border: 2px solid rgba(235, 235, 235, 0.753);
 }
 #nav #account {
   position: absolute;
@@ -1335,8 +1338,23 @@ img, div, button, #nav, input {
   display: none;
 }
 
+@media screen and (max-width: 500px) {
+  #nav_menu {
+    margin: 0 5%;
+    width: 90%;
+  }
+  #nav_homeBtn:hover .title,
+#nav_notificationBtn:hover .title, #nav_myProfile:hover .title,
+#nav_accountBtn:hover .title,
+#nav_popUp:hover .title {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+  }
+}
 @media screen and (min-width: 500px) {
   #nav {
+    flex-direction: column;
     position: -webkit-sticky;
     position: sticky;
     top: 0;
@@ -1345,10 +1363,12 @@ img, div, button, #nav, input {
     width: 20%;
     border-right: 1px solid rgba(139, 139, 139, 0.096);
   }
-  #nav #nav_menu,
-#nav #nav_tweetFactory,
-#nav #nav_profile {
-    padding: 0 20%;
+  #nav > div {
+    width: 2.8rem;
+  }
+  #nav > div button {
+    width: 100%;
+    aspect-ratio: 1/1;
   }
   #nav #nav_menu {
     display: flex;
@@ -1356,25 +1376,14 @@ img, div, button, #nav, input {
     justify-content: space-between;
   }
   #nav #nav_menu button {
-    width: 100%;
-    height: -webkit-fit-content;
-    height: -moz-fit-content;
-    height: fit-content;
     margin-top: 1.5rem;
   }
   #nav #nav_menu button svg {
     font-size: 1.7rem;
   }
-  #nav img {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
-  #nav_profile img {
-    width: 2.8rem;
-    height: 2.8rem;
-  }
   #nav #nav_profile {
-    display: block;
+    display: flex;
+    align-items: center;
     position: relative;
     margin-top: 2rem;
   }
@@ -1386,20 +1395,12 @@ img, div, button, #nav, input {
     margin-top: 2rem;
   }
   #nav #nav_tweetFactory svg {
-    font-size: 1.5rem;
-  }
-  #nav_popUp, #nav_profile img {
-    margin-left: 6px;
+    font-size: 1.2rem;
   }
 }
 @media screen and (min-width: 728px) {
   #nav_home {
     display: block;
-  }
-  #nav_menu,
-#nav_tweetFactory,
-#nav_profile {
-    margin-left: 10%;
   }
 }
 @media screen and (min-width: 1024px) {
@@ -1408,10 +1409,7 @@ img, div, button, #nav, input {
     padding-left: 3%;
     padding-right: 3%;
   }
-  #nav #nav_menu,
-#nav #nav_tweetFactory,
-#nav #nav_profile {
-    margin-left: 2rem;
+  #nav > div {
     padding: 1rem 0;
   }
   #nav #nav_menu {
@@ -1419,10 +1417,6 @@ img, div, button, #nav, input {
   }
   #nav #nav_menu button {
     border-radius: 9999px;
-  }
-  #nav #nav_tweetFactory {
-    width: initial;
-    margin-left: 2rem;
   }
   #nav img {
     width: 2.8rem;
@@ -1446,6 +1440,13 @@ img, div, button, #nav, input {
   #nav {
     width: 20%;
   }
+  #nav > div {
+    margin-left: 0;
+    width: 80%;
+  }
+  #nav > div button {
+    aspect-ratio: initial;
+  }
   #do_tweet {
     display: block;
     font-size: 1.2rem;
@@ -1458,7 +1459,6 @@ img, div, button, #nav, input {
   }
   #nav #nav_menu button {
     display: flex;
-    width: 80%;
     text-align: center;
     padding-left: 14px;
     height: 3rem;
@@ -1472,10 +1472,14 @@ img, div, button, #nav, input {
     padding: 14px;
   }
   #nav #nav_tweetFactory {
-    width: 80%;
+    margin-left: 0;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
     margin-top: 1rem;
   }
   #nav #nav_tweetFactory button {
+    width: 100%;
     padding: 4px 0;
   }
   #nav #nav_tweetFactory button:hover {
@@ -1494,6 +1498,10 @@ img, div, button, #nav, input {
   #nav #nav_profile button:hover {
     background-color: rgba(235, 235, 235, 0.753);
   }
+  #nav #nav_profile button img {
+    width: 3rem;
+    height: 3rem;
+  }
   #nav #nav_profile button img:hover {
     border-color: transparent;
   }
@@ -1511,10 +1519,6 @@ img, div, button, #nav, input {
   }
   #nav #nav_popUp {
     width: 90%;
-  }
-  #nav img {
-    width: 3rem;
-    height: 3rem;
   }
   #nav #nav_home {
     margin-left: 14px;

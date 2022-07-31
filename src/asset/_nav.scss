@@ -2,6 +2,8 @@
 
 
 #nav {
+  display: flex;
+  align-items: center;
   background-color: #ffff;
   position: absolute;
   width: 100%;
@@ -9,6 +11,8 @@
   bottom:0;
   left: 0;
   z-index: 1;
+
+
   #nav_home{
     display: none;
     &:hover{
@@ -27,15 +31,11 @@
     flex-direction: row;
     justify-content: space-around;
     box-sizing: border-box;
-    
     button {
       background-color: initial;
       color:initial;
       position: relative;
       margin-top: 5px;
-      margin-left: 0.2rem;
-      width: 2rem;
-      aspect-ratio: 1/1;
       padding: 6px;
       border-radius: 50%;
       &:hover{
@@ -58,6 +58,8 @@
     position: absolute;
     top: -15vh;
     right: 10vw;
+    display: flex;
+    align-items: center;
     svg{
       font-size: 1.5rem;
       padding: 10px 12px;
@@ -71,11 +73,13 @@
       margin:0;
       padding:0;
       img {
+        width: calc(100% - 4px);
+        height:calc(100% - 4px) ;
         box-sizing: content-box;
         margin:0;
-        border:10px solid transparent;
+        border:2px solid transparent;
         &:hover{
-        border:10px solid $hoverGrey
+        border:2px solid $hoverGrey
       }
       }
     }
@@ -153,45 +157,50 @@
 .nav_label{
   display: none;
 }
-
+@media screen and (max-width:500px) {
+  #nav_menu{
+    margin: 0 5%;
+    width: 90%;
+  }
+  #nav_homeBtn:hover .title,
+  #nav_notificationBtn:hover .title,#nav_myProfile:hover .title,
+  #nav_accountBtn:hover .title,
+  #nav_popUp:hover .title{
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+  }
+}
 @media screen and (min-width:500px) {
   #nav {
+    flex-direction: column;
     position: sticky;
     top:0;
     left: 0;
     height: 100vh;
     width: 20%;
     border-right: 1px solid $lineGrey;
-    #nav_menu,
-    #nav_tweetFactory,
-    #nav_profile{
-      padding: 0 20%;
-    }
-
+    & >div{
+      width: 2.8rem;
+      button{
+        width: 100%;
+        aspect-ratio: 1/1;
+      }
+    };
     #nav_menu {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      button{
-        width: 100%;
-        height: fit-content;
+      button{ 
         margin-top: 1.5rem;
         svg{
           font-size: 1.7rem;
         }
       }
     }
-
-    img {
-      width: 2.5rem;
-      height: 2.5rem;
-    }
-    &_profile img{
-      width: 2.8rem;
-      height: 2.8rem;
-    }
     #nav_profile {
-      display: block;
+      display: flex;
+      align-items: center;
       position: relative;
       margin-top: 2rem;
     }
@@ -202,12 +211,8 @@
       right: initial;
       margin-top: 2rem;
       svg{
-        font-size: 1.5rem;
+        font-size: 1.2rem;
       }
-    }
-    &_popUp , 
-    &_profile img{
-      margin-left: 6px
     }
   }
 
@@ -217,21 +222,13 @@
   #nav_home{
     display: block;
   }
-  #nav_menu,
-  #nav_tweetFactory,
-  #nav_profile {
-    margin-left: 10%;
-  }
 }
 @media screen and (min-width:1024px) {
   #nav {
     width: 8%;
     padding-left: 3%;
     padding-right: 3%;
-    #nav_menu,
-    #nav_tweetFactory,
-    #nav_profile {
-      margin-left: 2rem;
+    & > div {
       padding:1rem 0;
     }
     #nav_menu{
@@ -239,10 +236,6 @@
       button{
         border-radius: 9999px;
       }
-    }
-    #nav_tweetFactory{
-      width: initial;
-      margin-left: 2rem;
     }
     img {
       width: 2.8rem;
@@ -270,7 +263,14 @@
 
 @media  screen and (min-width:1300px) {
   #nav {
-    width:20%
+    width:20%;
+    & > div{
+      margin-left: 0;
+      width: 80%;
+      button {
+        aspect-ratio: initial;
+      }
+    }
   }
   #do_tweet {
     display: block;
@@ -287,7 +287,6 @@
   #nav{
     #nav_menu button{
     display: flex;
-    width: 80%;
     text-align: center;
     padding-left: 14px;
     height: 3rem;
@@ -301,9 +300,11 @@
     padding:14px;
   }
   #nav_tweetFactory {
-    width: 80%;
+    margin-left: 0;
+    height: fit-content;
     margin-top:1rem;
     button{
+      width: 100%;
       padding:4px 0 ;
       &:hover{
         padding:6px 0;
@@ -321,8 +322,12 @@
       &:hover{
         background-color: $hoverGrey;
       }
-      img:hover{
-        border-color: transparent;
+      img{
+        width: 3rem;
+        height: 3rem;
+        &:hover{
+          border-color: transparent;
+        }
       }
     }
 
@@ -342,10 +347,6 @@
   }
   #nav_popUp{
     width: 90%;
-  }
-  img{
-    width: 3rem;
-    height: 3rem;
   }
   #nav_home{
     margin-left: 14px;
