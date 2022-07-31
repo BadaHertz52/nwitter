@@ -19,10 +19,10 @@ const UserProfile = ({profile}) => {
     <>
     {profile !== null &&
     (
-      <div className="userProfile">
-      <button onClick={()=>  goProfile(navigate,profile,location)}>
+      <div className="userProfile profile">
+      <button className='profile' onClick={()=>  goProfile(navigate,profile,location)}>
         <img
-          className="profile_photo"
+          className="profile_photo profile"
           src={profile.photoUrl}  
           alt="profile"/>
       </button>

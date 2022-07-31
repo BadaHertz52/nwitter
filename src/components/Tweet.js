@@ -185,6 +185,7 @@ const Tweet =({key, tweetObj , userobj ,answer}) =>{
       const condition = tweet.creatorId===ownerProfile.uid;
       const condition1 =!target.classList.contains("fun");
       const condition2 = !target.parentNode.classList.contains("fun");
+      const condition3 = !target.classList.contain("profile");
       const pathName = `/twitter/${profile.userId}/status/${tweet.docId}`;
 
       const status = JSON.stringify({
@@ -197,7 +198,7 @@ const Tweet =({key, tweetObj , userobj ,answer}) =>{
       });
       localStorage.setItem("status", status);
 
-      if(condition1 && condition2){
+      if(condition1 && condition2&& condition3){
         navigate(`${pathName}` , {state:{
             previous:location.pathname,
             value:"status"
@@ -234,7 +235,7 @@ const Tweet =({key, tweetObj , userobj ,answer}) =>{
   
   return (
     <>
-    {tweet.docId==""?
+    {tweet.docId===""?
     <div className='noTweet'>
       Tweet does not exist.
     </div>
