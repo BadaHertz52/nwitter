@@ -1,10 +1,11 @@
 import React,{ useContext, useEffect, useState } from 'react'
 import { FiArrowLeft } from 'react-icons/fi';
 import { useLocation, useNavigate} from 'react-router-dom';
-import { goBack } from '../components/GetData';
+import { getProfileDoc, goBack } from '../components/GetData';
 import Loading from '../components/Loading';
 import Tweet from '../components/Tweet';
 import { TweetContext } from '../context/TweetContex';
+import { UserList } from './List';
 
 const TimeLine =({userobj})=>{
   const location =useLocation();
@@ -12,6 +13,8 @@ const TimeLine =({userobj})=>{
   const navigate =useNavigate();
   const {myTweets}=useContext(TweetContext);
   const [tweet,setTweet]=useState({docId:"" ,about:null});
+  const [user , setUser]= useState(undefined);
+  const [followingMe, setFollowingMe]=useState(false);
 
   useEffect(()=>{ 
       if(state.aboutDocId == null){
@@ -21,8 +24,15 @@ const TimeLine =({userobj})=>{
       setTweet(state.aboutDocId);
       }
 
+    getProfileDoc(state.userUid).get().then(doc=> setUser(doc.data()));
   },[state, myTweets]);
-
+  useEffect(()=>{
+    if(user !==undefined){
+      user.following[0] !==undefined?
+      setFollowingMe(user.following.includes(userobj.uid)) :
+      setFollowingMe(false);
+    };
+  },[user])
   return (
     <div id="timeLine">
       <div id="timeLine_header">
@@ -43,7 +53,7 @@ const TimeLine =({userobj})=>{
               && "tweets"}
           </div>
           <div id="tiemLine_userId">
-            {state.userName}
+            by {state.userName}
           </div>
         </div>
       </div>
@@ -57,6 +67,14 @@ const TimeLine =({userobj})=>{
           <Loading/>
       }
       </div>
+      {user !== undefined &&
+      <div id="timeLine_profile">
+        <UserList
+          user={user}
+          userobj={userobj}
+          followingMe={followingMe}
+        />
+      </div>}
     </div>
   )
 };

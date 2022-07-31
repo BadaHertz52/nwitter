@@ -6,10 +6,116 @@ import Loading from "../components/Loading";
 import UserProfile from "../components/UserProfile";
 import { ProfileContext } from "../context/ProfileContex";
 import { UserContext } from "../context/UserContext";
+export   const UserList =({user , followingMe ,userobj,})=>{
+  const {myProfile, profileDispatch}=useContext(ProfileContext);
+  const {userProfile}=useContext(UserContext);
+  const isFollowing = myProfile.following.includes(user.uid); 
+  const navigate =useNavigate();
+  const location =useLocation();
+  const state =location.state;
+  const onOver =(event)=>{
+    const target =event.target;
+    target.classList.add("unFollow"
+        );
+    target.innerText ="Unfollow";
+    };
+  const onOut =(event)=>{
+    const target =event.target;
+    target.classList.remove("unFollow"
+        );
+    target.innerText ="Following";
+    };
+
+  const unFollow =()=>{
+    profileDispatch({
+      type:"UNFOLLOWING",
+      id:user.uid,
+      userNotifications: user.notifications.filter(n=> 
+        n.value !=="following" || 
+        n.user !== userobj.uid ),
+      userFollower: user.follower.filter(f=> f !== userobj.uid),
+      following: myProfile.following.filter( f=> f!== userProfile.uid)
+    });
+  };
+
+  const onFollow =()=>{
+    profileDispatch({
+      type:"FOLLOWING",
+      id:user.uid,
+      userNotifications:user.notifications,
+      userFollower:[userobj.uid].concat(user.follower),
+      following: [user.uid].concat(myProfile.following)
+    });
+  };
+
+  const goProfile =async(event)=>{
+    const target =event.target;
+    const condition1 =target.classList.contains("list_followBtn");
+    if(!condition1){
+      localStorage.setItem('user', JSON.stringify(user) );
+      navigate(`/twitter/${user.userId}` ,{state:{
+        pre_previous:state.previous,
+        previous:location.pathname,
+        value:"userProfile"}})
+    };
+  };
+
+  return(
+  <button 
+    className="list_UserList"
+    onClick={goProfile}
+  >
+    <div className="list_profile">
+        <img 
+        src={user.photoUrl}
+        alt="profile"
+        >
+        </img>
+        <div className="list_profile_userInform">
+          <div className="list_profile_user"> 
+            <div className="list_userName">
+                <div>{user.userName}</div>
+                <div>
+                  <span>
+                    @{user.userId}
+                  </span>
+                  {followingMe && 
+                    <span className="followingMe">
+                      나를 팔로우합니다.
+                    </span>
+                  }
+                </div>
+            </div>
+            { isFollowing  ?
+              <button 
+              className="list_followBtn  following"
+
+              onClick={unFollow}
+              onMouseOver={onOver}
+              onMouseOut={onOut}
+              >
+                Following
+              </button>
+            :
+              <button 
+              className="list_followBtn  unfollowing"
+              onClick={onFollow} 
+              >
+              Follow
+              </button>
+              }
+
+          </div>
+          <div className="list_userIntroduce">{user.introduce}</div>
+        </div>
+    </div>
+  </button>
+  )
+};
 
 const List =({userobj ,userId})=>{
   const [showFollower, setShowFollower] =useState(true);
-  const {myProfile, profileDispatch}=useContext(ProfileContext);
+  const {myProfile}=useContext(ProfileContext);
   const {userProfile}=useContext(UserContext);
   const [profile, setProfile]=useState({userName:"", userId:"", follower:[], following:[]});
   const [followers,setFollowers]=useState([{photoUrl:"", userName:"", userId:"", uid:"" , introduce:""}]);
@@ -71,108 +177,6 @@ const List =({userobj ,userId})=>{
     location.pathname.includes("follower") && pushFollower();
   },[profile])
 
-  const UserList =({user , followingMe})=>{
-    const isFollowing = myProfile.following.includes(user.uid); 
-
-    const onOver =(event)=>{
-      const target =event.target;
-      target.classList.add("unFollow"
-          );
-      target.innerText ="Unfollow";
-      };
-    const onOut =(event)=>{
-      const target =event.target;
-      target.classList.remove("unFollow"
-          );
-      target.innerText ="Following";
-      };
-
-    const unFollow =()=>{
-      profileDispatch({
-        type:"UNFOLLOWING",
-        id:user.uid,
-        userNotifications: user.notifications.filter(n=> 
-          n.value !=="following" || 
-          n.user !== userobj.uid ),
-        userFollower: user.follower.filter(f=> f !== userobj.uid),
-        following: myProfile.following.filter( f=> f!== userProfile.uid)
-      });
-    };
-
-    const onFollow =()=>{
-      profileDispatch({
-        type:"FOLLOWING",
-        id:user.uid,
-        userNotifications:user.notifications,
-        userFollower:[userobj.uid].concat(user.follower),
-        following: [user.uid].concat(myProfile.following)
-      });
-    };
-
-    const goProfile =async(event)=>{
-      const target =event.target;
-      const condition1 =target.classList.contains("list_followBtn");
-      if(!condition1){
-        localStorage.setItem('user', JSON.stringify(user) );
-        navigate(`/twitter/${user.userId}` ,{state:{
-          pre_previous:state.previous,
-          previous:location.pathname,
-          value:"userProfile"}})
-      };
-    };
-
-    return(
-    <button 
-      className="list_UserList"
-      onClick={goProfile}
-    >
-      <div className="list_profile">
-          <img 
-          src={user.photoUrl}
-          alt="profile"
-          >
-          </img>
-          <div className="list_profile_userInform">
-            <div className="list_profile_user"> 
-              <div className="list_userName">
-                  <div>{user.userName}</div>
-                  <div>
-                    <span>
-                      @{user.userId}
-                    </span>
-                    {followingMe && 
-                      <span className="followingMe">
-                        나를 팔로우합니다.
-                      </span>
-                    }
-                  </div>
-              </div>
-              { isFollowing  ?
-                <button 
-                className="list_followBtn  following"
-
-                onClick={unFollow}
-                onMouseOver={onOver}
-                onMouseOut={onOut}
-                >
-                  Following
-                </button>
-              :
-                <button 
-                className="list_followBtn  unfollowing"
-                onClick={onFollow} 
-                >
-                Follow
-                </button>
-                }
-
-            </div>
-            <div className="list_userIntroduce">{user.introduce}</div>
-          </div>
-      </div>
-    </button>
-    )
-  };
 
   return (
     <>
@@ -206,7 +210,11 @@ const List =({userobj ,userId})=>{
           {showFollower ? 
             (followers[0]!==undefined?
             followers.map(f =>
-              <UserList user={f} followingMe={myProfile.follower.includes(f.uid)}/>
+              <UserList 
+              user={f} 
+              followingMe={myProfile.follower.includes(f.uid) }
+              userobj={userobj}
+              />
             )
             :
             <div className="notListUser">
@@ -216,7 +224,11 @@ const List =({userobj ,userId})=>{
           : 
           (followings[0]!==undefined ?
             followings.map(f=>
-              <UserList user ={f} followingMe={myProfile.follower.includes(f.uid)}/>
+              <UserList 
+              user ={f} 
+              followingMe={myProfile.follower.includes(f.uid)}
+              userobj={userobj}
+              />
           )
           :
           <div className="notListUser">
