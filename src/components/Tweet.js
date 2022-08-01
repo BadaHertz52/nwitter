@@ -165,8 +165,15 @@ const Tweet =({key, tweetObj , userobj ,answer ,setStatusTweetObj ,setMetaData})
             previous:location.pathname,
             value:"status"
           }
-          })
-      }
+          });
+        changeTitle(`${profile.userName} on Twitter ${tweetObj.text}`);
+        setMetaData({
+          tweet:tweetObj.text,
+          image: tweetObj.attachmentUrl,
+          userName:profile.userName
+        })  
+      };
+        
     };
 
     useEffect(()=>{

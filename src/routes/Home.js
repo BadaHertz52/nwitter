@@ -119,6 +119,8 @@ const Home =  ({userobj  ,setStatusTweetObj ,setMetaData}) => {
         <HomeTweets 
           userobj={userobj}  
           setStatusTweetObj={setStatusTweetObj}
+          setMetaData={setMetaData}
+        />  
     </div>
   );
 };

@@ -26,7 +26,8 @@ import Loading from './Loading';
 import DeleteUser from './DeleteUser';
 import { dbService } from '../Fbase';
 import { Helmet } from 'react-helmet-async';
-import { AiOutlineConsoleSql } from 'react-icons/ai';
+
+
 export   const changeTitle=(title)=>{
   const htmlTtitle = document.querySelector("title");
   htmlTtitle.innerText = title===null? "Twitter": `${title}/Twitter`;
@@ -40,10 +41,10 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
   const location = useLocation();
   const hash =window.location.hash;
   const state =location.state; 
-  const status  = localStorage.getItem('status');
   const navigate =useNavigate();
   const MetaTag=()=>{
-    const currentRef =window.location.href; 
+    const currentRef =window.location.href;
+    
     return(
       <Helmet>
         {metaData !==null &&
@@ -58,9 +59,9 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
           />
           <meta
             property='og:description'
-            content={metaData.tweet}
+            content={metaData.tweet.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n')}
           />
-          {metaData.imga !== "" &&
+          {metaData.imaga !== "" &&
           <meta 
             property="og:image"
             content={metaData.image}
@@ -169,7 +170,9 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
             })();
           }
           })
-        })
+        });
+
+        return statusUserName;
     };
     if(hash.includes("/list")){
       const listIndex =hash.lastIndexOf("/list");
@@ -224,6 +227,10 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
                   element={<Home  
                   userobj={userobj}
                   setStatusTweetObj={setStatusTweetObj}
+                  setMetaData={setMetaData}
+                  />
+                }
+                  /> 
                 <Route 
                   exact  path={`/twitter/timeLine`}
                   element={<TimeLine userobj={userobj} />}
@@ -236,6 +243,9 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
                     tweetObj={statusTweetObj}
                     answer={false}
                     setStatusTweetObj={setStatusTweetObj}
+                    setMetaData={setMetaData}
+                    />
+                  }
                 />
                 <Route 
                   path={`/twitter/home/${userId}/status/${docId}`}
@@ -244,11 +254,9 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
                     tweetObj={statusTweetObj}
                     answer={false}
                     setStatusTweetObj={setStatusTweetObj}
+                    setMetaData={setMetaData}
+                  />}
                 />
-                <Route 
-                  path={`/twitter/${userId}/status/${docId}`}
-                  element={<Tweet userobj={userobj} setMetaData={setMetaData}/>}
-                    />
                 <Route 
                   exact path={`/twitter/notification`}
                   element={<Notification userobj={userobj}  />} />
@@ -303,7 +311,10 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
             <Routes>
               <Route
                 path={`/twitter/editProfile`}
-                element={<EditProfile userobj={userobj} setIsMyProfile={setIsMyProfile} />}      
+                element={<EditProfile 
+                  userobj={userobj} 
+                  setIsMyProfile={setIsMyProfile} 
+                  />}      
               />
               <Route 
                 path={`/twitter/crop`}
