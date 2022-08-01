@@ -27,8 +27,10 @@ _______________________________________________________
 
   * <a href="#function"> Function</a>
   <br/>
-
+  * <a href="#update"> Update</a>
+  <br/>
 * <a href="#blog">Blog</a>
+  
 _____________________________________________
 
 ## <div id="description"> Description </div>
@@ -78,7 +80,7 @@ ___________________________________________________
  npm install npm@latest -g
 ```
 
-*  react, react-dom, react-router-dom , react-icon, react-image-crop
+*  react, react-dom, react-router-dom , react-icon, react-image-crop ,react-helmet
   
   ```
     npx create-react-app react 
@@ -86,6 +88,7 @@ ___________________________________________________
     npm install react-router-dom --save 
     npm install --save react-icon
     npm i react-image-crop --save
+    npm i react-helmet
   ```
 _____________________________________________________
 
@@ -205,7 +208,14 @@ ____________________________________________________
   |onDelete| delete user| 계정 삭제 버튼을 눌렀을 때 해당 계정의 삭제가 가능한지 여부를 판단하고 불가능시 로그아웃후에 다시 시도하라는 알림을 보여주고 삭제가 가능할 시 cleanUpFollow와 deleteTweets를 실행시키고 해당 계정과 관련된 storage를 삭제하고 계정을 삭제함|DeleteUser.js|X|
 
   
-----------------------------------------------------------------------------
+------------------------------------------------------
+## <div id="update">Update </div>
+|day|update|
+|---|------|
+|2022.07.31|Add favicon and function that change title of head depaing on page|
+|2022.08.01|Add function that add meta tag for open graph depading on tweet in status page using react-helmet| 
+______________________________________________________
+
 ## <div id="blog"> Blog </div>
 
 [해당 프로젝트를 하면서 해결한 오류, 배운점과 후기등을 작성한 블로그 바로가기](https://velog.io/@badahertz52/트위터-클론-코딩을-마치고)
