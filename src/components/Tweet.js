@@ -13,7 +13,7 @@ import { storageService } from '../Fbase';
 import TweetForm from './TweetForm'
 import {changeTitle}from './TwitterRouter';
 
-const Tweet =({key, tweetObj , userobj ,answer}) =>{
+const Tweet =({key, tweetObj , userobj ,answer ,setMetaData}) =>{
   const navigate =useNavigate();
   const location =useLocation();
 
