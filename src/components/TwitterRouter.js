@@ -35,6 +35,7 @@ export   const changeTitle=(title)=>{
 const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMyProfile }) => {
   const [userId, setUserId]=useState("");
   const [docId, setDocId]=useState("");
+  const [statusTweetObj, setStatusTweetObj]=useState(undefined);
   const [metaData, setMetaData]=useState(null);
   const location = useLocation();
   const hash =window.location.hash;
@@ -147,14 +148,7 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
       };
       updateUserProfile();
     }
-    if(state!==null && state.value ==="status" &&
-    localStorage.getItem('status')){
-      const status  = JSON.parse( localStorage.getItem('status'));
-      setUserId(status.userId);
-      setDocId(status.docId);
-    }
   },[state]);
-
   useEffect(()=>{
     const changeUser =(targetString)=>{
       const lastSlash =targetString.lastIndexOf("/");
@@ -227,18 +221,29 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
               <Routes>
                 <Route 
                   exact path={`/twitter/home`} 
-                  element={<Home  userobj={userobj}/>}/> 
+                  element={<Home  
+                  userobj={userobj}
+                  setStatusTweetObj={setStatusTweetObj}
                 <Route 
                   exact  path={`/twitter/timeLine`}
                   element={<TimeLine userobj={userobj} />}
                 />
                 <Route 
                   path={`/twitter/${userId}/status/${docId}`}
-                  element={<Tweet userobj={userobj} setMetaData={setMetaData}/>}
+                  element={
+                  <Tweet 
+                    userobj={userobj} 
+                    tweetObj={statusTweetObj}
+                    answer={false}
+                    setStatusTweetObj={setStatusTweetObj}
                 />
                 <Route 
                   path={`/twitter/home/${userId}/status/${docId}`}
-                  element={<Tweet userobj={userobj} setMetaData={setMetaData}/>}
+                  element={<Tweet 
+                    userobj={userobj} 
+                    tweetObj={statusTweetObj}
+                    answer={false}
+                    setStatusTweetObj={setStatusTweetObj}
                 />
                 <Route 
                   path={`/twitter/${userId}/status/${docId}`}

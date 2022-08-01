@@ -9,7 +9,7 @@ import { ProfileContext } from '../context/ProfileContex';
 import { changeTitle } from '../components/TwitterRouter';
 
 
-const Home =  ({userobj}) => {
+const Home =  ({userobj  ,setStatusTweetObj ,setMetaData}) => {
   changeTitle("home");
   const [popup, setPopup]=useState(false);
   const {myProfile} =useContext(ProfileContext);
@@ -116,7 +116,9 @@ const Home =  ({userobj}) => {
         {popup && <Popup />}
       </div>
         <TweetFactory userobj={userobj}  />
-        <HomeTweets userobj={userobj} />  
+        <HomeTweets 
+          userobj={userobj}  
+          setStatusTweetObj={setStatusTweetObj}
     </div>
   );
 };
