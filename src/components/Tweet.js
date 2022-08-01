@@ -185,7 +185,7 @@ const Tweet =({key, tweetObj , userobj ,answer}) =>{
       const condition = tweet.creatorId===ownerProfile.uid;
       const condition1 =!target.classList.contains("fun");
       const condition2 = !target.parentNode.classList.contains("fun");
-      const condition3 = !target.classList.contain("profile");
+      const condition3 = !target.classList.contains("profile");
       const pathName = `/twitter/${profile.userId}/status/${tweet.docId}`;
 
       const status = JSON.stringify({
