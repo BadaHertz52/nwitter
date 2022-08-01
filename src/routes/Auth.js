@@ -25,11 +25,11 @@ const Auth = ( ) => {
     <section id="auth">
       <div id="auth_left">
         <img
-          class="auth_img small" 
+          className="auth_img small" 
           src={auth_img} 
           alt="twitter img"/>
         <img
-          class="auth_img width" 
+          className="auth_img width" 
           src={auth_img_width} 
           alt="twitter img"/>
       </div>
