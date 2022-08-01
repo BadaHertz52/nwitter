@@ -25,6 +25,8 @@ import LogOut from '../routes/LogOut';
 import Loading from './Loading';
 import DeleteUser from './DeleteUser';
 import { dbService } from '../Fbase';
+import { Helmet } from 'react-helmet-async';
+import { AiOutlineConsoleSql } from 'react-icons/ai';
 export   const changeTitle=(title)=>{
   const htmlTtitle = document.querySelector("title");
   htmlTtitle.innerText = title===null? "Twitter": `${title}/Twitter`;
@@ -33,10 +35,41 @@ export   const changeTitle=(title)=>{
 const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMyProfile }) => {
   const [userId, setUserId]=useState("");
   const [docId, setDocId]=useState("");
+  const [metaData, setMetaData]=useState(null);
   const location = useLocation();
   const hash =window.location.hash;
   const state =location.state; 
+  const status  = localStorage.getItem('status');
   const navigate =useNavigate();
+  const MetaTag=()=>{
+    const currentRef =window.location.href; 
+    return(
+      <Helmet>
+        {metaData !==null &&
+        <>
+          <meta 
+            property='og:url'
+            content={currentRef}
+          />
+          <meta
+            property='og:title'
+            content={`enjoy twitter ${metaData.userName}`}
+          />
+          <meta
+            property='og:description'
+            content={metaData.tweet}
+          />
+          {metaData.imga !== "" &&
+          <meta 
+            property="og:image"
+            content={metaData.image}
+          />
+          }
+        </> 
+        }
+      </Helmet>
+    )
+  };
   const ContextRouter =()=>{
     const {profileDispatch} =useContext(ProfileContext);
     const {tweetDispatch}= useContext(TweetContext);
@@ -157,8 +190,9 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
     }else{
       changeUser(hash);
     };
-    console.log("hash", hash);
-
+    if(!hash.includes("/status")){
+      setMetaData(null);
+    }
   },[hash])
     return (
       <>
@@ -200,15 +234,15 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
                 />
                 <Route 
                   path={`/twitter/${userId}/status/${docId}`}
-                  element={<Tweet userobj={userobj}/>}
+                  element={<Tweet userobj={userobj} setMetaData={setMetaData}/>}
                 />
                 <Route 
                   path={`/twitter/home/${userId}/status/${docId}`}
-                  element={<Tweet userobj={userobj}/>}
+                  element={<Tweet userobj={userobj} setMetaData={setMetaData}/>}
                 />
                 <Route 
                   path={`/twitter/${userId}/status/${docId}`}
-                  element={<Tweet userobj={userobj}/>}
+                  element={<Tweet userobj={userobj} setMetaData={setMetaData}/>}
                     />
                 <Route 
                   exact path={`/twitter/notification`}
@@ -289,6 +323,10 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
     <UserContextProvider>
       <ProfileContextProvier>
         <TweetContextProvier>
+          {metaData !==null &&
+            <MetaTag/>
+          }
+          <MetaTag/>
           <ContextRouter/>
         </TweetContextProvier>
       </ProfileContextProvier>
