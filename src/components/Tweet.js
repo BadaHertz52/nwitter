@@ -196,9 +196,9 @@ const Tweet =({key, tweetObj , userobj ,answer}) =>{
         userId:condition? ownerProfile.userId : aboutProfile.userId,
         docId:tweet.docId
       });
-      localStorage.setItem("status", status);
-
+      
       if(condition1 && condition2&& condition3){
+        localStorage.setItem("status", status);
         navigate(`${pathName}` , {state:{
             previous:location.pathname,
             value:"status"
