@@ -9,9 +9,8 @@ import {  useLocation, useNavigate } from 'react-router-dom';
 import { dbService } from '../Fbase';
 import { goProfile } from '../components/UserProfile';
 import TweetForm from '../components/TweetForm';
-import {changeTitle} from '../components/TwitterRouter';
+
 const Notification = () => {
-  changeTitle("Notification");
   const {myProfile} =useContext(ProfileContext);
   const {myTweets} =useContext(TweetContext);
   const [notifications, setNotifications]=useState

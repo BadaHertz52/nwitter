@@ -278,7 +278,7 @@ const TweetFactory = ({userobj ,setPopup }) => {
               </div>
             }
             <div>
-              <label htmlFor="tweet_fileBtn">
+              <label for="tweet_fileBtn">
                 <HiOutlinePhotograph />
                 <div className='title'>Media</div>
               </label>

@@ -25,53 +25,14 @@ import LogOut from '../routes/LogOut';
 import Loading from './Loading';
 import DeleteUser from './DeleteUser';
 import { dbService } from '../Fbase';
-import { Helmet } from 'react-helmet-async';
-
-
-export   const changeTitle=(title)=>{
-  const htmlTtitle = document.querySelector("title");
-  htmlTtitle.innerText = title===null? "Twitter": `${title}/Twitter`;
-};
 
 const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMyProfile }) => {
   const [userId, setUserId]=useState("");
   const [docId, setDocId]=useState("");
-  const [statusTweetObj, setStatusTweetObj]=useState(undefined);
-  const [metaData, setMetaData]=useState(null);
   const location = useLocation();
   const hash =window.location.hash;
   const state =location.state; 
   const navigate =useNavigate();
-  const MetaTag=()=>{
-    const currentRef =window.location.href;
-    
-    return(
-      <Helmet>
-        {metaData !==null &&
-        <>
-          <meta 
-            property='og:url'
-            content={currentRef}
-          />
-          <meta
-            property='og:title'
-            content={`enjoy twitter ${metaData.userName}`}
-          />
-          <meta
-            property='og:description'
-            content={metaData.tweet.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n')}
-          />
-          {metaData.imaga !== "" &&
-          <meta 
-            property="og:image"
-            content={metaData.image}
-          />
-          }
-        </> 
-        }
-      </Helmet>
-    )
-  };
   const ContextRouter =()=>{
     const {profileDispatch} =useContext(ProfileContext);
     const {tweetDispatch}= useContext(TweetContext);
@@ -130,6 +91,7 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
   },[isLoggedIn]);
 
   useEffect(()=>{
+    console.log("state", state);
     if(state!==null && state.value ==="userProfile"){
       const userProfile =JSON.parse(localStorage.getItem('user'));
       setUserId(userProfile.userId);
@@ -149,7 +111,14 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
       };
       updateUserProfile();
     }
+    if(state!==null && state.value ==="status" &&
+    localStorage.getItem('status')){
+      const status  = JSON.parse( localStorage.getItem('status'));
+      setUserId(status.userId);
+      setDocId(status.docId);
+    }
   },[state]);
+
   useEffect(()=>{
     const changeUser =(targetString)=>{
       const lastSlash =targetString.lastIndexOf("/");
@@ -170,9 +139,7 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
             })();
           }
           })
-        });
-
-        return statusUserName;
+        })
     };
     if(hash.includes("/list")){
       const listIndex =hash.lastIndexOf("/list");
@@ -183,13 +150,11 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
       const firstFilltering =hash.slice(0,listIndex);
       changeUser(firstFilltering);
       const docId =hash.slice(listIndex+8);
+      console.log("doc", docId);
       setDocId(docId);
     }else{
       changeUser(hash);
     };
-    if(!hash.includes("/status")){
-      setMetaData(null);
-    }
   },[hash])
     return (
       <>
@@ -224,39 +189,23 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
               <Routes>
                 <Route 
                   exact path={`/twitter/home`} 
-                  element={<Home  
-                  userobj={userobj}
-                  setStatusTweetObj={setStatusTweetObj}
-                  setMetaData={setMetaData}
-                  />
-                }
-                  /> 
+                  element={<Home  userobj={userobj}/>}/> 
                 <Route 
                   exact  path={`/twitter/timeLine`}
                   element={<TimeLine userobj={userobj} />}
                 />
                 <Route 
                   path={`/twitter/${userId}/status/${docId}`}
-                  element={
-                  <Tweet 
-                    userobj={userobj} 
-                    tweetObj={statusTweetObj}
-                    answer={false}
-                    setStatusTweetObj={setStatusTweetObj}
-                    setMetaData={setMetaData}
-                    />
-                  }
+                  element={<Tweet userobj={userobj}/>}
                 />
                 <Route 
                   path={`/twitter/home/${userId}/status/${docId}`}
-                  element={<Tweet 
-                    userobj={userobj} 
-                    tweetObj={statusTweetObj}
-                    answer={false}
-                    setStatusTweetObj={setStatusTweetObj}
-                    setMetaData={setMetaData}
-                  />}
+                  element={<Tweet userobj={userobj}/>}
                 />
+                <Route 
+                  path={`/twitter/${userId}/status/${docId}`}
+                  element={<Tweet userobj={userobj}/>}
+                    />
                 <Route 
                   exact path={`/twitter/notification`}
                   element={<Notification userobj={userobj}  />} />
@@ -311,10 +260,7 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
             <Routes>
               <Route
                 path={`/twitter/editProfile`}
-                element={<EditProfile 
-                  userobj={userobj} 
-                  setIsMyProfile={setIsMyProfile} 
-                  />}      
+                element={<EditProfile userobj={userobj} setIsMyProfile={setIsMyProfile} />}      
               />
               <Route 
                 path={`/twitter/crop`}
@@ -339,10 +285,6 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
     <UserContextProvider>
       <ProfileContextProvier>
         <TweetContextProvier>
-          {metaData !==null &&
-            <MetaTag/>
-          }
-          <MetaTag/>
           <ContextRouter/>
         </TweetContextProvier>
       </ProfileContextProvier>

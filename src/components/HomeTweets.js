@@ -3,7 +3,7 @@ import { TweetContext } from "../context/TweetContex";
 import Tweet from "./Tweet";
 
 
-const HomeTweets =({userobj, setStatusTweetObj ,setMetaData})=> {
+const HomeTweets =({userobj})=> {
   const {allTweets}=useContext(TweetContext);
   
   return (
@@ -17,8 +17,6 @@ const HomeTweets =({userobj, setStatusTweetObj ,setMetaData})=> {
           userobj ={userobj}
           isOwner={tweet.creatorId === userobj.uid}
           answer={false}
-          setStatusTweetObj={setStatusTweetObj}
-          setMetaData={setMetaData}
           />
         ))
         :

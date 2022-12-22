@@ -10,15 +10,19 @@ import  { TweetContext } from '../context/TweetContex';
 import {ProfileContext} from '../context/ProfileContex';
 import Loading from './Loading';
 import { storageService } from '../Fbase';
-import TweetForm from './TweetForm'
-import {changeTitle}from './TwitterRouter';
+import TweetForm from './TweetForm';
 
-const Tweet =({key, tweetObj , userobj ,answer ,setStatusTweetObj ,setMetaData}) =>{
+
+const Tweet =({key, tweetObj , userobj ,answer}) =>{
   const navigate =useNavigate();
   const location =useLocation();
+
+  const [tweetobj,setTweetObj]=useState(tweetObj);
+  const [is_answer ,setIsAnswer]=useState(answer);
+
   const {myProfile} =useContext(ProfileContext);
   const {tweetDispatch} =useContext(TweetContext);
-  const hash =window.location.hash;
+
   const [aboutProfile, setAboutProfile] =useState(profileForm);
   const [ownerProfile, setOwnerProfile] =useState(profileForm);
   const [aboutTweet, setAbouttweet]= useState(tweetForm);
@@ -28,10 +32,10 @@ const Tweet =({key, tweetObj , userobj ,answer ,setStatusTweetObj ,setMetaData})
   const [statusAnswer ,setStatusAnswer]=useState(false);
   const [tweetClassName ,setTCName]=useState("tweet");
   const answerForm =useRef();
-  const rt_heart =(tweetObj!==undefined&&
-    tweetObj.notifications!==undefined&&
-    tweetObj.notifications[0]!==undefined) ?
-  tweetObj.notifications.filter(n=> (n.user ===userobj.uid)&&(n.value==="heart"|| n.value==="rt"))[0] :undefined;
+  const rt_heart =(tweetobj!==undefined&&
+    tweetobj.notifications!==undefined&&
+    tweetobj.notifications[0]!==undefined) ?
+  tweetobj.notifications.filter(n=> (n.user ===userobj.uid)&&(n.value==="heart"|| n.value==="rt"))[0] :undefined;
   const [loading,setLoading]=useState(false);
 
   const getAnswerTweets=async(tweet)=>{
@@ -47,7 +51,7 @@ const Tweet =({key, tweetObj , userobj ,answer ,setStatusTweetObj ,setMetaData})
   //fun
 
   const chagneClassName =()=>{
-  if(tweetObj!==undefined && tweetObj.value === "answer"){
+  if(tweetobj!==undefined && tweetobj.value === "answer"){
     setTCName("tweet answer");
   }
 };
@@ -61,36 +65,57 @@ const Tweet =({key, tweetObj , userobj ,answer ,setStatusTweetObj ,setMetaData})
       goBack(location,navigate);
     };
 
+
   useEffect(()=>{
-    if(tweetObj!==undefined){
-      tweetObj.value==="answer"? getAnswerTweets(aboutTweet) :getAnswerTweets(tweetObj)
+    if( location.pathname.includes("status")){
+      if(localStorage.getItem("status")){
+        const status =JSON.parse(localStorage.getItem("status"));
+        setTweetObj(status.tweetObj);
+        setIsAnswer(status.answer);
+        setOwnerProfile(status.ownerProfile);
+      }
+      }
+  },[location]);
+
+  useEffect(()=>{
+    if(tweetobj!==undefined){
+      tweetobj.value==="answer"? getAnswerTweets(aboutTweet) :getAnswerTweets(tweetobj)
     }
-  },[tweetObj])
+  },[tweetobj])
 
   useEffect(()=>{
       tweetClassName !=="tweet answer" && chagneClassName();
-      if(tweetObj!==undefined&& myProfile.userName !==""){
+      if(tweetobj!==undefined&& myProfile.userName !==""){
       if(ownerProfile.userId ===""){
-        getProfile(tweetObj.creatorId ,setOwnerProfile);
+        !location.pathname.includes("status")&&
+        getProfile(tweetobj.creatorId ,setOwnerProfile);
         };
-      if(tweetObj!==undefined&& aboutProfile.userId ===""){
-        if( tweetObj.about !== null ){
-          getProfile(tweetObj.about.creatorId ,setAboutProfile);
-          getTweet(tweetObj.about.creatorId, tweetObj.about.docId, setAbouttweet);
+      if(tweetobj!==undefined&& aboutProfile.userId ===""){
+        if( tweetobj.about !== null ){
+          getProfile(tweetobj.about.creatorId ,setAboutProfile);
+          getTweet(tweetobj.about.creatorId, tweetobj.about.docId, setAbouttweet);
         }
       };
     }
 
-  },[tweetObj,myProfile ,aboutProfile]);
+  },[tweetobj,myProfile ,aboutProfile]);
 
   useEffect(()=>{
-    if(ownerProfile.photoUrl !==""){
-    setLoading(false);
+    if(tweetobj!==undefined && tweetobj.about!==null){
+      ownerProfile.photoUrl!=="" 
+        ?
+        setLoading(false)
+        :
+        setLoading(true);
+      }else{
+        (ownerProfile.photoUrl!=="")
+        ?
+        setLoading(false)
+        :
+        setLoading(true);
+      };
+  },[tweetobj,ownerProfile,aboutProfile,aboutTweet]);
 
-    }else{
-      setLoading(true);
-    }
-  },[ownerProfile])
   const TweetBox =({what ,IsAnswer, profile})=>{
     const now = new Date();
     const year = now.getFullYear();
@@ -127,12 +152,12 @@ const Tweet =({key, tweetObj , userobj ,answer ,setStatusTweetObj ,setMetaData})
       storage.delete();
       switch (tweet.value) {
         case "qt":
-          deleteTweetNotification(aboutTweet,tweet,userobj,tweetObj.value);
-          deleteProfileNotification(aboutProfile,aboutTweet,tweet,userobj,tweetObj.value )
+          deleteTweetNotification(aboutTweet,tweet,userobj,tweetobj.value);
+          deleteProfileNotification(aboutProfile,aboutTweet,tweet,userobj,tweetobj.value )
           break;
         case "answer":
-          deleteTweetNotification(tweetObj,tweet,userobj,tweetObj.value);
-          deleteProfileNotification(ownerProfile,tweetObj,tweet,userobj,tweet.value )
+          deleteTweetNotification(tweetobj,tweet,userobj,tweetobj.value);
+          deleteProfileNotification(ownerProfile,tweetobj,tweet,userobj,tweet.value )
           break;
         default:
           break;
@@ -154,26 +179,28 @@ const Tweet =({key, tweetObj , userobj ,answer ,setStatusTweetObj ,setMetaData})
     };
     const goTweet =(event)=>{
       const target =event.target;
+      const condition = tweet.creatorId===ownerProfile.uid;
       const condition1 =!target.classList.contains("fun");
       const condition2 = !target.parentNode.classList.contains("fun");
-      const condition3 = !target.classList.contains("profile");
       const pathName = `/twitter/${profile.userId}/status/${tweet.docId}`;
 
-      if(condition1 && condition2&& condition3){
-        setStatusTweetObj(tweet);
+      const status = JSON.stringify({
+        tweetObj:tweet,
+        answer:false,
+        ownerProfile:profile,
+        value :"status",
+        userId:condition? ownerProfile.userId : aboutProfile.userId,
+        docId:tweet.docId
+      });
+      localStorage.setItem("status", status);
+
+      if(condition1 && condition2){
         navigate(`${pathName}` , {state:{
             previous:location.pathname,
             value:"status"
           }
-          });
-        changeTitle(`${profile.userName} on Twitter ${tweetObj.text}`);
-        setMetaData({
-          tweet:tweetObj.text,
-          image: tweetObj.attachmentUrl,
-          userName:profile.userName
-        })  
-      };
-        
+          })
+      }
     };
 
     useEffect(()=>{
@@ -204,7 +231,7 @@ const Tweet =({key, tweetObj , userobj ,answer ,setStatusTweetObj ,setMetaData})
   
   return (
     <>
-    {tweet.docId===""?
+    {tweet.docId==""?
     <div className='noTweet'>
       Tweet does not exist.
     </div>
@@ -259,9 +286,9 @@ const Tweet =({key, tweetObj , userobj ,answer ,setStatusTweetObj ,setMetaData})
           </button>
           {profile!==undefined && what!==undefined && 
           <>
-            <Rt tweetObj={what} original={tweetObj} userobj={userobj} profile={profile} ownerProfile={ownerProfile}
+            <Rt tweetObj={what} original={tweetobj} userobj={userobj} profile={profile} ownerProfile={ownerProfile}
             />
-            <Heart tweetObj={what} original={tweetObj} userobj={userobj} profile={profile} ownerProfile={ownerProfile}/>
+            <Heart tweetObj={what} original={tweetobj} userobj={userobj} profile={profile} ownerProfile={ownerProfile}/>
           </>}
         </div>
         }
@@ -282,7 +309,7 @@ const Tweet =({key, tweetObj , userobj ,answer ,setStatusTweetObj ,setMetaData})
 
   return(
     <div >
-      {(!loading&& tweetObj!==undefined)?
+      {(!loading&& tweetobj!==undefined)?
         <>
           <div className={tweetClassName}
           id={location.pathname !==undefined &&
@@ -301,7 +328,7 @@ const Tweet =({key, tweetObj , userobj ,answer ,setStatusTweetObj ,setMetaData})
             
             <div className="value">
               {(
-                tweetObj.value ==="rt" &&
+                tweetobj.value ==="rt" &&
                 rt_heart===undefined
                 )
               &&
@@ -314,7 +341,7 @@ const Tweet =({key, tweetObj , userobj ,answer ,setStatusTweetObj ,setMetaData})
                 </div>
               }
               {(
-                tweetObj.value ==="heart" &&
+                tweetobj.value ==="heart" &&
                 rt_heart===undefined
                 )
                 &&
@@ -327,10 +354,10 @@ const Tweet =({key, tweetObj , userobj ,answer ,setStatusTweetObj ,setMetaData})
                 </div>
               }
               {(
-                (tweetObj.value ==="rt" &&
+                (tweetobj.value ==="rt" &&
                 rt_heart!==undefined)||
-                (tweetObj.value ==="heart" &&
-                tweetObj.notifications.filter(n=> 
+                (tweetobj.value ==="heart" &&
+                tweetobj.notifications.filter(n=> 
                   (n.user ===userobj.uid)&&(n.value==="rt"))[0]!==undefined)
                 ) 
                 &&
@@ -343,7 +370,7 @@ const Tweet =({key, tweetObj , userobj ,answer ,setStatusTweetObj ,setMetaData})
                   `${ownerProfile.userName}`} ReTweeted and liked
                 </div>
               }
-              { tweetObj.value === "answer"  &&
+              { tweetobj.value === "answer"  &&
               (aboutTweet.docId==="" ?
               location.pathname.includes("status") &&
                 <div className='noTweet'>
@@ -354,17 +381,17 @@ const Tweet =({key, tweetObj , userobj ,answer ,setStatusTweetObj ,setMetaData})
               )
               }
             </div>
-            <div className='tweetObj'>
+            <div className='tweetobj'>
             {(
-            tweetObj.value === "qt" ||
-            tweetObj.value ==="tweet" )&&
+            tweetobj.value === "qt" ||
+            tweetobj.value ==="tweet" )&&
             <TweetBox
-              what={tweetObj}
-              IsAnswer={answer}
+              what={tweetobj}
+              IsAnswer={is_answer}
               profile={ownerProfile}  />
             }
-            {(tweetObj.value==="rt" ||
-              tweetObj.value === "heart"
+            {(tweetobj.value==="rt" ||
+              tweetobj.value === "heart"
               )&&(
                 (aboutTweet.about !==null && aboutTweet.value==="qt" )?
                 <Tweet 
@@ -382,9 +409,9 @@ const Tweet =({key, tweetObj , userobj ,answer ,setStatusTweetObj ,setMetaData})
               />
               ) 
             }
-            {tweetObj.value ==="answer" &&
+            {tweetobj.value ==="answer" &&
               <TweetBox
-                what={tweetObj}
+                what={tweetobj}
                 IsAnswer={false}
                 profile={ownerProfile}/>
             }

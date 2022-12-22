@@ -4,13 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { HashRouter } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
 
 ReactDOM.render(
   <HashRouter>
-    <HelmetProvider>
+    <React.StrictMode>
       <App />
-    </HelmetProvider>
+    </React.StrictMode>
   </HashRouter>,
   document.getElementById('root')
 );
