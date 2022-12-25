@@ -212,8 +212,18 @@ ____________________________________________________
 |---|------|
 |2022.07.31|Add favicon and function that change title of head depaing on page|
 |2022.08.01|Add function that add meta tag for open graph depading on tweet in status page using react-helmet| 
+|2022.12.25|Make Suspension component which notice that site discontinues new membership for site management and only pepole who get account from deveploer cant access site. 
 ______________________________________________________
 
 ## <div id="blog"> Blog </div>
 
 [해당 프로젝트를 하면서 해결한 오류, 배운점과 후기등을 작성한 블로그 바로가기](https://velog.io/@badahertz52/트위터-클론-코딩을-마치고)
+ 
+______________________________________________________
+
+### 자료 출처
+[프로필 이미지1.](https://unsplash.com/@stereophototyp?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+
+[프로필 이미지2.](https://unsplash.com/@littleforestowl?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+
+[tiwtter imag](https://images.unsplash.com/photo-1611162618479-ee3d24aaef0b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80)
