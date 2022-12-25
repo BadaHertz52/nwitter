@@ -66,8 +66,14 @@ input:focus{
 
 
 @media screen and (min-width:500px) {
-  #inner {
+  #inner.scroll {
     overflow-y:scroll;
+  }
+  #inner.noScroll{
+    overflow-y:hidden;
+  }
+  #inner {
+   
     scrollbar-width:0;
     &::-webkit-scrollbar{
     display: none;

@@ -27,7 +27,6 @@ const Cropper =()=> {
   const [crop, setCrop]= useState(initialCrop); 
   const [completedCrop, setCompletedCrop]=useState(null);
   const [cropResult, setCropResult]=useState("");
-
   const onBack=()=>{
     const state =location.state;
     const value =state.value;

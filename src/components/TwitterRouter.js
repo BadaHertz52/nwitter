@@ -91,7 +91,6 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
   },[isLoggedIn]);
 
   useEffect(()=>{
-    console.log("state", state);
     if(state!==null && state.value ==="userProfile"){
       const userProfile =JSON.parse(localStorage.getItem('user'));
       setUserId(userProfile.userId);
@@ -164,7 +163,10 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
           :
           (IsMyProfile ?
           
-          <div id="inner">
+          <div 
+            id="inner"
+            className={ hash.includes("crop")? "noScroll" :"scroll"}
+            >
             <Routes>
               <Route  
                 path="/twitter/tweet" 
