@@ -6,20 +6,6 @@
 }
 #footer {
   text-align: left;
-  button {
-    text-align: left;
-    width: fit-content;
-    @include initialBtn;
-    border-radius: 0;
-    box-shadow: none;
-    @include footer_common;
-    &:hover{
-      @include footer_common;
-      border-bottom: 1px solid rgb(117,117,117);
-    }
-  }
-}
-.footer_div {
   @include footer_common;
   a:link, a:visited ,a:hover, a:active{
     @include footer_common;
@@ -27,17 +13,17 @@
   a:hover{
     border-bottom: 1px solid rgb(117,117,117);
   }
-}
-.footer_div:first-child{
-  display: flex;
-}
-#photoBy {
-  margin:10px 1rem;
+  
 }
 
-
-.auth_main_div {
-  #footer{
-    margin-top: 10rem;
-  }
+#auth #footer{
+  margin-top: 14px;
 }
+
+// @media screen and (min-width:1024px) {
+//   #auth #footer{
+//     position:absolute;
+//     right:10px;
+//     bottom: 10px;
+//   }
+// }

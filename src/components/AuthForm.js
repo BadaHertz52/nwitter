@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-import {BiArrowBack, BiX} from "react-icons/bi";
+import {BiArrowBack} from "react-icons/bi";
 import authSerVice from '../Fbase' ;
 import {RiErrorWarningLine} from 'react-icons/ri'
 import { useNavigate } from 'react-router-dom';
 import Footer from './Footer';
-import Suspension from './Suspension';
 
-const AuthForm = ({newAcount, setPopup})=> {
+const AuthForm = ({newAcount, setPopup ,setOpenSusp})=> {
   const [email ,setEmail ] = useState(""); 
   const [password ,setPassword ] = useState("");
   const [error, setError] = useState("") ;
-  const [openSusp , setOpenSusp]=useState(false);
   const navigate =useNavigate();
   const onChange = (event) => {
     const {target :{name ,value}} =event ;
@@ -21,13 +19,16 @@ const AuthForm = ({newAcount, setPopup})=> {
     try{
       if(newAcount){
         //create 
-        await authSerVice.createUserWithEmailAndPassword(email, password);
+          setOpenSusp(true);
+        //await authSerVice.createUserWithEmailAndPassword(email, password);
+        //navigate(`/twitter/home`) 
       }else{
         //log in 
         await authSerVice.signInWithEmailAndPassword(email, password);
+        //navigate(`/twitter/home`) 
       }
       setPopup(false);
-      navigate(`/twitter/home`) 
+      
     }catch(e){
       const start = e.message.indexOf("Firebase:");
       const end =e.message.indexOf("(")
@@ -47,7 +48,7 @@ const AuthForm = ({newAcount, setPopup})=> {
       }>
         <BiArrowBack/>
       </button>
-      <form  onSubmit={(event)=>{event.preventDefault();setOpenSusp(true)}} >
+      <form  onSubmit={onSubmit} >
         <label for="email">Email </label>
         <input id="email" name="email" type="text" placeholder="Email@***.***" onChange={onChange}   />
         <label for="password">Password</label>
@@ -63,21 +64,6 @@ const AuthForm = ({newAcount, setPopup})=> {
         }
         
       </form>
-      {openSusp &&
-        <>
-        <div className='suspBtnContainer'>
-          <button 
-            className="closeBtn_susp"
-            onClick={()=>setOpenSusp(false)}
-          >
-            <BiX/>
-          </button>
-        </div>
-        <Suspension
-        />
-      </>
-      }
-      <Footer/>
     </section>
   )
   } ;

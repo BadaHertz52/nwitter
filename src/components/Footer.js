@@ -1,29 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const Footer =()=>{
-  const [popup,setPopup]=useState(false);
   return(
     <footer id="footer">
-      <div className='footer_div'>
-        <button  id="footer_more" onClick={()=>setPopup(!popup)}>
-          more
-        </button>
-        {popup &&
-        <div id="photoBy">
-          : Photo by 
-          <a href="https://unsplash.com/@stereophototyp?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Sara Kurfeß</a>
-          on 
-          <a href="https://unsplash.com/s/photos/twitter?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
-            Unsplash
-          </a>
-        </div>
-        }
-      </div>
-      <div className='footer_div' id="copyRight"> 
-        This is cloning <a href='https://twitter.com/?lang=ko' >Twitter</a>
-        <br/>
-        ⓒ2022.
+      <div>
+        This is cloning 
+        <a href='https://twitter.com/?lang=ko' >Twitter</a>
         &nbsp;
+        ⓒ2022.
+      </div>
+      <div>
         <a href='https://github.com/BadaHertz52/twitter'> 
           Project 
         </a>

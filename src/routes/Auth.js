@@ -6,14 +6,29 @@ import auth_img from '../asset/img/auth_img.jpg';
 import auth_img_width from '../asset/img/auth_img_width.jpg';
 import Footer from '../components/Footer';
 import Suspension from '../components/Suspension';
-import { BiX } from 'react-icons/bi';
 
 const Auth = ( ) => {
   const [newAcount, setNewAccount] =useState();
   const [popup , setPopup]=useState(false);
   const [openSusp , setOpenSusp]=useState(false);
-  useEffect(()=>{console.log("susp",openSusp)},[openSusp]);
-  const closeSusp =()=> setOpenSusp(false);
+  const changeAuthMainStyle =()=>{
+    const authLeftElement = document.getElementById("auth_left");
+    const authMainElement = document.getElementById("auth_main");
+    if(window.innerWidth >= 1024){
+      const authLeftWidth =authLeftElement.getClientRects()[0].width;
+      const authMainWidth =window.innerWidth - authLeftWidth
+      const susPWidth =`${authMainWidth * 0.8}px`;
+      const paddingSide  = `${authMainWidth * 0.1}px`;
+      
+      authMainElement?.setAttribute("style",`width:${susPWidth}; padding:0 ${paddingSide}`);
+    }else{
+      authMainElement.setAttribute("style", `width:100%; padding:0`);
+    }
+  };
+  window.onresize = changeAuthMainStyle();
+  useEffect(()=>{
+    changeAuthMainStyle();
+  },[openSusp])
 /**
  * 원래는 goggle 버튼 클릭 시 구글 계정을 로그인 가능하도록 함
  */
@@ -23,8 +38,8 @@ const Auth = ( ) => {
     if (name === "google"){
       provider = new  friebaseInstance.auth.GoogleAuthProvider();
     }
-    const data = await authSerVice.signInWithPopup(provider) ;
-    console.log("popup //" , data) ;
+    setOpenSusp(true);
+    //const data = await authSerVice.signInWithPopup(provider) ;
   };
 
   return(
@@ -39,8 +54,14 @@ const Auth = ( ) => {
           src={auth_img_width} 
           alt="twitter img"/>
       </div>
+      {openSusp?
+        <Suspension
+          setOpenSusp={setOpenSusp}
+        />
+      :
+      <div id="auth_main"> 
       {!popup ?
-        <div id="auth_main">
+        <>
           <div  className='twitter_icon auth_main_div' id="createAccount">
             <BsTwitter/>
             <div>
@@ -50,47 +71,37 @@ const Auth = ( ) => {
             Subscribe to your email address
             </button>
             <button name="google"
-            onClick={()=>setOpenSusp(true)}>
+            onClick={onSocialClick}>
               Continue with Goggle
             </button>
           </div>
           <div   className='auth_main_div'  id="logIn">
-          {openSusp?
-          <>
-            <div className='suspBtnContainer'>
-              <button 
-                className="closeBtn_susp"
-                onClick={()=>setOpenSusp(false)}
-              >
-                <BiX/>
-              </button>
-            </div>
-            <Suspension
-              closeSusp={closeSusp}
-            />
-          </>
-            :  
-            <>
-              <div>
+            <div>
               Did you already sign up for Twitter?
-              </div>
-              <button onClick={()=>{setPopup(true); setNewAccount(false)}}>
-                Log In
-              </button>
-            </>
-          }
-          </div>
-          <div className='auth_main_div'>
-            <Footer/>
+            </div>
+            <button onClick={()=>{setPopup(true); setNewAccount(false)}}>
+              Log In
+            </button>
           </div>
           
-      </div>
-      :
-      <AuthForm 
-        newAcount={newAcount} 
-        setPopup={setPopup}
-      />
+        </>
+        :
+        <div className='auth_main_div'>
+          <AuthForm 
+            newAcount={newAcount} 
+            setPopup={setPopup}
+            setOpenSusp={setOpenSusp}
+          />
+        </div>
+
       }
+        <div className='auth_main_div'>
+        <Footer/>
+        </div>
+        
+      </div>
+      }
+      
     </section>
   )
 }
