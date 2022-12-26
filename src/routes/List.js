@@ -3,7 +3,6 @@ import { FiArrowLeft } from "react-icons/fi";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getProfileDoc } from "../components/GetData";
 import Loading from "../components/Loading";
-import UserProfile from "../components/UserProfile";
 import { ProfileContext } from "../context/ProfileContex";
 import { UserContext } from "../context/UserContext";
 
@@ -57,12 +56,11 @@ const List =({userobj ,userId})=>{
     {state:state})
   };
   useEffect(()=>{
+    console.log("list - userprofile", userProfile);
     if(userobj.id === userId){
       setProfile(myProfile);
       }else{
-        if(userId === UserProfile.userId){
-          setProfile(userProfile);
-        }
+        setProfile(userProfile);
       } ;
 },[state, userProfile , myProfile]);
 
