@@ -250,8 +250,6 @@ const TweetFactory = ({userobj ,setPopup }) => {
           </div>
           <form onSubmit={onSubmit}>
             <textarea
-            value={tweetInput!==undefined &&
-              (tweetInput.text !=="false" ? tweetInput.text : "What's happening?")}
             name='text'
             onChange={onChange}
             type="text"
