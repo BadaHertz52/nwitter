@@ -14,16 +14,19 @@ const Auth = ( ) => {
   const changeAuthMainStyle =()=>{
     const authLeftElement = document.getElementById("auth_left");
     const authMainElement = document.getElementById("auth_main");
-    if(window.innerWidth >= 1024){
-      const authLeftWidth =authLeftElement.getClientRects()[0].width;
-      const authMainWidth =window.innerWidth - authLeftWidth
-      const susPWidth =`${authMainWidth * 0.8}px`;
-      const paddingSide  = `${authMainWidth * 0.1}px`;
-      
-      authMainElement?.setAttribute("style",`width:${susPWidth}; padding:0 ${paddingSide}`);
-    }else{
-      authMainElement?.setAttribute("style", `width:100%; padding:0`);
+    if(authMainElement!==null){
+      if(window.innerWidth >= 1024 && authLeftElement!==null){
+        const authLeftWidth =authLeftElement.getClientRects()[0].width;
+        const authMainWidth =window.innerWidth - authLeftWidth
+        const susPWidth =`${authMainWidth * 0.8}px`;
+        const paddingSide  = `${authMainWidth * 0.1}px`;
+        
+        authMainElement.setAttribute("style",`width:${susPWidth}; padding:0 ${paddingSide}`);
+      }else{
+        authMainElement.setAttribute("style", `width:100%; padding:0`);
+      }
     }
+
   };
   window.onresize = changeAuthMainStyle();
   useEffect(()=>{
