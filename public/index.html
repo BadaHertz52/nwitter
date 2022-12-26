@@ -5,10 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="Content-Security-Policy" 
           content="default-src 'self'; 
-          connect-src 'self' https://firebasestorage.googleapis.com https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com/; 
-          frame-scr 'none'; 
-          style-src 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'sha256-ogFjf72zSQ0QL/B7ck8TPr02q5ZRzlT7jYXfeOU22t8=' 'sha256-gSG6kQXmAoxim/kEeENJNjTZhKpR3MHm4HV62Xbd6AQ=' 'sha256-JAoCrMHQAai+8qPTjnY/BOUC1l34kzxD/NSUTL2LuTE='; 
-          img-src 'self'  https://firebasestorage.googleapis.com data:;"
+          connect-src 
+            'self'
+            https://firebasestorage.googleapis.com 
+            https://firestore.googleapis.com 
+            https://identitytoolkit.googleapis.com 
+            https://securetoken.googleapis.com/; 
+          frame-src  https://nwitter-c8556.firebaseapp.com/; 
+          style-src 
+          'unsafe-inline'
+            ; 
+          img-src 
+            'self'  
+            https://firebasestorage.googleapis.com data:;
+          script-src-elem
+            'self' 
+            https://apis.google.com;
+          "
     />
     <meta name="theme-color" content="#000000" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
