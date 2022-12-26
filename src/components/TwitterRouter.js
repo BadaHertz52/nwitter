@@ -154,17 +154,15 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
   },[hash]);
 
     return (
-      <>
+      <div id="inner"
+      className={ hash.includes("crop")? "noScroll" :"scroll"}>
         {isLoggedIn ?
           (IsMyProfile === undefined ?
           <Loading/>
           :
           (IsMyProfile ?
           
-          <div 
-            id="inner"
-            className={ hash.includes("crop")? "noScroll" :"scroll"}
-            >
+          <>
             <Routes>
               <Route  
                 path="/twitter/tweet" 
@@ -253,7 +251,7 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
             <div id="side">
               <Side userobj={userobj} />
             </div>
-          </div>
+          </>
           
           :
           <>
@@ -278,7 +276,7 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
         <Loading/>
       )
     }
-      </>
+      </div>
     )
   } 
   return (
