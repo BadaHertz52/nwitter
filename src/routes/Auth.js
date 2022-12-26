@@ -22,7 +22,7 @@ const Auth = ( ) => {
       
       authMainElement?.setAttribute("style",`width:${susPWidth}; padding:0 ${paddingSide}`);
     }else{
-      authMainElement.setAttribute("style", `width:100%; padding:0`);
+      authMainElement?.setAttribute("style", `width:100%; padding:0`);
     }
   };
   window.onresize = changeAuthMainStyle();
