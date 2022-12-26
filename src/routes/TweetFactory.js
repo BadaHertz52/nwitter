@@ -70,12 +70,14 @@ const TweetFactory = ({userobj ,setPopup }) => {
     const attachmentRef =storageService.ref().child(`${userobj.uid}/${docId}`);
     const response = await attachmentRef.putString(attachment, "data_url");
     url=await response.ref.getDownloadURL();
-    }
+    };
+
+    const text =tweetInput.text.replaceAll("<" , "&lt;").replaceAll(">","&gt;").replaceAll(/(\r\n|\n)/g, '<br/>');
     const newtweet ={
       value:storageObj.profile.uid===""?
       "tweet" : 
       state.value  ,
-      text:tweetInput.text.replace(/(\r\n|\n)/g, '<br/>'),
+      text:text,
       attachmentUrl:url,
       creatorId: userobj.uid,
       docId:docId,
