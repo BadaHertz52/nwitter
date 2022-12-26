@@ -212,7 +212,10 @@ ____________________________________________________
 |---|------|
 |2022.07.31|Add favicon and function that change title of head depaing on page|
 |2022.08.01|Add function that add meta tag for open graph depading on tweet in status page using react-helmet| 
-|2022.12.25|Make Suspension component which notice that site discontinues new membership for site management and only pepole who get account from deveploer cant access site. 
+|2022.12.25|Make Suspension component which notice that site discontinues new membership for site management and only pepole who get account from deveploer cant access site.
+|2022.12.26| Update TweeterFactory to prevent XSS and Apply CSP| 
+
+ 
 ______________________________________________________
 
 ## <div id="blog"> Blog </div>
