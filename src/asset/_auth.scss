@@ -168,6 +168,9 @@
         display:none ;
       }
     }
+    &_main{
+      width: 100%;
+    }
   }
   .auth_main_div{
     width: 80%;
@@ -176,13 +179,6 @@
 }
 
 @media screen and (min-width:1200px) {
-  #auth {
-    &_main{
-      padding : {
-        left: 5%;
-      }
-    }
-  }
   .auth_main_div{
     width: 60%;
     padding: 0 10%
@@ -191,12 +187,6 @@
 
 
 @media  screen and (min-width:1300px) {
-
-  #auth {
-    &_main{
-      padding-top: 8%;
-    }
-  }
   .auth_main_div {
     text-align: center;
   }
@@ -204,7 +194,6 @@
 }
 
 @media screen and (min-width:1440px) {
-
   #auth{
     .width{
       display: block;

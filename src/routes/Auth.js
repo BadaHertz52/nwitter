@@ -11,27 +11,6 @@ const Auth = ( ) => {
   const [newAcount, setNewAccount] =useState();
   const [popup , setPopup]=useState(false);
   const [openSusp , setOpenSusp]=useState(false);
-  const changeAuthMainStyle =()=>{
-    const authLeftElement = document.getElementById("auth_left");
-    const authMainElement = document.getElementById("auth_main");
-    if(authMainElement!==null){
-      if(window.innerWidth >= 1024 && authLeftElement!==null){
-        const authLeftWidth =authLeftElement.getClientRects()[0].width;
-        const authMainWidth =window.innerWidth - authLeftWidth
-        const susPWidth =`${authMainWidth * 0.8}px`;
-        const paddingSide  = `${authMainWidth * 0.1}px`;
-        
-        authMainElement.setAttribute("style",`width:${susPWidth}; padding:0 ${paddingSide}`);
-      }else{
-        authMainElement.setAttribute("style", `width:100%; padding:0`);
-      }
-    }
-
-  };
-  window.onresize = changeAuthMainStyle();
-  useEffect(()=>{
-    changeAuthMainStyle();
-  },[openSusp])
 /**
  * 원래는 goggle 버튼 클릭 시 구글 계정을 로그인 가능하도록 함
  */
@@ -42,7 +21,7 @@ const Auth = ( ) => {
       provider = new  friebaseInstance.auth.GoogleAuthProvider();
     }
     setOpenSusp(true);
-    //const data = await authSerVice.signInWithPopup(provider) ;
+    //await authSerVice.signInWithPopup(provider) ;
   };
 
   return(
