@@ -25,7 +25,7 @@ const AuthForm = ({newAcount, setPopup ,setOpenSusp})=> {
       }else{
         //log in 
         await authSerVice.signInWithEmailAndPassword(email, password);
-        //navigate(`/twitter/home`) 
+        navigate(`/twitter/home`) 
       }
       setPopup(false);
       
@@ -56,7 +56,9 @@ const AuthForm = ({newAcount, setPopup ,setOpenSusp})=> {
         <input id="authForm_logIn" type="submit" value={newAcount ?"Sign up " : "Log In"} className='btn'/>
         {error !=="" &&
           <div id="authError">
-            <RiErrorWarningLine/>
+            <div>
+              <RiErrorWarningLine/>
+            </div>
             <div>
               {error}
             </div>
