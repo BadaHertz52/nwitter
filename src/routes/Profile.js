@@ -10,12 +10,10 @@ const Profile = ({userobj , userId}) => {
   
   useEffect(()=>{
     if(userProfile.userId ===userId){
-      console.log("userprofiule", userProfile)
       setProfile(userProfile);
     };
     
   },[userProfile])
-  console.log("userProfile", userProfile,);
   return (
     <>
     {(profile === null)?
