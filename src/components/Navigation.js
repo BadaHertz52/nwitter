@@ -8,7 +8,7 @@ import { AiFillHome, AiOutlineHome } from 'react-icons/ai';
 import {ProfileContext} from '../context/ProfileContex';
 import { profileForm } from './GetData';
 
-const Navigation = ({userobj}) => {
+const Navigation = ({userobj ,setUserId}) => {
   const location= useLocation();
   const navigate =useNavigate();
   const {myProfile}=useContext(ProfileContext);
@@ -17,6 +17,7 @@ const Navigation = ({userobj}) => {
   const [profile, setProfile]=useState(profileForm);
 
   const goMyProfile=()=>{
+    setUserId(userobj.id);
     navigate(`/twitter/${userobj.id}` ,{state:{value:"profile", previous:location.pathname}})
   };
 

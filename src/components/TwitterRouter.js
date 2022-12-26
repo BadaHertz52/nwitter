@@ -184,7 +184,7 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
                 element={<DeleteUser userobj={userobj} />}
               />
             </Routes>
-            <Navigation userobj={userobj}  />
+            <Navigation userobj={userobj} setUserId={setUserId} />
             <div id="main">
               <Routes>
                 <Route 
