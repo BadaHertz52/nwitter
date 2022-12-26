@@ -149,12 +149,10 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
       const firstFilltering =hash.slice(0,listIndex);
       changeUser(firstFilltering);
       const docId =hash.slice(listIndex+8);
-      console.log("doc", docId);
       setDocId(docId);
-    }else{
-      changeUser(hash);
     };
-  },[hash])
+  },[hash]);
+
     return (
       <>
         {isLoggedIn ?
