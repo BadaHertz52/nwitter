@@ -252,6 +252,7 @@ const TweetFactory = ({userobj ,setPopup }) => {
             <textarea
             name='text'
             onChange={onChange}
+            value ={tweetInput.text}
             type="text"
             placeholder="What's happening?"
             maxLength={120}
