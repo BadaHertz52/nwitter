@@ -107,17 +107,48 @@ ____________________________________________________
 
 #### 1) Responsible web -simulation
 <br/>
+
 <video controls width="80%">
-   <source src="img/twitter_responsible.mp4"
-            type="video/mp4">
+   <source src="https://user-images.githubusercontent.com/69838872/209666813-ae551bd6-f30f-468f-a15d-5f6cd412931c.mp4"
+    type="video/mp4">
 </video>
 
 <br/>
 
 #### 2) Twieer -simulation
 <br/>
+
+#### A. Auth - Sign up and Log in 
+
 <video controls  width="80%">
-   <source src="img/twitter_action.mp4"
+   <source src="https://user-images.githubusercontent.com/69838872/209668629-ff02bd87-48cb-4ca2-a416-e39e59f022dd.mp4"
+            type="video/mp4">
+            
+  <source 
+    src="https://user-images.githubusercontent.com/69838872/209669535-53172691-d017-43a2-b703-ac9814a3e109.mp4"
+    type="video/mp4"
+  >
+
+</video>
+
+#### B. Tweet 
+
+<video controls  width="80%">
+   <source src="https://user-images.githubusercontent.com/69838872/209668743-380f0b96-6807-40aa-bc94-5472bdf6a007.mp4"
+            type="video/mp4">
+</video>
+
+#### C. Profile 
+
+<video controls  width="80%">
+   <source src="https://user-images.githubusercontent.com/69838872/209668964-71c1cdb2-43b6-4a4d-bc3d-350a6328b482.mp4"
+            type="video/mp4">
+</video>
+
+#### D. Search User 
+
+<video controls  width="80%">
+   <source src="https://user-images.githubusercontent.com/69838872/209669280-933abe16-7615-45ef-88bf-85032d720bf9.mp4"
             type="video/mp4">
 </video>
 
