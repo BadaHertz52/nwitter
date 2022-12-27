@@ -107,50 +107,71 @@ ____________________________________________________
 
 #### 1) Responsible web -simulation
 <br/>
-
-<video controls width="80%">
-   <source src="https://user-images.githubusercontent.com/69838872/209666813-ae551bd6-f30f-468f-a15d-5f6cd412931c.mp4"
-    type="video/mp4">
-</video>
+<img
+  width="50%"
+  src="img/responsible.gif"
+  alt="responsible web gif"
+/>
 
 <br/>
 
 #### 2) Twieer -simulation
 <br/>
 
-#### A. Auth - Sign up and Log in 
+#### A. Auth 
 
-<video controls  width="80%">
-   <source src="https://user-images.githubusercontent.com/69838872/209668629-ff02bd87-48cb-4ca2-a416-e39e59f022dd.mp4"
-            type="video/mp4">
-            
-  <source 
-    src="https://user-images.githubusercontent.com/69838872/209669535-53172691-d017-43a2-b703-ac9814a3e109.mp4"
-    type="video/mp4"
-  >
+#### a. sig up and log in
+  <br/>
+<img
+  width="50%"
+  src="img/auth.gif"
+  alt="auth gif"
+/>
 
-</video>
+  <br/>
+
+#### b. log out or delete account 
+  <br/>
+<img
+  width="50%"
+  src="img/logout.gif"
+  alt="logout gif"
+/>
+  <br/>
 
 #### B. Tweet 
+  <br/>
+<img
+  width="50%"
+  src="img/tweet.gif"
+  alt="tweet gif"
+/>
+  <br/>
 
-<video controls  width="80%">
-   <source src="https://user-images.githubusercontent.com/69838872/209668743-380f0b96-6807-40aa-bc94-5472bdf6a007.mp4"
-            type="video/mp4">
-</video>
+#### C. Notification
+<img
+  width="50%"
+  src="img/notification.gif"
+  alt="notification gif"
+/>
+  <br/>
 
-#### C. Profile 
+#### D. Profile 
+<img
+  width="50%"
+  src="img/profile.gif"
+  alt="profile gif"
+/>
+  <br/>
 
-<video controls  width="80%">
-   <source src="https://user-images.githubusercontent.com/69838872/209668964-71c1cdb2-43b6-4a4d-bc3d-350a6328b482.mp4"
-            type="video/mp4">
-</video>
+#### E. Search User 
 
-#### D. Search User 
-
-<video controls  width="80%">
-   <source src="https://user-images.githubusercontent.com/69838872/209669280-933abe16-7615-45ef-88bf-85032d720bf9.mp4"
-            type="video/mp4">
-</video>
+<img
+  width="50%"
+  src="img/search.gif"
+  alt="search gif"
+/>
+  <br/>
 
 ### <div id="data">2. Data </div>
   <br/>
