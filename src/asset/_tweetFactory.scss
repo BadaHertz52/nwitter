@@ -86,10 +86,12 @@
 
 
 #tweetfactory_attachment {
-  margin: 0 15% 1rem 15%;
   margin-bottom: 1rem;
-  width: 60%;
+  width: 100%;
   position:relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   img{
     max-width: 100%;
     height: auto;
@@ -324,9 +326,11 @@
   form{
     padding-left: 5px;
   }
-  #tweetfactory_attachment {
-    margin-left: 5%;
-    width:80% ;
+  #tweetfactory_attachment img{
+    max-width:80% ;
+    max-height: 40vh;
+    width: auto;
+    height: auto;
   }
   form>div:last-child{
     margin-top: 10px;

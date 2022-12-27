@@ -262,7 +262,7 @@
 
 #cropper_crop {
   border-radius: 10px;
-  max-width: 90%;
+  max-width: 100%;
   max-height: calc((100% - 5rem) * 0.7);
   margin: 15%;
   display: flex;
@@ -2200,10 +2200,12 @@ img, div, button, #nav, input {
 }
 
 #tweetfactory_attachment {
-  margin: 0 15% 1rem 15%;
   margin-bottom: 1rem;
-  width: 60%;
+  width: 100%;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #tweetfactory_attachment img {
   max-width: 100%;
@@ -2423,9 +2425,11 @@ img, div, button, #nav, input {
   .tweetFactory.popup form {
     padding-left: 5px;
   }
-  .tweetFactory.popup #tweetfactory_attachment {
-    margin-left: 5%;
-    width: 80%;
+  .tweetFactory.popup #tweetfactory_attachment img {
+    max-width: 80%;
+    max-height: 40vh;
+    width: auto;
+    height: auto;
   }
   .tweetFactory.popup form > div:last-child {
     margin-top: 10px;
