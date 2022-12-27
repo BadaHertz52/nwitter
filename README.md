@@ -19,7 +19,7 @@ _______________________________________________________
 * <a href="#explain">Explain</a>
   <br/>
 
-  * <a href="#page">Page and Layout</a>
+  * <a href="#simulation">Simulation</a>
   <br/>
   
   * <a href="#data"> Data </a>
@@ -102,31 +102,24 @@ ____________________________________________________
 ## <div id="explain"> Explain</div>
 <br/>
  
-### <div id="page"> 1. Page and Layout</div>
+### <div id="simulation"> 1. Simulation </div>
   <br/>
 
-  |page|small-width |medium or large-width|
-  |-----|-----------|----------------------|
-  |Auth|<img src="img/auth_small.png" alt="authSmall" height="300px" width="auto"/> | <img src="img/auth_full.png" alt="auttFull" height="300px" width="auto"/>|
-  |AuthForm| <img src="img/authForm_small.png" alt="authFormSmall" height="300px" width="auto"/>|<img src="img/authForm_full.png" alt="authFormFull" height="300px" width="auto"/>|
-  |Home|<img src="img/home_small.png" height="300px"  alt="home_small" width="auto"/>|<img src="img/home_full.png" alt="home_full" height="300px" width="auto"/>|
-  |Notification|<img src="img/notification_small.png" alt="notification_small" height="300px" width="auto"/>|<img src="img/notification_full.png" alt="notification_full" height="300px" width="auto"/>|
-  |TimeLine|<img src="img/timeline_small.png" alt="timeline_small" height="300px" width="auto"/>|<img src="img/timeline_full.png" alt="timeline_full" height="300px" width="auto"/>|
-  |Profile|<img src="img/profile_small.png"   alt="profile_small" height="300px" width="auto"/>|<img  src="img/profile_full.png" alt="profile_full" height="300px" width="auto"/>|
-  |list|<img src="img/list_small.png"  height="300px" width="auto" alt="list_small"/>|<img src="img/list_full.png"  height="300px" width="auto" alt="list_full"/>|
-  |editProfile|<img src="img/editProfile_small.png"  height="300px" width="auto" alt="editProfile_small"/>|<img src="img/editProfile_full.png" height="300px" width="auto" alt="editProfile_full"/>|
-  |Tweet|<img src="img/tweet_small.png"  alt="tweet_small" height="300px" width="auto"/>|<img   src="img/tweet_full.png"  alt="tweet_full" height="300px" width="auto"/>|
-  |TweetFactory|<img src="img/tweetFactory_small.png" alt="tweetFactory_small" height="300px" width="auto"/>|<img  src="img/tweetFactory_full.png" alt="tweetFactory_full" height="300px" width="auto"/>|
-  |logOut|<img src="img/logOut_small.png"  height="300px" width="auto" alt="logOut_small"/>|<img src="img/logOut_full.png"  height="300px" width="auto" alt="logOut_full"/>|
-  |Delete account|<img src="img/deleteUser_small.png"  height="300px" width="auto" alt="deleteUser_small"/>|<img src="img/deleteUser_full.png"  height="300px" width="auto" alt="deleteUser_full"/>|
+#### 1) Responsible web -simulation
+<br/>
+<video controls width="80%">
+   <source src="img/twitter_responsible.mp4"
+            type="video/mp4">
+</video>
 
+<br/>
 
-  |other|view|
-  |---------|----|
-  |account|<img  height="300px" width="auto" src="img/account.png"/>|
-  |quote tweet|<img src="img/quote.png"  height="300px" width="auto" alt="quote"/>|
-  |search|<img src="img/search.png"  height="300px" width="auto" alt="search"/>||
-
+#### 2) Twieer -simulation
+<br/>
+<video controls  width="80%">
+   <source src="img/twitter_action.mp4"
+            type="video/mp4">
+</video>
 
 ### <div id="data">2. Data </div>
   <br/>
@@ -213,8 +206,7 @@ ____________________________________________________
 |2022.07.31|Add favicon and function that change title of head depaing on page|
 |2022.08.01|Add function that add meta tag for open graph depading on tweet in status page using react-helmet| 
 |2022.12.25|Make Suspension component which notice that site discontinues new membership for site management and only pepole who get account from deveploer cant access site.
-|2022.12.26| Update TweeterFactory to prevent XSS and Apply CSP| 
-
+|2022.12.26|Update TweeterFactory to prevent XSS and Apply CSP| 
  
 ______________________________________________________
 
