@@ -2,7 +2,7 @@ import React, {  useContext, useEffect, useRef, useState } from 'react';
 import UserProfile, { goProfile } from './UserProfile';
 import {  AiOutlineHeart, AiOutlineRetweet } from "react-icons/ai";
 import {FiArrowLeft, FiMessageCircle} from 'react-icons/fi';
-import { useNavigate, useLocation, json } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Heart from './Heart';
 import Rt from './Rt';
 import {  deleteTweetNotification, deleteProfileNotification, getTweet, getTweetDoc, getProfile, getProfileDoc, goBack, profileForm, tweetForm} from './GetData';
@@ -11,9 +11,6 @@ import {ProfileContext} from '../context/ProfileContex';
 import Loading from './Loading';
 import { storageService } from '../Fbase';
 import TweetForm from './TweetForm';
-import { IoEllipseSharp, IoGameController } from 'react-icons/io5';
-import { UserContext } from '../context/UserContext';
-
 
 const Tweet =({key, tweetObj , userobj ,answer, parentComponent}) =>{
   const navigate =useNavigate();
