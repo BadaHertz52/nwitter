@@ -3,6 +3,7 @@ import { FiArrowLeft } from "react-icons/fi";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getProfileDoc } from "../components/GetData";
 import Loading from "../components/Loading";
+import { goProfile } from "../components/UserProfile";
 import { ProfileContext } from "../context/ProfileContex";
 import { UserContext } from "../context/UserContext";
 
@@ -39,13 +40,6 @@ const List =({userobj ,userId})=>{
     setShowFollower(false);
     changeStyle(listFollowing);
   };
-  const goBack=()=>{
-    if(state!==null){
-      const {previous}=state;
-      navigate( {previous}, {state:state })
-    }
-   
-  };
   const goListFollower=()=>{
     
     navigate(`/twitter/${profile.userId}/list/follower` , 
@@ -56,7 +50,6 @@ const List =({userobj ,userId})=>{
     {state:state})
   };
   useEffect(()=>{
-    console.log("list - userprofile", userProfile);
     if(userobj.id === userId){
       setProfile(myProfile);
       }else{
@@ -107,22 +100,18 @@ const List =({userobj ,userId})=>{
       });
     };
 
-    const goProfile =async(event)=>{
+    const goUserProfile =async(event)=>{
       const target =event.target;
       const condition1 =target.classList.contains("list_followBtn");
       if(!condition1){
-        localStorage.setItem('user', JSON.stringify(user) );
-        navigate(`/twitter/${user.userId}` ,{state:{
-          pre_previous:state.previous,
-          previous:location.pathname,
-          value:"userProfile"}})
-      };
+        goProfile(navigate, user.userId, user.uid,location);
+      }; 
     };
 
     return(
     <button 
       className="list_UserList"
-      onClick={goProfile}
+      onClick={goUserProfile}
     >
       <div className="list_profile">
           <img 
@@ -178,7 +167,7 @@ const List =({userobj ,userId})=>{
 
           <div id="list">
             <div id="list_header">
-              <button className='back' onClick={goBack}>
+              <button className='back' onClick={()=>goProfile(navigate,profile.userId,profile.uid,location)}>
                 <FiArrowLeft/>
               </button>
               <div id="list_userInform"> 

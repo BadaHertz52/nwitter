@@ -1,9 +1,8 @@
 import React from 'react';
 import {  useNavigate ,useLocation} from 'react-router-dom';
 
-export const goProfile =async(navigate,profile,location)=>{
-  const {userId}=profile; 
-  localStorage.setItem('user', JSON.stringify(profile) )
+export const goProfile =async(navigate,userId,uid,location)=>{
+  localStorage.setItem('user', uid  );
   navigate(`/twitter/${userId}` ,{state:{
     previous:location.pathname,
     value:"userProfile", 
@@ -20,7 +19,7 @@ const UserProfile = ({profile}) => {
     {profile !== null &&
     (
       <div className="userProfile">
-      <button onClick={()=>  goProfile(navigate,profile,location)}>
+      <button onClick={()=>  goProfile(navigate,profile.userId, profile.uid,location)}>
         <img
           className="profile_photo"
           src={profile.photoUrl}  

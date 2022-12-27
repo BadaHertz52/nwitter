@@ -29,7 +29,7 @@ const Notification = () => {
   const goTimeLine =(n)=>{
 
     n.value === "following"? 
-    goProfile(navigate,n.user,location)
+    goProfile(navigate,n.user.userId, n.user.uid,location)
     :
     navigate("/twitter/timeLine" , {state:{
       previous:location.pathname,

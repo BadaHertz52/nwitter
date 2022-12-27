@@ -17,6 +17,7 @@ const HomeTweets =({userobj})=> {
           userobj ={userobj}
           isOwner={tweet.creatorId === userobj.uid}
           answer={false}
+          parentComponent={"home"}
           />
         ))
         :

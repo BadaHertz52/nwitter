@@ -30,7 +30,7 @@ const Side =({userobj})=>{
         })
       })
   };
-  const goProfile=async()=>{
+  const goMyProfile=async()=>{
     const getDocs=await getTweetsDocs(result.uid);
     const tweets =getDocs.docs.map(doc=> ({id:doc.id,...doc.data()}));
     userDispatch({
@@ -60,7 +60,7 @@ const Side =({userobj})=>{
       </div>
       {input !=="" &&(result.userId !==""?
         (result.userId !==""&&
-          <div id="search_result" onClick={goProfile}>
+          <div id="search_result" onClick={goMyProfile}>
             <UserProfile profile={result}/>
             <div id="search_result_userInform">
               <div>{result.userName}</div>

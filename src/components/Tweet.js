@@ -1,8 +1,8 @@
 import React, {  useContext, useEffect, useRef, useState } from 'react';
-import UserProfile from './UserProfile';
+import UserProfile, { goProfile } from './UserProfile';
 import {  AiOutlineHeart, AiOutlineRetweet } from "react-icons/ai";
 import {FiArrowLeft, FiMessageCircle} from 'react-icons/fi';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, json } from 'react-router-dom';
 import Heart from './Heart';
 import Rt from './Rt';
 import {  deleteTweetNotification, deleteProfileNotification, getTweet, getTweetDoc, getProfile, getProfileDoc, goBack, profileForm, tweetForm} from './GetData';
@@ -11,12 +11,13 @@ import {ProfileContext} from '../context/ProfileContex';
 import Loading from './Loading';
 import { storageService } from '../Fbase';
 import TweetForm from './TweetForm';
+import { IoEllipseSharp, IoGameController } from 'react-icons/io5';
+import { UserContext } from '../context/UserContext';
 
 
-const Tweet =({key, tweetObj , userobj ,answer}) =>{
+const Tweet =({key, tweetObj , userobj ,answer, parentComponent}) =>{
   const navigate =useNavigate();
   const location =useLocation();
-
   const [tweetobj,setTweetObj]=useState(tweetObj);
   const [is_answer ,setIsAnswer]=useState(answer);
 
@@ -55,14 +56,17 @@ const Tweet =({key, tweetObj , userobj ,answer}) =>{
     setTCName("tweet answer");
   }
 };
-
     const onBack=()=>{
-      localStorage.removeItem('status')
-      location.pathname.includes("tweet")&&
-      goBack(location,navigate);
-
-      location.pathname.includes("status")&&
-      goBack(location,navigate);
+      const item = localStorage.getItem("previousPageProfile");
+      const previousPage =location.state.previousPage;
+      if(previousPage === "profile" && item !==null ){
+        //go profile
+        const user =JSON.parse(item);
+        goProfile(navigate, user.userId, user.uid,location)
+      }else{
+        goBack(location,navigate);
+      };
+      localStorage.removeItem('status');
     };
 
 
@@ -184,22 +188,34 @@ const Tweet =({key, tweetObj , userobj ,answer}) =>{
       const condition2 = !target.parentNode.classList.contains("fun");
       const pathName = `/twitter/${profile.userId}/status/${tweet.docId}`;
 
-      const status = JSON.stringify({
+      const status ={
         tweetObj:tweet,
         answer:false,
+        /**
+         * tweet 작성자 프로파일
+         */
         ownerProfile:profile,
         value :"status",
+        /**
+         * tweet 작성자의 userId
+         */
         userId:condition? ownerProfile.userId : aboutProfile.userId,
+        /**
+         * tweet 작성자의 uid
+         */
+        userUid: condition? ownerProfile.uid : aboutProfile.uid,
         docId:tweet.docId
-      });
-      localStorage.setItem("status", status);
+      };
+      
+      localStorage.setItem("status",JSON.stringify(status));
 
       if(condition1 && condition2){
         navigate(`${pathName}` , {state:{
+          ...status,
             previous:location.pathname,
-            value:"status"
+            previousPage: parentComponent
           }
-          })
+        });
       }
     };
 
@@ -231,7 +247,7 @@ const Tweet =({key, tweetObj , userobj ,answer}) =>{
   
   return (
     <>
-    {tweet.docId==""?
+    {tweet.docId===""?
     <div className='noTweet'>
       Tweet does not exist.
     </div>
@@ -399,7 +415,8 @@ const Tweet =({key, tweetObj , userobj ,answer}) =>{
                 tweetObj={aboutTweet}  
                 userobj={userobj} 
                 isOwner ={aboutTweet.creatorId=== userobj.uid}
-                answer={false} 
+                answer={false}
+                parentComponent={parentComponent}
                 />
                 :
                 <TweetBox

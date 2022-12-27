@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Route, Routes ,useLocation , useNavigate} from 'react-router-dom';
 import ProfileContextProvier, { ProfileContext } from '../context/ProfileContex';
 import TweetContextProvier, { TweetContext } from '../context/TweetContex';
-import { getTweetsDocs, getProfileDoc } from './GetData';
+import { getTweetsDocs, getProfileDoc, getProfile } from './GetData';
 
 import Cropper from '../routes/Cropper';
 import Auth from '../routes/Auth';
@@ -33,6 +33,7 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
   const hash =window.location.hash;
   const state =location.state; 
   const navigate =useNavigate();
+  const userItem =localStorage.getItem('user');
   const ContextRouter =()=>{
     const {profileDispatch} =useContext(ProfileContext);
     const {tweetDispatch}= useContext(TweetContext);
@@ -91,10 +92,10 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
   },[isLoggedIn]);
 
   useEffect(()=>{
-    if(state!==null && state.value ==="userProfile"){
-      const userProfile =JSON.parse(localStorage.getItem('user'));
-      setUserId(userProfile.userId);
+    if(state!==null && state.value ==="userProfile" && userItem !==null){
       const updateUserProfile =async()=>{
+        const userProfile =await getProfileDoc(userItem).get().then(doc=> doc.data());
+        setUserId(userProfile.userId);
         const userUid =userProfile.uid;
         const tweets =await getTweetsDocs(userUid).then(
           result =>{
@@ -194,15 +195,15 @@ const TwitterRouter =({isLoggedIn ,setIsLoggedIn, userobj , IsMyProfile, setIsMy
                 />
                 <Route 
                   path={`/twitter/${userId}/status/${docId}`}
-                  element={<Tweet userobj={userobj}/>}
+                  element={<Tweet userobj={userobj} parentComponent={"router"}/>}
                 />
                 <Route 
                   path={`/twitter/home/${userId}/status/${docId}`}
-                  element={<Tweet userobj={userobj}/>}
+                  element={<Tweet userobj={userobj} parentComponent={"router"}/>}
                 />
                 <Route 
                   path={`/twitter/${userId}/status/${docId}`}
-                  element={<Tweet userobj={userobj}/>}
+                  element={<Tweet userobj={userobj} parentComponent={"router"}/>}
                     />
                 <Route 
                   exact path={`/twitter/notification`}

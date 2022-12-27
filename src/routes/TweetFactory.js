@@ -272,6 +272,7 @@ const TweetFactory = ({userobj ,setPopup }) => {
                   userobj={userobj} 
                   isOwner ={storageObj.isOwner} 
                   answer={false}
+                  parentComponent={"tweetFactory"}
                 />
                 }
                 

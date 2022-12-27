@@ -44,7 +44,7 @@ const getUsersProfile =async()=>{
         <button 
         className='recommend_user' 
         key={`recommend_${usersProfiles.indexOf(profile)}`} 
-        onClick={()=>goProfile(navigate,profile,location)}
+        onClick={()=>goProfile(navigate,profile.userId,profile.uid,location)}
         >
           <UserProfile profile={profile}  />
           <div className='userInform'>

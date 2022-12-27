@@ -87,7 +87,13 @@ export const ProfileTopForm = ({who, isMine , userobj } )=>{
   useEffect(()=>{
     profile.userId==="" && setProfile(who);
   },[]);
-  
+  useEffect(()=>{
+    const user ={
+      uid:profile.uid,
+      userId:profile.userId
+    }
+    localStorage.setItem("previousPageProfile",JSON.stringify(user));
+  },[profile.uid, profile.userId])
   useEffect(()=>{
     myFollowingList[0]!== undefined && changeFollowBtn();
     if(followBtn !==null){
@@ -240,11 +246,14 @@ export const ProfileBottomForm = ({isMine, userobj })=>{
           </div>
         )
       :
-      contents.map(content => <Tweet 
+      contents.map(content => 
+      <Tweet 
           key={`tweets_${content.docId}`}
           tweetObj ={content}  
           userobj={userobj} 
-          answer={false} />  )
+          answer={false}
+          parentComponent={"profile"} 
+        />  )
       }
       </div>
     </section>

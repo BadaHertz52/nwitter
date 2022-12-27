@@ -1,7 +1,6 @@
 import React,{ useContext, useEffect, useState } from 'react'
 import { FiArrowLeft } from 'react-icons/fi';
 import { useLocation, useNavigate} from 'react-router-dom';
-import { goBack } from '../components/GetData';
 import Loading from '../components/Loading';
 import Tweet from '../components/Tweet';
 import { TweetContext } from '../context/TweetContex';
@@ -12,7 +11,9 @@ const TimeLine =({userobj})=>{
   const navigate =useNavigate();
   const {myTweets}=useContext(TweetContext);
   const [tweet,setTweet]=useState({docId:"" ,about:null});
-
+  const goNotification =()=>{
+    navigate('/twitter/notification')
+  };
   useEffect(()=>{ 
       if(state.aboutDocId == null){
         const targetTweet =myTweets.filter(n=> n.docId === state.docId)[0];
@@ -28,7 +29,7 @@ const TimeLine =({userobj})=>{
       <div id="timeLine_header">
         <button  
         className='back'
-        onClick={()=> goBack(location, navigate)}
+        onClick={goNotification}
         >
             <FiArrowLeft/>
         </button>
@@ -52,7 +53,9 @@ const TimeLine =({userobj})=>{
         <Tweet
           tweetObj={tweet} 
           userobj={userobj} 
-          answer={ false} />
+          answer={ false}
+          parentComponent={"timeline"} 
+        />
           :
           <Loading/>
       }

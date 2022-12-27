@@ -220,12 +220,5 @@ export const OffRtHeart =(value ,tweetObj, original, userobj, profile,ownerProfi
 export  const goBack=(location ,navigate)=>{
   const state =location.state;
   const back= state.previous;
-    state!==null && state.userUid!==undefined?
-    navigate(back ,{state:{
-      previous:location.pathname,
-      userUid:location.state.userUid,
-      userId:location.state.userId ,
-      value:"userProfile", 
-    }})
-    :navigate(back );
+    navigate(back );
 };
