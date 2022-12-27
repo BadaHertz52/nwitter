@@ -108,7 +108,7 @@ ____________________________________________________
 #### 1) Responsible web -simulation
 <br/>
 <img
-  width="50%"
+  width="70%"
   src="img/responsible.gif"
   alt="responsible web gif"
 />
@@ -123,7 +123,7 @@ ____________________________________________________
 #### a. sig up and log in
   <br/>
 <img
-  width="50%"
+  width="70%"
   src="img/auth.gif"
   alt="auth gif"
 />
@@ -133,7 +133,7 @@ ____________________________________________________
 #### b. log out or delete account 
   <br/>
 <img
-  width="50%"
+  width="70%"
   src="img/logout.gif"
   alt="logout gif"
 />
@@ -142,7 +142,7 @@ ____________________________________________________
 #### B. Tweet 
   <br/>
 <img
-  width="50%"
+  width="70%"
   src="img/tweet.gif"
   alt="tweet gif"
 />
@@ -150,7 +150,7 @@ ____________________________________________________
 
 #### C. Notification
 <img
-  width="50%"
+  width="70%"
   src="img/notification.gif"
   alt="notification gif"
 />
@@ -158,7 +158,7 @@ ____________________________________________________
 
 #### D. Profile 
 <img
-  width="50%"
+  width="70%"
   src="img/profile.gif"
   alt="profile gif"
 />
@@ -167,7 +167,7 @@ ____________________________________________________
 #### E. Search User 
 
 <img
-  width="50%"
+  width="70%"
   src="img/search.gif"
   alt="search gif"
 />
