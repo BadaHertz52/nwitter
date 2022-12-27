@@ -66,15 +66,18 @@ const Tweet =({key, tweetObj , userobj ,answer, parentComponent}) =>{
       localStorage.removeItem('status');
     };
 
-
-  useEffect(()=>{
-    if( location.pathname.includes("status")){
+    const setState =async()=>{
       if(localStorage.getItem("status")){
         const status =JSON.parse(localStorage.getItem("status"));
+        const profile = await getProfileDoc(status.userUid).get().then(doc=>doc.data());
+        setOwnerProfile(profile);
         setTweetObj(status.tweetObj);
         setIsAnswer(status.answer);
-        setOwnerProfile(status.ownerProfile);
       }
+    };
+  useEffect(()=>{
+    if( location.pathname.includes("status")){
+      setState();
       }
   },[location]);
 
@@ -188,10 +191,6 @@ const Tweet =({key, tweetObj , userobj ,answer, parentComponent}) =>{
       const status ={
         tweetObj:tweet,
         answer:false,
-        /**
-         * tweet 작성자 프로파일
-         */
-        ownerProfile:profile,
         value :"status",
         /**
          * tweet 작성자의 userId
