@@ -165,6 +165,9 @@ const Tweet =({key, tweetObj , userobj ,answer, parentComponent}) =>{
           break;
         default:
           break;
+      };
+      if(location.pathname.includes("status")){
+        onBack();
       }
     };
 
