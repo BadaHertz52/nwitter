@@ -1,0 +1,28 @@
+name: Automatically Deployment
+
+on: [push]
+
+jobs:
+ deployment:
+  runs-on: ubuntu-latest
+  steps:
+   - uses: actions/checkout@v3
+   - uses: actions/setup-node@v3
+     with:
+       node-version: '16'
+     
+   - name: Setting .env
+     run: |
+        echo "REACT_APP_API_KEY =$REACT_APP_API_KEY" >> .env
+        echo "REACT_APP_APP_ID = $REACT_APP_APP_ID" >> .env
+        echo "REACT_APP_MESSAGINSENDER_ID = $REACT_APP_MESSAGINSENDER_ID" >> .env
+        echo "REACT_APP_PROJECT_ID = $REACT_APP_PROJECT_ID" >> .env
+        echo "REACT_APP_STORAGE_BUCKET = $REACT_APP_STORAGE_BUCKET" >> .env
+        cat .env
+        
+     env:
+       REACT_APP_API_KEY : ${{secrets.REACT_APP_API_KEY}}
+       REACT_APP_APP_ID : ${{secrets.REACT_APP_APP_ID}}
+       REACT_APP_MESSAGINSENDER_ID : ${{secrets.REACT_APP_MESSAGINSENDER_ID}}
+       REACT_APP_PROJECT_ID : ${{secrets.REACT_APP_PROJECT_ID}}
+       REACT_APP_STORAGE_BUCKET : ${{secrets.REACT_APP_STORAGE_BUCKET}}
