@@ -25,7 +25,7 @@ import TweetForm from "./TweetForm";
 const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [tweetObj, setTweetObj] = useState(tweetObj);
+  const [tweet, setTweet] = useState(tweetObj);
   const [is_answer, setIsAnswer] = useState(answer);
 
   const { myProfile } = useContext(ProfileContext);
@@ -44,10 +44,10 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
   const [tweetClassName, setTCName] = useState("tweet");
   const answerForm = useRef();
   const rt_heart =
-    tweetObj !== undefined &&
-    tweetObj.notifications !== undefined &&
-    tweetObj.notifications[0] !== undefined
-      ? tweetObj.notifications.filter(
+    tweet !== undefined &&
+    tweet.notifications !== undefined &&
+    tweet.notifications[0] !== undefined
+      ? tweet.notifications.filter(
           (n) =>
             n.user === userobj.uid && (n.value === "heart" || n.value === "rt")
         )[0]
@@ -75,8 +75,8 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
   };
   //fun
 
-  const chagneClassName = () => {
-    if (tweetObj !== undefined && tweetObj.value === "answer") {
+  const changeClassName = () => {
+    if (tweet !== undefined && tweet.value === "answer") {
       setTCName("tweet answer");
     }
   };
@@ -100,7 +100,7 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
         .get()
         .then((doc) => doc.data());
       setOwnerProfile(profile);
-      setTweetObj(status.tweetObj);
+      setTweet(status.tweet);
       setIsAnswer(status.answer);
     }
   };
@@ -111,32 +111,28 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
   }, [location]);
 
   useEffect(() => {
-    if (tweetObj !== undefined) {
-      tweetObj.value === "answer"
+    if (tweet !== undefined) {
+      tweet.value === "answer"
         ? getAnswerTweets(aboutTweet)
-        : getAnswerTweets(tweetObj);
+        : getAnswerTweets(tweet);
     }
-  }, [tweetObj]);
+  }, [tweet]);
 
   useEffect(() => {
-    tweetClassName !== "tweet answer" && chagneClassName();
-    if (tweetObj !== undefined && myProfile.userName !== "") {
+    tweetClassName !== "tweet answer" && changeClassName();
+    if (tweet !== undefined && myProfile.userName !== "") {
       if (ownerProfile.userId === "") {
         !location.pathname.includes("status") &&
-          getProfile(tweetObj.creatorId, setOwnerProfile);
+          getProfile(tweet.creatorId, setOwnerProfile);
       }
-      if (tweetObj !== undefined && aboutProfile.userId === "") {
-        if (tweetObj.about !== null) {
-          getProfile(tweetObj.about.creatorId, setAboutProfile);
-          getTweet(
-            tweetObj.about.creatorId,
-            tweetObj.about.docId,
-            setAboutTweet
-          );
+      if (tweet !== undefined && aboutProfile.userId === "") {
+        if (tweet.about !== null) {
+          getProfile(tweet.about.creatorId, setAboutProfile);
+          getTweet(tweet.about.creatorId, tweet.about.docId, setAboutTweet);
         }
       }
     }
-  }, [tweetObj, myProfile, aboutProfile]);
+  }, [tweet, myProfile, aboutProfile]);
 
   useEffect(() => {
     if (tweetObj !== undefined && tweetObj.about !== null) {
@@ -200,20 +196,20 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
       storage.delete();
       switch (tweet.value) {
         case "qt":
-          deleteTweetNotification(aboutTweet, tweet, userobj, tweetObj.value);
+          deleteTweetNotification(aboutTweet, tweet, userobj, tweet.value);
           deleteProfileNotification(
             aboutProfile,
             aboutTweet,
             tweet,
             userobj,
-            tweetObj.value
+            tweet.value
           );
           break;
         case "answer":
-          deleteTweetNotification(tweetObj, tweet, userobj, tweetObj.value);
+          deleteTweetNotification(tweet, tweet, userobj, tweet.value);
           deleteProfileNotification(
             ownerProfile,
-            tweetObj,
+            tweet,
             tweet,
             userobj,
             tweet.value
@@ -231,7 +227,7 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
       localStorage.setItem(
         "tweet",
         JSON.stringify({
-          tweetObj: tweet,
+          tweet: tweet,
           profile: profile,
           isOwner: false,
         })
@@ -252,7 +248,7 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
       const pathName = `/twitter/${profile.userId}/status/${tweet.docId}`;
 
       const status = {
-        tweetObj: tweet,
+        tweet: tweet,
         answer: false,
         value: "status",
         /**
@@ -371,14 +367,14 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
                     <>
                       <Rt
                         tweetObj={what}
-                        original={tweetObj}
+                        original={tweet}
                         userobj={userobj}
                         profile={profile}
                         ownerProfile={ownerProfile}
                       />
                       <Heart
                         tweetObj={what}
-                        original={tweetObj}
+                        original={tweet}
                         userobj={userobj}
                         profile={profile}
                         ownerProfile={ownerProfile}
