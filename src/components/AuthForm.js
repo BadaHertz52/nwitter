@@ -4,7 +4,7 @@ import authSerVice from "../Fbase";
 import { RiErrorWarningLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
-const AuthForm = ({ newAccount, setPopup, setOpenSusp }) => {
+const AuthForm = ({ newAccount, setPopup, setOpenSuspension }) => {
   const [email, setEmail] = useState({ data: "", error: "required" });
   const [password, setPassword] = useState({ data: "", error: "required" });
   const [error, setError] = useState("");
@@ -30,7 +30,7 @@ const AuthForm = ({ newAccount, setPopup, setOpenSusp }) => {
     try {
       if (newAccount) {
         //create
-        setOpenSusp(true);
+        setOpenSuspension(true);
         // await authSerVice.createUserWithEmailAndPassword(
         //   email.data,
         //   password.data

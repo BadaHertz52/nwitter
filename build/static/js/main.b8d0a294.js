@@ -59762,7 +59762,7 @@
               (this.headers_ = r),
               (this.body_ = i),
               (this.successCodes_ = a),
-              (this.additionalRetryCodes_ = o),
+              (this.additionalertryCodes_ = o),
               (this.callback_ = u),
               (this.errorCallback_ = s),
               (this.timeout_ = c),
@@ -59949,7 +59949,7 @@
                 value: function (e) {
                   var t = e >= 500 && e < 600,
                     n = -1 !== [408, 429].indexOf(e),
-                    r = -1 !== this.additionalRetryCodes_.indexOf(e);
+                    r = -1 !== this.additionalertryCodes_.indexOf(e);
                   return t || n || r;
                 },
               },
@@ -60346,7 +60346,7 @@
           (this.errorHandler = null),
           (this.progressCallback = null),
           (this.successCodes = [200]),
-          (this.additionalRetryCodes = []);
+          (this.additionalertryCodes = []);
       });
       function LS(e) {
         if (!e) throw YT();
@@ -61626,7 +61626,7 @@
                         s,
                         e.body,
                         e.successCodes,
-                        e.additionalRetryCodes,
+                        e.additionalertryCodes,
                         e.handler,
                         e.errorHandler,
                         e.timeout,
@@ -63177,7 +63177,7 @@
               className: "inner",
               children: [
                 (0, XC.jsx)("button", {
-                  className: "closeBtn_susp",
+                  className: "btn-close_susp",
                   name: "close button",
                   placeholder: "back",
                   onClick: function () {
@@ -64378,7 +64378,7 @@
                       XC.jsx)($A, { tweetObj: e, userobj: t, isOwner: e.creatorId === t.uid, answer: !1, parentComponent: "home" }, "tweet'_".concat(e.docId));
                     })
                   : (0, XC.jsxs)("div", {
-                      class: "notweet",
+                      class: "noTweet",
                       children: [
                         "There's no tweet",
                         (0, XC.jsx)("br", {}),
@@ -65923,7 +65923,7 @@
                       ? v
                         ? (0, XC.jsx)(QA, {})
                         : (0, XC.jsxs)("div", {
-                            class: "notweet",
+                            class: "noTweet",
                             children: [
                               "There's no tweet",
                               (0, XC.jsx)("br", {}),
@@ -66742,7 +66742,7 @@
             _ = Ne(),
             I = Ae(),
             E = I.state,
-            T = document.querySelectorAll(".listBtn"),
+            T = document.querySelectorAll(".list_btn"),
             S = document.getElementById("listFollower"),
             C = document.getElementById("listFollowing"),
             A = function (e) {
@@ -66978,10 +66978,10 @@
                         ],
                       }),
                       (0, XC.jsxs)("div", {
-                        id: "list_btn",
+                        id: "list_btn-group",
                         children: [
                           (0, XC.jsx)("button", {
-                            className: "listBtn",
+                            className: "list_btn",
                             onClick: function () {
                               _(
                                 "/twitter/".concat(v.userId, "/list/follower"),
@@ -66994,7 +66994,7 @@
                             }),
                           }),
                           (0, XC.jsx)("button", {
-                            className: "listBtn",
+                            className: "list_btn",
                             onClick: function () {
                               _(
                                 "/twitter/".concat(v.userId, "/list/following"),
@@ -67448,7 +67448,7 @@
                           ],
                         }),
                         (0, XC.jsx)("div", {
-                          id: "tiemLine_userId",
+                          id: "timeLine_userId",
                           children: n.userName,
                         }),
                       ],
@@ -67835,7 +67835,7 @@
                       children: (0, XC.jsx)(TA, {}),
                     }),
                     (0, XC.jsxs)("div", {
-                      className: "delete_alret",
+                      className: "delete_alert",
                       children: [
                         "If you want to delete yout account,",
                         (0, XC.jsx)("br", {}),
@@ -67843,7 +67843,7 @@
                       ],
                     }),
                     (0, XC.jsxs)("div", {
-                      className: "deleteBtns",
+                      className: "delete_btn-groups",
                       children: [
                         (0, XC.jsx)("button", {
                           onClick: function () {
@@ -67872,14 +67872,14 @@
                             children: (0, XC.jsx)(TA, {}),
                           }),
                           (0, XC.jsx)("div", {
-                            className: "delete_alret",
+                            className: "delete_alert",
                             children: "Do you want to delete your account?",
                           }),
                           (0, XC.jsxs)("div", {
-                            className: "deleteBtns",
+                            className: "delete_btn-groups",
                             children: [
                               (0, XC.jsx)("button", {
-                                id: "deleteBtn",
+                                id: "btn-delete",
                                 onClick: function () {
                                   p(!0);
                                   var e = LC.ref().child("".concat(t.uid));
@@ -67901,7 +67901,7 @@
                                 children: "Delete",
                               }),
                               (0, XC.jsx)("button", {
-                                id: "deleteCancle",
+                                id: "btn-delete-cancel",
                                 onClick: function () {
                                   return a(-1);
                                 },

@@ -359,7 +359,7 @@
   background-color: white;
 }
 
-.delete_alret {
+.delete_alert {
   font-size: 1.2rem;
   line-height: 2rem;
   margin-top: 1rem;
@@ -367,14 +367,14 @@
   text-align: center;
 }
 
-.deleteBtns {
+.delete_btn-groups {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   margin-left: 25%;
   width: 50%;
 }
-.deleteBtns button {
+.delete_btn-groups button {
   background-color: rgb(245, 245, 245);
   color: rgb(46, 46, 46);
   border: 1px solid rgb(46, 46, 46);
@@ -386,18 +386,18 @@
   text-align: center;
   box-shadow: rgba(0, 0, 0, 0.329) 0px 5px 5px;
 }
-.deleteBtns button:hover {
+.delete_btn-groups button:hover {
   background-color: rgb(46, 46, 46);
   color: rgb(245, 245, 245);
 }
 
 @media screen and (min-width: 728px) {
-  .deleteBtns {
+  .delete_btn-groups {
     flex-direction: row;
     margin-left: 10%;
     width: 80%;
   }
-  .deleteBtns button {
+  .delete_btn-groups button {
     width: 30%;
   }
 }
@@ -739,20 +739,20 @@ img, div, button, #nav, input {
   background-color: rgb(245, 245, 245);
 }
 
-#list_btn {
+#list_btn-group {
   display: flex;
   width: 100%;
   height: 4rem;
   border-bottom: 1px solid rgb(228, 228, 228);
 }
 
-#list_btn .listBtn {
+#list_btn-group .list_btn {
   width: 50%;
   border-radius: 0;
   margin-top: 0;
   padding: 0;
 }
-#list_btn .listBtn div {
+#list_btn-group .list_btn div {
   padding-top: 1.5rem;
   height: 2.5rem;
   margin: 0 33%;
@@ -760,11 +760,11 @@ img, div, button, #nav, input {
   font-weight: 700;
   color: grey;
 }
-#list_btn .listBtn button:hover {
+#list_btn-group .list_btn button:hover {
   background-color: rgb(235, 235, 235);
   color: initial;
 }
-#list_btn .listBtn.check div {
+#list_btn-group .list_btn.check div {
   border-bottom: 4px solid rgb(0, 140, 255);
   color: black;
 }
@@ -1659,7 +1659,8 @@ img, div, button, #nav, input {
   padding: 2px 5px;
 }
 
-.tweets, .tweets_tweet {
+.tweets,
+.tweets_tweet {
   width: 100%;
   height: 80vh;
 }
@@ -1772,7 +1773,8 @@ img, div, button, #nav, input {
   margin-left: 2vw;
 }
 
-.tweet .text, .tweet .attachment {
+.tweet .text,
+.tweet .attachment {
   margin: 1rem 10% 1rem 2%;
 }
 
@@ -1886,7 +1888,7 @@ img, div, button, #nav, input {
 .tweet.answer .value .tweetBox {
   height: 100%;
 }
-.tweet.answer .tweetobj .tweet_form {
+.tweet.answer .tweetObj .tweet_form {
   padding-top: 0;
 }
 
@@ -1955,7 +1957,7 @@ img, div, button, #nav, input {
   font-size: 15px;
 }
 
-.notweet {
+.noTweet {
   position: absolute;
   top: 5rem;
   left: 25%;
@@ -3165,14 +3167,14 @@ input:focus {
   padding: 2px 5px;
 }
 
-#susp {
+#suspension {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-#susp .inner {
+#suspension .inner {
   width: 80%;
   height: -moz-fit-content;
   height: fit-content;
@@ -3181,7 +3183,7 @@ input:focus {
   background-color: rgba(235, 235, 235, 0.753);
   border-radius: 1rem;
 }
-#susp .closeBtn_susp {
+#suspension .btn-close_suspension {
   margin-top: 10px;
   padding: 0;
   width: 1.2rem;
@@ -3191,7 +3193,7 @@ input:focus {
   align-items: center;
   background-color: inherit;
 }
-#susp .closeBtn_susp svg {
+#suspension .btn-close_suspension svg {
   font-size: 1rem;
   margin-bottom: 0;
   margin-left: 0;
@@ -3199,14 +3201,14 @@ input:focus {
   width: 100%;
   height: 100%;
 }
-#susp .closeBtn_susp:hover {
+#suspension .btn-close_suspension:hover {
   background-color: black;
   padding: 0;
 }
-#susp .closeBtn_susp:hover svg {
+#suspension .btn-close_suspension:hover svg {
   fill: white;
 }
-#susp .notice {
+#suspension .notice {
   margin-top: 10px;
   text-align: left;
   width: 100%;
@@ -3214,7 +3216,7 @@ input:focus {
   font-weight: normal;
   font-size: 1rem;
 }
-#susp a {
+#suspension a {
   border-bottom: 1px solid black;
 }
 
@@ -3232,11 +3234,15 @@ img {
   border-radius: 10px;
 }
 
-body, textarea {
+body,
+textarea {
   font-family: nanum-gothic-coding, Be-vietnam-pro, system-ui;
 }
 
-a:link, a:visited, a:hover, a:active {
+a:link,
+a:visited,
+a:hover,
+a:active {
   color: rgb(54, 54, 54);
   text-decoration: none;
 }

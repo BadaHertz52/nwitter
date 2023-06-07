@@ -83,7 +83,7 @@ const TweetFactory = ({ userobj, setPopup }) => {
       .replaceAll("<", "&lt;")
       .replaceAll(">", "&gt;")
       .replaceAll(/(\r\n|\n)/g, "<br/>");
-    const newtweet = {
+    const newTweet = {
       value: storageObj.profile.uid === "" ? "tweet" : state.value,
       text: text,
       attachmentUrl: url,
@@ -103,7 +103,7 @@ const TweetFactory = ({ userobj, setPopup }) => {
       type: "CREATE",
       docId: docId,
       uid: userobj.uid,
-      tweet: newtweet,
+      tweet: newTweet,
     });
 
     setAttachment("");
@@ -122,7 +122,7 @@ const TweetFactory = ({ userobj, setPopup }) => {
                 userobj,
                 state.value === "tweet" ? "" : storageObj.docId,
                 profile,
-                newtweet.docId
+                newTweet.docId
               );
             } else {
               console.log("Can't find user's profile");

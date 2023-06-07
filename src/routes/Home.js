@@ -14,17 +14,17 @@ const Home = ({ userobj }) => {
   const [tweets, setTweets] = useState([]);
   const [end, setEnd] = useState(false);
   let i = 0;
-  const getAlltweets = async () => {
+  const getAllTweets = async () => {
     setTweets([]);
     myProfile.following.forEach(async (user) => {
       if (i === 0 && myTweets[0] !== undefined) {
-        const filteringArry = myTweets.filter(
+        const filteringArray = myTweets.filter(
           (tweet) =>
             tweet.notifications
               .map((n) => myProfile.following.includes(n.user))
               .includes(true) === false
         );
-        const filteredTweets = filteringArry.filter(
+        const filteredTweets = filteringArray.filter(
           (tweet) =>
             tweet.about == null ||
             tweet.value === "qt" ||
@@ -60,20 +60,20 @@ const Home = ({ userobj }) => {
       }
       if (i === myProfile.following.length) {
         setEnd(true);
-        const sortedtweets = tweets.sort(function (a, b) {
+        const sortedTweets = tweets.sort(function (a, b) {
           return b.docId - a.docId;
         });
-        setTweets(sortedtweets);
+        setTweets(sortedTweets);
         tweetDispatch({
           type: "UPDATE_ALL_TWEETS",
-          allTweets: sortedtweets,
+          allTweets: sortedTweets,
         });
       }
     });
   };
   useEffect(() => {
     if (myProfile !== undefined && myProfile.following[0] !== undefined) {
-      !end && getAlltweets();
+      !end && getAllTweets();
     } else {
       tweetDispatch({
         type: "UPDATE_ALL_TWEETS",
@@ -86,7 +86,7 @@ const Home = ({ userobj }) => {
     return (
       <div id="userInform">
         <div>
-          <div>user intorm</div>
+          <div>user inform</div>
           <button onClick={() => setPopup(false)}>x</button>
         </div>
         <div>

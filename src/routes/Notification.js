@@ -53,13 +53,13 @@ const Notification = () => {
                 n.docId === "" || n.docId == null
                   ? null
                   : myTweets.filter((nt) => nt.docId === n.docId)[0];
-              const notificaton = {
+              const notification = {
                 value: n.value,
                 tweet: tweet,
                 user: doc.data(),
                 aboutTweet: n.aboutDocId,
               };
-              return notificaton;
+              return notification;
             });
           return result;
         })

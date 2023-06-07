@@ -1,6 +1,6 @@
 import AuthForm from "../components/AuthForm";
-import React, { useEffect, useState } from "react";
-import authSerVice, { friebaseInstance } from "../Fbase";
+import React, { useState } from "react";
+import { friebaseInstance } from "../Fbase";
 import { BsTwitter } from "react-icons/bs";
 import auth_img from "../asset/img/auth_img.jpg";
 import auth_img_width from "../asset/img/auth_img_width.jpg";
@@ -10,7 +10,7 @@ import Suspension from "../components/Suspension";
 const Auth = () => {
   const [newAccount, setNewAccount] = useState();
   const [popup, setPopup] = useState(false);
-  const [openSusp, setOpenSusp] = useState(false);
+  const [openSuspension, setOpenSuspension] = useState(false);
   /**
    * 원래는 goggle 버튼 클릭 시 구글 계정을 로그인 가능하도록 함
    */
@@ -22,7 +22,7 @@ const Auth = () => {
     if (name === "google") {
       provider = new friebaseInstance.auth.GoogleAuthProvider();
     }
-    setOpenSusp(true);
+    setOpenSuspension(true);
     //await authSerVice.signInWithPopup(provider) ;
   };
 
@@ -32,8 +32,8 @@ const Auth = () => {
         <img class="auth_img small" src={auth_img} alt="twitter img" />
         <img class="auth_img width" src={auth_img_width} alt="twitter img" />
       </div>
-      {openSusp ? (
-        <Suspension setOpenSusp={setOpenSusp} />
+      {openSuspension ? (
+        <Suspension setOpenSuspension={setOpenSuspension} />
       ) : (
         <div id="auth_main">
           {!popup ? (
@@ -70,7 +70,7 @@ const Auth = () => {
               <AuthForm
                 newAccount={newAccount}
                 setPopup={setPopup}
-                setOpenSusp={setOpenSusp}
+                setOpenSuspension={setOpenSuspension}
               />
             </div>
           )}

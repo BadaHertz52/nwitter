@@ -3,7 +3,7 @@ import "../asset/main.css";
 
 import React, { useContext, useEffect, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import ProfileContextProvier, {
+import ProfileContextProvider, {
   ProfileContext,
 } from "../context/ProfileContext";
 import TweetContextProvider, { TweetContext } from "../context/TweetContext";
@@ -168,12 +168,12 @@ const TwitterRouter = ({
       };
       if (hash.includes("/list")) {
         const listIndex = hash.lastIndexOf("/list");
-        const firstFilltering = hash.slice(0, listIndex);
-        changeUser(firstFilltering);
+        const targetString = hash.slice(0, listIndex);
+        changeUser(targetString);
       } else if (hash.includes("/status")) {
         const listIndex = hash.lastIndexOf("/status");
-        const firstFilltering = hash.slice(0, listIndex);
-        changeUser(firstFilltering);
+        const targetString = hash.slice(0, listIndex);
+        changeUser(targetString);
         const docId = hash.slice(listIndex + 8);
         setDocId(docId);
       }
@@ -305,11 +305,11 @@ const TwitterRouter = ({
   };
   return (
     <UserContextProvider>
-      <ProfileContextProvier>
+      <ProfileContextProvider>
         <TweetContextProvider>
           <ContextRouter />
         </TweetContextProvider>
-      </ProfileContextProvier>
+      </ProfileContextProvider>
     </UserContextProvider>
   );
 };

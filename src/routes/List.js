@@ -28,12 +28,12 @@ const List = ({ userobj, userId }) => {
   const location = useLocation();
   const state = location.state;
 
-  const listBtns = document.querySelectorAll(".listBtn");
+  const listBtnArray = document.querySelectorAll(".list_btn");
   const listFollower = document.getElementById("listFollower");
   const listFollowing = document.getElementById("listFollowing");
 
   const changeStyle = (what) => {
-    listBtns.forEach((btn) => btn.classList.remove("check"));
+    listBtnArray.forEach((btn) => btn.classList.remove("check"));
     what !== null && what.parentNode.classList.add("check");
   };
   const pushFollower = async () => {
@@ -182,11 +182,11 @@ const List = ({ userobj, userId }) => {
               <div>@{profile.userId}</div>
             </div>
           </div>
-          <div id="list_btn">
-            <button className="listBtn" onClick={goListFollower}>
+          <div id="list_btn-group">
+            <button className="list_btn" onClick={goListFollower}>
               <div id="listFollower">Follower</div>
             </button>
-            <button className="listBtn" onClick={goListFollowing}>
+            <button className="list_btn" onClick={goListFollowing}>
               <div id="listFollowing">Following</div>
             </button>
           </div>

@@ -207,8 +207,8 @@ export const ProfileBottomForm = ({ isMine, userobj }) => {
     (tweet) => tweet.value !== "heart"
   );
   const filterHeartedThings = tweets.filter((tweet) => tweet.value === "heart");
-  const filterMediaes = tweets.filter((tweet) => tweet.attachmentUrl !== "");
-  const [isTweet, setIstweet] = useState(true);
+  const filterMedia = tweets.filter((tweet) => tweet.attachmentUrl !== "");
+  const [isTweet, setIsTweet] = useState(true);
   const [contents, setContents] = useState([]);
   const buttons = document.querySelectorAll("#pb_buttons button");
   const values = document.querySelectorAll(".value");
@@ -224,13 +224,13 @@ export const ProfileBottomForm = ({ isMine, userobj }) => {
     changeStyle(event);
     values.forEach((value) => (value.style.display = "block"));
   };
-  const showTandA = (event) => {
+  const showTweetAndAnswer = (event) => {
     setContents(filterTweetAndAnswer);
     changeStyle(event);
     values.forEach((value) => (value.style.display = "block"));
   };
   const showMedias = (event) => {
-    setContents(filterMediaes);
+    setContents(filterMedia);
     changeStyle(event);
     values.forEach((value) => (value.style.display = "block"));
   };
@@ -241,7 +241,7 @@ export const ProfileBottomForm = ({ isMine, userobj }) => {
   };
   const findTweets = async () => {
     await getTweetsDocs(userobj.uid).then((result) => {
-      setIstweet(!result.empty);
+      setIsTweet(!result.empty);
     });
   };
   useEffect(() => {
@@ -254,7 +254,7 @@ export const ProfileBottomForm = ({ isMine, userobj }) => {
         <button id="pb_btn_tweet" onClick={showTweet}>
           tweets
         </button>
-        <button onClick={showTandA}>tweets &#38; replies</button>
+        <button onClick={showTweetAndAnswer}>tweets &#38; replies</button>
         <button onClick={showMedias}>Media</button>
         <button onClick={showHeartedThings}>Likes</button>
       </div>
@@ -263,7 +263,7 @@ export const ProfileBottomForm = ({ isMine, userobj }) => {
           isTweet ? (
             <Loading />
           ) : (
-            <div class="notweet">
+            <div class="noTweet">
               There's no tweet
               <br />
               Write new tweet

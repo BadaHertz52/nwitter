@@ -54,7 +54,7 @@ const Rt = ({ userobj, tweetObj, original, profile, ownerProfile }) => {
     rtRef.current.classList.contains("on") ? offRt() : onRt();
   };
 
-  const onQute = () => {
+  const quoteTweet = () => {
     localStorage.setItem(
       "tweet",
       JSON.stringify({
@@ -103,7 +103,7 @@ const Rt = ({ userobj, tweetObj, original, profile, ownerProfile }) => {
             &nbsp;
             {!rtBtn.includes("on") ? "Retweet" : "UndoRetweet"}
           </button>
-          <button className="rt fun" onClick={onQute}>
+          <button className="rt fun" onClick={quoteTweet}>
             <BsPencil />
             &nbsp; Quote tweet
           </button>

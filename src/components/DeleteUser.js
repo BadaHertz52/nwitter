@@ -141,7 +141,7 @@ const DeleteUser = ({ userobj }) => {
         navigate("/twitter/");
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
         setDeleteError(true);
         setLoading(false);
       });
@@ -154,12 +154,12 @@ const DeleteUser = ({ userobj }) => {
           <div className="twitter_icon">
             <BsTwitter />
           </div>
-          <div className="delete_alret">
-            If you want to delete yout account,
+          <div className="delete_alert">
+            If you want to delete your account,
             <br />
             Please log out and try again.
           </div>
-          <div className="deleteBtns">
+          <div className="delete_btn-group">
             <button
               onClick={() => {
                 navigate("/twitter/home");
@@ -183,14 +183,14 @@ const DeleteUser = ({ userobj }) => {
               <div className="twitter_icon">
                 <BsTwitter />
               </div>
-              <div className="delete_alret">
+              <div className="delete_alert">
                 Do you want to delete your account?
               </div>
-              <div className="deleteBtns">
-                <button id="deleteBtn" onClick={onDelete}>
+              <div className="delete_btn-group">
+                <button id="btn-delete" onClick={onDelete}>
                   Delete
                 </button>
-                <button id="deleteCancle" onClick={() => navigate(-1)}>
+                <button id="btn-delete-cancel" onClick={() => navigate(-1)}>
                   Cancel
                 </button>
               </div>

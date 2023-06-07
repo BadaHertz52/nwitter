@@ -213,11 +213,11 @@ export const deleteTweetNotification = (
       n.user !== userobj.uid ||
       n.value !== value
   );
-  const newtweet = { ...tweet, notifications: newNotifications };
+  const newTweet = { ...tweet, notifications: newNotifications };
   dbService
     .collection(`tweets_${tweet.creatorId}`)
     .doc(`${tweet.docId}`)
-    .set(newtweet);
+    .set(newTweet);
 };
 //프로필 알림 삭제
 export const deleteProfileNotification = (
@@ -254,7 +254,7 @@ export const OffRtHeart = (
 ) => {
   //tweet 알림
   // currentUser
-  const modifyMytweetNotifications = (tweet_docId) => {
+  const modifyMyTweetNotifications = (tweet_docId) => {
     myTweets.forEach((tweet) => {
       if (tweet.docId === tweet_docId) {
         const INDEX = myTweets.indexOf(tweet);
@@ -277,7 +277,7 @@ export const OffRtHeart = (
   // other user
   // rt, heart 대상 tweet이 내 것이였을 경우 TweetContext의 myTweets의 해당 tweet의 notification 변경
   if (tweetObj.creatorId === userobj.uid) {
-    modifyMytweetNotifications(tweetObj.docId);
+    modifyMyTweetNotifications(tweetObj.docId);
   } else {
     const targetAboutDocId =
       tweetObj.value === "tweet" &&
@@ -285,7 +285,7 @@ export const OffRtHeart = (
         (n) => n.user === userobj.uid && n.value === value
       )[0].aboutDocId;
 
-    const targetMytweet =
+    const targetMyTweet =
       tweetObj.value === "tweet"
         ? myTweets.filter((tweet) => targetAboutDocId === tweet.docId)[0]
         : myTweets
@@ -299,25 +299,25 @@ export const OffRtHeart = (
     tweetDispatch({
       type: "DELETE",
       uid: userobj.uid,
-      docId: targetMytweet.docId,
+      docId: targetMyTweet.docId,
       attachmentUrl: "",
     });
     // 타켓 tweets 작성자
-    deleteTweetNotification(tweetObj, targetMytweet, userobj, value);
-    deleteProfileNotification(profile, tweetObj, targetMytweet, userobj, value);
+    deleteTweetNotification(tweetObj, targetMyTweet, userobj, value);
+    deleteProfileNotification(profile, tweetObj, targetMyTweet, userobj, value);
   }
   // rt, heart된 tweet인 경우 rt, heart한 사용자에게 알림 지우기
   if (original.value === "rt" || original.value === "heart") {
-    const targetMytweet = myTweets.filter(
+    const targetMyTweet = myTweets.filter(
       (tweet) =>
         tweet.about.creatorId === original.creatorId &&
         tweet.about.docId === original.docId
     )[0];
-    deleteTweetNotification(original, targetMytweet, userobj, value);
+    deleteTweetNotification(original, targetMyTweet, userobj, value);
     deleteProfileNotification(
       ownerProfile,
       original,
-      targetMytweet,
+      targetMyTweet,
       userobj,
       value
     );

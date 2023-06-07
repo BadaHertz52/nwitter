@@ -122,7 +122,7 @@ const Navigation = ({ userobj, setUserId }) => {
             <div class="account" id="account">
               <div class="account" id="account_user">
                 <img
-                  className="profile_photo dark_target acccount"
+                  className="profile_photo dark_target account"
                   src={profile.photoUrl}
                   alt="myProfile"
                 ></img>

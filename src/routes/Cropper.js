@@ -123,7 +123,7 @@ const Cropper = () => {
   useEffect(() => {
     if (location.state !== null) {
       const state = location.state;
-      const attahcnmentCrop = {
+      const attachmentCrop = {
         aspect: 16 / 9,
       };
       const photoCrop = {
@@ -141,7 +141,7 @@ const Cropper = () => {
       switch (state.what) {
         case "attachment":
           cropper.current.classList.remove("factory");
-          setInitialCrop(attahcnmentCrop);
+          setInitialCrop(attachmentCrop);
           break;
         case "photo":
           cropper.current.classList.add("factory");

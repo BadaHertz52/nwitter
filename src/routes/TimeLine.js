@@ -38,7 +38,7 @@ const TimeLine = ({ userobj }) => {
               state.value === "qt") &&
               "tweets"}
           </div>
-          <div id="tiemLine_userId">{state.userName}</div>
+          <div id="timeLine_userId">{state.userName}</div>
         </div>
       </div>
       <div id="timeLine_tweet">

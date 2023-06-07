@@ -1,6 +1,7 @@
-@import './common';
+@import "./common";
 
-.tweets , .tweets_tweet  {
+.tweets,
+.tweets_tweet {
   width: 100%;
   height: 80vh;
 }
@@ -9,17 +10,17 @@
   width: 100%;
   box-sizing: border-box;
 }
-.noTweet{
+.noTweet {
   text-align: center;
   margin: 2rem 0;
-  color: grey
+  color: grey;
 }
 .statusBtn {
   transition-duration: 0.5s;
-  &:hover{
+  &:hover {
     background-color: rgba(235, 235, 235, 0.432);
-    color:initial
-    }
+    color: initial;
+  }
 }
 
 .tweet_other .tweet_fun,
@@ -30,7 +31,7 @@
 .tweetFactory_box.answer {
   padding : {
     left: 1rem;
-    top: 1rem
+    top: 1rem;
   }
   width: 100%;
   height: 90%;
@@ -39,64 +40,64 @@
   justify-content: stretch;
 }
 
-.tweet_content{
+.tweet_content {
   margin: 0 5%;
   height: 100%;
   width: 75%;
 }
 
 .tweet_header {
-  display: flex; 
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin : {
     bottom: 1rem;
     right: 1rem;
   }
-  &>div{
+  & > div {
     display: flex;
   }
 }
 
-.tweet_header > div ,
+.tweet_header > div,
 .tweet_header button,
-.tweet .qt .tweet_header> div:nth-child(2) ,
-.tweet .text{
+.tweet .qt .tweet_header > div:nth-child(2),
+.tweet .text {
   font-size: 15px;
 }
-.tweet_header .tweet_time ,
+.tweet_header .tweet_time,
 .tweet .qt .qn_time {
   color: gray;
   text-align: center;
 }
-.tweet_header span {  
+.tweet_header span {
   overflow: hidden;
-  text-overflow: ellipsis; 
-  margin-left:5px;
-  &:first-child{
+  text-overflow: ellipsis;
+  margin-left: 5px;
+  &:first-child {
     font-weight: bold;
   }
-  &> div> div> div {
-  color: grey;
-  margin-left: 3vw;
-}
+  & > div > div > div {
+    color: grey;
+    margin-left: 3vw;
+  }
 }
 .tweet_other {
-  margin-left: calc( 4rem + 5%);
+  margin-left: calc(4rem + 5%);
 }
 
-.tweetSide .userProfile{
+.tweetSide .userProfile {
   width: 3.2rem;
-  button{
+  button {
     width: 100%;
     margin: 0;
-    padding:0;
+    padding: 0;
     background-color: initial;
   }
-  button:hover{
-    @include initialBtn
+  button:hover {
+    @include initialBtn;
   }
-  img{
+  img {
     width: 100%;
     aspect-ratio: 1/1;
   }
@@ -106,36 +107,36 @@
   }
 }
 
-
-.tweet .text ,.tweet .attachment{
+.tweet .text,
+.tweet .attachment {
   margin: 1rem 10% 1rem 2%;
 }
 
-.tweet .attachment{
+.tweet .attachment {
   height: inherit;
-  img{
+  img {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
   }
 }
 
-.tweet_header button{
-  margin: 0 ;
-  background-color: initial ;
-  &:hover{
-  background-color: rgb(213, 234, 253);
-  color: $deep_blue;
+.tweet_header button {
+  margin: 0;
+  background-color: initial;
+  &:hover {
+    background-color: rgb(213, 234, 253);
+    color: $deep_blue;
   }
 }
 
-.rtBtn , 
+.rtBtn,
 .heartBtn {
-  background-color: rgba(0, 0,0,0)
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .tweet .qt {
-  border :1px solid rgba(94, 93, 93, 0.658);
+  border: 1px solid rgba(94, 93, 93, 0.658);
   border-radius: 10px;
   margin: 10px 0;
   padding: 0;
@@ -146,17 +147,17 @@
     display: flex;
     flex-direction: column;
   }
-  .tweet_header div:last-child div{
+  .tweet_header div:last-child div {
     white-space: nowrap;
-    overflow :hidden;
+    overflow: hidden;
     text-overflow: ellipsis;
   }
   .tweet_content {
     width: 100%;
     box-sizing: border-box;
     padding: 5%;
-    margin:0;
-    &>div{
+    margin: 0;
+    & > div {
       width: 100%;
     }
   }
@@ -166,8 +167,8 @@
     height: 2rem;
     overflow: hidden;
     text-overflow: ellipsis;
-    img{
-      width: 100% ;
+    img {
+      width: 100%;
       aspect-ratio: 1/1;
     }
   }
@@ -175,28 +176,28 @@
     flex-direction: row;
     justify-content: stretch;
     & > div:last-child {
-    display: flex;
-    justify-content: space-between;
+      display: flex;
+      justify-content: space-between;
+    }
   }
-  }
-  .text{
+  .text {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     word-wrap: break-word;
     -webkit-line-clamp: 2;
-    overflow :hidden;
+    overflow: hidden;
     text-overflow: ellipsis;
     font-size: 1rem;
     width: 90%;
     line-height: 1.6rem;
-    max-height:3.2rem;
+    max-height: 3.2rem;
   }
-  .attachment{
-    margin:0;
+  .attachment {
+    margin: 0;
     margin-bottom: 10px;
-    img{
-      max-width:90% ;
-      margin:0 5%; 
+    img {
+      max-width: 90%;
+      margin: 0 5%;
     }
   }
   .tweet_fun {
@@ -207,9 +208,9 @@
 /*answer*/
 .tweet.answer {
   display: flex;
-  flex-direction:column ;
-  &:hover{
-    @include initialBtn
+  flex-direction: column;
+  &:hover {
+    @include initialBtn;
   }
   .value {
     height: 100%;
@@ -217,38 +218,38 @@
       height: 100%;
     }
   }
-  .tweetobj{
-    .tweet_form{
-      padding-top:0
+  .tweetObj {
+    .tweet_form {
+      padding-top: 0;
     }
   }
 }
 
-.answer_who{
+.answer_who {
   font-size: 0.8rem;
   margin-bottom: 10px;
   color: rgb(83, 83, 83);
-  padding:0;
+  padding: 0;
   a {
     background-color: initial;
     font-size: 1.1rem;
     color: $deep_blue;
-    &:hover{
+    &:hover {
       font-weight: bolder;
     }
-    &:link , 
+    &:link,
     &:active {
       font-size: 1.1rem;
-      color:$deep_blue ;
-      text-decoration:$deep_blue;
+      color: $deep_blue;
+      text-decoration: $deep_blue;
     }
   }
 }
 
-.answerLine{
-  content:"";
+.answerLine {
+  content: "";
   position: absolute;
-  top:4.2rem; // tweet_form padding + userProfile width
+  top: 4.2rem; // tweet_form padding + userProfile width
   left: 2.6rem; // tweet_fomr padding + userProfile width/2
   display: flex;
   flex-direction: column;
@@ -256,15 +257,15 @@
   align-items: stretch;
   border-right: 1px solid rgb(197, 189, 189);
   width: 1px;
-  height:calc(110% - 4rem);
+  height: calc(110% - 4rem);
 }
 
-.value_explain{
+.value_explain {
   margin: 1rem;
   font-size: 0.8rem;
   font-weight: 800;
   color: rgb(131, 124, 124);
-  svg{
+  svg {
     margin-right: 1rem;
   }
 }
@@ -272,29 +273,28 @@
 #tweetFactory_qt .tweet {
   margin: 0;
 }
-#tweetFactory_qt .tweet_fun{
+#tweetFactory_qt .tweet_fun {
   display: none;
 }
 #tweetFactory_qt .tweetSide,
-#tweetFactory_qt .userProfile img{
+#tweetFactory_qt .userProfile img {
   width: 3rem;
 }
 #tweetFactory_qt .tweet_header > div,
-#tweetFactory_qt .tweet_header button, 
-#tweetFactory_qt .tweet .qt .tweet_header> div:nth-child(2), 
-#tweetFactory_qt .tweet .text{
+#tweetFactory_qt .tweet_header button,
+#tweetFactory_qt .tweet .qt .tweet_header > div:nth-child(2),
+#tweetFactory_qt .tweet .text {
   font-size: 15px;
 }
 
-.notweet {
+.noTweet {
   position: absolute;
-  top:5rem;
-  left:25%;
+  top: 5rem;
+  left: 25%;
   font: {
     size: 2rem;
-    
-  };
-  color:rgb(155, 155, 155)
+  }
+  color: rgb(155, 155, 155);
 }
 
 #status {
@@ -304,132 +304,131 @@
   padding-left: 1rem;
   display: flex;
   font: {
-    size:1.5rem;
-    weight:bold;
-  };
+    size: 1.5rem;
+    weight: bold;
+  }
   border-bottom: 1px solid $lineGrey;
   padding: {
-    top:5px;
-    bottom:10px
+    top: 5px;
+    bottom: 10px;
   }
-  button{
+  button {
     background-color: initial;
     font-size: 1.5rem;
     margin-right: 1rem;
     padding: 0.25rem 0.5rem;
     &:hover {
-      background-color: rgb(235,235,235);
-      color:initial
+      background-color: rgb(235, 235, 235);
+      color: initial;
     }
   }
-  div{
-    padding:0.5rem
+  div {
+    padding: 0.5rem;
   }
 }
 
-@media screen and (min-width:768px) {
+@media screen and (min-width: 768px) {
   .tweet_form,
-  .tweetFactory_box.answer{
-      padding-left: 2rem;
+  .tweetFactory_box.answer {
+    padding-left: 2rem;
   }
-  .tweet_form{
-    padding-top:2rem
+  .tweet_form {
+    padding-top: 2rem;
   }
-  .tweet_header > div, 
-  .tweet_header button, 
-  .tweet .qt .tweet_header> div:nth-child(2), 
-  .tweet .text{
-      font-size: 1rem;
-    }
+  .tweet_header > div,
+  .tweet_header button,
+  .tweet .qt .tweet_header > div:nth-child(2),
+  .tweet .text {
+    font-size: 1rem;
+  }
   .tweet {
-    .userProfile{
+    .userProfile {
       width: 3rem;
     }
-  &_content{
-    padding: 0;
-    padding-left: 10px;   
-  }
-  .text ,
-  .attachment{
-    margin-left: 2%;
-  }
-  .attachment{
-    margin-right: 30%;
-  }
-  &_furn {
-    width:70%
-  }
-  .qt{
-    .tweet_content >div {
-      width: 90%;
+    &_content {
+      padding: 0;
+      padding-left: 10px;
     }
-    .userProfile{
-      width: 2.5rem;
-      height: 2.5rem;
-      img{
-        width: 100%;
+    .text,
+    .attachment {
+      margin-left: 2%;
+    }
+    .attachment {
+      margin-right: 30%;
+    }
+    &_furn {
+      width: 70%;
+    }
+    .qt {
+      .tweet_content > div {
+        width: 90%;
+      }
+      .userProfile {
+        width: 2.5rem;
+        height: 2.5rem;
+        img {
+          width: 100%;
+        }
+      }
+      .tweet_header {
+        width: 90%;
+      }
+      .text {
+        width: 90%;
+
+        margin-top: 2vw;
+        margin-left: 0;
+        margin-right: 0;
+      }
+      .attachment img {
+        max-width: 100%;
       }
     }
-    .tweet_header  {
-      width: 90%;
-    }
-    .text {
-      width: 90%;
-    
-      margin-top: 2vw;
-      margin-left: 0;
-      margin-right: 0;
-    }
-    .attachment img{
-      max-width: 100%;
-    }
   }
-  }
-  .answerLine{
-    top:5rem;
+  .answerLine {
+    top: 5rem;
     left: 3.5rem;
     height: calc(110% - 5rem);
   }
 }
 
-@media screen and (min-width:1024px) {
-
-  .tweet_content{
+@media screen and (min-width: 1024px) {
+  .tweet_content {
     width: 87%;
     padding-left: 0;
   }
-  .tweet_header{
-    width:88%
+  .tweet_header {
+    width: 88%;
   }
 
-  .tweet .attachment img{
+  .tweet .attachment img {
     max-width: 90%;
-    margin-left:5%;
+    margin-left: 5%;
   }
-  .tweet_fun{
+  .tweet_fun {
     margin-bottom: 2vh;
   }
-  .answer a ,
-  .rtBtn , 
-  .heartBtn{
+  .answer a,
+  .rtBtn,
+  .heartBtn {
     margin-top: 0;
   }
   .tweet .qt {
     .tweet_content {
-      padding: 1rem ;
-      margin-left:0 ;
+      padding: 1rem;
+      margin-left: 0;
     }
-    .attachment img{
+    .attachment img {
       max-width: initial;
       width: 100%;
     }
-    .text{
+    .text {
       margin-top: 0;
     }
   }
 }
-@media screen and (min-width:1440px) {
-  .tweet .qt{
+@media screen and (min-width: 1440px) {
+  .tweet .qt {
     width: 80%;
   }
 }

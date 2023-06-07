@@ -20,7 +20,7 @@ const HomeTweets = ({ userobj }) => {
             />
           ))
         ) : (
-          <div class="notweet">
+          <div class="noTweet">
             There's no tweet
             <br />
             Write new tweet

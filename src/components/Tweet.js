@@ -25,7 +25,7 @@ import TweetForm from "./TweetForm";
 const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [tweetobj, setTweetObj] = useState(tweetObj);
+  const [tweetObj, setTweetObj] = useState(tweetObj);
   const [is_answer, setIsAnswer] = useState(answer);
 
   const { myProfile } = useContext(ProfileContext);
@@ -33,7 +33,7 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
 
   const [aboutProfile, setAboutProfile] = useState(profileForm);
   const [ownerProfile, setOwnerProfile] = useState(profileForm);
-  const [aboutTweet, setAbouttweet] = useState(tweetForm);
+  const [aboutTweet, setAboutTweet] = useState(tweetForm);
   const [answerTweets, setAnswerTweets] = useState([
     {
       tweet: tweetForm,
@@ -44,10 +44,10 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
   const [tweetClassName, setTCName] = useState("tweet");
   const answerForm = useRef();
   const rt_heart =
-    tweetobj !== undefined &&
-    tweetobj.notifications !== undefined &&
-    tweetobj.notifications[0] !== undefined
-      ? tweetobj.notifications.filter(
+    tweetObj !== undefined &&
+    tweetObj.notifications !== undefined &&
+    tweetObj.notifications[0] !== undefined
+      ? tweetObj.notifications.filter(
           (n) =>
             n.user === userobj.uid && (n.value === "heart" || n.value === "rt")
         )[0]
@@ -76,7 +76,7 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
   //fun
 
   const chagneClassName = () => {
-    if (tweetobj !== undefined && tweetobj.value === "answer") {
+    if (tweetObj !== undefined && tweetObj.value === "answer") {
       setTCName("tweet answer");
     }
   };
@@ -111,40 +111,40 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
   }, [location]);
 
   useEffect(() => {
-    if (tweetobj !== undefined) {
-      tweetobj.value === "answer"
+    if (tweetObj !== undefined) {
+      tweetObj.value === "answer"
         ? getAnswerTweets(aboutTweet)
-        : getAnswerTweets(tweetobj);
+        : getAnswerTweets(tweetObj);
     }
-  }, [tweetobj]);
+  }, [tweetObj]);
 
   useEffect(() => {
     tweetClassName !== "tweet answer" && chagneClassName();
-    if (tweetobj !== undefined && myProfile.userName !== "") {
+    if (tweetObj !== undefined && myProfile.userName !== "") {
       if (ownerProfile.userId === "") {
         !location.pathname.includes("status") &&
-          getProfile(tweetobj.creatorId, setOwnerProfile);
+          getProfile(tweetObj.creatorId, setOwnerProfile);
       }
-      if (tweetobj !== undefined && aboutProfile.userId === "") {
-        if (tweetobj.about !== null) {
-          getProfile(tweetobj.about.creatorId, setAboutProfile);
+      if (tweetObj !== undefined && aboutProfile.userId === "") {
+        if (tweetObj.about !== null) {
+          getProfile(tweetObj.about.creatorId, setAboutProfile);
           getTweet(
-            tweetobj.about.creatorId,
-            tweetobj.about.docId,
-            setAbouttweet
+            tweetObj.about.creatorId,
+            tweetObj.about.docId,
+            setAboutTweet
           );
         }
       }
     }
-  }, [tweetobj, myProfile, aboutProfile]);
+  }, [tweetObj, myProfile, aboutProfile]);
 
   useEffect(() => {
-    if (tweetobj !== undefined && tweetobj.about !== null) {
+    if (tweetObj !== undefined && tweetObj.about !== null) {
       ownerProfile.photoUrl !== "" ? setLoading(false) : setLoading(true);
     } else {
       ownerProfile.photoUrl !== "" ? setLoading(false) : setLoading(true);
     }
-  }, [tweetobj, ownerProfile, aboutProfile, aboutTweet]);
+  }, [tweetObj, ownerProfile, aboutProfile, aboutTweet]);
 
   const TweetBox = ({ what, IsAnswer, profile }) => {
     const now = new Date();
@@ -170,7 +170,7 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
           }
         : tweetForm;
 
-    const monthArry = [
+    const monthArray = [
       "Jan",
       "Feb",
       "Mar",
@@ -200,20 +200,20 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
       storage.delete();
       switch (tweet.value) {
         case "qt":
-          deleteTweetNotification(aboutTweet, tweet, userobj, tweetobj.value);
+          deleteTweetNotification(aboutTweet, tweet, userobj, tweetObj.value);
           deleteProfileNotification(
             aboutProfile,
             aboutTweet,
             tweet,
             userobj,
-            tweetobj.value
+            tweetObj.value
           );
           break;
         case "answer":
-          deleteTweetNotification(tweetobj, tweet, userobj, tweetobj.value);
+          deleteTweetNotification(tweetObj, tweet, userobj, tweetObj.value);
           deleteProfileNotification(
             ownerProfile,
-            tweetobj,
+            tweetObj,
             tweet,
             userobj,
             tweet.value
@@ -286,7 +286,7 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
       tweet.createdAt[2] === date
         ? setTime(`${tweet.createdAt[3]}h`)
         : setTime(
-            `${monthArry[tweet.createdAt[1]]} ${tweet.createdAt[2]},${
+            `${monthArray[tweet.createdAt[1]]} ${tweet.createdAt[2]},${
               tweet.createdAt[0]
             }`
           );
@@ -300,9 +300,9 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
       aboutTweet.createdAt[2] === date
         ? setAboutTime(`${aboutTweet.createdAt[3]}h`)
         : setAboutTime(
-            `${monthArry[aboutTweet.createdAt[1]]} ${aboutTweet.createdAt[2]},${
-              aboutTweet.createdAt[0]
-            }`
+            `${monthArray[aboutTweet.createdAt[1]]} ${
+              aboutTweet.createdAt[2]
+            },${aboutTweet.createdAt[0]}`
           );
     }, [aboutTweet]);
 
@@ -371,14 +371,14 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
                     <>
                       <Rt
                         tweetObj={what}
-                        original={tweetobj}
+                        original={tweetObj}
                         userobj={userobj}
                         profile={profile}
                         ownerProfile={ownerProfile}
                       />
                       <Heart
                         tweetObj={what}
-                        original={tweetobj}
+                        original={tweetObj}
                         userobj={userobj}
                         profile={profile}
                         ownerProfile={ownerProfile}
@@ -401,7 +401,7 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
 
   return (
     <div>
-      {!loading && tweetobj !== undefined ? (
+      {!loading && tweetObj !== undefined ? (
         <>
           <div
             className={tweetClassName}
@@ -421,7 +421,7 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
             )}
 
             <div className="value">
-              {tweetobj.value === "rt" && rt_heart === undefined && (
+              {tweetObj.value === "rt" && rt_heart === undefined && (
                 <div className="value_explain">
                   <AiOutlineRetweet />
                   {ownerProfile.uid === userobj.uid
@@ -430,7 +430,7 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
                   Retweeted
                 </div>
               )}
-              {tweetobj.value === "heart" && rt_heart === undefined && (
+              {tweetObj.value === "heart" && rt_heart === undefined && (
                 <div className="value_explain">
                   <AiOutlineHeart />
                   {ownerProfile.uid === userobj.uid
@@ -439,9 +439,9 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
                   liked
                 </div>
               )}
-              {((tweetobj.value === "rt" && rt_heart !== undefined) ||
-                (tweetobj.value === "heart" &&
-                  tweetobj.notifications.filter(
+              {((tweetObj.value === "rt" && rt_heart !== undefined) ||
+                (tweetObj.value === "heart" &&
+                  tweetObj.notifications.filter(
                     (n) => n.user === userobj.uid && n.value === "rt"
                   )[0] !== undefined)) && (
                 <div className="value_explain">
@@ -453,7 +453,7 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
                   ReTweeted and liked
                 </div>
               )}
-              {tweetobj.value === "answer" &&
+              {tweetObj.value === "answer" &&
                 (aboutTweet.docId === "" ? (
                   location.pathname.includes("status") && (
                     <div className="noTweet">Tweet does not exist.</div>
@@ -466,15 +466,15 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
                   />
                 ))}
             </div>
-            <div className="tweetobj">
-              {(tweetobj.value === "qt" || tweetobj.value === "tweet") && (
+            <div className="tweetObj">
+              {(tweetObj.value === "qt" || tweetObj.value === "tweet") && (
                 <TweetBox
-                  what={tweetobj}
+                  what={tweetObj}
                   IsAnswer={is_answer}
                   profile={ownerProfile}
                 />
               )}
-              {(tweetobj.value === "rt" || tweetobj.value === "heart") &&
+              {(tweetObj.value === "rt" || tweetObj.value === "heart") &&
                 (aboutTweet.about !== null && aboutTweet.value === "qt" ? (
                   <Tweet
                     key={aboutTweet.docId}
@@ -491,9 +491,9 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
                     profile={aboutProfile}
                   />
                 ))}
-              {tweetobj.value === "answer" && (
+              {tweetObj.value === "answer" && (
                 <TweetBox
-                  what={tweetobj}
+                  what={tweetObj}
                   IsAnswer={false}
                   profile={ownerProfile}
                 />
