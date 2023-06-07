@@ -1,14 +1,13 @@
-import React from 'react';
+import React from "react";
 
-
-const Loading =()=>{
+const Loading = () => {
   return (
-    <div class='container'>
-      <div class="loader">
+    <div className="container">
+      <div className="loader">
         <span></span>
       </div>
     </div>
-  )
+  );
 };
 
-export  default React.memo(Loading);
+export default React.memo(Loading);
