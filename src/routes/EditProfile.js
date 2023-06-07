@@ -201,7 +201,7 @@ const EditProfile = ({ userobj, setIsMyProfile }) => {
             min-height="50px"
           />
           <div>
-            <label for="profile_header_input">
+            <label htmlFor="profile_header_input">
               <MdAddPhotoAlternate />
             </label>
             <input
@@ -226,7 +226,7 @@ const EditProfile = ({ userobj, setIsMyProfile }) => {
             alt="profile"
           />
           <div>
-            <label for="profile_photo_input">
+            <label htmlFor="profile_photo_input">
               <MdAddPhotoAlternate />
             </label>
             <input

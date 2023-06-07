@@ -63,7 +63,7 @@ const AuthForm = ({ newAccount, setPopup, setOpenSuspension }) => {
       </button>
       <form onSubmit={onSubmit}>
         <div className="form-email">
-          <label for="email">Email </label>
+          <label htmlFor="email">Email </label>
           <input
             id="email"
             name="email"
@@ -72,13 +72,13 @@ const AuthForm = ({ newAccount, setPopup, setOpenSuspension }) => {
             onChange={onChange}
           />
           <div className="msg">
-            {email.error == "required" && "Please entere-mail"}
+            {email.error === "required" && "Please entere-mail"}
             {email.error === "error" &&
               "Please enter an email in the correct format"}
           </div>
         </div>
         <div className="form-pw">
-          <label for="password">Password</label>
+          <label htmlFor="password">Password</label>
           <input
             id="password"
             name="password"
