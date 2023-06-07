@@ -1,89 +1,99 @@
-import React, { useContext, useState } from 'react';
-import Media from '../components/Media';
-import Recommend from '../components/Recomend';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useContext, useState } from "react";
+import Media from "../components/Media";
+import Recommend from "../components/Recomend";
+import { useLocation, useNavigate } from "react-router-dom";
 import { IoSettingsOutline } from "react-icons/io5";
-import {BiSearch } from "react-icons/bi";
-import { dbService } from '../Fbase';
-import UserProfile from '../components/UserProfile';
-import { UserContext } from '../context/UserContext';
-import { getTweetsDocs } from '../components/GetData';
-import { ProfileContext } from '../context/ProfileContex';
-import Footer from '../components/Footer';
+import { BiSearch } from "react-icons/bi";
+import { dbService } from "../Fbase";
+import UserProfile from "../components/UserProfile";
+import { UserContext } from "../context/UserContext";
+import { getTweetsDocs } from "../components/GetData";
+import { ProfileContext } from "../context/ProfileContext";
+import Footer from "../components/Footer";
 
-const Side =({userobj})=>{
-  const location =useLocation();
-  const navigate=useNavigate();
-  const {userDispatch}=useContext(UserContext);
-  const {myProfile}=useContext(ProfileContext);
-  const state =location.state; 
-  const initialResult ={userId:"" ,userName:""}
-  const [result, setResult]=useState(initialResult);
-  const [input , setInput]=useState("");
-  const onChange=(event)=>{
-    const {value}=event.target;
+const Side = ({ userobj }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { userDispatch } = useContext(UserContext);
+  const { myProfile } = useContext(ProfileContext);
+  const state = location.state;
+  const initialResult = { userId: "", userName: "" };
+  const [result, setResult] = useState(initialResult);
+  const [input, setInput] = useState("");
+  const onChange = (event) => {
+    const { value } = event.target;
     setInput(value);
-    setResult(initialResult)
-    dbService.collection(`users`).onSnapshot(shot=>
-      {shot.docs.forEach(doc=>
-        {`@${doc.data().userId}`=== value && setResult(doc.data())
-        })
-      })
+    setResult(initialResult);
+    dbService.collection(`users`).onSnapshot((shot) => {
+      shot.docs.forEach((doc) => {
+        `@${doc.data().userId}` === value && setResult(doc.data());
+      });
+    });
   };
-  const goMyProfile=async()=>{
-    const getDocs=await getTweetsDocs(result.uid);
-    const tweets =getDocs.docs.map(doc=> ({id:doc.id,...doc.data()}));
+  const goMyProfile = async () => {
+    const getDocs = await getTweetsDocs(result.uid);
+    const tweets = getDocs.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     userDispatch({
-      type:"GET_USER_DATA",
-      userProfile :result,
-      userTweets:tweets
+      type: "GET_USER_DATA",
+      userProfile: result,
+      userTweets: tweets,
     });
 
-    navigate(`/twitter/${result.userId}` ,{state:{
-      previous:location.pathname,
-      userId:result.userId ,
-      value:"userProfile"}})
-  }
-  return(
+    navigate(`/twitter/${result.userId}`, {
+      state: {
+        previous: location.pathname,
+        userId: result.userId,
+        value: "userProfile",
+      },
+    });
+  };
+  return (
     <>
       <div id="search">
         <form>
-          <BiSearch/>
-          <input 
-            type="text"  
+          <BiSearch />
+          <input
+            type="text"
             name="text"
-            placeholder='Search  @userId'
+            placeholder="Search  @userId"
             onChange={onChange}
           />
-          <input type="submit" disabled/>
+          <input type="submit" disabled />
         </form>
       </div>
-      {input !=="" &&(result.userId !==""?
-        (result.userId !==""&&
-          <div id="search_result" onClick={goMyProfile}>
-            <UserProfile profile={result}/>
-            <div id="search_result_userInform">
-              <div>{result.userName}</div>
-              <div>@{result.userId}</div>
-            </div>
-          </div>)
-          : <div id="search_result">
-              <div id='no_result'>
-                No result for "{input}"
+      {input !== "" &&
+        (result.userId !== "" ? (
+          result.userId !== "" && (
+            <div id="search_result" onClick={goMyProfile}>
+              <UserProfile profile={result} />
+              <div id="search_result_userInform">
+                <div>{result.userName}</div>
+                <div>@{result.userId}</div>
               </div>
             </div>
-      )}
-      {location.state !==null &&
-        state.value !==null &&
-        (state.value === "profile" || state.value === "userProfile") &&
-          <Media who={location.pathname===`/twitter/${userobj.id}`? "currentUser" :"user"}/>
-        }
+          )
+        ) : (
+          <div id="search_result">
+            <div id="no_result">No result for "{input}"</div>
+          </div>
+        ))}
+      {location.state !== null &&
+        state.value !== null &&
+        (state.value === "profile" || state.value === "userProfile") && (
+          <Media
+            who={
+              location.pathname === `/twitter/${userobj.id}`
+                ? "currentUser"
+                : "user"
+            }
+          />
+        )}
       <div id="trend">
         <div>
-          <span>
-            Trends for you
-          </span>
-          <div><IoSettingsOutline/></div>
+          <span>Trends for you</span>
+          <div>
+            <IoSettingsOutline />
+          </div>
         </div>
         <div>
           <ul>
@@ -96,15 +106,12 @@ const Side =({userobj})=>{
           </ul>
         </div>
       </div>
-      {myProfile!==undefined && 
-        <Recommend userobj={userobj}/>
-      }
+      {myProfile !== undefined && <Recommend userobj={userobj} />}
       <div>
-        <Footer/> 
+        <Footer />
       </div>
     </>
-  )
+  );
 };
 
-
-export default  React.memo(Side)
+export default React.memo(Side);
