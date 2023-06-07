@@ -135,12 +135,8 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
   }, [tweet, myProfile, aboutProfile]);
 
   useEffect(() => {
-    if (tweetObj !== undefined && tweetObj.about !== null) {
-      ownerProfile.photoUrl !== "" ? setLoading(false) : setLoading(true);
-    } else {
-      ownerProfile.photoUrl !== "" ? setLoading(false) : setLoading(true);
-    }
-  }, [tweetObj, ownerProfile, aboutProfile, aboutTweet]);
+    ownerProfile.photoUrl !== "" ? setLoading(false) : setLoading(true);
+  }, [ownerProfile, aboutProfile]);
 
   const TweetBox = ({ what, IsAnswer, profile }) => {
     const now = new Date();
@@ -397,8 +393,8 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
 
   return (
     <div>
-      {!loading && tweetObj !== undefined ? (
-        <>
+      {!loading ? (
+        tweet !== undefined && (
           <div
             className={tweetClassName}
             id={
@@ -407,107 +403,109 @@ const Tweet = ({ key, tweetObj, userobj, answer, parentComponent }) => {
               "status"
             }
           >
-            {location.pathname.includes("status") && (
-              <div id="status_header">
-                <button className="back" onClick={onBack}>
-                  <FiArrowLeft />
-                </button>
-                <div>tweet</div>
-              </div>
-            )}
+            <>
+              {location.pathname.includes("status") && (
+                <div id="status_header">
+                  <button className="back" onClick={onBack}>
+                    <FiArrowLeft />
+                  </button>
+                  <div>tweet</div>
+                </div>
+              )}
 
-            <div className="value">
-              {tweetObj.value === "rt" && rt_heart === undefined && (
-                <div className="value_explain">
-                  <AiOutlineRetweet />
-                  {ownerProfile.uid === userobj.uid
-                    ? "I"
-                    : `${ownerProfile.userName}`}{" "}
-                  Retweeted
-                </div>
-              )}
-              {tweetObj.value === "heart" && rt_heart === undefined && (
-                <div className="value_explain">
-                  <AiOutlineHeart />
-                  {ownerProfile.uid === userobj.uid
-                    ? "I"
-                    : `${ownerProfile.userName}`}{" "}
-                  liked
-                </div>
-              )}
-              {((tweetObj.value === "rt" && rt_heart !== undefined) ||
-                (tweetObj.value === "heart" &&
-                  tweetObj.notifications.filter(
-                    (n) => n.user === userobj.uid && n.value === "rt"
-                  )[0] !== undefined)) && (
-                <div className="value_explain">
-                  <AiOutlineRetweet />
-                  <AiOutlineHeart />
-                  {ownerProfile.uid === userobj.uid
-                    ? "I"
-                    : `${ownerProfile.userName}`}{" "}
-                  ReTweeted and liked
-                </div>
-              )}
-              {tweetObj.value === "answer" &&
-                (aboutTweet.docId === "" ? (
-                  location.pathname.includes("status") && (
-                    <div className="noTweet">Tweet does not exist.</div>
-                  )
-                ) : (
-                  <TweetBox
-                    what={aboutTweet}
-                    IsAnswer={true}
-                    profile={aboutProfile}
-                  />
-                ))}
-            </div>
-            <div className="tweetObj">
-              {(tweetObj.value === "qt" || tweetObj.value === "tweet") && (
-                <TweetBox
-                  what={tweetObj}
-                  IsAnswer={is_answer}
-                  profile={ownerProfile}
-                />
-              )}
-              {(tweetObj.value === "rt" || tweetObj.value === "heart") &&
-                (aboutTweet.about !== null && aboutTweet.value === "qt" ? (
-                  <Tweet
-                    key={aboutTweet.docId}
-                    tweetObj={aboutTweet}
-                    userobj={userobj}
-                    isOwner={aboutTweet.creatorId === userobj.uid}
-                    answer={false}
-                    parentComponent={parentComponent}
-                  />
-                ) : (
-                  <TweetBox
-                    what={aboutTweet}
-                    IsAnswer={false}
-                    profile={aboutProfile}
-                  />
-                ))}
-              {tweetObj.value === "answer" && (
-                <TweetBox
-                  what={tweetObj}
-                  IsAnswer={false}
-                  profile={ownerProfile}
-                />
-              )}
-            </div>
-            {location.pathname.includes("status") && statusAnswer && (
-              <div class="tweet statusAnswers">
-                {answerTweets.map((answer) => (
-                  <TweetBox
-                    what={answer.tweet}
-                    IsAnswer={false}
-                    profile={answer.profile}
-                  />
-                ))}
+              <div className="value">
+                {tweet.value === "rt" && rt_heart === undefined && (
+                  <div className="value_explain">
+                    <AiOutlineRetweet />
+                    {ownerProfile.uid === userobj.uid
+                      ? "I"
+                      : `${ownerProfile.userName}`}{" "}
+                    Retweeted
+                  </div>
+                )}
+                {tweet.value === "heart" && rt_heart === undefined && (
+                  <div className="value_explain">
+                    <AiOutlineHeart />
+                    {ownerProfile.uid === userobj.uid
+                      ? "I"
+                      : `${ownerProfile.userName}`}{" "}
+                    liked
+                  </div>
+                )}
+                {((tweet.value === "rt" && rt_heart !== undefined) ||
+                  (tweet.value === "heart" &&
+                    tweet.notifications.filter(
+                      (n) => n.user === userobj.uid && n.value === "rt"
+                    )[0] !== undefined)) && (
+                  <div className="value_explain">
+                    <AiOutlineRetweet />
+                    <AiOutlineHeart />
+                    {ownerProfile.uid === userobj.uid
+                      ? "I"
+                      : `${ownerProfile.userName}`}{" "}
+                    ReTweeted and liked
+                  </div>
+                )}
+                {tweet.value === "answer" &&
+                  (aboutTweet.docId === "" ? (
+                    location.pathname.includes("status") && (
+                      <div className="noTweet">Tweet does not exist.</div>
+                    )
+                  ) : (
+                    <TweetBox
+                      what={aboutTweet}
+                      IsAnswer={true}
+                      profile={aboutProfile}
+                    />
+                  ))}
               </div>
-            )}
+              <div className="tweet">
+                {(tweet.value === "qt" || tweet.value === "tweet") && (
+                  <TweetBox
+                    what={tweet}
+                    IsAnswer={is_answer}
+                    profile={ownerProfile}
+                  />
+                )}
+                {(tweet.value === "rt" || tweet.value === "heart") &&
+                  (aboutTweet.about !== null && aboutTweet.value === "qt" ? (
+                    <Tweet
+                      key={aboutTweet.docId}
+                      tweet={aboutTweet}
+                      userobj={userobj}
+                      isOwner={aboutTweet.creatorId === userobj.uid}
+                      answer={false}
+                      parentComponent={parentComponent}
+                    />
+                  ) : (
+                    <TweetBox
+                      what={aboutTweet}
+                      IsAnswer={false}
+                      profile={aboutProfile}
+                    />
+                  ))}
+                {tweet.value === "answer" && (
+                  <TweetBox
+                    what={tweet}
+                    IsAnswer={false}
+                    profile={ownerProfile}
+                  />
+                )}
+              </div>
+              {location.pathname.includes("status") && statusAnswer && (
+                <div class="tweet statusAnswers">
+                  {answerTweets.map((answer) => (
+                    <TweetBox
+                      what={answer.tweet}
+                      IsAnswer={false}
+                      profile={answer.profile}
+                    />
+                  ))}
+                </div>
+              )}
+            </>
           </div>
-        </>
+        )
       ) : (
         <Loading />
       )}
