@@ -11,7 +11,6 @@
   font-size: 12px;
   position: absolute;
   bottom: -1.2rem;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   padding: 2px 5px;
@@ -93,7 +92,6 @@
 
 #authForm {
   width: 100%;
-  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   display: flex;
@@ -112,11 +110,11 @@
 }
 #authForm form label {
   margin-left: 10px;
+  text-align: left;
 }
 #authForm form input {
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-  padding: 10px 8px;
+  margin: 0.5rem 0;
+  padding: 10px 16px;
   border-radius: 9999px;
   border: 1px solid rgb(36, 36, 36);
   font-size: 1rem;
@@ -128,6 +126,21 @@
   border: none;
   background-color: rgb(104, 195, 255);
   color: initial;
+}
+#authForm form #authForm_logIn:disabled {
+  opacity: 0.5;
+}
+#authForm .form-email,
+#authForm .form-pw {
+  display: flex;
+  flex-direction: column;
+}
+#authForm .msg {
+  margin-left: 10px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: rgb(223, 53, 53);
+  text-align: left;
 }
 
 #authForm_backBtn {
@@ -163,17 +176,14 @@
   margin: 0;
   color: rgb(192, 47, 47);
 }
+#authError .authError__msg {
+  text-align: left;
+}
 
 @media screen and (min-width: 728px) {
   #auth {
     left: 25%;
     width: 50%;
-  }
-}
-@media screen and (min-width: 828px) {
-  #auth {
-    left: 30%;
-    width: 40%;
   }
 }
 @media screen and (min-width: 1024px) {
@@ -190,7 +200,6 @@
   #auth_left {
     display: block;
     height: 100%;
-    width: -webkit-fit-content;
     width: -moz-fit-content;
     width: fit-content;
   }
@@ -325,7 +334,6 @@
   font-size: 12px;
   position: absolute;
   bottom: -1.2rem;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   padding: 2px 5px;
@@ -412,7 +420,6 @@
   font-size: 12px;
   position: absolute;
   bottom: -1.2rem;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   padding: 2px 5px;
@@ -574,7 +581,7 @@ img, div, button, #nav, input {
     background-color: rgba(0, 0, 0, 0.4);
   }
   #editProfile form,
-.cropper #cropper_inner {
+  .cropper #cropper_inner {
     position: absolute;
     top: 15%;
     left: 25%;
@@ -629,7 +636,6 @@ img, div, button, #nav, input {
   font-size: 12px;
   position: absolute;
   bottom: -1.2rem;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   padding: 2px 5px;
@@ -665,7 +671,6 @@ img, div, button, #nav, input {
   font-size: 12px;
   position: absolute;
   bottom: -1.2rem;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   padding: 2px 5px;
@@ -707,7 +712,6 @@ img, div, button, #nav, input {
 
 #list_header {
   display: flex;
-  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   padding: 10px 0;
@@ -875,7 +879,6 @@ img, div, button, #nav, input {
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   border: none;
@@ -959,17 +962,7 @@ img, div, button, #nav, input {
   height: 4rem;
   border-radius: 50%;
   background-color: rgb(224, 239, 250);
-  -webkit-animation: loading 2s linear infinite;
-          animation: loading 2s linear infinite;
-}
-
-@-webkit-keyframes loading {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  animation: loading 2s linear infinite;
 }
 
 @keyframes loading {
@@ -1015,7 +1008,6 @@ img, div, button, #nav, input {
   font-size: 12px;
   position: absolute;
   bottom: -1.2rem;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   padding: 2px 5px;
@@ -1035,7 +1027,6 @@ img, div, button, #nav, input {
   top: 25%;
   left: 25%;
   width: 50%;
-  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   padding: 1.5rem 1rem;
@@ -1138,7 +1129,6 @@ img, div, button, #nav, input {
   font-size: 12px;
   position: absolute;
   bottom: -1.2rem;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   padding: 2px 5px;
@@ -1148,7 +1138,6 @@ img, div, button, #nav, input {
   background-color: white;
   position: absolute;
   width: 100%;
-  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   bottom: 0;
@@ -1299,7 +1288,6 @@ img, div, button, #nav, input {
 
 @media screen and (min-width: 500px) {
   #nav {
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
     left: 0;
@@ -1308,8 +1296,8 @@ img, div, button, #nav, input {
     border-right: 1px solid rgba(139, 139, 139, 0.096);
   }
   #nav #nav_menu,
-#nav #nav_tweetFactory,
-#nav #nav_profile {
+  #nav #nav_tweetFactory,
+  #nav #nav_profile {
     padding: 0 20%;
   }
   #nav #nav_menu {
@@ -1319,7 +1307,6 @@ img, div, button, #nav, input {
   }
   #nav #nav_menu button {
     width: 100%;
-    height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;
     margin-top: 1.5rem;
@@ -1359,8 +1346,8 @@ img, div, button, #nav, input {
     display: block;
   }
   #nav_menu,
-#nav_tweetFactory,
-#nav_profile {
+  #nav_tweetFactory,
+  #nav_profile {
     margin-left: 10%;
   }
 }
@@ -1371,8 +1358,8 @@ img, div, button, #nav, input {
     padding-right: 3%;
   }
   #nav #nav_menu,
-#nav #nav_tweetFactory,
-#nav #nav_profile {
+  #nav #nav_tweetFactory,
+  #nav #nav_profile {
     margin-left: 2rem;
     padding: 1rem 0;
   }
@@ -1481,7 +1468,6 @@ img, div, button, #nav, input {
   #nav #nav_home {
     margin-left: 14px;
     padding: 10px;
-    width: -webkit-fit-content;
     width: -moz-fit-content;
     width: fit-content;
   }
@@ -1499,9 +1485,9 @@ img, div, button, #nav, input {
     font-size: 1rem;
   }
   #nav_homeBtn:hover .title,
-#nav_notificationBtn:hover .title, #nav_myProfile:hover .title,
-#nav_accountBtn:hover .title,
-#nav_popUp:hover .title {
+  #nav_notificationBtn:hover .title, #nav_myProfile:hover .title,
+  #nav_accountBtn:hover .title,
+  #nav_popUp:hover .title {
     display: none;
   }
 }
@@ -1518,7 +1504,6 @@ img, div, button, #nav, input {
   font-size: 12px;
   position: absolute;
   bottom: -1.2rem;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   padding: 2px 5px;
@@ -1669,7 +1654,6 @@ img, div, button, #nav, input {
   font-size: 12px;
   position: absolute;
   bottom: -1.2rem;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   padding: 2px 5px;
@@ -2008,16 +1992,16 @@ img, div, button, #nav, input {
 
 @media screen and (min-width: 768px) {
   .tweet_form,
-.tweetFactory_box.answer {
+  .tweetFactory_box.answer {
     padding-left: 2rem;
   }
   .tweet_form {
     padding-top: 2rem;
   }
   .tweet_header > div,
-.tweet_header button,
-.tweet .qt .tweet_header > div:nth-child(2),
-.tweet .text {
+  .tweet_header button,
+  .tweet .qt .tweet_header > div:nth-child(2),
+  .tweet .text {
     font-size: 1rem;
   }
   .tweet .userProfile {
@@ -2028,7 +2012,7 @@ img, div, button, #nav, input {
     padding-left: 10px;
   }
   .tweet .text,
-.tweet .attachment {
+  .tweet .attachment {
     margin-left: 2%;
   }
   .tweet .attachment {
@@ -2081,8 +2065,8 @@ img, div, button, #nav, input {
     margin-bottom: 2vh;
   }
   .answer a,
-.rtBtn,
-.heartBtn {
+  .rtBtn,
+  .heartBtn {
     margin-top: 0;
   }
   .tweet .qt .tweet_content {
@@ -2115,7 +2099,6 @@ img, div, button, #nav, input {
   font-size: 12px;
   position: absolute;
   bottom: -1.2rem;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   padding: 2px 5px;
@@ -2385,11 +2368,11 @@ img, div, button, #nav, input {
     width: 100%;
   }
   .tweetFactory.popup .tweetSide,
-.tweetFactory.popup .userProfile {
+  .tweetFactory.popup .userProfile {
     width: 3rem;
   }
   .tweetFactory.popup .userProfile img,
-.tweetFactory.popup .tweet .userProfile img {
+  .tweetFactory.popup .tweet .userProfile img {
     width: 3rem;
   }
   .tweetFactory.popup .answerLine {
@@ -2398,9 +2381,9 @@ img, div, button, #nav, input {
     height: calc(110% - 5rem);
   }
   .tweetFactory.popup .tweet_header > div,
-.tweetFactory.popup .tweet_header button,
-.tweetFactory.popup .tweet .qt .tweet_header > div:nth-child(2),
-.tweetFactory.popup .tweet .text {
+  .tweetFactory.popup .tweet_header button,
+  .tweetFactory.popup .tweet .qt .tweet_header > div:nth-child(2),
+  .tweetFactory.popup .tweet .text {
     font-size: 1rem;
   }
   .tweetFactory.popup .tweet .attachment {
@@ -2435,7 +2418,7 @@ img, div, button, #nav, input {
     margin-top: 10px;
   }
   .tweetFactory.popup .tweet,
-.tweetFactory.popup .tweetFactory {
+  .tweetFactory.popup .tweetFactory {
     margin: 0;
     padding: 0;
   }
@@ -2443,18 +2426,17 @@ img, div, button, #nav, input {
     padding-right: 0;
   }
   .tweetFactory.popup,
-.cropper.factory {
+  .cropper.factory {
     overflow-y: hidden;
     background-color: rgba(0, 0, 0, 0.4);
   }
   .tweetFactory.popup .tweetFactory_inner,
-.cropper.factory #cropper_inner {
+  .cropper.factory #cropper_inner {
     background-color: #fff;
     position: absolute;
     top: 20%;
     left: 15%;
     width: 70%;
-    height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;
     margin: 0;
@@ -2466,7 +2448,7 @@ img, div, button, #nav, input {
 }
 @media screen and (min-width: 1024px) {
   #home .tweetFactory textarea,
-#home .tweetFactory form > div:last-child {
+  #home .tweetFactory form > div:last-child {
     width: 95%;
   }
   #home .tweetFactory svg {
@@ -2479,28 +2461,28 @@ img, div, button, #nav, input {
     font-size: 1.2rem;
   }
   .tweetFactory.popup .tweetFactory_inner,
-.cropper.factory #cropper_inner {
+  .cropper.factory #cropper_inner {
     left: 25%;
     width: 45%;
   }
 }
 @media screen and (min-width: 1200px) {
   .tweetFactory.popup .tweetFactory_inner,
-.cropper.factory #cropper_inner {
+  .cropper.factory #cropper_inner {
     left: 30%;
     width: 40%;
   }
 }
 @media screen and (min-width: 1400px) {
   .tweetFactory.popup .tweetFactory_inner,
-.cropper #cropper_inner {
+  .cropper #cropper_inner {
     width: 35%;
     left: 32.5%;
   }
 }
 @media screen and (min-width: 1880px) {
   .tweetFactory.popup .tweetFactory_inner,
-.cropper #cropper_inner {
+  .cropper #cropper_inner {
     width: 600px;
     left: calc(50% - 300px);
   }
@@ -2593,7 +2575,6 @@ img, div, button, #nav, input {
   font-size: 12px;
   position: absolute;
   bottom: -1.2rem;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   padding: 2px 5px;
@@ -2743,7 +2724,7 @@ img, div, button, #nav, input {
     padding-left: 1rem;
   }
   #profileTopForm_header svg,
-#profileTopForm_header > div {
+  #profileTopForm_header > div {
     font-size: 1.1rem;
   }
   #pb_buttons button {
@@ -2773,7 +2754,6 @@ img, div, button, #nav, input {
   font-size: 12px;
   position: absolute;
   bottom: -1.2rem;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   padding: 2px 5px;
@@ -2859,7 +2839,7 @@ input:focus {
     padding-top: 1rem;
   }
   #nav,
-#main {
+  #main {
     height: 100vh;
   }
   #side {
@@ -2872,7 +2852,6 @@ input:focus {
     overflow: initial;
   }
   #side {
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
     right: 0;
@@ -2895,8 +2874,8 @@ input:focus {
     z-index: 0;
   }
   #search,
-#trend,
-#recommend {
+  #trend,
+  #recommend {
     background-color: rgb(245, 245, 245);
     padding-bottom: 4%;
     margin-left: 4%;
@@ -2936,7 +2915,6 @@ input:focus {
   #side #search_result {
     position: absolute;
     width: 86%;
-    height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;
     top: 4rem;
@@ -2971,7 +2949,6 @@ input:focus {
     color: initial;
   }
   #search_result_userInform {
-    height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;
   }
@@ -3037,8 +3014,8 @@ input:focus {
     padding: 5%;
   }
   #trend div:first-child,
-#trend li,
-#recommend p {
+  #trend li,
+  #recommend p {
     font-size: 1rem;
   }
   #trend li {
@@ -3084,7 +3061,7 @@ input:focus {
     aspect-ratio: 1;
   }
   #recommend .userProfile a,
-#recommend .profile_photo {
+  #recommend .profile_photo {
     width: 100%;
     aspect-ratio: 1/1;
   }
@@ -3130,7 +3107,6 @@ input:focus {
 #timeLine_header {
   border-bottom: 1px solid rgb(228, 228, 228);
   display: flex;
-  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   padding: 10px 0;
@@ -3166,7 +3142,6 @@ input:focus {
   font-size: 12px;
   position: absolute;
   bottom: -1.2rem;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   padding: 2px 5px;
@@ -3185,7 +3160,6 @@ input:focus {
   font-size: 12px;
   position: absolute;
   bottom: -1.2rem;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   padding: 2px 5px;
@@ -3200,7 +3174,6 @@ input:focus {
 }
 #susp .inner {
   width: 80%;
-  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   padding: 1.2rem;
